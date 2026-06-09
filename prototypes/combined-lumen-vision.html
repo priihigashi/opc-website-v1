@@ -269,7 +269,8 @@
     padding: 140px 0;
   }
   .transform-head {
-    text-align: center; margin-bottom: 64px;
+    text-align: left; margin: 0 auto 48px;
+    max-width: 1200px;
     padding: 0 24px;
   }
   .transform-stage {
@@ -440,6 +441,16 @@
     font-size: 0.55em;
     vertical-align: middle;
     margin-right: 4px;
+  }
+  /* CBC prefix styled like the small "FL STATE LICENSED" label (mono, small, spaced) */
+  .trust-stats .item .num .cbc-mark {
+    font-family: 'Roboto Mono', monospace;
+    font-style: normal;
+    font-size: 0.30em;
+    letter-spacing: 2px;
+    color: rgba(240, 235, 227, 0.7);
+    vertical-align: middle;
+    margin-right: 8px;
   }
   .trust-stats .item .lbl {
     font-family: 'Roboto Mono', monospace;
@@ -867,7 +878,7 @@
     <h2 class="section-title" style="margin: 0 auto; text-align: center;">Built for South Florida.<br><span class="serif">Engineered to last.</span></h2>
     <div class="trust-stats">
       <div class="item">
-        <div class="num"><span class="serif">CBC</span>1263425</div>
+        <div class="num"><span class="cbc-mark">CBC</span>1263425</div>
         <div class="lbl">FL State Licensed</div>
       </div>
       <div class="item">

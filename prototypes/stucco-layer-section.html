@@ -187,7 +187,9 @@
     left: calc(88% + 16px);
     top: var(--top);
     width: 180px;
-    transform: rotateZ(38deg) rotateX(-58deg);
+    /* translateZ(150px) lifts labels in front of the top finish plane (z=128px) so the
+       tilted layers no longer cover the "FINISH COAT" / right-side label text (fix 2026-06-09) */
+    transform: translateZ(150px) rotateZ(38deg) rotateX(-58deg);
     transform-origin: left center;
     font-family: 'Roboto Mono', monospace;
     font-size: 10px;
