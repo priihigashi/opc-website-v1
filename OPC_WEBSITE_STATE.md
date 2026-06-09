@@ -175,6 +175,14 @@ Drive Inspiration folder: `1ae7n4VwSZbu0_nt6nUX5WeLINGqYJ-CZ`
 - 📋 **Production SEO split** — when going to prod, service pages must use static hero image + Three.js lazy-load via IntersectionObserver (Core Web Vitals).
 - 📋 **Build remaining 6 service 3D templates** — Stucco, Kitchen, Renovation, Additions, Outdoor, Decks. Use Bathroom + Concrete as patterns.
 
+### 🆕 LEAD-CAPTURE / FORM SYSTEM (NEW — Priscila 2026-06-09, plan for next tasks — do NOT use mailto)
+**Problem she flagged:** `mailto:` links (e.g. the "Email OPC" button) only work if the visitor's computer has a desktop mail client configured. Most don't → the link does nothing → lead lost. We must NOT rely on the visitor's email app.
+
+- **FORM-1 — Real server-side form (replaces every mailto link).** Proper form (name, phone, zip, message — matches the "START A PROJECT" glass card screenshot) that POSTs to a backend and emails OPC directly. Candidate backends (free/cheap, GH-Pages-compatible): Formspree / Web3Forms / Basin / our own GitHub Action or serverless endpoint. Keep "Call" + styled email line, but the PRIMARY CTA is the form, not mailto.
+- **FORM-2 — Two-stage progressive email capture (the key idea).** The "CONNECT / Your email…" box captures the email the INSTANT it's submitted — BEFORE the full form. Then a fuller form pops up (name/phone/zip/project). If the visitor abandons the popup, **we still have their email** and OPC still gets a "someone tried to contact you" notification. Flow: (a) email submitted → fire capture immediately, (b) open detailed form modal, (c) modal submit → full lead, (d) abandon → partial lead still recorded + emailed.
+- **FORM-3 — Source-page tracking.** Every submission must include which page it came from (e.g. "came from /services/stucco.html") + referrer/UTM, sent in the payload and the notification email subject/body so OPC knows intent.
+- **Build order when we get to it:** FORM-1 backend → FORM-3 source field (trivial) → FORM-2 progressive capture UX. One coherent system. NOT started — planned per Priscila's "organize first, plan for next tasks."
+
 ---
 
 ## 📍 WHERE THINGS LIVE (cold-start orientation)
@@ -192,6 +200,9 @@ Drive Inspiration folder: `1ae7n4VwSZbu0_nt6nUX5WeLINGqYJ-CZ`
 
 ## 📝 ACTIVITY LOG (auto-appended by `/opc-website` skill after every report-back)
 
+- **2026-06-09** — RICARDO PEN SOURCE RECOVERED via `cdpn.io/<user>/fullpage/<hash>` (clears Cloudflare, real code). Findings: **yLOpNdZ (house) + LYxMWQN (kitchen) are CSS-3D** (preserve-3d + hundreds of `.face` divs, NOT Three.js) → fork+recolor is clean hex swap. **KKbWGNZ is the only real Three.js** = baked GLTF interior room (model.glb + baked.jpg, OrbitControls) → colors baked into the texture, CANNOT recolor to OPC without Blender re-bake. KKbWGNZ decision pending.
+- **2026-06-09** — Batch fixes shipped (commit `b2e7866`): combined-lumen transform title left-aligned to match other section titles; CBC prefix restyled to small mono label (like FL STATE LICENSED); bathroom 'never' serif enlarged to 1.5em feature size like combined hero; contact 'Mike direct' → 'Michael & Matthew' (Matt is co-owner); stucco labels translateZ(150px) so tilted planes stop covering FINISH COAT text.
+- **2026-06-09** — NEW lead-capture/form system logged to Pending (FORM-1 server-side form replacing mailto, FORM-2 two-stage progressive email capture, FORM-3 source-page tracking). Planned, not started, per Priscila.
 - **2026-06-09** — Combined-lumen-vision + combined-gold-glow: tuned lime/gold ambient gradient softer (spread 80vw→110vw, blur 40→80px, opacity 0.07→0.035), added PARTICLE cursor mode (glowing dot + 8-particle trail) alongside RING mode, RING/PARTICLE toggle bottom-left with localStorage persistence. Gold variant re-synced from lime base.
 - **2026-06-09** — Built Floor Plan → 3D Reveal (16): approved House A replacement, CSS 3D floor plan with rising walls, camera tilt, roof drop-in, windows/door finish, and real OPC new-build photo context; lab/index/tracker cache-bust synced to `?v=9`.
 - **2026-06-09** — Built Bathroom Waterproofing Wall Section (15): approved Bathroom A replacement, CSS 3D cut-away layers (framing → cement board → membrane → mortar → tile → grout), real bath photos, lab/index/tracker cache-bust synced to `?v=8`.
