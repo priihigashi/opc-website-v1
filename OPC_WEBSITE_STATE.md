@@ -13,11 +13,29 @@ Last updated: **2026-06-09**
 
 ---
 
+## 🚨 NEXT CHAT — READ THIS FIRST (REWORK NEEDED)
+
+**Misread captured end-of-session 2026-06-09.** Priscila gave us Ricardo Oliva Alonso CodePens (`yLOpNdZ`, `KKbWGNZ`, `LYxMWQN`) that contain **actual rendered 3D objects**. Previous Claude treated them as vibe references and built line-style 3D from scratch. The correct approach was to **fork the pens and recolor to OPC palette**.
+
+CodePen Cloudflare blocks bot fetch — that's why the misread happened. Next chat needs Priscila to **export each pen** (CodePen → ⚙️ → Export ZIP) OR paste the JS/CSS/HTML manually.
+
+**REWORK SCOPE:**
+- 🔴 **#10 NewBuild** → fork `yLOpNdZ` → recolor to OPC palette → drop into existing service-page scaffold
+- 🔴 **#11 Kitchen** → fork `LYxMWQN` → recolor to OPC palette → drop into existing service-page scaffold
+- 🟡 **Future Renovation page** → fork `KKbWGNZ` → recolor to OPC palette
+
+**NOT affected — keep these:**
+- ✅ #15 Bath Waterproof Section (CSS layered wall — no Ricardo pen for bath)
+- ✅ #17 Stucco Layer Section (CSS layered wall — no Ricardo pen for stucco)
+- ✅ #16 Floor Plan → 3D Reveal (Plan→3D approved in memo, not a Ricardo pen reference)
+
+---
+
 ## 🎯 CURRENT FOCUS
 
 - Lab phase — prototypes in `/prototypes/`, all `noindex,nofollow`. Production pages (root, services/*) are also live but not the final design.
 - Settling on a hero / cursor / 3D vocabulary by comparing prototypes side-by-side (LAB banner on every page lets you jump between them).
-- **Open right now:** review Bathroom Waterproofing Wall Section (15) and Floor Plan → 3D Reveal (16), then decide which replaces old Bathroom 09 and old Wireframe 03 in production.
+- **Open right now:** rework #10 + #11 using actual Ricardo 3D objects (see REWORK section above), then review Bathroom Waterproofing Wall Section (15) and Floor Plan → 3D Reveal (16) for promote-to-production decision.
 
 ---
 
