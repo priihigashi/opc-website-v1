@@ -4,151 +4,160 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Wireframe House Aura — OPC Prototype</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500&family=Roboto+Mono&display=swap" rel="stylesheet">
 <style>
   :root {
-    --obsidian: #0A0A0A;
+    --obsidian: #050912;
     --cream: #F0EBE3;
     --lime: #CBCC10;
     --walnut: #8B5A2B;
-    --blueprint: #4A90E2;
+    --blueprint: #00D4FF;
+    --blueprint-deep: #0A1A2F;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html, body { background: var(--obsidian); color: var(--cream); font-family: 'Inter', system-ui, sans-serif; overflow-x: hidden; }
+  html, body {
+    background: var(--obsidian);
+    color: var(--cream);
+    font-family: 'Inter', system-ui, sans-serif;
+    overflow-x: hidden;
+  }
 
-  /* PINNED 3D STAGE — fixed to viewport */
-  .stage {
-    position: fixed; inset: 0; z-index: 1;
-    pointer-events: none;
-  }
-  #canvas {
-    width: 100%; height: 100%;
-    pointer-events: auto; /* drag works on canvas only */
-    cursor: grab;
-  }
+  /* FIXED 3D STAGE */
+  .stage { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+  #canvas { width: 100%; height: 100%; pointer-events: auto; cursor: grab; }
   #canvas:active { cursor: grabbing; }
 
-  /* SCROLLING CONTENT — slides over the fixed 3D stage */
-  .scroll-content { position: relative; z-index: 2; pointer-events: none; }
+  /* PHOTO MORPH OVERLAY — appears at deep scroll */
+  .photo-morph {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 55vmin; height: 40vmin;
+    max-width: 700px;
+    z-index: 2;
+    opacity: 0;
+    pointer-events: none;
+    transition: none;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 80px rgba(0, 212, 255, 0.3);
+  }
+  .photo-morph img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: contrast(1.05) saturate(0.95);
+  }
+  .photo-morph::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0, 212, 255, 0.08), transparent 40%, rgba(5, 9, 18, 0.4));
+    pointer-events: none;
+  }
+
+  /* SCROLLING CONTENT */
+  .scroll-content { position: relative; z-index: 3; pointer-events: none; }
   .scroll-content > * { pointer-events: auto; }
 
-  /* HERO LAYER — sits above 3D */
   .hero {
     min-height: 100vh; display: flex; flex-direction: column;
     justify-content: space-between; padding: 40px;
   }
   .hero-nav { display: flex; justify-content: space-between; align-items: center; }
-  .logo { font-family: 'Anton', 'Impact', sans-serif; font-size: 16px; letter-spacing: 2px; color: var(--cream); }
+  .logo { font-family: 'Anton', sans-serif; font-size: 16px; letter-spacing: 2px; color: var(--cream); }
   .logo .lime { color: var(--lime); }
   .nav-links { display: flex; gap: 28px; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }
   .nav-links a { color: var(--cream); text-decoration: none; opacity: 0.85; }
-  .nav-links a:hover { color: var(--lime); opacity: 1; }
+  .nav-links a:hover { color: var(--blueprint); opacity: 1; }
 
-  .hero-title {
-    max-width: 700px;
-  }
+  .hero-title { max-width: 720px; }
   .hero-title h1 {
-    font-family: 'Anton', 'Impact', sans-serif;
+    font-family: 'Anton', sans-serif;
     font-size: clamp(48px, 8vw, 96px);
-    line-height: 0.95;
-    text-transform: uppercase;
-    text-shadow: 0 2px 16px rgba(10,10,10,0.85), 0 4px 32px rgba(10,10,10,0.6);
+    line-height: 0.95; text-transform: uppercase;
+    text-shadow: 0 2px 16px rgba(5,9,18,0.85), 0 4px 32px rgba(5,9,18,0.7);
   }
   .hero-title h1 .lime { color: var(--lime); }
+  .hero-title h1 .blue { color: var(--blueprint); }
   .hero-title p {
-    margin-top: 18px; font-size: 16px; max-width: 460px; opacity: 0.85;
-    text-shadow: 0 2px 8px rgba(10,10,10,0.7);
+    margin-top: 18px; font-size: 16px; max-width: 480px; opacity: 0.85;
+    text-shadow: 0 2px 8px rgba(5,9,18,0.7);
   }
 
   .hero-meta {
     display: flex; justify-content: space-between; align-items: flex-end;
-    font-family: 'Courier New', monospace; font-size: 11px; letter-spacing: 2px;
-    color: var(--lime); opacity: 0.8;
+    font-family: 'Roboto Mono', monospace; font-size: 11px; letter-spacing: 2px;
+    color: var(--blueprint); opacity: 0.85;
   }
   .scroll-hint { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-  .scroll-hint .arrow { width: 1px; height: 28px; background: var(--lime); animation: drop 2s ease-in-out infinite; }
-  @keyframes drop { 0%, 100% { transform: scaleY(0.3); transform-origin: top; } 50% { transform: scaleY(1); } }
+  .scroll-hint .arrow { width: 1px; height: 28px; background: var(--blueprint); animation: drop 2s ease-in-out infinite; }
+  @keyframes drop { 0%, 100% { transform: scaleY(0.3); transform-origin: top; opacity: 0.4; } 50% { transform: scaleY(1); opacity: 1; } }
 
-  /* SECTION 2 — services float past the house */
-  .services {
-    min-height: 110vh; padding: 80px 40px;
-    display: grid; place-items: center;
-  }
-  .services-inner { max-width: 1200px; width: 100%; }
-  .services h2 {
-    font-family: 'Anton', sans-serif; font-size: clamp(36px, 5vw, 64px);
-    text-transform: uppercase; margin-bottom: 48px; max-width: 600px;
-    text-shadow: 0 2px 14px rgba(10,10,10,0.8);
-  }
-  .services h2 .lime { color: var(--lime); }
-  .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
-  .service-card {
-    background: rgba(255,255,255,0.04);
-    backdrop-filter: blur(20px) saturate(150%);
-    -webkit-backdrop-filter: blur(20px) saturate(150%);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 16px; padding: 28px 24px;
-    transition: transform 0.4s ease, border-color 0.4s ease;
-  }
-  .service-card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(203, 204, 16, 0.4);
-  }
-  .service-card .num { font-family: 'Courier New', monospace; font-size: 11px; color: var(--lime); letter-spacing: 2px; margin-bottom: 12px; }
-  .service-card h3 { font-family: 'Anton', sans-serif; font-size: 22px; text-transform: uppercase; margin-bottom: 10px; }
-  .service-card p { font-size: 14px; opacity: 0.75; line-height: 1.5; }
-
-  /* SECTION 3 — final CTA */
-  .cta {
-    min-height: 80vh; padding: 80px 40px;
+  .stage-marker {
+    position: relative; z-index: 3;
+    min-height: 90vh; padding: 80px 40px;
     display: grid; place-items: center; text-align: center;
   }
-  .cta h2 {
-    font-family: 'Anton', sans-serif; font-size: clamp(40px, 6vw, 80px);
+  .stage-marker h2 {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(36px, 5vw, 64px);
     text-transform: uppercase; max-width: 800px; line-height: 1;
-    text-shadow: 0 2px 18px rgba(10,10,10,0.85);
+    text-shadow: 0 2px 18px rgba(5,9,18,0.9);
   }
-  .cta h2 .lime { color: var(--lime); }
-  .cta-btn {
-    display: inline-block; margin-top: 32px;
-    padding: 18px 40px; font-size: 14px; letter-spacing: 2px; text-transform: uppercase;
-    background: var(--lime); color: var(--obsidian); text-decoration: none;
-    font-weight: 700; border-radius: 999px;
-    transition: transform 0.2s ease;
+  .stage-marker h2 .blue { color: var(--blueprint); }
+  .stage-marker h2 .lime { color: var(--lime); }
+  .stage-marker .meta {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px; letter-spacing: 3px;
+    color: var(--blueprint); margin-bottom: 20px; opacity: 0.8;
   }
-  .cta-btn:hover { transform: scale(1.05); }
+  .stage-marker p {
+    margin-top: 16px; max-width: 540px; font-size: 15px; opacity: 0.78; line-height: 1.55;
+    text-shadow: 0 1px 4px rgba(5,9,18,0.7);
+  }
 
-  /* Mobile */
+  .cta-btn {
+    display: inline-block; margin-top: 28px;
+    padding: 16px 36px; font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase;
+    background: var(--blueprint); color: var(--obsidian); text-decoration: none;
+    font-weight: 700; border-radius: 999px;
+    font-family: 'Roboto Mono', monospace;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 40px rgba(0, 212, 255, 0.5); }
+
   @media (max-width: 768px) {
     .hero { padding: 20px; }
     .nav-links { display: none; }
-    .services, .cta { padding: 48px 20px; }
+    .stage-marker { padding: 48px 20px; }
   }
 </style>
 </head>
 <body>
 
-<!-- FIXED 3D STAGE -->
 <div class="stage">
   <canvas id="canvas"></canvas>
 </div>
 
-<!-- SCROLLING CONTENT OVER THE 3D -->
+<!-- Photo morph overlay (appears at deep scroll) -->
+<div class="photo-morph" id="photoMorph">
+  <img src="../assets/img/mike/new-construction/122-dockside-cir-IMG_7853.jpeg" alt="Finished home">
+</div>
+
 <div class="scroll-content">
 
   <section class="hero">
     <nav class="hero-nav">
       <div class="logo">OAK PARK <span class="lime">CONSTRUCTION</span></div>
       <div class="nav-links">
-        <a href="#services">Services</a>
-        <a href="#projects">Projects</a>
+        <a href="../index.html">Home</a>
+        <a href="#">Projects</a>
         <a href="../about.html">About</a>
-        <a href="#contact">Contact</a>
+        <a href="#">Contact</a>
       </div>
     </nav>
 
     <div class="hero-title">
-      <h1>Every Build,<br>From <span class="lime">Frame</span><br>To Finish.</h1>
-      <p>Drag the house. See every angle. That's how we build — with full visibility from foundation to keys.</p>
+      <h1>From <span class="blue">Blueprint.</span><br>To <span class="lime">Build.</span></h1>
+      <p>Drag the model. Spin it. See the structure. Then scroll — and watch it become real.</p>
     </div>
 
     <div class="hero-meta">
@@ -161,30 +170,25 @@
     </div>
   </section>
 
-  <section class="services" id="services">
-    <div class="services-inner">
-      <h2>Nine Trades.<br>One <span class="lime">Crew.</span></h2>
-      <div class="service-grid">
-        <div class="service-card"><div class="num">01</div><h3>New Construction</h3><p>Ground-up homes on your lot or ours. Permits, plans, build.</p></div>
-        <div class="service-card"><div class="num">02</div><h3>Kitchens</h3><p>Full remodels, cabinetry, counters, lighting, layout shifts.</p></div>
-        <div class="service-card"><div class="num">03</div><h3>Bathrooms</h3><p>Tile, plumbing, vanities, walk-in showers, ADA conversions.</p></div>
-        <div class="service-card"><div class="num">04</div><h3>Stucco</h3><p>Repair, recoat, color match. Florida-grade.</p></div>
-        <div class="service-card"><div class="num">05</div><h3>Concrete</h3><p>Driveways, slabs, patios, footings.</p></div>
-        <div class="service-card"><div class="num">06</div><h3>Roofing</h3><p>Tear-off, re-roof, repairs, leak diagnosis.</p></div>
-      </div>
+  <section class="stage-marker">
+    <div>
+      <div class="meta">✦ PHASE TRANSITION</div>
+      <h2>Same House.<br>Different <span class="blue">Phase.</span></h2>
+      <p>Every project lives twice — once in the drawings, once in the world. We're the only ones holding the line between them.</p>
     </div>
   </section>
 
-  <section class="cta">
+  <section class="stage-marker">
     <div>
+      <div class="meta">✦ ARRIVAL</div>
       <h2>Built To Last.<br>Built To <span class="lime">Show.</span></h2>
+      <p>This is what handover day looks like. No subs to chase. No surprises. Just keys.</p>
       <a href="#" class="cta-btn">Start Your Project →</a>
     </div>
   </section>
 
 </div>
 
-<!-- THREE.JS -->
 <script type="importmap">
 {
   "imports": {
@@ -199,16 +203,19 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 const canvas = document.getElementById('canvas');
+const photoMorph = document.getElementById('photoMorph');
+
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
-camera.position.set(0, 1.2, 7);
+scene.fog = new THREE.Fog(0x050912, 8, 30);
+
+const camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 100);
+camera.position.set(4, 2.5, 9);
 
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setClearColor(0x000000, 0);
 
-// CONTROLS — drag to rotate, NO scroll zoom, NO pan
 const controls = new OrbitControls(camera, canvas);
 controls.enableZoom = false;
 controls.enablePan = false;
@@ -216,64 +223,191 @@ controls.enableDamping = true;
 controls.dampingFactor = 0.08;
 controls.rotateSpeed = 0.6;
 controls.autoRotate = true;
-controls.autoRotateSpeed = 0.6;
+controls.autoRotateSpeed = 0.5;
 
-// === HOUSE GROUP ===
-const houseGroup = new THREE.Group();
-scene.add(houseGroup);
-
-// Materials
-const wireMat = new THREE.LineBasicMaterial({
-  color: 0xF0EBE3, transparent: true, opacity: 0.55
+// === ELECTRIC CYAN BLUEPRINT MATERIAL ===
+const lineMat = new THREE.LineBasicMaterial({
+  color: 0x00D4FF, transparent: true, opacity: 0.95,
+  linewidth: 1
 });
-const glassMat = new THREE.MeshBasicMaterial({
-  color: 0x4A90E2, transparent: true, opacity: 0.08,
-  side: THREE.DoubleSide, depthWrite: false
+const lineMatDim = new THREE.LineBasicMaterial({
+  color: 0x00D4FF, transparent: true, opacity: 0.45
+});
+const lineMatBright = new THREE.LineBasicMaterial({
+  color: 0x4AFFFF, transparent: true, opacity: 1
 });
 
-// House body — box
-const bodyGeo = new THREE.BoxGeometry(2.4, 1.6, 1.8);
-const bodyEdges = new THREE.EdgesGeometry(bodyGeo);
-const bodyWire = new THREE.LineSegments(bodyEdges, wireMat);
-houseGroup.add(bodyWire);
-const bodyGlass = new THREE.Mesh(bodyGeo, glassMat);
-houseGroup.add(bodyGlass);
+// === HOUSE GROUP (architectural detail) ===
+const house = new THREE.Group();
+scene.add(house);
 
-// Roof — pyramid (triangular prism approximation via cone with 4 sides)
-const roofGeo = new THREE.ConeGeometry(1.6, 1, 4);
-roofGeo.rotateY(Math.PI / 4); // align faces with box
-const roofEdges = new THREE.EdgesGeometry(roofGeo);
-const roofWire = new THREE.LineSegments(roofEdges, wireMat);
-roofWire.position.y = 1.3;
-houseGroup.add(roofWire);
-const roofGlass = new THREE.Mesh(roofGeo, glassMat);
-roofGlass.position.y = 1.3;
-houseGroup.add(roofGlass);
-
-// Door
-const doorGeo = new THREE.PlaneGeometry(0.5, 0.9);
-const doorEdges = new THREE.EdgesGeometry(doorGeo);
-const doorMat = new THREE.LineBasicMaterial({ color: 0xCBCC10, transparent: true, opacity: 0.85 });
-const door = new THREE.LineSegments(doorEdges, doorMat);
-door.position.set(0, -0.35, 0.901);
-houseGroup.add(door);
-
-// Window outlines (front)
-function addWindow(x, y, z) {
-  const wGeo = new THREE.PlaneGeometry(0.4, 0.4);
-  const wEdges = new THREE.EdgesGeometry(wGeo);
-  const win = new THREE.LineSegments(wEdges, wireMat);
-  win.position.set(x, y, z);
-  houseGroup.add(win);
+// Helpers
+function lineFrom(points, material) {
+  const geo = new THREE.BufferGeometry().setFromPoints(points.map(p => new THREE.Vector3(...p)));
+  return new THREE.Line(geo, material);
 }
-addWindow(-0.7, 0.3, 0.901);
-addWindow(0.7, 0.3, 0.901);
+function rectPlane(w, h, mat) {
+  const g = new THREE.PlaneGeometry(w, h);
+  const e = new THREE.EdgesGeometry(g);
+  return new THREE.LineSegments(e, mat);
+}
 
-// === ORBITAL LIGHT STREAKS ===
+// === Dimensions (real architectural feel)
+const W = 4.8;   // width
+const D = 3.2;   // depth
+const H = 2.4;   // body height
+const RH = 1.4;  // roof height to ridge
+
+// === FOUNDATION ===
+const foundationY = -H/2 - 0.1;
+const foundation = new THREE.LineSegments(
+  new THREE.EdgesGeometry(new THREE.BoxGeometry(W + 0.4, 0.2, D + 0.4)),
+  lineMatBright
+);
+foundation.position.y = foundationY;
+house.add(foundation);
+
+// Foundation hatch lines
+for (let i = -W/2; i <= W/2; i += 0.4) {
+  house.add(lineFrom([[i, foundationY - 0.1, -D/2 - 0.2], [i, foundationY - 0.1, D/2 + 0.2]], lineMatDim));
+}
+
+// === BODY — main rectangular volume ===
+const body = new THREE.LineSegments(
+  new THREE.EdgesGeometry(new THREE.BoxGeometry(W, H, D)),
+  lineMat
+);
+house.add(body);
+
+// === FLOOR LINE (between ground and 1st floor) ===
+const floorY = -H/2 + H/2; // midpoint = floor between levels
+const floorPoints = [
+  [-W/2, 0, -D/2], [W/2, 0, -D/2], [W/2, 0, D/2], [-W/2, 0, D/2], [-W/2, 0, -D/2]
+];
+house.add(lineFrom(floorPoints, lineMat));
+
+// Floor joists
+for (let i = -W/2 + 0.4; i < W/2; i += 0.4) {
+  house.add(lineFrom([[i, 0, -D/2], [i, 0, D/2]], lineMatDim));
+}
+
+// === VERTICAL STRUCTURAL COLUMNS (at corners + intermediates) ===
+const colPositions = [
+  [-W/2, -D/2], [W/2, -D/2], [W/2, D/2], [-W/2, D/2],
+  [0, -D/2], [0, D/2], [-W/2, 0], [W/2, 0]
+];
+colPositions.forEach(([x, z]) => {
+  // already covered by box edges for corners, add only intermediates
+  if (Math.abs(x) < W/2 - 0.01 || Math.abs(z) < D/2 - 0.01) {
+    house.add(lineFrom([[x, -H/2, z], [x, H/2, z]], lineMatDim));
+  }
+});
+
+// === FRONT FACADE — windows + door ===
+const frontZ = D/2 + 0.001;
+
+// Door frame (lower center)
+const doorW = 0.7, doorH = 1.3;
+const doorFrame = lineFrom([
+  [-doorW/2, -H/2, frontZ], [-doorW/2, -H/2 + doorH, frontZ],
+  [doorW/2, -H/2 + doorH, frontZ], [doorW/2, -H/2, frontZ]
+], lineMatBright);
+house.add(doorFrame);
+// Door panels
+house.add(lineFrom([[0, -H/2, frontZ], [0, -H/2 + doorH, frontZ]], lineMatDim));
+house.add(lineFrom([[-doorW/2, -H/2 + doorH*0.5, frontZ], [doorW/2, -H/2 + doorH*0.5, frontZ]], lineMatDim));
+
+// Ground floor windows (flanking door)
+function window(cx, cy, cz, w, h, dir) {
+  const z = dir === 'front' ? cz : -cz;
+  const pts = [
+    [cx-w/2, cy-h/2, z], [cx-w/2, cy+h/2, z],
+    [cx+w/2, cy+h/2, z], [cx+w/2, cy-h/2, z], [cx-w/2, cy-h/2, z]
+  ];
+  house.add(lineFrom(pts, lineMat));
+  // mullion cross
+  house.add(lineFrom([[cx-w/2, cy, z], [cx+w/2, cy, z]], lineMatDim));
+  house.add(lineFrom([[cx, cy-h/2, z], [cx, cy+h/2, z]], lineMatDim));
+}
+// front ground windows
+window(-1.5, -H/2 + 0.9, frontZ, 0.9, 0.9, 'front');
+window( 1.5, -H/2 + 0.9, frontZ, 0.9, 0.9, 'front');
+
+// Upper floor windows (front)
+window(-1.7, H/2 - 0.7, frontZ, 0.7, 0.8, 'front');
+window(-0.55, H/2 - 0.7, frontZ, 0.7, 0.8, 'front');
+window( 0.55, H/2 - 0.7, frontZ, 0.7, 0.8, 'front');
+window( 1.7, H/2 - 0.7, frontZ, 0.7, 0.8, 'front');
+
+// Back windows
+window(-1.2, -H/2 + 0.9, D/2, 0.8, 0.9, 'back');
+window( 1.2, -H/2 + 0.9, D/2, 0.8, 0.9, 'back');
+window(-1.2, H/2 - 0.7, D/2, 0.7, 0.8, 'back');
+window( 1.2, H/2 - 0.7, D/2, 0.7, 0.8, 'back');
+
+// Side windows (right)
+const sideX = W/2 + 0.001;
+function sideWindow(cy, cz, w, h, side) {
+  const x = side === 'right' ? sideX : -sideX;
+  const pts = [
+    [x, cy-h/2, cz-w/2], [x, cy+h/2, cz-w/2],
+    [x, cy+h/2, cz+w/2], [x, cy-h/2, cz+w/2], [x, cy-h/2, cz-w/2]
+  ];
+  house.add(lineFrom(pts, lineMat));
+  house.add(lineFrom([[x, cy, cz-w/2], [x, cy, cz+w/2]], lineMatDim));
+}
+sideWindow(-H/2 + 0.9, -0.7, 0.8, 0.9, 'right');
+sideWindow(-H/2 + 0.9,  0.7, 0.8, 0.9, 'right');
+sideWindow( H/2 - 0.7, -0.7, 0.7, 0.8, 'right');
+sideWindow( H/2 - 0.7,  0.7, 0.7, 0.8, 'right');
+sideWindow(-H/2 + 0.9, -0.7, 0.8, 0.9, 'left');
+sideWindow(-H/2 + 0.9,  0.7, 0.8, 0.9, 'left');
+sideWindow( H/2 - 0.7, -0.7, 0.7, 0.8, 'left');
+sideWindow( H/2 - 0.7,  0.7, 0.7, 0.8, 'left');
+
+// === GABLE ROOF ===
+const roofTop = H/2 + RH;
+const ridgeFront = new THREE.Vector3(0, roofTop, -D/2);
+const ridgeBack = new THREE.Vector3(0, roofTop, D/2);
+
+// Ridge beam
+house.add(lineFrom([[0, roofTop, -D/2], [0, roofTop, D/2]], lineMatBright));
+
+// Gable triangles (front and back)
+house.add(lineFrom([
+  [-W/2, H/2, -D/2], [0, roofTop, -D/2], [W/2, H/2, -D/2]
+], lineMat));
+house.add(lineFrom([
+  [-W/2, H/2, D/2], [0, roofTop, D/2], [W/2, H/2, D/2]
+], lineMat));
+
+// Roof slopes (eaves)
+house.add(lineFrom([[-W/2, H/2, -D/2], [-W/2, H/2, D/2]], lineMat));
+house.add(lineFrom([[ W/2, H/2, -D/2], [ W/2, H/2, D/2]], lineMat));
+
+// Roof ridge connectors at gable peaks (already in ridge beam)
+
+// Rafters
+for (let z = -D/2 + 0.4; z < D/2; z += 0.4) {
+  house.add(lineFrom([[-W/2, H/2, z], [0, roofTop, z]], lineMatDim));
+  house.add(lineFrom([[ W/2, H/2, z], [0, roofTop, z]], lineMatDim));
+}
+
+// Roof overhang
+const overhang = 0.25;
+house.add(lineFrom([
+  [-W/2 - overhang, H/2 - 0.05, -D/2 - overhang],
+  [ W/2 + overhang, H/2 - 0.05, -D/2 - overhang],
+  [ W/2 + overhang, H/2 - 0.05,  D/2 + overhang],
+  [-W/2 - overhang, H/2 - 0.05,  D/2 + overhang],
+  [-W/2 - overhang, H/2 - 0.05, -D/2 - overhang]
+], lineMatDim));
+
+// === ORBITAL ENERGY STREAKS (subtle, brand) ===
 function makeRing(color, radius, tubeRadius, tilt) {
   const torusGeo = new THREE.TorusGeometry(radius, tubeRadius, 16, 100);
   const mat = new THREE.MeshBasicMaterial({
-    color: color, transparent: true, opacity: 0.85
+    color: color, transparent: true, opacity: 0.7
   });
   const ring = new THREE.Mesh(torusGeo, mat);
   ring.rotation.x = tilt.x;
@@ -281,51 +415,82 @@ function makeRing(color, radius, tubeRadius, tilt) {
   ring.rotation.z = tilt.z;
   return ring;
 }
-const ring1 = makeRing(0xCBCC10, 2.3, 0.025, { x: Math.PI/2, y: 0, z: 0 }); // lime, horizontal
-const ring2 = makeRing(0xF0EBE3, 2.6, 0.018, { x: Math.PI/2.3, y: 0.4, z: 0.3 }); // cream, tilted
-const ring3 = makeRing(0x8B5A2B, 2.4, 0.022, { x: Math.PI/1.8, y: -0.3, z: -0.5 }); // walnut, tilted
-houseGroup.add(ring1, ring2, ring3);
+const ring1 = makeRing(0x00D4FF, 4.2, 0.015, { x: Math.PI/2, y: 0, z: 0 });
+const ring2 = makeRing(0xCBCC10, 4.5, 0.012, { x: Math.PI/2.3, y: 0.4, z: 0.3 });
+const ring3 = makeRing(0xF0EBE3, 4.3, 0.013, { x: Math.PI/1.8, y: -0.3, z: -0.5 });
+ring1.material.opacity = 0.55;
+ring2.material.opacity = 0.4;
+ring3.material.opacity = 0.45;
+house.add(ring1, ring2, ring3);
 
-// === PARTICLE FIELD ===
-const particleCount = 800;
+// === PIXIE DUST PARTICLES ===
+const particleCount = 1500;
 const particleGeo = new THREE.BufferGeometry();
 const positions = new Float32Array(particleCount * 3);
+const sizes = new Float32Array(particleCount);
 for (let i = 0; i < particleCount; i++) {
   const i3 = i * 3;
-  const r = 3 + Math.random() * 6;
+  const r = 2 + Math.random() * 8;
   const theta = Math.random() * Math.PI * 2;
   const phi = Math.acos((Math.random() * 2) - 1);
   positions[i3]     = r * Math.sin(phi) * Math.cos(theta);
   positions[i3 + 1] = r * Math.sin(phi) * Math.sin(theta);
   positions[i3 + 2] = r * Math.cos(phi);
+  sizes[i] = Math.random() * 0.04 + 0.01;
 }
 particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+particleGeo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
 const particleMat = new THREE.PointsMaterial({
-  color: 0xF0EBE3, size: 0.025, transparent: true, opacity: 0.55,
-  sizeAttenuation: true
+  color: 0x00D4FF, size: 0.04, transparent: true, opacity: 0.6,
+  sizeAttenuation: true, blending: THREE.AdditiveBlending
 });
 const particles = new THREE.Points(particleGeo, particleMat);
 scene.add(particles);
 
-// === GROUND GRID ===
-const grid = new THREE.GridHelper(40, 80, 0x4A90E2, 0x1a3a5e);
-grid.position.y = -2.2;
+// === GROUND GRID (matrix-style) ===
+const grid = new THREE.GridHelper(50, 100, 0x00D4FF, 0x002a3a);
+grid.position.y = foundationY - 0.2;
 grid.material.transparent = true;
-grid.material.opacity = 0.25;
+grid.material.opacity = 0.35;
 scene.add(grid);
 
 // === ANIMATION ===
 const clock = new THREE.Clock();
+let scrollPct = 0;
+
 function animate() {
   const t = clock.getElapsedTime();
 
-  // Counter-rotate rings (orbital effect)
-  ring1.rotation.z = t * 0.4;
-  ring2.rotation.z = -t * 0.55;
-  ring3.rotation.z = t * 0.3;
+  ring1.rotation.z = t * 0.35;
+  ring2.rotation.z = -t * 0.5;
+  ring3.rotation.z = t * 0.28;
 
-  // Slow particle drift
-  particles.rotation.y = t * 0.02;
+  particles.rotation.y = t * 0.025;
+
+  // Pixie-dust sparkle: pulse opacity through scroll midpoint
+  const sparkle = 1 - Math.abs(scrollPct - 0.5) * 2; // peaks at 0.5
+  particleMat.opacity = 0.4 + sparkle * 0.6;
+  particleMat.size = 0.04 + sparkle * 0.08;
+
+  // House fades out as scroll progresses
+  const houseOpacity = 1 - Math.max(0, (scrollPct - 0.35) / 0.45);
+  house.traverse(obj => {
+    if (obj.material && obj.material.opacity !== undefined) {
+      // keep original opacity ratio
+      if (obj === foundation || obj === doorFrame) {
+        obj.material.opacity = houseOpacity * 0.95;
+      } else if (obj.material === lineMatBright) {
+        // shared mat, set once below
+      }
+    }
+  });
+  lineMat.opacity = houseOpacity * 0.95;
+  lineMatDim.opacity = houseOpacity * 0.45;
+  lineMatBright.opacity = houseOpacity;
+
+  // Photo morph in
+  const photoOpacity = Math.max(0, (scrollPct - 0.4) / 0.4) * 0.75;
+  photoMorph.style.opacity = Math.min(photoOpacity, 0.75);
 
   controls.update();
   renderer.render(scene, camera);
@@ -333,17 +498,14 @@ function animate() {
 }
 animate();
 
-// === SCROLL-RESPONSIVE: house drifts slightly with scroll for parallax depth ===
+// === SCROLL ===
 window.addEventListener('scroll', () => {
-  const scrollY = window.scrollY;
   const maxScroll = document.body.scrollHeight - window.innerHeight;
-  const pct = Math.min(scrollY / maxScroll, 1);
-  // gentle drift: tilt house as user scrolls
-  houseGroup.position.y = -pct * 0.4;
-  houseGroup.rotation.x = pct * 0.15;
-});
+  scrollPct = Math.min(window.scrollY / maxScroll, 1);
+  house.position.y = -scrollPct * 0.5;
+  house.rotation.x = scrollPct * 0.1;
+}, { passive: true });
 
-// === RESIZE ===
 window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();

@@ -138,9 +138,34 @@ footer .copyright { text-align: center; margin-top: 64px; padding-top: 24px; bor
 	  .floorplan-wrap { grid-template-columns: 1fr; }
 	  footer .footer-grid { grid-template-columns: 1fr; }
 	}
+.lab-banner { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(10,10,10,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--lime); padding: 10px 24px; display: flex; align-items: center; justify-content: center; gap: 20px; font-family: 'Courier New', monospace; font-size: 11px; letter-spacing: 2px; color: var(--cream); }
+.lab-banner .tag { color: var(--lime); font-weight: 700; }
+.lab-banner a { color: var(--lime); text-decoration: none; border: 1px solid var(--lime); padding: 5px 14px; border-radius: 999px; transition: all 0.2s; }
+.lab-banner a:hover { background: var(--lime); color: var(--obsidian); }
+.lab-banner .quick { display: flex; gap: 6px; flex-wrap: wrap; }
+.lab-banner .quick a { padding: 4px 10px; font-size: 10px; border-color: rgba(255,255,255,0.25); color: var(--cream); }
+.lab-banner .quick a:hover { border-color: var(--lime); color: var(--lime); background: transparent; }
+.lab-banner .close { cursor: pointer; opacity: 0.5; font-size: 14px; padding: 0 8px; }
+.lab-banner .close:hover { opacity: 1; color: var(--lime); }
+body.lab-active { padding-top: 44px; }
+@media (max-width: 768px) { .lab-banner .quick { display: none; } .lab-banner { font-size: 10px; padding: 8px 12px; } }
 </style>
 </head>
-<body>
+<body class="lab-active">
+
+<!-- DESIGN LAB BANNER (temporary, internal navigation) -->
+<div class="lab-banner" id="labBanner">
+  <span class="tag">🧪 DESIGN LAB</span>
+  <a href="prototypes/">ALL PROTOTYPES →</a>
+  <div class="quick">
+    <a href="prototypes/liquid-glass-components.html">01 Glass</a>
+    <a href="prototypes/blueprint-property-transform.html">02 Transform</a>
+    <a href="prototypes/blueprint-lens.html">03 Lens</a>
+    <a href="prototypes/wireframe-house-aura.html">04 3D</a>
+    <a href="prototypes/project-gallery-cube.html">05 Cube</a>
+  </div>
+  <span class="close" onclick="document.getElementById('labBanner').style.display='none';document.body.classList.remove('lab-active');">✕</span>
+</div>
 
 <!-- HERO -->
 <header class="hero">
