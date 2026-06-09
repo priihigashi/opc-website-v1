@@ -1,0 +1,122 @@
+# OPC Website — Project State
+
+**This file is the single source of truth for this project. Any Claude session opening this folder MUST read this first.**
+
+- **Repo:** https://github.com/priihigashi/opc-website-v1
+- **Live:** https://priihigashi.github.io/opc-website-v1/
+- **Local:** `~/ClaudeWorkspace/opc-website/`
+- **Tracker (sheet):** https://docs.google.com/spreadsheets/d/1AKwzJlO8gRiTE_PL5R8jnBzOe8aDhVy-PCaZY7QWIOI/edit
+- **Drive mirror of this doc:** https://docs.google.com/document/d/1j2Y1z6rYRBS9fwE1Uk4seMvUNk9jFMZA-SZDAuCSZ2E/edit (ID `1j2Y1z6rYRBS9fwE1Uk4seMvUNk9jFMZA-SZDAuCSZ2E`)
+- **Skill:** `/opc-website` (loader skill — reads this file on activation)
+
+Last updated: **2026-06-09**
+
+---
+
+## 🎯 CURRENT FOCUS
+
+- Lab phase — prototypes in `/prototypes/`, all `noindex,nofollow`. Production pages (root, services/*) are also live but not the final design.
+- Settling on a hero / cursor / 3D vocabulary by comparing prototypes side-by-side (LAB banner on every page lets you jump between them).
+- **Open right now:** wireframe-house-aura needs full rebuild (see Pending).
+
+---
+
+## ✅ PROTOTYPES BUILT
+
+(also tracked in Tracker → Prototypes tab — keep both in sync)
+
+| # | Name | Status | URL |
+|---|------|--------|-----|
+| 01 | Glass Components | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/prototypes/liquid-glass-components.html) |
+| 02 | Blueprint→Photo Transform | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/prototypes/blueprint-property-transform.html) |
+| 03 | 3D Wireframe House (Aura) | 🔴 **NEEDS REBUILD** | [link](https://priihigashi.github.io/opc-website-v1/prototypes/wireframe-house-aura.html) |
+| 04 | Project Gallery Cube | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/prototypes/project-gallery-cube.html) |
+| 05 | Hover Gallery Tiles | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/prototypes/hover-gallery-tiles.html) |
+| 06 | Combined Vision (LUMEN) | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/prototypes/combined-lumen-vision.html) |
+| 07 | Combined Gold Glow | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/prototypes/combined-gold-glow.html) |
+| 08 | Concrete Rotating Bars (service tpl) | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/prototypes/concrete-rotating-bars.html) |
+| 09 | Bathroom Plumbing Stack (service tpl) | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/prototypes/bathroom-plumbing-stack.html) |
+
+Lab banner cache-bust: **?v=4** (bump to ?v=5 on next page added)
+
+---
+
+## 🎨 DESIGN DECISIONS — LOCKED
+
+- **Palette:** obsidian `#0A0A0A` / cream `#F0EBE3` / lime `#CBCC10` + walnut `#8B5A2B`
+- **Typography:** Anton (display) · Cormorant Garamond italic (serif accent) · Roboto Mono (labels) · Inter (body)
+- **3D pages:** all prototypes use Three.js loaded via importmap (CDN)
+- **Cursor orb:** scoped to `combined-lumen-vision` + `combined-gold-glow` ONLY (too heavy combined with Three.js + bloom)
+- **Bloom:** must NOT wash out the subject. Anchor params for reference: bathroom-plumbing-stack uses `UnrealBloomPass(0.7, 0.6, 0.4)` with `toneMappingExposure = 1.05` — that's the upper limit that still reads
+- **Service page 3D recommendations (priority order):**
+  1. New Build — sequential assembly (footing → slab → framing → roof) — *brand signature*
+  2. Bathroom — plumbing rough-in stack — *positions OPC as "we know what's behind the wall"* — ✅ BUILT
+  3. Stucco — 4-layer wall slice (lath → scratch → brown → finish) — *defends pricing*
+  4. Kitchen — exploded cabinet
+  5. Renovation — house cross-section split
+  6. Additions — flying-in addition box
+  7. Outdoor Living — pergola assembly
+  8. Decks & Patios — paver pattern dropping
+  9. Concrete — rebar + slab — ✅ BUILT
+
+---
+
+## 📐 ACTIVE AUTO-RULES (enforced by `/opc-website` skill)
+
+These fire automatically when triggered. Priscila should NOT have to ask:
+
+1. **New prototype HTML page created** → (a) add `<script src="../assets/js/lab-banner.js?v=N">` (b) add nav entry to `lab-banner.js` quick-links (c) bump cache-bust `?v=N+1` on ALL pages (d) add row to Tracker → Prototypes tab (e) append to this file
+2. **CodePen / inspo link dropped** → save row to Tracker → Inspiration tab + add to this file under Inspiration. If no description, fetch title + flag "needs manual view"
+3. **Priscila says "I don't like X" / "kill X" / "remove X" / "not using this anymore"** → append row to Tracker → Decisions Log + update this file's relevant section. Don't act on the removal until confirmed.
+4. **After every report-back to Priscila** → append a dated bullet to "Activity Log" at bottom of this file
+5. **Session start in this project** → READ this file FIRST + summarize Current Focus + list any 🔴 NEEDS items before doing anything else
+
+---
+
+## 💡 INSPIRATION SAVED
+
+(also tracked in Tracker → Inspiration tab)
+
+| Date | Source | Link | Note |
+|------|--------|------|------|
+| 2026-06-09 | CodePen — Justin Ross Rythorian | [GgqZzNa](https://codepen.io/Justin-Ross-Rythorian/pen/GgqZzNa) | "could we use this for FAQ? maybe" |
+| 2026-06-09 | CodePen — Justin Ross Rythorian | [MYegaEO](https://codepen.io/Justin-Ross-Rythorian/pen/MYegaEO) | "nice glow" |
+| 2026-06-09 | CodePen — Himanshu Santani | [gbaMbOR](https://codepen.io/Himanshu-Santani-the-bold/pen/gbaMbOR) | "not sure how we would use it" |
+| 2026-06-09 | CodePen — jerora98 | [zxoBxWg](https://codepen.io/jerora98/pen/zxoBxWg) | "this one has the glow in the back" — diffused gradient ref for combined-lumen-vision lime glow tuning |
+| 2026-06-09 | russell-henderson.com | (reference) | Neon-tube orbital ring halo intensity — bloom inspiration |
+| 2026-06-09 | LUMEN | (reference) | Cursor-follow orb — implemented on 06 + 07 |
+
+Drive Inspiration folder: `1ae7n4VwSZbu0_nt6nUX5WeLINGqYJ-CZ`
+
+---
+
+## 🚧 PENDING / BLOCKED
+
+- 🔴 **Rebuild `wireframe-house-aura`** — intended behavior: top = 3D blueprint (cyan lines) → scroll → bottom = solid 3D house (no background). Currently blueprint stays behind + bloom too hot (house invisible). Needs: (a) build solid-house geometry, (b) wire scroll fade blueprint→solid, (c) dial bloom way back.
+- ⚠️ **Cursor orb perf** — on 3D-heavy pages, mix-blend-difference + lerp creates repaint storm. Already scoped OFF on 3D pages, but if cursor added elsewhere needs throttling.
+- ⚠️ **AI image gen** ("do all options") — was approved before chat crashed. Wireframe↔photoreal morph using Seedream 4.5 + Imagen 4 + Nano Banana 2 (3 variants each, ~$0.018). Hold until wireframe rebuild lands so we know what we need.
+- 📋 **Production SEO split** — when going to prod, service pages must use static hero image + Three.js lazy-load via IntersectionObserver (Core Web Vitals).
+- 📋 **Build remaining 6 service 3D templates** — Stucco, Kitchen, Renovation, Additions, Outdoor, Decks. Use Bathroom + Concrete as patterns.
+
+---
+
+## 📍 WHERE THINGS LIVE (cold-start orientation)
+
+- **Local repo:** `~/ClaudeWorkspace/opc-website/`
+- **Pages:** `index.html`, `about.html`, `services/<name>.html`, `prototypes/<name>.html`
+- **Assets:** `assets/js/lab-banner.js` (auto-injected on every page) · `assets/img/mike/<service>/` (real photos)
+- **Three.js loading:** importmap via unpkg CDN (`three@0.160.0`)
+- **GitHub Pages deploy:** auto on push to `main`
+- **Tracker spreadsheet:** `1AKwzJlO8gRiTE_PL5R8jnBzOe8aDhVy-PCaZY7QWIOI` (Marketing > Claude Code Workspace)
+- **Inspiration Drive folder:** `1ae7n4VwSZbu0_nt6nUX5WeLINGqYJ-CZ`
+- **CodePen inspo doc (2026-06-09):** `1AQYwKAvnOf2s3i2EtXl_zMm18FGzcu_QAm-jOjRg-1c`
+
+---
+
+## 📝 ACTIVITY LOG (auto-appended by `/opc-website` skill after every report-back)
+
+- **2026-06-09** — State system spun up: tracker sheet + this file + `/opc-website` skill + Google Doc mirror. Logged 10 prototypes, 3 CodePens, 11 design decisions. Logged wireframe rebuild as 🔴 action item. Answered screenshot fix (macOS JPG default).
+- **2026-06-09** — Bathroom plumbing stack (09) shipped: 4-phase scroll (rough-in → supply → fixtures → finish), PVC drain stack + copper supply + fixtures fade-in, lime accent ring with bloom. Live at /prototypes/bathroom-plumbing-stack.html.
+- **2026-06-09** — Combined Gold variant (07) + Concrete Rotating Bars service template (08) shipped. Cursor orb added to 06 + 07.
+- **2026-06-08** — Wireframe House Aura initial build (03) — Three.js + orbital streaks + particles + drag-rotate. BLOOM ADDED LATER MADE SUBJECT INVISIBLE — see Pending.
+- **2026-06-08** — Glass Components (01), Blueprint→Photo Transform (02), Project Gallery Cube (04), Hover Gallery Tiles (05) shipped. LAB banner extracted to shared script.
