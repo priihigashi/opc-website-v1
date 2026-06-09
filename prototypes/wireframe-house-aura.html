@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wireframe House Aura — OPC Prototype</title>
+<style>
+  :root {
+    --obsidian: #0A0A0A;
+    --cream: #F0EBE3;
+    --lime: #CBCC10;
+    --walnut: #8B5A2B;
+    --blueprint: #4A90E2;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: var(--obsidian); color: var(--cream); font-family: 'Inter', system-ui, sans-serif; overflow-x: hidden; }
+
+  /* PINNED 3D STAGE — fixed to viewport */
+  .stage {
+    position: fixed; inset: 0; z-index: 1;
+    pointer-events: none;
+  }
+  #canvas {
+    width: 100%; height: 100%;
+    pointer-events: auto; /* drag works on canvas only */
+    cursor: grab;
+  }
+  #canvas:active { cursor: grabbing; }
+
+  /* SCROLLING CONTENT — slides over the fixed 3D stage */
+  .scroll-content { position: relative; z-index: 2; pointer-events: none; }
+  .scroll-content > * { pointer-events: auto; }
+
+  /* HERO LAYER — sits above 3D */
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column;
+    justify-content: space-between; padding: 40px;
+  }
+  .hero-nav { display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Anton', 'Impact', sans-serif; font-size: 16px; letter-spacing: 2px; color: var(--cream); }
+  .logo .lime { color: var(--lime); }
+  .nav-links { display: flex; gap: 28px; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }
+  .nav-links a { color: var(--cream); text-decoration: none; opacity: 0.85; }
+  .nav-links a:hover { color: var(--lime); opacity: 1; }
+
+  .hero-title {
+    max-width: 700px;
+  }
+  .hero-title h1 {
+    font-family: 'Anton', 'Impact', sans-serif;
+    font-size: clamp(48px, 8vw, 96px);
+    line-height: 0.95;
+    text-transform: uppercase;
+    text-shadow: 0 2px 16px rgba(10,10,10,0.85), 0 4px 32px rgba(10,10,10,0.6);
+  }
+  .hero-title h1 .lime { color: var(--lime); }
+  .hero-title p {
+    margin-top: 18px; font-size: 16px; max-width: 460px; opacity: 0.85;
+    text-shadow: 0 2px 8px rgba(10,10,10,0.7);
+  }
+
+  .hero-meta {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    font-family: 'Courier New', monospace; font-size: 11px; letter-spacing: 2px;
+    color: var(--lime); opacity: 0.8;
+  }
+  .scroll-hint { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .scroll-hint .arrow { width: 1px; height: 28px; background: var(--lime); animation: drop 2s ease-in-out infinite; }
+  @keyframes drop { 0%, 100% { transform: scaleY(0.3); transform-origin: top; } 50% { transform: scaleY(1); } }
+
+  /* SECTION 2 — services float past the house */
+  .services {
+    min-height: 110vh; padding: 80px 40px;
+    display: grid; place-items: center;
+  }
+  .services-inner { max-width: 1200px; width: 100%; }
+  .services h2 {
+    font-family: 'Anton', sans-serif; font-size: clamp(36px, 5vw, 64px);
+    text-transform: uppercase; margin-bottom: 48px; max-width: 600px;
+    text-shadow: 0 2px 14px rgba(10,10,10,0.8);
+  }
+  .services h2 .lime { color: var(--lime); }
+  .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+  .service-card {
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px; padding: 28px 24px;
+    transition: transform 0.4s ease, border-color 0.4s ease;
+  }
+  .service-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(203, 204, 16, 0.4);
+  }
+  .service-card .num { font-family: 'Courier New', monospace; font-size: 11px; color: var(--lime); letter-spacing: 2px; margin-bottom: 12px; }
+  .service-card h3 { font-family: 'Anton', sans-serif; font-size: 22px; text-transform: uppercase; margin-bottom: 10px; }
+  .service-card p { font-size: 14px; opacity: 0.75; line-height: 1.5; }
+
+  /* SECTION 3 — final CTA */
+  .cta {
+    min-height: 80vh; padding: 80px 40px;
+    display: grid; place-items: center; text-align: center;
+  }
+  .cta h2 {
+    font-family: 'Anton', sans-serif; font-size: clamp(40px, 6vw, 80px);
+    text-transform: uppercase; max-width: 800px; line-height: 1;
+    text-shadow: 0 2px 18px rgba(10,10,10,0.85);
+  }
+  .cta h2 .lime { color: var(--lime); }
+  .cta-btn {
+    display: inline-block; margin-top: 32px;
+    padding: 18px 40px; font-size: 14px; letter-spacing: 2px; text-transform: uppercase;
+    background: var(--lime); color: var(--obsidian); text-decoration: none;
+    font-weight: 700; border-radius: 999px;
+    transition: transform 0.2s ease;
+  }
+  .cta-btn:hover { transform: scale(1.05); }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .hero { padding: 20px; }
+    .nav-links { display: none; }
+    .services, .cta { padding: 48px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- FIXED 3D STAGE -->
+<div class="stage">
+  <canvas id="canvas"></canvas>
+</div>
+
+<!-- SCROLLING CONTENT OVER THE 3D -->
+<div class="scroll-content">
+
+  <section class="hero">
+    <nav class="hero-nav">
+      <div class="logo">OAK PARK <span class="lime">CONSTRUCTION</span></div>
+      <div class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#projects">Projects</a>
+        <a href="../about.html">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+
+    <div class="hero-title">
+      <h1>Every Build,<br>From <span class="lime">Frame</span><br>To Finish.</h1>
+      <p>Drag the house. See every angle. That's how we build — with full visibility from foundation to keys.</p>
+    </div>
+
+    <div class="hero-meta">
+      <div>EST. 2018 · CBC1263425</div>
+      <div class="scroll-hint">
+        <span>SCROLL</span>
+        <span class="arrow"></span>
+      </div>
+      <div>OAK PARK, FL</div>
+    </div>
+  </section>
+
+  <section class="services" id="services">
+    <div class="services-inner">
+      <h2>Nine Trades.<br>One <span class="lime">Crew.</span></h2>
+      <div class="service-grid">
+        <div class="service-card"><div class="num">01</div><h3>New Construction</h3><p>Ground-up homes on your lot or ours. Permits, plans, build.</p></div>
+        <div class="service-card"><div class="num">02</div><h3>Kitchens</h3><p>Full remodels, cabinetry, counters, lighting, layout shifts.</p></div>
+        <div class="service-card"><div class="num">03</div><h3>Bathrooms</h3><p>Tile, plumbing, vanities, walk-in showers, ADA conversions.</p></div>
+        <div class="service-card"><div class="num">04</div><h3>Stucco</h3><p>Repair, recoat, color match. Florida-grade.</p></div>
+        <div class="service-card"><div class="num">05</div><h3>Concrete</h3><p>Driveways, slabs, patios, footings.</p></div>
+        <div class="service-card"><div class="num">06</div><h3>Roofing</h3><p>Tear-off, re-roof, repairs, leak diagnosis.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div>
+      <h2>Built To Last.<br>Built To <span class="lime">Show.</span></h2>
+      <a href="#" class="cta-btn">Start Your Project →</a>
+    </div>
+  </section>
+
+</div>
+
+<!-- THREE.JS -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const canvas = document.getElementById('canvas');
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+camera.position.set(0, 1.2, 7);
+
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setClearColor(0x000000, 0);
+
+// CONTROLS — drag to rotate, NO scroll zoom, NO pan
+const controls = new OrbitControls(camera, canvas);
+controls.enableZoom = false;
+controls.enablePan = false;
+controls.enableDamping = true;
+controls.dampingFactor = 0.08;
+controls.rotateSpeed = 0.6;
+controls.autoRotate = true;
+controls.autoRotateSpeed = 0.6;
+
+// === HOUSE GROUP ===
+const houseGroup = new THREE.Group();
+scene.add(houseGroup);
+
+// Materials
+const wireMat = new THREE.LineBasicMaterial({
+  color: 0xF0EBE3, transparent: true, opacity: 0.55
+});
+const glassMat = new THREE.MeshBasicMaterial({
+  color: 0x4A90E2, transparent: true, opacity: 0.08,
+  side: THREE.DoubleSide, depthWrite: false
+});
+
+// House body — box
+const bodyGeo = new THREE.BoxGeometry(2.4, 1.6, 1.8);
+const bodyEdges = new THREE.EdgesGeometry(bodyGeo);
+const bodyWire = new THREE.LineSegments(bodyEdges, wireMat);
+houseGroup.add(bodyWire);
+const bodyGlass = new THREE.Mesh(bodyGeo, glassMat);
+houseGroup.add(bodyGlass);
+
+// Roof — pyramid (triangular prism approximation via cone with 4 sides)
+const roofGeo = new THREE.ConeGeometry(1.6, 1, 4);
+roofGeo.rotateY(Math.PI / 4); // align faces with box
+const roofEdges = new THREE.EdgesGeometry(roofGeo);
+const roofWire = new THREE.LineSegments(roofEdges, wireMat);
+roofWire.position.y = 1.3;
+houseGroup.add(roofWire);
+const roofGlass = new THREE.Mesh(roofGeo, glassMat);
+roofGlass.position.y = 1.3;
+houseGroup.add(roofGlass);
+
+// Door
+const doorGeo = new THREE.PlaneGeometry(0.5, 0.9);
+const doorEdges = new THREE.EdgesGeometry(doorGeo);
+const doorMat = new THREE.LineBasicMaterial({ color: 0xCBCC10, transparent: true, opacity: 0.85 });
+const door = new THREE.LineSegments(doorEdges, doorMat);
+door.position.set(0, -0.35, 0.901);
+houseGroup.add(door);
+
+// Window outlines (front)
+function addWindow(x, y, z) {
+  const wGeo = new THREE.PlaneGeometry(0.4, 0.4);
+  const wEdges = new THREE.EdgesGeometry(wGeo);
+  const win = new THREE.LineSegments(wEdges, wireMat);
+  win.position.set(x, y, z);
+  houseGroup.add(win);
+}
+addWindow(-0.7, 0.3, 0.901);
+addWindow(0.7, 0.3, 0.901);
+
+// === ORBITAL LIGHT STREAKS ===
+function makeRing(color, radius, tubeRadius, tilt) {
+  const torusGeo = new THREE.TorusGeometry(radius, tubeRadius, 16, 100);
+  const mat = new THREE.MeshBasicMaterial({
+    color: color, transparent: true, opacity: 0.85
+  });
+  const ring = new THREE.Mesh(torusGeo, mat);
+  ring.rotation.x = tilt.x;
+  ring.rotation.y = tilt.y;
+  ring.rotation.z = tilt.z;
+  return ring;
+}
+const ring1 = makeRing(0xCBCC10, 2.3, 0.025, { x: Math.PI/2, y: 0, z: 0 }); // lime, horizontal
+const ring2 = makeRing(0xF0EBE3, 2.6, 0.018, { x: Math.PI/2.3, y: 0.4, z: 0.3 }); // cream, tilted
+const ring3 = makeRing(0x8B5A2B, 2.4, 0.022, { x: Math.PI/1.8, y: -0.3, z: -0.5 }); // walnut, tilted
+houseGroup.add(ring1, ring2, ring3);
+
+// === PARTICLE FIELD ===
+const particleCount = 800;
+const particleGeo = new THREE.BufferGeometry();
+const positions = new Float32Array(particleCount * 3);
+for (let i = 0; i < particleCount; i++) {
+  const i3 = i * 3;
+  const r = 3 + Math.random() * 6;
+  const theta = Math.random() * Math.PI * 2;
+  const phi = Math.acos((Math.random() * 2) - 1);
+  positions[i3]     = r * Math.sin(phi) * Math.cos(theta);
+  positions[i3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+  positions[i3 + 2] = r * Math.cos(phi);
+}
+particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+const particleMat = new THREE.PointsMaterial({
+  color: 0xF0EBE3, size: 0.025, transparent: true, opacity: 0.55,
+  sizeAttenuation: true
+});
+const particles = new THREE.Points(particleGeo, particleMat);
+scene.add(particles);
+
+// === GROUND GRID ===
+const grid = new THREE.GridHelper(40, 80, 0x4A90E2, 0x1a3a5e);
+grid.position.y = -2.2;
+grid.material.transparent = true;
+grid.material.opacity = 0.25;
+scene.add(grid);
+
+// === ANIMATION ===
+const clock = new THREE.Clock();
+function animate() {
+  const t = clock.getElapsedTime();
+
+  // Counter-rotate rings (orbital effect)
+  ring1.rotation.z = t * 0.4;
+  ring2.rotation.z = -t * 0.55;
+  ring3.rotation.z = t * 0.3;
+
+  // Slow particle drift
+  particles.rotation.y = t * 0.02;
+
+  controls.update();
+  renderer.render(scene, camera);
+  requestAnimationFrame(animate);
+}
+animate();
+
+// === SCROLL-RESPONSIVE: house drifts slightly with scroll for parallax depth ===
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  const maxScroll = document.body.scrollHeight - window.innerHeight;
+  const pct = Math.min(scrollY / maxScroll, 1);
+  // gentle drift: tilt house as user scrolls
+  houseGroup.position.y = -pct * 0.4;
+  houseGroup.rotation.x = pct * 0.15;
+});
+
+// === RESIZE ===
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+</script>
+
+</body>
+</html>
