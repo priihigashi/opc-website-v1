@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OPC — Floor Plan to 3D Reveal Prototype</title>
+<meta name="robots" content="noindex,nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Inter:wght@400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="../assets/js/lab-banner.js?v=9" defer></script>
+<style>
+  :root {
+    --black: #050505;
+    --obsidian: #0A0A0A;
+    --cream: #F0EBE3;
+    --lime: #CBCC10;
+    --walnut: #8B5A2B;
+    --cyan: #00D4FF;
+    --cyan-soft: rgba(0, 212, 255, 0.48);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    min-height: 100%;
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'Inter', system-ui, sans-serif;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  .serif { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500; }
+
+  .ambient {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+    background:
+      radial-gradient(circle at 64% 38%, rgba(0, 212, 255, 0.08), transparent 34%),
+      radial-gradient(circle at 24% 70%, rgba(203, 204, 16, 0.045), transparent 32%),
+      var(--black);
+  }
+  .ambient::before {
+    content: "";
+    position: absolute; inset: -20%;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.035) 1px, transparent 1px);
+    background-size: 54px 54px;
+    transform: rotate(-2deg);
+    mask-image: radial-gradient(circle at 55% 46%, black, transparent 68%);
+  }
+
+  nav.site-nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100; padding: 24px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: linear-gradient(180deg, rgba(5,5,5,0.78), transparent);
+    backdrop-filter: blur(10px);
+  }
+  .logo { font-family: 'Anton', sans-serif; font-size: 14px; letter-spacing: 3px; }
+  .logo .lime { color: var(--lime); }
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .nav-links a {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px; letter-spacing: 2px;
+    text-transform: uppercase; opacity: 0.72;
+  }
+  .nav-links a:hover { opacity: 1; color: var(--cyan); }
+  .nav-cta {
+    padding: 8px 18px;
+    border: 1px solid var(--lime);
+    border-radius: 999px;
+    color: var(--lime) !important;
+    opacity: 1 !important;
+  }
+
+  .hero {
+    position: relative; z-index: 2;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 0.84fr 1.16fr;
+    align-items: center;
+    gap: 48px;
+    padding: 120px 48px 72px;
+    max-width: 1540px;
+    margin: 0 auto;
+  }
+  .hero-text { max-width: 590px; }
+  .eyebrow {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--cyan);
+    margin-bottom: 24px;
+    text-transform: uppercase;
+  }
+  h1 {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(48px, 7vw, 102px);
+    line-height: 0.94;
+    text-transform: uppercase;
+  }
+  h1 .serif { color: var(--lime); text-transform: none; font-size: 1.05em; }
+  .hero-text p {
+    margin-top: 24px;
+    max-width: 500px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 1px;
+    line-height: 1.72;
+    opacity: 0.76;
+  }
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-top: 32px; padding: 14px 28px;
+    border: 1px solid var(--cyan);
+    border-radius: 999px;
+    color: var(--cyan);
+    background: rgba(240,235,227,0.035);
+    backdrop-filter: blur(20px) saturate(140%);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    transition: all 0.25s ease;
+  }
+  .hero-cta:hover { background: var(--cyan); color: var(--obsidian); box-shadow: 0 0 32px rgba(0,212,255,0.28); }
+
+  .reveal-stage {
+    position: relative;
+    min-height: 700px;
+    display: grid;
+    place-items: center;
+    perspective: 1300px;
+  }
+  .plan-scene {
+    position: relative;
+    width: min(76vw, 680px);
+    height: min(58vw, 520px);
+    transform-style: preserve-3d;
+    transform: rotateX(72deg) rotateZ(-28deg) translateY(10px);
+    transition: transform 0.2s linear;
+  }
+  .slab {
+    position: absolute; inset: 8%;
+    border: 2px solid var(--cyan);
+    background:
+      linear-gradient(rgba(0,212,255,0.14) 2px, transparent 2px),
+      linear-gradient(90deg, rgba(0,212,255,0.14) 2px, transparent 2px),
+      rgba(0, 24, 42, 0.12);
+    background-size: 42px 42px;
+    box-shadow: 0 0 34px rgba(0,212,255,0.14);
+    transform: translateZ(0);
+  }
+  .room {
+    position: absolute;
+    border: 2px solid rgba(0,212,255,0.82);
+    background: rgba(0,212,255,0.045);
+    transform: translateZ(4px);
+  }
+  .room::after {
+    content: attr(data-room);
+    position: absolute;
+    left: 12px; top: 10px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: rgba(240,235,227,0.76);
+    text-transform: uppercase;
+  }
+  .kitchen { left: 12%; top: 13%; width: 28%; height: 33%; }
+  .living { left: 12%; top: 48%; width: 42%; height: 34%; }
+  .bath { left: 42%; top: 13%; width: 18%; height: 33%; }
+  .suite { left: 62%; top: 13%; width: 26%; height: 33%; }
+  .outdoor { left: 56%; top: 48%; width: 32%; height: 34%; }
+
+  .wall {
+    position: absolute;
+    background: linear-gradient(180deg, rgba(240,235,227,0.96), rgba(210,202,188,0.96));
+    border: 1px solid rgba(240,235,227,0.42);
+    box-shadow: 0 18px 44px rgba(0,0,0,0.24);
+    transform-origin: bottom center;
+    transform-style: preserve-3d;
+    opacity: 0.2;
+    transition: opacity 0.2s linear, transform 0.2s linear;
+  }
+  .wall.x { height: 12px; transform: translateZ(10px) scaleY(var(--rise)); }
+  .wall.y { width: 12px; transform: translateZ(10px) scaleY(var(--rise)); }
+  .wall[data-wall="front"] { left: 8%; top: 83%; width: 84%; }
+  .wall[data-wall="back"] { left: 8%; top: 8%; width: 84%; }
+  .wall[data-wall="left"] { left: 8%; top: 8%; height: 75%; }
+  .wall[data-wall="right"] { left: 91%; top: 8%; height: 75%; }
+  .wall[data-wall="mid1"] { left: 40%; top: 8%; height: 40%; }
+  .wall[data-wall="mid2"] { left: 60%; top: 8%; height: 40%; }
+  .wall[data-wall="mid3"] { left: 54%; top: 46%; height: 37%; }
+  .wall[data-wall="split"] { left: 12%; top: 46%; width: 76%; }
+
+  .roof {
+    position: absolute;
+    left: 4%; top: 2%;
+    width: 92%; height: 88%;
+    transform-style: preserve-3d;
+    transform: translateZ(var(--roofZ)) translateY(var(--roofY)) scale(var(--roofScale));
+    opacity: var(--roofOpacity);
+    transition: opacity 0.2s linear, transform 0.2s linear;
+    pointer-events: none;
+  }
+  .roof::before,
+  .roof::after {
+    content: "";
+    position: absolute;
+    top: 18%;
+    width: 54%; height: 72%;
+    background: linear-gradient(135deg, rgba(91,60,31,0.98), rgba(38,24,12,0.98));
+    border: 1px solid rgba(139,90,43,0.72);
+    box-shadow: 0 18px 44px rgba(0,0,0,0.28);
+  }
+  .roof::before { left: 0; transform: skewY(-16deg); transform-origin: right center; }
+  .roof::after { right: 0; transform: skewY(16deg); transform-origin: left center; }
+  .window {
+    position: absolute;
+    width: 8%; height: 8%;
+    background: rgba(0,212,255,0.28);
+    border: 1px solid rgba(0,212,255,0.7);
+    box-shadow: 0 0 18px rgba(0,212,255,0.22);
+    transform: translateZ(var(--windowZ));
+    opacity: var(--windowOpacity);
+  }
+  .w1 { left: 20%; top: 22%; }
+  .w2 { left: 68%; top: 22%; }
+  .w3 { left: 28%; top: 61%; }
+  .door {
+    position: absolute;
+    left: 45%; top: 76%;
+    width: 10%; height: 12%;
+    background: var(--walnut);
+    border: 1px solid rgba(203,204,16,0.58);
+    transform: translateZ(var(--windowZ));
+    opacity: var(--windowOpacity);
+  }
+  .dimension {
+    position: absolute;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: rgba(0,212,255,0.78);
+    text-transform: uppercase;
+    opacity: var(--dimOpacity);
+    transition: opacity 0.2s linear;
+  }
+  .d1 { left: 12%; top: 3%; }
+  .d2 { right: 3%; top: 45%; transform: rotate(90deg); }
+  .phase-strip {
+    position: fixed;
+    left: 50%; bottom: 24px;
+    transform: translateX(-50%);
+    z-index: 50;
+    display: flex; gap: 18px;
+    padding: 13px 22px;
+    border: 1px solid rgba(240,235,227,0.12);
+    border-radius: 999px;
+    background: rgba(5,5,5,0.76);
+    backdrop-filter: blur(20px) saturate(140%);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+  }
+  .phase-strip span { opacity: 0.35; transition: all 0.25s ease; }
+  .phase-strip span.active { opacity: 1; color: var(--lime); }
+
+  section.story {
+    position: relative; z-index: 2;
+    padding: 120px 48px;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+  .section-title {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(40px, 6vw, 78px);
+    line-height: 0.98;
+    text-transform: uppercase;
+    max-width: 900px;
+    margin-bottom: 48px;
+  }
+  .section-title .serif { color: var(--lime); text-transform: none; }
+  .proof-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .proof {
+    min-height: 280px;
+    padding: 26px;
+    border: 1px solid rgba(240,235,227,0.1);
+    border-radius: 16px;
+    background: rgba(240,235,227,0.04);
+  }
+  .proof .num {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    color: var(--cyan);
+    margin-bottom: 14px;
+  }
+  .proof h3 {
+    font-family: 'Anton', sans-serif;
+    font-size: 30px;
+    text-transform: uppercase;
+    line-height: 1.05;
+    margin-bottom: 12px;
+  }
+  .proof p { font-size: 13px; line-height: 1.58; opacity: 0.72; }
+  .photo-band {
+    margin-top: 56px;
+    min-height: 480px;
+    border: 1px solid rgba(240,235,227,0.1);
+    border-radius: 18px;
+    overflow: hidden;
+    position: relative;
+    background: url('../assets/img/mike/new-construction/122-dockside-cir-IMG_7853.jpeg') center/cover;
+  }
+  .photo-band::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(5,5,5,0.82), transparent 64%), linear-gradient(180deg, transparent 50%, rgba(5,5,5,0.62));
+  }
+  .photo-band .copy {
+    position: absolute;
+    left: 36px; bottom: 34px;
+    max-width: 480px;
+    z-index: 2;
+  }
+  .photo-band small {
+    display: block;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--lime);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .photo-band h3 {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(32px, 5vw, 56px);
+    text-transform: uppercase;
+    line-height: 0.98;
+  }
+  section.cta {
+    position: relative; z-index: 2;
+    padding: 150px 24px;
+    text-align: center;
+  }
+  .cta h2 {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(48px, 7vw, 96px);
+    line-height: 0.95;
+    text-transform: uppercase;
+    max-width: 860px;
+    margin: 0 auto 28px;
+  }
+  .cta h2 .serif { color: var(--lime); text-transform: none; }
+  .cta p {
+    max-width: 560px;
+    margin: 0 auto 36px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 1px;
+    line-height: 1.72;
+    opacity: 0.74;
+  }
+  .cta a {
+    display: inline-flex;
+    padding: 15px 30px;
+    border: 1px solid var(--lime);
+    border-radius: 999px;
+    color: var(--lime);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+  }
+  footer {
+    position: relative; z-index: 2;
+    padding: 44px 48px;
+    border-top: 1px solid rgba(240,235,227,0.06);
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: rgba(240,235,227,0.5);
+  }
+  @media (max-width: 1000px) {
+    nav.site-nav { padding: 18px 22px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 108px 22px 60px; }
+    .reveal-stage { min-height: 560px; }
+    .proof-grid { grid-template-columns: 1fr; }
+    section.story { padding: 90px 22px; }
+    .phase-strip { max-width: calc(100vw - 24px); overflow-x: auto; }
+    footer { flex-direction: column; padding: 36px 22px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .plan-scene, .wall, .roof, .window, .door, .phase-strip span { transition: none; }
+  }
+</style>
+</head>
+<body>
+<div class="ambient"></div>
+
+<nav class="site-nav">
+  <a href="../index.html" class="logo">OAK PARK <span class="lime">CONSTRUCTION</span></a>
+  <div class="nav-links">
+    <a href="wireframe-house-aura.html">Old 03</a>
+    <a href="new-construction-assembly.html">New Build 10</a>
+    <a href="../services/new-construction.html">Service</a>
+    <a href="#cta" class="nav-cta">Plan Build</a>
+  </div>
+</nav>
+
+<main>
+  <section class="hero">
+    <div class="hero-text">
+      <div class="eyebrow">Prototype 16 · Floor Plan to 3D Reveal</div>
+      <h1>The drawing becomes <span class="serif">home.</span></h1>
+      <p>Approved replacement for the generic wireframe house. The visitor sees an architectural floor plan first, then walls rise, the camera tilts, roof drops in, and the plan turns into an isometric home.</p>
+      <a class="hero-cta" href="#story">Scroll the reveal →</a>
+    </div>
+
+    <div class="reveal-stage" aria-label="Scroll animated floor plan rising into a 3D home">
+      <div class="plan-scene" id="planScene">
+        <div class="slab"></div>
+        <div class="room kitchen" data-room="Kitchen"></div>
+        <div class="room bath" data-room="Bath"></div>
+        <div class="room suite" data-room="Suite"></div>
+        <div class="room living" data-room="Living"></div>
+        <div class="room outdoor" data-room="Outdoor"></div>
+
+        <div class="wall x" data-wall="front"></div>
+        <div class="wall x" data-wall="back"></div>
+        <div class="wall y" data-wall="left"></div>
+        <div class="wall y" data-wall="right"></div>
+        <div class="wall y" data-wall="mid1"></div>
+        <div class="wall y" data-wall="mid2"></div>
+        <div class="wall y" data-wall="mid3"></div>
+        <div class="wall x" data-wall="split"></div>
+
+        <div class="window w1"></div>
+        <div class="window w2"></div>
+        <div class="window w3"></div>
+        <div class="door"></div>
+        <div class="roof"></div>
+
+        <div class="dimension d1">48' plan width</div>
+        <div class="dimension d2">62' build depth</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="phase-strip" aria-hidden="true">
+    <span>01 Plan</span>
+    <span>02 Walls</span>
+    <span>03 Tilt</span>
+    <span>04 Roof</span>
+    <span>05 Home</span>
+  </div>
+
+  <section class="story" id="story">
+    <div class="eyebrow">Why This Direction Works</div>
+    <h2 class="section-title">A cleaner signature than the old <span class="serif">wireframe aura.</span></h2>
+    <div class="proof-grid">
+      <article class="proof">
+        <div class="num">01 · RECOGNIZABLE FIRST</div>
+        <h3>It starts as a real plan.</h3>
+        <p>The old house felt generic. A labeled floor plan immediately says architecture, drawings, permits, and build intent.</p>
+      </article>
+      <article class="proof">
+        <div class="num">02 · PREMIUM MOTION</div>
+        <h3>One dramatic reveal.</h3>
+        <p>NewBuild already handles phase-by-phase assembly. This prototype is shorter and more cinematic: plan rises into home.</p>
+      </article>
+      <article class="proof">
+        <div class="num">03 · OPC POSITIONING</div>
+        <h3>Plan and build stay connected.</h3>
+        <p>The visual says OPC does not just decorate the finish. The builder understands the drawing before the walls exist.</p>
+      </article>
+    </div>
+
+    <div class="photo-band">
+      <div class="copy">
+        <small>Real OPC build context</small>
+        <h3>From permitted plan to finished structure.</h3>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="cta">
+    <h2>Use this as the new <span class="serif">signature</span> house reveal.</h2>
+    <p>If approved, this replaces the current Wireframe House Aura direction and becomes the design language for blueprint-to-build storytelling.</p>
+    <a href="wireframe-house-aura.html">Compare Old 03 →</a>
+  </section>
+</main>
+
+<footer>
+  <div>OPC DESIGN LAB · HOUSE 16</div>
+  <div>APPROVED DIRECTION: FLOOR PLAN → 3D REVEAL</div>
+</footer>
+
+<script>
+  const scene = document.getElementById('planScene');
+  const walls = [...document.querySelectorAll('.wall')];
+  const roof = document.querySelector('.roof');
+  const windows = [...document.querySelectorAll('.window, .door')];
+  const rooms = [...document.querySelectorAll('.room')];
+  const dims = [...document.querySelectorAll('.dimension')];
+  const chips = [...document.querySelectorAll('.phase-strip span')];
+
+  function clamp(value, min, max) {
+    return Math.min(max, Math.max(min, value));
+  }
+
+  function updateReveal() {
+    const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    const progress = clamp(window.scrollY / maxScroll, 0, 1);
+    const wallProgress = clamp((progress - 0.12) / 0.3, 0, 1);
+    const tiltProgress = clamp((progress - 0.28) / 0.34, 0, 1);
+    const roofProgress = clamp((progress - 0.54) / 0.26, 0, 1);
+    const finishProgress = clamp((progress - 0.74) / 0.2, 0, 1);
+
+    const rotateX = 72 - tiltProgress * 20;
+    const rotateZ = -28 + tiltProgress * 10;
+    const translateY = 10 - tiltProgress * 26;
+    scene.style.transform = `rotateX(${rotateX}deg) rotateZ(${rotateZ}deg) translateY(${translateY}px)`;
+
+    scene.style.setProperty('--rise', String(1 + wallProgress * 10));
+    scene.style.setProperty('--roofOpacity', String(roofProgress));
+    scene.style.setProperty('--roofZ', `${70 + roofProgress * 118}px`);
+    scene.style.setProperty('--roofY', `${-120 + roofProgress * 82}px`);
+    scene.style.setProperty('--roofScale', String(0.88 + roofProgress * 0.12));
+    scene.style.setProperty('--windowZ', `${35 + finishProgress * 104}px`);
+    scene.style.setProperty('--windowOpacity', String(finishProgress));
+    scene.style.setProperty('--dimOpacity', String(1 - wallProgress * 0.9));
+
+    walls.forEach((wall, index) => {
+      const stagger = clamp((wallProgress * 1.25) - index * 0.035, 0, 1);
+      wall.style.opacity = String(0.18 + stagger * 0.82);
+    });
+    rooms.forEach((room) => {
+      room.style.opacity = String(1 - finishProgress * 0.48);
+      room.style.borderColor = `rgba(0,212,255,${0.82 - finishProgress * 0.32})`;
+    });
+    roof.style.filter = `drop-shadow(0 0 ${12 + finishProgress * 18}px rgba(203,204,16,${0.08 + finishProgress * 0.14}))`;
+    windows.forEach((item) => item.style.boxShadow = `0 0 ${18 + finishProgress * 22}px rgba(0,212,255,${0.18 + finishProgress * 0.18})`);
+    dims.forEach((dim) => dim.style.opacity = String(1 - wallProgress * 0.92));
+
+    const active = progress < 0.18 ? 0 : progress < 0.4 ? 1 : progress < 0.58 ? 2 : progress < 0.78 ? 3 : 4;
+    chips.forEach((chip, index) => chip.classList.toggle('active', index === active));
+  }
+
+  window.addEventListener('scroll', updateReveal, { passive: true });
+  window.addEventListener('resize', updateReveal);
+  updateReveal();
+</script>
+</body>
+</html>

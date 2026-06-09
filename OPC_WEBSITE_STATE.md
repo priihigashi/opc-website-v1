@@ -17,7 +17,7 @@ Last updated: **2026-06-09**
 
 - Lab phase — prototypes in `/prototypes/`, all `noindex,nofollow`. Production pages (root, services/*) are also live but not the final design.
 - Settling on a hero / cursor / 3D vocabulary by comparing prototypes side-by-side (LAB banner on every page lets you jump between them).
-- **Open right now:** build the approved Bathroom 3D replacement first, then the approved Wireframe House Aura replacement.
+- **Open right now:** review Bathroom Waterproofing Wall Section (15) and Floor Plan → 3D Reveal (16), then decide which replaces old Bathroom 09 and old Wireframe 03 in production.
 
 ---
 
@@ -42,8 +42,9 @@ Last updated: **2026-06-09**
 | 13 | Project Gallery Split | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/prototypes/project-gallery-split.html) |
 | 14 | Background Swap Component | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/prototypes/background-swap.html) |
 | 15 | Bathroom · Waterproofing Wall Section | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/prototypes/bathroom-waterproofing-section.html) |
+| 16 | Floor Plan → 3D Reveal | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/prototypes/floor-plan-3d-reveal.html) |
 
-Lab banner cache-bust: **?v=8** (bump to ?v=9 on next page added)
+Lab banner cache-bust: **?v=9** (bump to ?v=10 on next page added)
 
 ---
 
@@ -145,6 +146,7 @@ Drive Inspiration folder: `1ae7n4VwSZbu0_nt6nUX5WeLINGqYJ-CZ`
 ## 📝 ACTIVITY LOG (auto-appended by `/opc-website` skill after every report-back)
 
 - **2026-06-09** — Combined-lumen-vision + combined-gold-glow: tuned lime/gold ambient gradient softer (spread 80vw→110vw, blur 40→80px, opacity 0.07→0.035), added PARTICLE cursor mode (glowing dot + 8-particle trail) alongside RING mode, RING/PARTICLE toggle bottom-left with localStorage persistence. Gold variant re-synced from lime base.
+- **2026-06-09** — Built Floor Plan → 3D Reveal (16): approved House A replacement, CSS 3D floor plan with rising walls, camera tilt, roof drop-in, windows/door finish, and real OPC new-build photo context; lab/index/tracker cache-bust synced to `?v=9`.
 - **2026-06-09** — Built Bathroom Waterproofing Wall Section (15): approved Bathroom A replacement, CSS 3D cut-away layers (framing → cement board → membrane → mortar → tile → grout), real bath photos, lab/index/tracker cache-bust synced to `?v=8`.
 - **2026-06-09** — Audited Claude visual-direction memo: approved Bathroom A (Tile + Waterproofing Wall Section), approved House A (Floor Plan → 3D Reveal), rejected `gbaMbOR` + `GgjRbMq` for OPC production, assigned `KKbWGNZ` to Renovation/interior 3D.
 - **2026-06-09** — Built Contact Atmosphere (12), Project Gallery Split (13), and Background Swap Component (14); lab banner/index/state cache-bust synced to `?v=7`. Claude delegated Bathroom 3D + Wireframe House Aura direction memo before rebuild.

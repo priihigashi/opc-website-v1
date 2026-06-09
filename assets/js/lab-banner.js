@@ -86,6 +86,7 @@
       <a href="${base}prototypes/project-gallery-split.html">13 Gallery</a>
       <a href="${base}prototypes/background-swap.html">14 BG Swap</a>
       <a href="${base}prototypes/bathroom-waterproofing-section.html">15 Bath Wall</a>
+      <a href="${base}prototypes/floor-plan-3d-reveal.html">16 Plan→3D</a>
     </div>
     <span class="opc-close" id="opc-close-btn">✕</span>
   `;
