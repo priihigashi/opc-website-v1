@@ -3,66 +3,324 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About Oak Park Construction — Licensed South Florida Contractor</title>
-<meta name="description" content="Oak Park Construction is a Florida licensed contractor, CBC1263425, serving Broward, Palm Beach, and Miami-Dade with renovations, additions, stucco, concrete, kitchens, baths, and outdoor living.">
+<title>About Oak Park Construction — Who Builds Your Home Matters</title>
+<meta name="description" content="Florida licensed contractor CBC1263425 serving Broward, Palm Beach, and Miami-Dade. Custom homes, renovations, kitchens, baths, additions, outdoor living. Built on accountability.">
+<link rel="canonical" href="https://priihigashi.github.io/opc-website-v1/about.html">
+<meta property="og:title" content="About Oak Park Construction — South Florida Builders">
+<meta property="og:description" content="Licensed Florida contractor CBC1263425. Broward, Palm Beach, Miami-Dade.">
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "mainEntity": {
+    "@type": "LocalBusiness",
+    "name": "Oak Park Construction",
+    "url": "https://priihigashi.github.io/opc-website-v1/",
+    "telephone": "+1-954-258-6769",
+    "email": "priscila@oakpark-construction.com",
+    "hasCredential": "Florida contractor license CBC1263425",
+    "areaServed": ["Broward County", "Palm Beach County", "Miami-Dade County"],
+    "description": "South Florida licensed contractor. Custom homes, renovations, additions, kitchens, baths, stucco, concrete, outdoor living."
+  }
+}
+</script>
 <style>
-:root { --obsidian: #0A0A0A; --cream: #F0EBE3; --lime: #CBCC10; --walnut: #5B3C1F; --white: #FFFFFF; }
+:root { --obsidian: #0A0A0A; --cream: #F0EBE3; --lime: #CBCC10; --walnut: #5B3C1F; --stone: #F5F5F5; --white: #FFFFFF; --blueprint: #4A90E2; }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Roboto Condensed', sans-serif; color: var(--obsidian); background: var(--cream); line-height: 1.5; }
-h1, h2, h3 { font-family: 'Anton', sans-serif; letter-spacing: 1px; line-height: 1.1; font-weight: 400; text-transform: uppercase; }
-a { color: inherit; }
-.hero { min-height: 70vh; background: var(--obsidian); color: var(--cream); padding: 24px 40px 80px; display: flex; flex-direction: column; justify-content: space-between; }
-.nav { display: flex; justify-content: space-between; align-items: center; gap: 24px; }
-.logo { font-family: 'Anton', sans-serif; letter-spacing: 2px; text-decoration: none; }
-.lime { color: var(--lime); }
-.nav a { color: var(--cream); text-decoration: none; text-transform: uppercase; letter-spacing: 1px; font-size: 13px; }
-.hero h1 { font-size: clamp(52px, 10vw, 120px); max-width: 1050px; margin-top: 80px; }
-.hero p { max-width: 680px; font-size: 20px; margin-top: 24px; color: #d8d0c3; }
-.section { padding: 80px 40px; }
-.container { max-width: 1120px; margin: 0 auto; }
-.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px; }
-.card { background: var(--white); border-left: 6px solid var(--lime); padding: 28px; min-height: 180px; }
-.card h3 { font-size: 24px; margin-bottom: 12px; }
-.cta { background: var(--lime); padding: 72px 40px; }
-.btn { display: inline-block; background: var(--obsidian); color: var(--lime); padding: 18px 30px; margin-top: 24px; font-family: 'Anton', sans-serif; letter-spacing: 2px; text-decoration: none; }
-footer { background: var(--obsidian); color: var(--cream); padding: 40px; font-size: 14px; }
-@media (max-width: 768px) { .grid { grid-template-columns: 1fr; } .hero, .section, .cta { padding-left: 20px; padding-right: 20px; } }
+body { font-family: 'Roboto Condensed', sans-serif; color: var(--obsidian); background: var(--white); line-height: 1.5; }
+h1, h2, h3, h4 { font-family: 'Anton', sans-serif; letter-spacing: 1px; line-height: 1.1; font-weight: 400; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; height: auto; }
+
+/* === HERO === */
+.hero { position: relative; min-height: 90vh; background: var(--obsidian); overflow: hidden; display: flex; flex-direction: column; }
+.hero-bg { position: absolute; inset: 0; z-index: 0; background: url('assets/img/remodel-broward-1.jpg') center/cover; filter: brightness(0.4) saturate(0.7) contrast(1.05); }
+.hero-overlay { position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(135deg, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0.4) 50%, rgba(10,10,10,0.95) 100%); }
+.hero-nav { position: relative; z-index: 2; padding: 24px 40px; display: flex; justify-content: space-between; align-items: center; }
+.hero-nav .logo { font-family: 'Anton', sans-serif; font-size: 18px; color: var(--cream); letter-spacing: 2px; }
+.hero-nav .logo .lime { color: var(--lime); }
+.hero-nav .nav-links { display: flex; gap: 32px; }
+.hero-nav .nav-links a { color: var(--cream); font-size: 13px; letter-spacing: 1px; text-transform: uppercase; }
+.hero-nav .nav-links a:hover { color: var(--lime); }
+.hero-content { position: relative; z-index: 2; flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 60px 40px; max-width: 1400px; }
+.eyebrow { font-family: 'Anton', sans-serif; font-size: 14px; letter-spacing: 4px; color: var(--lime); text-transform: uppercase; margin-bottom: 24px; }
+.hero h1 { font-size: clamp(56px, 9vw, 120px); color: var(--cream); text-transform: uppercase; max-width: 1100px; margin-bottom: 32px; }
+.hero h1 .accent { color: var(--lime); }
+.hero p.lead { font-size: clamp(18px, 2vw, 22px); color: #d8d0c3; max-width: 720px; line-height: 1.5; }
+.hero-meta { position: absolute; bottom: 40px; left: 40px; right: 40px; z-index: 2;
+  display: flex; gap: 48px; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; }
+.hero-meta .stat { color: var(--cream); }
+.hero-meta .stat .num { font-family: 'Anton', sans-serif; font-size: 56px; color: var(--lime); line-height: 1; }
+.hero-meta .stat .label { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; margin-top: 8px; color: #b8b0a3; }
+
+/* === FOUNDER === */
+.founder { background: var(--cream); padding: 120px 40px; }
+.founder-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.3fr; gap: 80px; align-items: center; }
+.founder-img-wrap { position: relative; aspect-ratio: 4/5; overflow: hidden; background: var(--obsidian); }
+.founder-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.founder-img-wrap::after { content: ""; position: absolute; bottom: -16px; right: -16px; width: 60%; height: 60%; border: 4px solid var(--lime); z-index: -1; }
+.founder-content .section-label { font-family: 'Anton', sans-serif; font-size: 14px; letter-spacing: 3px; color: var(--lime); text-transform: uppercase; margin-bottom: 16px; }
+.founder-content h2 { font-size: clamp(36px, 5vw, 64px); text-transform: uppercase; margin-bottom: 32px; max-width: 600px; }
+.founder-content p { font-size: 17px; line-height: 1.7; margin-bottom: 18px; max-width: 580px; color: #2a2a2a; }
+.founder-quote { font-family: 'Anton', sans-serif; font-size: clamp(24px, 3vw, 36px); line-height: 1.25; text-transform: uppercase; padding: 32px 0; border-top: 2px solid var(--obsidian); border-bottom: 2px solid var(--obsidian); margin: 32px 0; max-width: 700px; }
+.founder-quote .accent { color: var(--walnut); }
+.founder-byline { font-size: 13px; letter-spacing: 2px; color: var(--walnut); text-transform: uppercase; }
+
+/* === BELIEFS === */
+.beliefs { background: var(--obsidian); color: var(--cream); padding: 120px 40px; }
+.beliefs .container { max-width: 1400px; margin: 0 auto; }
+.beliefs .section-label { font-family: 'Anton', sans-serif; font-size: 14px; letter-spacing: 3px; color: var(--lime); text-transform: uppercase; margin-bottom: 16px; }
+.beliefs h2 { font-size: clamp(36px, 6vw, 72px); text-transform: uppercase; margin-bottom: 64px; max-width: 900px; }
+.beliefs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; }
+.belief { border-top: 2px solid var(--lime); padding-top: 24px; }
+.belief .num { font-family: 'Anton', sans-serif; font-size: 14px; letter-spacing: 3px; color: var(--lime); margin-bottom: 16px; }
+.belief h3 { font-size: 28px; color: var(--cream); margin-bottom: 16px; text-transform: uppercase; }
+.belief p { color: #a8a098; font-size: 15px; line-height: 1.7; }
+
+/* === FOOTPRINT === */
+.footprint { background: var(--cream); padding: 120px 40px; position: relative; overflow: hidden; }
+.footprint::before {
+  content: ""; position: absolute; inset: 0; opacity: 0.25;
+  background-image:
+    linear-gradient(rgba(74,144,226,0.4) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(74,144,226,0.4) 1px, transparent 1px);
+  background-size: 40px 40px; pointer-events: none;
+}
+.footprint .container { position: relative; z-index: 1; max-width: 1400px; margin: 0 auto; }
+.footprint .section-label { font-family: 'Anton', sans-serif; font-size: 14px; letter-spacing: 3px; color: var(--blueprint); text-transform: uppercase; margin-bottom: 16px; }
+.footprint h2 { font-size: clamp(36px, 5vw, 64px); text-transform: uppercase; margin-bottom: 48px; max-width: 800px; }
+.counties { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.county-card { background: var(--white); border: 2px solid var(--obsidian); padding: 32px; position: relative; }
+.county-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--lime); }
+.county-card h3 { font-size: 28px; text-transform: uppercase; margin-bottom: 12px; }
+.county-card .cities { font-size: 14px; color: var(--walnut); line-height: 1.7; }
+.county-card .meta { font-family: 'Courier New', monospace; font-size: 11px; color: var(--blueprint); letter-spacing: 2px; margin-top: 16px; padding-top: 16px; border-top: 1px solid #ddd; }
+
+/* === SERVICES === */
+.services-overview { background: var(--white); padding: 120px 40px; }
+.services-overview .container { max-width: 1400px; margin: 0 auto; }
+.services-overview .section-label { font-family: 'Anton', sans-serif; font-size: 14px; letter-spacing: 3px; color: var(--lime); text-transform: uppercase; margin-bottom: 16px; }
+.services-overview h2 { font-size: clamp(36px, 5vw, 56px); text-transform: uppercase; margin-bottom: 64px; max-width: 700px; }
+.svc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+.svc { position: relative; aspect-ratio: 3/4; overflow: hidden; }
+.svc img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.7); transition: filter 0.4s, transform 0.5s; }
+.svc:hover img { filter: brightness(0.95); transform: scale(1.05); }
+.svc .name { position: absolute; bottom: 16px; left: 16px; right: 16px; color: var(--cream); font-family: 'Anton', sans-serif; font-size: 18px; text-transform: uppercase; letter-spacing: 1px; }
+
+/* === CREDENTIALS === */
+.credentials { background: var(--obsidian); color: var(--cream); padding: 80px 40px; }
+.credentials .container { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 64px; align-items: center; }
+.credentials .label { font-family: 'Anton', sans-serif; color: var(--lime); font-size: 14px; letter-spacing: 3px; text-transform: uppercase; }
+.credentials h2 { font-size: clamp(32px, 4vw, 48px); text-transform: uppercase; margin-top: 16px; }
+.cred-list { font-family: 'Courier New', monospace; font-size: 14px; line-height: 2.2; color: #d8d0c3; }
+.cred-list strong { color: var(--lime); }
+
+/* === CTA === */
+.cta-final { background: var(--lime); padding: 120px 40px; }
+.cta-final .container { max-width: 1100px; margin: 0 auto; text-align: center; }
+.cta-final h2 { font-size: clamp(40px, 7vw, 88px); text-transform: uppercase; margin-bottom: 24px; }
+.cta-final p { font-size: 20px; max-width: 600px; margin: 0 auto 40px; }
+.btn { display: inline-block; background: var(--obsidian); color: var(--lime); padding: 22px 40px; font-family: 'Anton', sans-serif; font-size: 18px; letter-spacing: 2px; margin: 8px; }
+.btn-outline { background: transparent; color: var(--obsidian); border: 2px solid var(--obsidian); }
+
+/* === FOOTER === */
+footer { background: var(--obsidian); color: var(--cream); padding: 64px 40px 32px; }
+footer .footer-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; align-items: start; }
+footer .wordmark { font-family: 'Anton', sans-serif; font-size: 32px; letter-spacing: 3px; border-bottom: 4px solid var(--lime); padding-bottom: 8px; display: inline-block; }
+footer .license-line { font-family: 'Courier New', monospace; font-size: 12px; color: var(--lime); margin-top: 16px; }
+footer .col h4 { font-family: 'Anton', sans-serif; font-size: 12px; letter-spacing: 3px; color: var(--lime); margin-bottom: 16px; }
+footer .col a { color: var(--cream); display: block; padding: 6px 0; font-size: 14px; }
+footer .col a:hover { color: var(--lime); }
+footer .copyright { text-align: center; margin-top: 48px; padding-top: 24px; border-top: 1px solid #222; font-size: 11px; color: #555; }
+
+.sticky-cta { display: none; position: fixed; bottom: 16px; right: 16px; background: var(--obsidian); color: var(--lime); padding: 14px 22px; border-radius: 999px; font-family: 'Anton', sans-serif; font-size: 16px; letter-spacing: 1px; z-index: 1000; box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+
+@media (max-width: 900px) {
+  .founder-grid, .credentials .container { grid-template-columns: 1fr; gap: 40px; }
+  .beliefs-grid { grid-template-columns: 1fr; gap: 32px; }
+  .counties { grid-template-columns: 1fr; }
+  .svc-grid { grid-template-columns: repeat(2, 1fr); }
+  .sticky-cta { display: inline-block; }
+  .hero-nav { padding: 16px 20px; }
+  .hero-nav .nav-links { display: none; }
+  .hero-content { padding: 40px 20px; }
+  .hero-meta { position: relative; flex-direction: column; gap: 24px; padding: 32px 20px 0; margin-top: 40px; }
+  footer .footer-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
+
 <header class="hero">
-  <nav class="nav">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <nav class="hero-nav">
     <a href="index.html" class="logo">OAK PARK <span class="lime">CONSTRUCTION</span></a>
-    <a href="index.html">← Home</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#what-we-do">Services</a>
+      <a href="index.html#projects">Projects</a>
+      <a href="about.html">About</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
   </nav>
-  <div>
-    <h1>Licensed. Local. Built around accountability.</h1>
-    <p>Oak Park Construction serves Broward, Palm Beach, and Miami-Dade with custom homes, renovations, additions, stucco, concrete, kitchens, baths, and outdoor living. Florida contractor license CBC1263425.</p>
+  <div class="hero-content">
+    <div class="eyebrow">About OPC</div>
+    <h1>The builder<br>matters as much as<br><span class="accent">the building.</span></h1>
+    <p class="lead">Oak Park Construction is a licensed Florida contractor based in Broward County. We build custom homes and renovations across South Florida — and we treat your project the way we'd treat ours.</p>
+  </div>
+  <div class="hero-meta">
+    <div class="stat"><div class="num">3</div><div class="label">Counties Served</div></div>
+    <div class="stat"><div class="num">10</div><div class="label">Service Categories</div></div>
+    <div class="stat"><div class="num">FL</div><div class="label">Licensed CBC1263425</div></div>
+    <div class="stat"><div class="num">100%</div><div class="label">Direct Owner Communication</div></div>
   </div>
 </header>
 
-<section class="section">
-  <div class="container">
-    <h2>What matters before we build.</h2>
-    <div class="grid">
-      <div class="card"><h3>Clear scope</h3><p>Every project starts with the problem, the permit path, the timeline, and the decision points that can change cost.</p></div>
-      <div class="card"><h3>Florida conditions</h3><p>Stucco, concrete, additions, and outdoor spaces are planned for South Florida sun, moisture, wind, and inspection realities.</p></div>
-      <div class="card"><h3>Direct updates</h3><p>Clients need to know what happened, what is next, and when decisions are needed. The process is built around that rhythm.</p></div>
+<section class="founder">
+  <div class="founder-grid">
+    <div class="founder-img-wrap">
+      <img src="assets/img/full-remodel-1.jpg" alt="Oak Park Construction project — full home remodel in Broward County">
+    </div>
+    <div class="founder-content">
+      <div class="section-label">Who Builds It</div>
+      <h2>Built around how you'd want your own home built.</h2>
+      <p>Construction is a relationship business. The difference between a great project and a stressful one usually isn't the materials or the design — it's whether someone is actually paying attention every day, returning your calls, and treating your investment like it matters.</p>
+      <p>That's what Oak Park Construction was built around. We're a licensed Florida contractor (CBC1263425) serving Broward, Palm Beach, and Miami-Dade. We handle custom new builds, full home renovations, kitchens, bathrooms, additions, stucco, concrete, and outdoor living spaces.</p>
+      <p>We're hands-on. The owner is on every project. You get direct communication, daily progress photos, and a real answer when you call.</p>
+      <div class="founder-quote">
+        "If we wouldn't accept it<br>on <span class="accent">our own home,</span><br>it doesn't leave the site."
+      </div>
+      <div class="founder-byline">— OAK PARK CONSTRUCTION · CBC1263425</div>
     </div>
   </div>
 </section>
 
-<section class="cta" id="contact">
+<section class="beliefs">
   <div class="container">
-    <h2>Talk through the project.</h2>
-    <p>Call Oak Park Construction for a first conversation about scope, timeline, permits, and next steps.</p>
+    <div class="section-label">What We Believe</div>
+    <h2>Three things that don't change<br>from project to project.</h2>
+    <div class="beliefs-grid">
+      <div class="belief">
+        <div class="num">01</div>
+        <h3>Daily transparency</h3>
+        <p>Photos and updates straight to your phone. You always know what's happening on site, what was decided, and what's next. No mystery between phone calls.</p>
+      </div>
+      <div class="belief">
+        <div class="num">02</div>
+        <h3>Florida-tested</h3>
+        <p>Hurricane code, salt air, humidity, building department realities — we plan around them, not around them when they show up. Every detail is built for the climate.</p>
+      </div>
+      <div class="belief">
+        <div class="num">03</div>
+        <h3>One point of contact</h3>
+        <p>You don't get passed between project managers, schedulers, and salespeople. One direct line for your project. Calls returned same day.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="footprint">
+  <div class="container">
+    <div class="section-label">Where We Build</div>
+    <h2>Three counties.<br>The full South Florida footprint.</h2>
+    <div class="counties">
+      <div class="county-card">
+        <h3>Broward</h3>
+        <div class="cities">Fort Lauderdale · Coral Springs · Parkland · Pompano Beach · Plantation · Davie · Hollywood · Weston</div>
+        <div class="meta">PRIMARY · BASE OF OPERATIONS</div>
+      </div>
+      <div class="county-card">
+        <h3>Palm Beach</h3>
+        <div class="cities">Boca Raton · Delray Beach · Boynton Beach · West Palm Beach · Wellington · Jupiter</div>
+        <div class="meta">FULL SERVICE</div>
+      </div>
+      <div class="county-card">
+        <h3>Miami-Dade</h3>
+        <div class="cities">Aventura · Miami · Coral Gables · Doral · Miami Beach · Pinecrest · Sunny Isles</div>
+        <div class="meta">FULL SERVICE</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services-overview">
+  <div class="container">
+    <div class="section-label">Capabilities</div>
+    <h2>Ten services. One licensed team.</h2>
+    <div class="svc-grid">
+      <a href="services/stucco.html" class="svc"><img src="assets/img/exterior-1.jpg" alt="Stucco"><div class="name">Stucco</div></a>
+      <a href="services/concrete.html" class="svc"><img src="assets/img/concrete-landscape-1.jpg" alt="Concrete"><div class="name">Concrete</div></a>
+      <a href="services/kitchen.html" class="svc"><img src="assets/img/kitchen-5.jpg" alt="Kitchen"><div class="name">Kitchen</div></a>
+      <a href="services/bath.html" class="svc"><img src="assets/img/kitchen-3.jpg" alt="Bathroom"><div class="name">Bathroom</div></a>
+      <a href="services/renovation.html" class="svc"><img src="assets/img/full-remodel-2.jpg" alt="Full renovation"><div class="name">Full Renovation</div></a>
+      <a href="services/new-construction.html" class="svc"><img src="assets/img/remodel-broward-1.jpg" alt="New construction"><div class="name">New Construction</div></a>
+      <a href="services/additions.html" class="svc"><img src="assets/img/addition-1.jpg" alt="Additions"><div class="name">Additions</div></a>
+      <a href="services/outdoor.html" class="svc"><img src="assets/img/outdoor-1.jpg" alt="Outdoor"><div class="name">Outdoor Living</div></a>
+    </div>
+  </div>
+</section>
+
+<section class="credentials">
+  <div class="container">
+    <div>
+      <div class="label">Credentials</div>
+      <h2>Licensed,<br>insured,<br>accountable.</h2>
+    </div>
+    <div class="cred-list">
+      <strong>State License:</strong> CBC1263425 (Florida Certified Building Contractor)<br>
+      <strong>Insurance:</strong> General Liability + Workers' Comp<br>
+      <strong>Service Area:</strong> Broward · Palm Beach · Miami-Dade<br>
+      <strong>Permitting:</strong> Direct experience across South Florida municipalities<br>
+      <strong>Categories:</strong> Custom Homes · Renovation · Stucco · Concrete · Kitchens · Baths · Additions · Outdoor Living · Decks<br>
+      <strong>Contact:</strong> priscila@oakpark-construction.com · (954) 258-6769
+    </div>
+  </div>
+</section>
+
+<section class="cta-final">
+  <div class="container">
+    <h2>Start the conversation.</h2>
+    <p>15 minutes on the phone tells us — and you — whether OPC is the right fit for what you're building.</p>
     <a href="tel:9542586769" class="btn">CALL (954) 258-6769</a>
+    <a href="index.html#contact" class="btn btn-outline">REQUEST A QUOTE</a>
   </div>
 </section>
 
 <footer>
-  <p>FL CBC1263425 · Insured · Broward · Palm Beach · Miami-Dade</p>
+  <div class="footer-grid">
+    <div>
+      <div class="wordmark">OAK PARK CONSTRUCTION</div>
+      <p class="license-line">FL CBC1263425 · INSURED · BROWARD · PALM BEACH · MIAMI-DADE</p>
+    </div>
+    <div class="col">
+      <h4>SERVICES</h4>
+      <a href="services/stucco.html">Stucco</a>
+      <a href="services/concrete.html">Concrete</a>
+      <a href="services/kitchen.html">Kitchen</a>
+      <a href="services/bath.html">Bathroom</a>
+      <a href="services/renovation.html">Renovation</a>
+      <a href="services/outdoor.html">Outdoor</a>
+    </div>
+    <div class="col">
+      <h4>COMPANY</h4>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="index.html#projects">Projects</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+    <div class="col">
+      <h4>CONTACT</h4>
+      <a href="tel:9542586769">(954) 258-6769</a>
+      <a href="mailto:priscila@oakpark-construction.com">Email</a>
+    </div>
+  </div>
+  <p class="copyright">© 2026 Oak Park Construction. All rights reserved.</p>
 </footer>
+
+<a href="tel:9542586769" class="sticky-cta">📞 (954) 258-6769</a>
+
 </body>
 </html>
