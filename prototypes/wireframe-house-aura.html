@@ -236,16 +236,16 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setClearColor(0x000000, 0);
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.1;
+renderer.toneMappingExposure = 0.95;
 
-// === POST-PROCESSING: UnrealBloom — the missing intense halo ===
+// === POST-PROCESSING: UnrealBloom (restrained — subject must remain visible) ===
 const composer = new EffectComposer(renderer);
 composer.addPass(new RenderPass(scene, camera));
 const bloomPass = new UnrealBloomPass(
   new THREE.Vector2(window.innerWidth, window.innerHeight),
-  1.4,   // strength — washes light into bg
-  0.6,   // radius — soft falloff
-  0.12   // threshold — only bright pixels bloom
+  0.55,  // strength — soft halo, no wash
+  0.45,  // radius — tight falloff
+  0.55   // threshold — only the BRIGHTEST pixels bloom (rings + stars only)
 );
 composer.addPass(bloomPass);
 composer.addPass(new OutputPass());
@@ -441,9 +441,9 @@ house.add(lineFrom([
 // Bright neon-tube rings — UnrealBloom will halo these into massive glow.
 // Colors way oversaturated on purpose so bloom blows them into light.
 function makeRing(color, radius, tubeRadius, tilt) {
-  const torusGeo = new THREE.TorusGeometry(radius, tubeRadius, 24, 140);
+  const torusGeo = new THREE.TorusGeometry(radius, tubeRadius, 16, 100);
   const mat = new THREE.MeshBasicMaterial({
-    color: color, transparent: true, opacity: 1, toneMapped: false
+    color: color, transparent: true, opacity: 0.55, toneMapped: false
   });
   const ring = new THREE.Mesh(torusGeo, mat);
   ring.rotation.x = tilt.x;
@@ -451,22 +451,164 @@ function makeRing(color, radius, tubeRadius, tilt) {
   ring.rotation.z = tilt.z;
   return ring;
 }
-// Brand-locked palette: cyan (allowed for blueprint), lime, walnut-amber, cream
-const ring1 = makeRing(0x00E0FF, 4.2, 0.06, { x: Math.PI/2, y: 0, z: 0 });          // electric cyan
-const ring2 = makeRing(0xE0E223, 4.5, 0.05, { x: Math.PI/2.3, y: 0.4, z: 0.3 });    // bright lime
-const ring3 = makeRing(0xFFCC66, 4.3, 0.045, { x: Math.PI/1.8, y: -0.3, z: -0.5 }); // warm amber (walnut tone bloomed)
+// Thinner rings, lower opacity — bloom adds halo without washing subject
+const ring1 = makeRing(0x00E0FF, 4.2, 0.025, { x: Math.PI/2, y: 0, z: 0 });          // electric cyan
+const ring2 = makeRing(0xE0E223, 4.5, 0.022, { x: Math.PI/2.3, y: 0.4, z: 0.3 });    // bright lime
+const ring3 = makeRing(0xFFCC66, 4.3, 0.020, { x: Math.PI/1.8, y: -0.3, z: -0.5 }); // warm amber
 house.add(ring1, ring2, ring3);
 
-// Bright endpoint "stars" on each ring (the white-hot points from the reference)
+// Endpoint stars — smaller so bloom doesn't blow out
 function makeStar(color, r) {
   const g = new THREE.SphereGeometry(r, 16, 16);
-  const m = new THREE.MeshBasicMaterial({ color, toneMapped: false });
+  const m = new THREE.MeshBasicMaterial({ color, toneMapped: false, transparent: true, opacity: 0.85 });
   return new THREE.Mesh(g, m);
 }
-const star1a = makeStar(0xFFFFFF, 0.08); star1a.position.set(4.2, 0, 0); ring1.add(star1a);
-const star1b = makeStar(0xFFFFFF, 0.06); star1b.position.set(-4.2, 0, 0); ring1.add(star1b);
-const star2  = makeStar(0xFFFFFF, 0.07); star2.position.set(0, 4.5, 0); ring2.add(star2);
-const star3  = makeStar(0xFFCC66, 0.07); star3.position.set(4.3, 0, 0); ring3.add(star3);
+const star1a = makeStar(0xFFFFFF, 0.045); star1a.position.set(4.2, 0, 0); ring1.add(star1a);
+const star1b = makeStar(0xFFFFFF, 0.035); star1b.position.set(-4.2, 0, 0); ring1.add(star1b);
+const star2  = makeStar(0xFFFFFF, 0.040); star2.position.set(0, 4.5, 0); ring2.add(star2);
+const star3  = makeStar(0xFFCC66, 0.040); star3.position.set(4.3, 0, 0); ring3.add(star3);
+
+// ============================================================
+// === SOLID 3D HOUSE — fades in at deep scroll (replaces flat photo morph)
+// ============================================================
+const solidHouse = new THREE.Group();
+solidHouse.position.copy(house.position);
+scene.add(solidHouse);
+
+// Lights ONLY affect solid (lines use basic materials, no lighting needed)
+const keyLight = new THREE.DirectionalLight(0xFFF4DC, 1.4);
+keyLight.position.set(6, 8, 5);
+scene.add(keyLight);
+const fillLight = new THREE.DirectionalLight(0xCBCC10, 0.25);
+fillLight.position.set(-5, 3, -4);
+scene.add(fillLight);
+const ambientLight = new THREE.AmbientLight(0xF0EBE3, 0.55);
+scene.add(ambientLight);
+
+// Materials — OPC palette
+const wallMat = new THREE.MeshStandardMaterial({
+  color: 0xF0EBE3, roughness: 0.85, metalness: 0.0,
+  transparent: true, opacity: 0
+});
+const trimMat = new THREE.MeshStandardMaterial({
+  color: 0xE5DFD2, roughness: 0.7, metalness: 0.0,
+  transparent: true, opacity: 0
+});
+const roofMat = new THREE.MeshStandardMaterial({
+  color: 0x2A1F18, roughness: 0.6, metalness: 0.1,
+  transparent: true, opacity: 0
+});
+const doorMat = new THREE.MeshStandardMaterial({
+  color: 0x8B5A2B, roughness: 0.55, metalness: 0.05,
+  transparent: true, opacity: 0
+});
+const windowMat = new THREE.MeshStandardMaterial({
+  color: 0x1A2F3F, roughness: 0.1, metalness: 0.85,
+  transparent: true, opacity: 0, emissive: 0x0A1520, emissiveIntensity: 0.3
+});
+const limeMat = new THREE.MeshStandardMaterial({
+  color: 0xCBCC10, roughness: 0.35, metalness: 0.2,
+  transparent: true, opacity: 0, emissive: 0xCBCC10, emissiveIntensity: 0.2
+});
+
+const solidMats = [wallMat, trimMat, roofMat, doorMat, windowMat, limeMat];
+
+// Body — main volume (slightly inset so wireframe lines show edges)
+const bodyMesh = new THREE.Mesh(new THREE.BoxGeometry(W - 0.01, H - 0.01, D - 0.01), wallMat);
+solidHouse.add(bodyMesh);
+
+// Foundation slab
+const foundMesh = new THREE.Mesh(new THREE.BoxGeometry(W + 0.4, 0.2, D + 0.4), trimMat);
+foundMesh.position.y = foundationY;
+solidHouse.add(foundMesh);
+
+// Floor band trim
+const floorBand = new THREE.Mesh(new THREE.BoxGeometry(W + 0.02, 0.06, D + 0.02), trimMat);
+floorBand.position.y = 0;
+solidHouse.add(floorBand);
+
+// Roof — two slopes meeting at ridge
+const roofGeo = new THREE.BufferGeometry();
+const roofVerts = new Float32Array([
+  // front slope (left half)
+  -W/2 - overhang, H/2 - 0.05, -D/2 - overhang,
+   0,              roofTop,    -D/2 - overhang,
+  -W/2 - overhang, H/2 - 0.05,  D/2 + overhang,
+   0,              roofTop,    -D/2 - overhang,
+   0,              roofTop,     D/2 + overhang,
+  -W/2 - overhang, H/2 - 0.05,  D/2 + overhang,
+  // right slope
+   0,              roofTop,    -D/2 - overhang,
+   W/2 + overhang, H/2 - 0.05, -D/2 - overhang,
+   0,              roofTop,     D/2 + overhang,
+   W/2 + overhang, H/2 - 0.05, -D/2 - overhang,
+   W/2 + overhang, H/2 - 0.05,  D/2 + overhang,
+   0,              roofTop,     D/2 + overhang,
+]);
+roofGeo.setAttribute('position', new THREE.BufferAttribute(roofVerts, 3));
+roofGeo.computeVertexNormals();
+const roofMesh = new THREE.Mesh(roofGeo, roofMat);
+solidHouse.add(roofMesh);
+
+// Gable fills (front + back triangles)
+function gableTri(zPos) {
+  const g = new THREE.BufferGeometry();
+  const v = new Float32Array([
+    -W/2, H/2 - 0.005, zPos,
+     W/2, H/2 - 0.005, zPos,
+     0,   roofTop - 0.005, zPos,
+  ]);
+  g.setAttribute('position', new THREE.BufferAttribute(v, 3));
+  g.computeVertexNormals();
+  return new THREE.Mesh(g, wallMat);
+}
+solidHouse.add(gableTri(-D/2));
+solidHouse.add(gableTri(D/2));
+
+// Door (solid) — walnut, with lime accent frame
+const doorPanel = new THREE.Mesh(new THREE.BoxGeometry(doorW, doorH, 0.05), doorMat);
+doorPanel.position.set(0, -H/2 + doorH/2, frontZ + 0.02);
+solidHouse.add(doorPanel);
+// Lime accent strip beside door (OPC signature)
+const limeStrip = new THREE.Mesh(new THREE.BoxGeometry(0.05, doorH * 0.9, 0.06), limeMat);
+limeStrip.position.set(doorW/2 + 0.08, -H/2 + doorH/2, frontZ + 0.02);
+solidHouse.add(limeStrip);
+
+// Windows — solid glass panels (front + back + sides)
+function windowPanel(cx, cy, cz, w, h, normal) {
+  // normal: 'front'(+z) 'back'(-z) 'right'(+x) 'left'(-x)
+  const isZ = normal === 'front' || normal === 'back';
+  const geo = isZ
+    ? new THREE.BoxGeometry(w, h, 0.04)
+    : new THREE.BoxGeometry(0.04, h, w);
+  const m = new THREE.Mesh(geo, windowMat);
+  if (normal === 'front')  m.position.set(cx, cy, cz + 0.02);
+  if (normal === 'back')   m.position.set(cx, cy, cz - 0.02);
+  if (normal === 'right')  m.position.set(cx + 0.02, cy, cz);
+  if (normal === 'left')   m.position.set(cx - 0.02, cy, cz);
+  return m;
+}
+// Front
+solidHouse.add(windowPanel(-1.5, -H/2 + 0.9, frontZ, 0.9, 0.9, 'front'));
+solidHouse.add(windowPanel( 1.5, -H/2 + 0.9, frontZ, 0.9, 0.9, 'front'));
+solidHouse.add(windowPanel(-1.7, H/2 - 0.7, frontZ, 0.7, 0.8, 'front'));
+solidHouse.add(windowPanel(-0.55, H/2 - 0.7, frontZ, 0.7, 0.8, 'front'));
+solidHouse.add(windowPanel( 0.55, H/2 - 0.7, frontZ, 0.7, 0.8, 'front'));
+solidHouse.add(windowPanel( 1.7, H/2 - 0.7, frontZ, 0.7, 0.8, 'front'));
+// Back
+solidHouse.add(windowPanel(-1.2, -H/2 + 0.9, D/2, 0.8, 0.9, 'back'));
+solidHouse.add(windowPanel( 1.2, -H/2 + 0.9, D/2, 0.8, 0.9, 'back'));
+solidHouse.add(windowPanel(-1.2, H/2 - 0.7, D/2, 0.7, 0.8, 'back'));
+solidHouse.add(windowPanel( 1.2, H/2 - 0.7, D/2, 0.7, 0.8, 'back'));
+// Sides
+solidHouse.add(windowPanel(sideX, -H/2 + 0.9, -0.7, 0.8, 0.9, 'right'));
+solidHouse.add(windowPanel(sideX, -H/2 + 0.9,  0.7, 0.8, 0.9, 'right'));
+solidHouse.add(windowPanel(sideX, H/2 - 0.7, -0.7, 0.7, 0.8, 'right'));
+solidHouse.add(windowPanel(sideX, H/2 - 0.7,  0.7, 0.7, 0.8, 'right'));
+solidHouse.add(windowPanel(-sideX, -H/2 + 0.9, -0.7, 0.8, 0.9, 'left'));
+solidHouse.add(windowPanel(-sideX, -H/2 + 0.9,  0.7, 0.8, 0.9, 'left'));
+solidHouse.add(windowPanel(-sideX, H/2 - 0.7, -0.7, 0.7, 0.8, 'left'));
+solidHouse.add(windowPanel(-sideX, H/2 - 0.7,  0.7, 0.7, 0.8, 'left'));
 
 // === PIXIE DUST PARTICLES ===
 const particleCount = 1500;
@@ -519,25 +661,31 @@ function animate() {
   // Diffuse bloom glow — same duration as sparkle, replaces the chunky size growth
   bloomGlow.style.opacity = sparkle * 0.85;
 
-  // House fades out as scroll progresses
-  const houseOpacity = 1 - Math.max(0, (scrollPct - 0.35) / 0.45);
-  house.traverse(obj => {
-    if (obj.material && obj.material.opacity !== undefined) {
-      // keep original opacity ratio
-      if (obj === foundation || obj === doorFrame) {
-        obj.material.opacity = houseOpacity * 0.95;
-      } else if (obj.material === lineMatBright) {
-        // shared mat, set once below
-      }
-    }
-  });
-  lineMat.opacity = houseOpacity * 0.95;
-  lineMatDim.opacity = houseOpacity * 0.45;
-  lineMatBright.opacity = houseOpacity;
+  // === CROSSFADE: wireframe → solid 3D house ===
+  // 0-40%: full wireframe, solid hidden
+  // 40-65%: crossfade
+  // 65-100%: full solid, wireframe gone
+  const wireframeOpacity = 1 - Math.max(0, Math.min(1, (scrollPct - 0.40) / 0.25));
+  const solidOpacity     =     Math.max(0, Math.min(1, (scrollPct - 0.40) / 0.25));
 
-  // Photo morph in
-  const photoOpacity = Math.max(0, (scrollPct - 0.4) / 0.4) * 0.75;
-  photoMorph.style.opacity = Math.min(photoOpacity, 0.75);
+  lineMat.opacity      = wireframeOpacity * 0.95;
+  lineMatDim.opacity   = wireframeOpacity * 0.45;
+  lineMatBright.opacity = wireframeOpacity;
+
+  // Solid materials fade in
+  wallMat.opacity   = solidOpacity * 0.98;
+  trimMat.opacity   = solidOpacity * 0.98;
+  roofMat.opacity   = solidOpacity * 1.0;
+  doorMat.opacity   = solidOpacity * 1.0;
+  windowMat.opacity = solidOpacity * 0.92;
+  limeMat.opacity   = solidOpacity * 1.0;
+
+  // Solid house follows the same scroll lift as wireframe
+  solidHouse.position.copy(house.position);
+  solidHouse.rotation.copy(house.rotation);
+
+  // Photo overlay DISABLED — 3D solid house replaces it
+  photoMorph.style.opacity = 0;
 
   controls.update();
   composer.render();
