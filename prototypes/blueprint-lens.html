@@ -47,7 +47,7 @@ h1, h2 { font-family: 'Anton', sans-serif; letter-spacing: 1px; font-weight: 400
   /* Lens reveal — only shows in circle around cursor */
   --x: 50%;
   --y: 50%;
-  --r: 180px;
+  --r: 280px;
   mask: radial-gradient(circle var(--r) at var(--x) var(--y),
     rgba(0,0,0,0) calc(100% - 3px),
     rgba(0,0,0,1) calc(100% - 3px),
@@ -66,7 +66,7 @@ h1, h2 { font-family: 'Anton', sans-serif; letter-spacing: 1px; font-weight: 400
   pointer-events: none;
   --x: 50%;
   --y: 50%;
-  --r: 180px;
+  --r: 280px;
   /* Show only INSIDE the circle */
   mask: radial-gradient(circle var(--r) at var(--x) var(--y),
     rgba(0,0,0,1) calc(100% - 3px),
@@ -114,7 +114,7 @@ h1, h2 { font-family: 'Anton', sans-serif; letter-spacing: 1px; font-weight: 400
 /* The lens ring outline + glow */
 .lens-ring {
   position: fixed;
-  width: 360px; height: 360px;
+  width: 560px; height: 560px;
   border-radius: 50%;
   border: 2px solid var(--lime);
   pointer-events: none;
@@ -379,8 +379,8 @@ stage.addEventListener('mousemove', (e) => {
 
 function updateLens() {
   // Spring follow
-  lensX += (mouseX - lensX) * 0.15;
-  lensY += (mouseY - lensY) * 0.15;
+  lensX += (mouseX - lensX) * 0.35;
+  lensY += (mouseY - lensY) * 0.35;
 
   blueprintLayer.style.setProperty('--x', lensX + 'px');
   blueprintLayer.style.setProperty('--y', lensY + 'px');
