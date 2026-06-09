@@ -57,7 +57,15 @@ img { display: block; max-width: 100%; height: auto; }
 
 /* === FOUNDER === */
 .founder { background: var(--cream); padding: 120px 40px; }
-.founder-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.3fr; gap: 80px; align-items: center; }
+.founder-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1.12fr 0.88fr; gap: 72px; align-items: center; }
+.owners { display: grid; gap: 22px; }
+.owner-card { display: grid; grid-template-columns: 116px 1fr; gap: 20px; align-items: center; background: var(--white); border: 2px solid var(--obsidian); padding: 20px 22px; position: relative; }
+.owner-card::before { content: ""; position: absolute; top: 0; left: 0; bottom: 0; width: 5px; background: var(--lime); }
+.owner-photo { aspect-ratio: 1/1; overflow: hidden; border-radius: 50%; border: 3px solid var(--lime); }
+.owner-photo img { width: 100%; height: 100%; object-fit: cover; }
+.owner-name { font-family: 'Anton', sans-serif; font-size: 23px; text-transform: uppercase; line-height: 1; }
+.owner-role { font-family: 'Courier New', monospace; font-size: 11px; letter-spacing: 2px; color: var(--walnut); text-transform: uppercase; margin: 6px 0 10px; }
+.owner-bio { font-size: 14px; line-height: 1.55; color: #2a2a2a; }
 .founder-img-wrap { position: relative; aspect-ratio: 4/5; overflow: hidden; background: var(--obsidian); }
 .founder-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
 .founder-img-wrap::after { content: ""; position: absolute; bottom: -16px; right: -16px; width: 60%; height: 60%; border: 4px solid var(--lime); z-index: -1; }
@@ -176,25 +184,39 @@ footer .copyright { text-align: center; margin-top: 48px; padding-top: 24px; bor
     <div class="stat"><div class="num">3</div><div class="label">Counties Served</div></div>
     <div class="stat"><div class="num">10</div><div class="label">Service Categories</div></div>
     <div class="stat"><div class="num">FL</div><div class="label">Licensed CBC1263425</div></div>
-    <div class="stat"><div class="num">1</div><div class="label">Direct Owner Contact</div></div>
+    <div class="stat"><div class="num">2</div><div class="label">Owners On-Site</div></div>
   </div>
 </header>
 
 <section class="founder">
   <div class="founder-grid">
-    <div class="founder-img-wrap">
-      <img src="assets/img/full-remodel-1.jpg" alt="Oak Park Construction project — full home remodel in Broward County">
-    </div>
     <div class="founder-content">
       <div class="section-label">Who Builds It</div>
-      <h2>Built around how you'd want your own home built.</h2>
-      <p>Construction is a relationship business. The difference between a great project and a stressful one usually isn't the materials or the design — it's whether someone is actually paying attention every day, returning your calls, and treating your investment like it matters.</p>
-      <p>That's what Oak Park Construction was built around. We're a licensed Florida contractor (CBC1263425) serving Broward, Palm Beach, and Miami-Dade. We handle custom new builds, full home renovations, kitchens, bathrooms, additions, stucco, concrete, and outdoor living spaces.</p>
-      <p>We're hands-on. The owner is on every project. You get direct communication, daily progress photos, and a real answer when you call.</p>
+      <h2>Two brothers. One job-site standard.</h2>
+      <p>Michael and Matthew McFolling learned the trade alongside their father in Chicago more than twenty years ago. In 2017 they brought that Midwest craftsmanship to South Florida — and they still run every job the same way: hands-on, owner-supervised, no excuses.</p>
+      <p>That's the whole model. A licensed Florida contractor (CBC1263425) where the people who answer the phone are the people on your site — custom new builds, full renovations, kitchens, baths, additions, stucco, concrete, and outdoor living across Broward, Palm Beach, and Miami-Dade.</p>
       <div class="founder-quote">
         "If we wouldn't accept it<br>on <span class="accent">our own home,</span><br>it doesn't leave the site."
       </div>
-      <div class="founder-byline">— OAK PARK CONSTRUCTION · CBC1263425</div>
+      <div class="founder-byline">— MICHAEL &amp; MATTHEW McFOLLING · CBC1263425</div>
+    </div>
+    <div class="owners">
+      <figure class="owner-card">
+        <div class="owner-photo"><img src="assets/img/team/matthew-mcfolling.jpg" alt="Matthew McFolling, General Contractor and co-owner of Oak Park Construction"></div>
+        <figcaption>
+          <div class="owner-name">Matthew McFolling</div>
+          <div class="owner-role">General Contractor · Co-Owner</div>
+          <p class="owner-bio">Runs the build. Holds the license, the schedule, and the standard every trade has to hit before it gets signed off.</p>
+        </figcaption>
+      </figure>
+      <figure class="owner-card">
+        <div class="owner-photo"><img src="assets/img/team/michael-mcfolling.jpg" alt="Michael McFolling, Project Manager and co-owner of Oak Park Construction"></div>
+        <figcaption>
+          <div class="owner-name">Michael McFolling</div>
+          <div class="owner-role">Project Manager · Co-Owner</div>
+          <p class="owner-bio">Your day-to-day contact. Keeps the job moving, the progress photos coming, and the surprises off your plate.</p>
+        </figcaption>
+      </figure>
     </div>
   </div>
 </section>
