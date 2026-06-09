@@ -153,6 +153,10 @@
   }
   .badge.live { background: rgba(74, 144, 226, 0.18); color: var(--blueprint); border: 1px solid rgba(74, 144, 226, 0.4); }
   .badge.proto { background: rgba(203, 204, 16, 0.15); color: var(--lime); border: 1px solid rgba(203, 204, 16, 0.4); }
+  .badge.rejected { background: rgba(220, 80, 80, 0.18); color: #FF7A7A; border: 1px solid rgba(220, 80, 80, 0.5); }
+  .card.rejected { opacity: 0.55; }
+  .card.rejected:hover { opacity: 1; }
+  .card.rejected .card-name::after { content: ' — REPLACED'; color: #FF7A7A; font-size: 0.55em; letter-spacing: 1.5px; font-family: 'Roboto Mono', monospace; }
 
   footer {
     padding: 32px 48px; text-align: center;
@@ -211,13 +215,13 @@
     <span class="card-cta">Open Prototype →</span>
   </a>
 
-  <a href="wireframe-house-aura.html" class="card">
-    <span class="badge proto">PROTOTYPE</span>
+  <a href="wireframe-house-aura.html" class="card rejected">
+    <span class="badge rejected">REJECTED</span>
     <div class="card-num">03 · 3D</div>
     <div class="card-name">Wireframe House Aura</div>
     <div class="card-desc">Three.js 3D wireframe house, drag to rotate, 3 orbital neon streaks (lime + cream + walnut), 800 particle field, blueprint-grid floor. Scroll-pinned. Content scrolls past it.</div>
-    <div class="card-meta">INSPO: <span class="lime">russell-henderson / jEVVqBe</span></div>
-    <span class="card-cta">Open Prototype →</span>
+    <div class="card-meta">⚠️ Priscila: "house is no that good" — <span style="color: #FF7A7A;">REPLACED BY #16 Floor Plan → 3D Reveal</span></div>
+    <span class="card-cta">Open (archive) →</span>
   </a>
 
   <a href="project-gallery-cube.html" class="card">
@@ -265,13 +269,13 @@
     <span class="card-cta">Open Prototype →</span>
   </a>
 
-  <a href="bathroom-plumbing-stack.html" class="card">
-    <span class="badge proto">PROTOTYPE</span>
+  <a href="bathroom-plumbing-stack.html" class="card rejected">
+    <span class="badge rejected">REJECTED</span>
     <div class="card-num">09 · BATHROOM</div>
     <div class="card-name">Bathroom Page — Plumbing Rough-In Stack</div>
-    <div class="card-desc">Service-page concept for Bathrooms. Three.js 3D plumbing rough-in (DWV drain stack, vent, P-traps, copper supply lines) rotates with scroll. 4-phase walkthrough (rough-in → supply → fixtures → finish) + real Mike bathroom photos. Positions OPC as "we know what's behind the wall."</div>
-    <div class="card-meta">INSPO: <span class="lime">Behind-the-wall expertise</span> · ⚠️ Priscila feedback: <span class="lime">REWORK 3D direction TBD</span></div>
-    <span class="card-cta">Open Prototype →</span>
+    <div class="card-desc">Service-page concept for Bathrooms. Three.js 3D plumbing rough-in (DWV drain stack, vent, P-traps, copper supply lines) rotates with scroll. 4-phase walkthrough (rough-in → supply → fixtures → finish) + real Mike bathroom photos.</div>
+    <div class="card-meta">⚠️ Priscila: "do not like the 3D chosen for bathroom" — <span style="color: #FF7A7A;">REPLACED BY #15 Waterproofing Wall Section</span></div>
+    <span class="card-cta">Open (archive) →</span>
   </a>
 
   <a href="new-construction-assembly.html" class="card">
