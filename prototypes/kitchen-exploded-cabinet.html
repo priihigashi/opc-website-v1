@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OPC — New Construction · Sequential Assembly Prototype</title>
+<title>OPC — Kitchen · Exploded Cabinet Prototype</title>
 <meta name="robots" content="noindex,nofollow">
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Inter:wght@400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="../assets/js/lab-banner.js?v=6" defer></script>
@@ -30,7 +30,7 @@
     position: absolute; width: 110vw; height: 110vw;
     top: 50%; left: 50%; transform: translate(-50%, -50%);
     background: radial-gradient(circle,
-      rgba(0, 212, 255, 0.04) 0%,
+      rgba(139, 90, 43, 0.05) 0%,
       rgba(203, 204, 16, 0.025) 30%,
       transparent 60%);
     filter: blur(80px);
@@ -78,7 +78,6 @@
     line-height: 0.95; text-transform: uppercase;
   }
   .hero h1 .serif { text-transform: none; color: var(--lime); font-size: 1.05em; }
-  .hero h1 .blue { color: var(--cyan); font-style: italic; font-family: 'Cormorant Garamond', serif; text-transform: none; font-weight: 500; }
   .hero p {
     margin-top: 24px;
     font-family: 'Roboto Mono', monospace;
@@ -98,31 +97,29 @@
   }
   .hero-cta:hover { background: var(--lime); color: var(--obsidian); box-shadow: 0 0 30px rgba(203, 204, 16, 0.4); }
 
-  .assembly-stage {
+  .cabinet-stage {
     position: relative;
     width: 100%; aspect-ratio: 1;
     max-width: 680px; margin: 0 auto;
   }
-  #assemblyCanvas { width: 100%; height: 100%; }
+  #cabinetCanvas { width: 100%; height: 100%; }
 
-  /* PHASE STRIP — fixed bottom */
   .phase-strip {
     position: fixed; bottom: 24px; left: 50%;
     transform: translateX(-50%); z-index: 50;
-    display: flex; gap: 18px;
-    padding: 14px 24px;
+    display: flex; gap: 22px;
+    padding: 14px 28px;
     background: rgba(5,5,5,0.75);
     backdrop-filter: blur(20px) saturate(140%);
     border: 1px solid rgba(240, 235, 227, 0.1);
     border-radius: 999px;
     font-family: 'Roboto Mono', monospace;
-    font-size: 10px; letter-spacing: 1.5px;
+    font-size: 10px; letter-spacing: 2px;
   }
   .phase-strip .item { opacity: 0.35; transition: all 0.4s; text-align: center; }
   .phase-strip .item.active { opacity: 1; color: var(--lime); }
   .phase-strip .item .num { display: block; font-family: 'Anton', sans-serif; font-size: 15px; margin-bottom: 2px; }
 
-  /* PROCESS — 7 build phases */
   section.process {
     position: relative; z-index: 2;
     padding: 140px 48px;
@@ -169,7 +166,7 @@
     font-size: 26px; text-transform: uppercase; margin-bottom: 10px;
     letter-spacing: 1px; line-height: 1.05;
   }
-  .phase-card p { font-size: 12.5px; line-height: 1.55; opacity: 0.72; }
+  .phase-card p { font-size: 13px; line-height: 1.55; opacity: 0.72; }
 
   section.cta {
     position: relative; z-index: 2;
@@ -222,12 +219,12 @@
 
   @media (max-width: 900px) {
     section.hero { grid-template-columns: 1fr; padding: 100px 24px 60px; }
-    .assembly-stage { max-width: 380px; }
+    .cabinet-stage { max-width: 380px; }
     nav.site-nav { padding: 18px 20px; }
     .nav-links a:not(.nav-cta) { display: none; }
     section.process { padding: 80px 20px; }
-    .phase-strip { font-size: 9px; padding: 10px 14px; gap: 10px; bottom: 12px; }
-    .phase-strip .item .num { font-size: 12px; }
+    .phase-strip { font-size: 9px; padding: 10px 18px; gap: 14px; bottom: 12px; }
+    .phase-strip .item .num { font-size: 13px; }
   }
 </style>
 </head>
@@ -241,87 +238,76 @@
   <div class="nav-links">
     <a href="../index.html">Home</a>
     <a href="#process">Process</a>
-    <a href="#cta" class="nav-cta">Start a Build</a>
+    <a href="#cta" class="nav-cta">Plan Your Kitchen</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-text">
-    <div class="hero-tag">✦ SERVICE · 06 · NEW CONSTRUCTION</div>
-    <h1>From<br><span class="serif">Ground</span> Up.</h1>
-    <p>Lot to keys. Footing, slab, framing, roof, siding — the same sequence we run on every build. Scroll to watch one assemble.</p>
-    <a href="#cta" class="hero-cta">Start a Build →</a>
+    <div class="hero-tag">✦ SERVICE · 03 · KITCHENS</div>
+    <h1>The Stack<br><span class="serif">Behind</span> The Slab.</h1>
+    <p>Box, glide, front, counter, finish. Every kitchen is five parts stacked right. Scroll to watch one assemble.</p>
+    <a href="#cta" class="hero-cta">Plan Your Kitchen →</a>
   </div>
-  <div class="assembly-stage">
-    <canvas id="assemblyCanvas"></canvas>
+  <div class="cabinet-stage">
+    <canvas id="cabinetCanvas"></canvas>
   </div>
 </section>
 
 <!-- PHASE STRIP -->
 <div class="phase-strip" id="phaseStrip">
-  <div class="item active" data-phase="0"><span class="num">01</span>LOT</div>
-  <div class="item" data-phase="1"><span class="num">02</span>FOOTING</div>
-  <div class="item" data-phase="2"><span class="num">03</span>SLAB</div>
-  <div class="item" data-phase="3"><span class="num">04</span>FRAMING</div>
-  <div class="item" data-phase="4"><span class="num">05</span>ROOF</div>
-  <div class="item" data-phase="5"><span class="num">06</span>SIDING</div>
-  <div class="item" data-phase="6"><span class="num">07</span>FINISH</div>
+  <div class="item active" data-phase="0"><span class="num">01</span>BOX</div>
+  <div class="item" data-phase="1"><span class="num">02</span>GLIDES</div>
+  <div class="item" data-phase="2"><span class="num">03</span>FRONTS</div>
+  <div class="item" data-phase="3"><span class="num">04</span>COUNTER</div>
+  <div class="item" data-phase="4"><span class="num">05</span>FINISH</div>
 </div>
 
 <!-- PROCESS -->
 <section class="process" id="process">
-  <div class="section-tag">✦ 7 PHASES · ONE GC</div>
-  <h2 class="section-title">Every <span class="serif">phase,</span><br>in-house.</h2>
+  <div class="section-tag">✦ 5 LAYERS · ONE BUILD</div>
+  <h2 class="section-title">Stacked <span class="serif">right.</span></h2>
   <div class="phase-grid">
     <div class="phase-card">
-      <div class="num">01 · LOT</div><h3>Site Prep</h3>
-      <p>Survey, clearing, grading, erosion control, utility stub-outs.</p>
+      <div class="num">01 · BOX</div><h3>Cabinet Carcass</h3>
+      <p>3/4" ply boxes, dado joinery, hardwood face frame, plumb + level.</p>
     </div>
     <div class="phase-card">
-      <div class="num">02 · FOOTING</div><h3>Foundation Footings</h3>
-      <p>Forming, rebar cage, pour, cure. Engineered for FL load.</p>
+      <div class="num">02 · GLIDES</div><h3>Drawer Hardware</h3>
+      <p>Full-extension soft-close glides, hinges concealed, dampers.</p>
     </div>
     <div class="phase-card">
-      <div class="num">03 · SLAB</div><h3>Monolithic Slab</h3>
-      <p>Vapor barrier, mesh, post-tension cables, slab pour, finish.</p>
+      <div class="num">03 · FRONTS</div><h3>Doors + Drawers</h3>
+      <p>Shaker or slab fronts, dovetailed drawer boxes, custom paint or stain.</p>
     </div>
     <div class="phase-card">
-      <div class="num">04 · FRAMING</div><h3>Structural Frame</h3>
-      <p>2x6 walls, engineered trusses, sheathing, hurricane straps.</p>
+      <div class="num">04 · COUNTER</div><h3>Stone Counter</h3>
+      <p>Quartz, granite, or quartzite. Templated on-site, seam-aligned.</p>
     </div>
     <div class="phase-card">
-      <div class="num">05 · ROOF</div><h3>Roof System</h3>
-      <p>Decking, peel & stick, drip edge, shingle or metal, flashing.</p>
-    </div>
-    <div class="phase-card">
-      <div class="num">06 · SIDING</div><h3>Exterior Envelope</h3>
-      <p>House wrap, stucco lath, scratch + brown + finish coats, paint.</p>
-    </div>
-    <div class="phase-card">
-      <div class="num">07 · FINISH</div><h3>Interior Buildout</h3>
-      <p>Drywall, trim, paint, flooring, cabinetry, fixtures, punch-list.</p>
+      <div class="num">05 · FINISH</div><h3>Hardware + Plumbing</h3>
+      <p>Pulls aligned, faucet roughed-in, sink seated, backsplash tiled.</p>
     </div>
   </div>
 </section>
 
 <!-- CTA -->
 <section class="cta" id="cta">
-  <div class="section-tag">✦ START A NEW BUILD</div>
-  <h2>Your <span class="serif">house,</span> from the ground up.</h2>
-  <p>Tell us your lot, square footage, budget. We'll walk it within 48 hours.</p>
+  <div class="section-tag">✦ PLAN YOUR KITCHEN</div>
+  <h2>One <span class="serif">room.</span> Five layers.</h2>
+  <p>Cabinet style, counter material, layout. We'll measure within 48 hours.</p>
   <form class="cta-form" onsubmit="event.preventDefault(); alert('Prototype form.');">
     <input type="email" placeholder="Your email..." required>
-    <button type="submit">CONNECT</button>
+    <button type="submit">QUOTE</button>
   </form>
 </section>
 
 <footer>
   <div>OAK PARK CONSTRUCTION · CBC1263425</div>
-  <div>BROWARD COUNTY · <span style="color: var(--lime);">NEW CONSTRUCTION DIVISION</span></div>
+  <div>BROWARD COUNTY · <span style="color: var(--lime);">KITCHEN DIVISION</span></div>
 </footer>
 
-<!-- THREE.JS SEQUENTIAL ASSEMBLY -->
 <script type="importmap">
 { "imports": {
   "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
@@ -335,13 +321,13 @@ import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
-const canvas = document.getElementById('assemblyCanvas');
+const canvas = document.getElementById('cabinetCanvas');
 const wrap = canvas.parentElement;
 const scene = new THREE.Scene();
 
-const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
-camera.position.set(5.5, 3.8, 8.5);
-camera.lookAt(0, 1.9, 0);
+const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
+camera.position.set(4.5, 3, 6);
+camera.lookAt(0, 0.8, 0);
 
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -356,15 +342,13 @@ function resize() {
   composer.setSize(r.width, r.height);
 }
 
-// === MATERIALS — line-style, Ricardo yLOpNdZ vibe ===
-// Cool cyan (blueprint) early phases → warm cream/walnut (built) late phases
-const matCyan = new THREE.LineBasicMaterial({ color: 0x00D4FF, transparent: true, opacity: 0 });
-const matCyanDim = new THREE.LineBasicMaterial({ color: 0x00D4FF, transparent: true, opacity: 0 });
+// Materials — line-style, OPC palette
 const matCream = new THREE.LineBasicMaterial({ color: 0xF0EBE3, transparent: true, opacity: 0 });
+const matCreamDim = new THREE.LineBasicMaterial({ color: 0xF0EBE3, transparent: true, opacity: 0 });
 const matWalnut = new THREE.LineBasicMaterial({ color: 0x8B5A2B, transparent: true, opacity: 0 });
 const matLime = new THREE.LineBasicMaterial({ color: 0xCBCC10, transparent: true, opacity: 0 });
+const matCyanDim = new THREE.LineBasicMaterial({ color: 0x00D4FF, transparent: true, opacity: 0 });
 
-// helper for box edge wireframes
 function boxEdge(w, h, d, mat) {
   return new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(w, h, d)), mat);
 }
@@ -373,172 +357,126 @@ function lineFrom(points, mat) {
   return new THREE.Line(geo, mat);
 }
 
-// === DIMENSIONS ===
-const W = 4.6, D = 3.2, H = 2.3, RH = 1.3;
+// Dimensions
+const BASE_W = 2.4, BASE_H = 0.85, BASE_D = 0.6;
+const COUNTER_W = 2.55, COUNTER_T = 0.06, COUNTER_D = 0.65;
+const UPPER_W = 2.4, UPPER_H = 0.7, UPPER_D = 0.35;
+const baseY = BASE_H / 2;
+const counterY = BASE_H + COUNTER_T / 2;
+const upperY = BASE_H + COUNTER_T + 0.55 + UPPER_H / 2;
 
-// === PHASE 1: LOT (always visible) ===
-const lot = new THREE.Group();
-scene.add(lot);
-// Lot footprint (dashed perimeter)
-const lotMat = new THREE.LineDashedMaterial({ color: 0x00D4FF, transparent: true, opacity: 0.5, dashSize: 0.18, gapSize: 0.1 });
-const lotLine = new THREE.LineLoop(
-  new THREE.BufferGeometry().setFromPoints([
-    new THREE.Vector3(-W/2 - 1, 0, -D/2 - 1),
-    new THREE.Vector3( W/2 + 1, 0, -D/2 - 1),
-    new THREE.Vector3( W/2 + 1, 0,  D/2 + 1),
-    new THREE.Vector3(-W/2 - 1, 0,  D/2 + 1),
-  ]),
-  lotMat
-);
-lotLine.computeLineDistances();
-lot.add(lotLine);
-// Ground grid
-const grid = new THREE.GridHelper(20, 40, 0x00D4FF, 0x0a3040);
-grid.material.transparent = true;
-grid.material.opacity = 0.18;
-lot.add(grid);
-
-// === PHASE 2: FOOTING (perimeter trench) ===
-const footing = new THREE.Group();
-scene.add(footing);
-const footY = -0.05;
-const footingBox = boxEdge(W + 0.3, 0.12, D + 0.3, matCyan);
-footingBox.position.y = footY;
-footing.add(footingBox);
-// Cross-bracing footings (interior)
-const cross1 = boxEdge(W + 0.3, 0.12, 0.12, matCyanDim);
-cross1.position.y = footY;
-footing.add(cross1);
-const cross2 = boxEdge(0.12, 0.12, D + 0.3, matCyanDim);
-cross2.position.y = footY;
-footing.add(cross2);
-
-// === PHASE 3: SLAB ===
-const slab = new THREE.Group();
-scene.add(slab);
-const slabMesh = boxEdge(W, 0.15, D, matCream);
-slabMesh.position.y = 0.07;
-slab.add(slabMesh);
-// Slab grid lines (rebar texture)
-for (let i = -W/2 + 0.4; i < W/2; i += 0.4) {
-  slab.add(lineFrom([[i, 0.15, -D/2], [i, 0.15, D/2]], matCyanDim));
+// === PHASE 1: BASE BOX (carcass) ===
+const carcass = new THREE.Group();
+scene.add(carcass);
+// Base cabinet box outline
+carcass.add(boxEdge(BASE_W, BASE_H, BASE_D, matCream));
+carcass.position.y = baseY;
+// Internal partitions (3 bays)
+for (let i = -1; i <= 1; i += 2) {
+  const x = (BASE_W / 3) * i / 2;
+  carcass.add(lineFrom([[x, -BASE_H/2, -BASE_D/2], [x, BASE_H/2, -BASE_D/2]], matCreamDim));
+  carcass.add(lineFrom([[x, -BASE_H/2,  BASE_D/2], [x, BASE_H/2,  BASE_D/2]], matCreamDim));
+  carcass.add(lineFrom([[x, BASE_H/2, -BASE_D/2], [x, BASE_H/2,  BASE_D/2]], matCreamDim));
 }
-for (let j = -D/2 + 0.4; j < D/2; j += 0.4) {
-  slab.add(lineFrom([[-W/2, 0.15, j], [W/2, 0.15, j]], matCyanDim));
-}
+// Upper cabinet box
+const upperCarcass = new THREE.Group();
+upperCarcass.position.y = upperY;
+upperCarcass.add(boxEdge(UPPER_W, UPPER_H, UPPER_D, matCream));
+// upper internal divider
+upperCarcass.add(lineFrom([[0, -UPPER_H/2, -UPPER_D/2], [0, UPPER_H/2, -UPPER_D/2]], matCreamDim));
+upperCarcass.add(lineFrom([[0, -UPPER_H/2,  UPPER_D/2], [0, UPPER_H/2,  UPPER_D/2]], matCreamDim));
+scene.add(upperCarcass);
 
-// === PHASE 4: FRAMING (walls + studs + corner posts) ===
-const framing = new THREE.Group();
-scene.add(framing);
-// Corner posts (heavier)
-const cornerCoords = [
-  [-W/2, -D/2], [W/2, -D/2], [W/2, D/2], [-W/2, D/2],
-];
-cornerCoords.forEach(([x, z]) => {
-  framing.add(lineFrom([[x, 0.15, z], [x, 0.15 + H, z]], matCream));
+// === PHASE 2: GLIDES (drawer rails) ===
+const glides = new THREE.Group();
+scene.add(glides);
+// Drawer glides for 3 stacked drawers in middle bay
+const midX = 0;
+const glideLength = BASE_D - 0.05;
+const drawerHeights = [-BASE_H/2 + 0.15, -BASE_H/2 + 0.40, -BASE_H/2 + 0.65];
+drawerHeights.forEach((y) => {
+  // L + R glide rails
+  glides.add(lineFrom([[midX - BASE_W/6 + 0.02, baseY + y, -glideLength/2], [midX - BASE_W/6 + 0.02, baseY + y, glideLength/2]], matCyanDim));
+  glides.add(lineFrom([[midX + BASE_W/6 - 0.02, baseY + y, -glideLength/2], [midX + BASE_W/6 - 0.02, baseY + y, glideLength/2]], matCyanDim));
 });
-// Top plate (perimeter)
-framing.add(lineFrom([
-  [-W/2, 0.15 + H, -D/2], [W/2, 0.15 + H, -D/2],
-  [W/2, 0.15 + H, D/2], [-W/2, 0.15 + H, D/2], [-W/2, 0.15 + H, -D/2]
-], matCream));
-// Studs at 16" o.c. (~0.4 in our scale) on all 4 walls
-const studSpacing = 0.4;
-for (let x = -W/2 + studSpacing; x < W/2; x += studSpacing) {
-  framing.add(lineFrom([[x, 0.15, -D/2], [x, 0.15 + H, -D/2]], matCyanDim));
-  framing.add(lineFrom([[x, 0.15,  D/2], [x, 0.15 + H,  D/2]], matCyanDim));
-}
-for (let z = -D/2 + studSpacing; z < D/2; z += studSpacing) {
-  framing.add(lineFrom([[-W/2, 0.15, z], [-W/2, 0.15 + H, z]], matCyanDim));
-  framing.add(lineFrom([[ W/2, 0.15, z], [ W/2, 0.15 + H, z]], matCyanDim));
-}
+// Hinges on side cabinets (top + bottom of each door)
+[-BASE_W/3, BASE_W/3].forEach((x) => {
+  const xside = x + (x < 0 ? -BASE_W/6 : BASE_W/6);
+  glides.add(lineFrom([[xside, baseY - BASE_H/2 + 0.1, BASE_D/2 - 0.02], [xside, baseY - BASE_H/2 + 0.18, BASE_D/2 + 0.04]], matCyanDim));
+  glides.add(lineFrom([[xside, baseY + BASE_H/2 - 0.1, BASE_D/2 - 0.02], [xside, baseY + BASE_H/2 - 0.18, BASE_D/2 + 0.04]], matCyanDim));
+});
 
-// === PHASE 5: ROOF (trusses + ridge + decking outline) ===
-const roof = new THREE.Group();
-scene.add(roof);
-const roofTopY = 0.15 + H + RH;
-// Ridge beam
-roof.add(lineFrom([[0, roofTopY, -D/2], [0, roofTopY, D/2]], matWalnut));
-// Eave lines
-roof.add(lineFrom([[-W/2, 0.15 + H, -D/2], [-W/2, 0.15 + H, D/2]], matWalnut));
-roof.add(lineFrom([[ W/2, 0.15 + H, -D/2], [ W/2, 0.15 + H, D/2]], matWalnut));
-// Gable triangles
-roof.add(lineFrom([
-  [-W/2, 0.15 + H, -D/2], [0, roofTopY, -D/2], [W/2, 0.15 + H, -D/2]
-], matWalnut));
-roof.add(lineFrom([
-  [-W/2, 0.15 + H, D/2], [0, roofTopY, D/2], [W/2, 0.15 + H, D/2]
-], matWalnut));
-// Truss rafters at ~24" o.c.
-for (let z = -D/2 + 0.5; z < D/2; z += 0.5) {
-  roof.add(lineFrom([[-W/2, 0.15 + H, z], [0, roofTopY, z]], matCyanDim));
-  roof.add(lineFrom([[ W/2, 0.15 + H, z], [0, roofTopY, z]], matCyanDim));
-  // Bottom chord
-  roof.add(lineFrom([[-W/2, 0.15 + H, z], [W/2, 0.15 + H, z]], matCyanDim));
-}
-// Roof overhang
-const overhang = 0.25;
-const overhangPoints = [
-  [-W/2 - overhang, 0.15 + H - 0.04, -D/2 - overhang],
-  [ W/2 + overhang, 0.15 + H - 0.04, -D/2 - overhang],
-  [ W/2 + overhang, 0.15 + H - 0.04,  D/2 + overhang],
-  [-W/2 - overhang, 0.15 + H - 0.04,  D/2 + overhang],
-  [-W/2 - overhang, 0.15 + H - 0.04, -D/2 - overhang],
-];
-roof.add(lineFrom(overhangPoints, matCyanDim));
-
-// === PHASE 6: SIDING (panel outlines) ===
-const siding = new THREE.Group();
-scene.add(siding);
-// Front facade panels (3 horizontal bands per wall)
-function sidingPanels(zPos, side) {
-  for (let b = 0; b < 3; b++) {
-    const y1 = 0.15 + b * (H / 3);
-    const y2 = 0.15 + (b + 1) * (H / 3);
-    const pts = side === 'z'
-      ? [[-W/2, y1, zPos], [W/2, y1, zPos], [W/2, y2, zPos], [-W/2, y2, zPos], [-W/2, y1, zPos]]
-      : [[zPos, y1, -D/2], [zPos, y1, D/2], [zPos, y2, D/2], [zPos, y2, -D/2], [zPos, y1, -D/2]];
-    siding.add(lineFrom(pts, matCream));
-  }
-}
-sidingPanels(-D/2, 'z');
-sidingPanels( D/2, 'z');
-sidingPanels(-W/2, 'x');
-sidingPanels( W/2, 'x');
-
-// === PHASE 7: FINISH (door + windows + lime accent) ===
-const finish = new THREE.Group();
-scene.add(finish);
-const frontZ = D/2 + 0.001;
-const doorW = 0.7, doorH = 1.3;
-// Door
-finish.add(lineFrom([
-  [-doorW/2, 0.15, frontZ], [-doorW/2, 0.15 + doorH, frontZ],
-  [doorW/2, 0.15 + doorH, frontZ], [doorW/2, 0.15, frontZ]
-], matWalnut));
-// Lime accent strip beside door
-finish.add(lineFrom([
-  [doorW/2 + 0.08, 0.15, frontZ], [doorW/2 + 0.08, 0.15 + doorH * 0.9, frontZ]
-], matLime));
-finish.add(lineFrom([
-  [doorW/2 + 0.13, 0.15, frontZ], [doorW/2 + 0.13, 0.15 + doorH * 0.9, frontZ]
-], matLime));
-// Windows
-function winRect(cx, cy, cz, w, h) {
-  finish.add(lineFrom([
+// === PHASE 3: FRONTS (doors + drawers) ===
+const fronts = new THREE.Group();
+scene.add(fronts);
+const frontZ = BASE_D / 2 + 0.01;
+// Side doors (left & right bay = single door each)
+function doorPanel(cx, cy, cz, w, h, mat) {
+  const pts = [
     [cx-w/2, cy-h/2, cz], [cx-w/2, cy+h/2, cz],
     [cx+w/2, cy+h/2, cz], [cx+w/2, cy-h/2, cz], [cx-w/2, cy-h/2, cz]
-  ], matCream));
-  // mullion cross
-  finish.add(lineFrom([[cx-w/2, cy, cz], [cx+w/2, cy, cz]], matCyanDim));
-  finish.add(lineFrom([[cx, cy-h/2, cz], [cx, cy+h/2, cz]], matCyanDim));
+  ];
+  fronts.add(lineFrom(pts, mat));
 }
-winRect(-1.6, 0.15 + 0.9, frontZ, 0.85, 0.85);
-winRect( 1.6, 0.15 + 0.9, frontZ, 0.85, 0.85);
+doorPanel(-BASE_W/3, baseY, frontZ, BASE_W/3 - 0.02, BASE_H - 0.04, matWalnut);
+doorPanel( BASE_W/3, baseY, frontZ, BASE_W/3 - 0.02, BASE_H - 0.04, matWalnut);
+// Middle bay: 3 drawer fronts
+const drawerH = (BASE_H - 0.04) / 3;
+for (let i = 0; i < 3; i++) {
+  const cy = baseY - BASE_H/2 + 0.02 + drawerH/2 + i * drawerH;
+  doorPanel(0, cy, frontZ, BASE_W/3 - 0.02, drawerH - 0.02, matWalnut);
+}
+// Upper cabinet: 2 door fronts
+const upperFrontZ = UPPER_D / 2 + 0.01;
+doorPanel(-UPPER_W/4, upperY, upperFrontZ, UPPER_W/2 - 0.02, UPPER_H - 0.04, matWalnut);
+doorPanel( UPPER_W/4, upperY, upperFrontZ, UPPER_W/2 - 0.02, UPPER_H - 0.04, matWalnut);
 
-const allMats = [matCyan, matCyanDim, matCream, matWalnut, matLime];
+// === PHASE 4: COUNTER (stone slab) ===
+const counter = new THREE.Group();
+scene.add(counter);
+counter.add(boxEdge(COUNTER_W, COUNTER_T, COUNTER_D, matCream));
+counter.position.y = counterY;
+// Backsplash (8" rise behind counter)
+const bs = boxEdge(COUNTER_W, 0.22, 0.02, matCreamDim);
+bs.position.set(0, counterY + COUNTER_T/2 + 0.11, -COUNTER_D/2 + 0.01);
+scene.add(bs);
 
-// === POST-PROCESSING — gentle bloom ===
+// === PHASE 5: FINISH (handles + faucet + sink) ===
+const finish = new THREE.Group();
+scene.add(finish);
+// Handle pulls on drawers + doors (small horizontal lines)
+function pull(x, y, z, len) {
+  finish.add(lineFrom([[x - len/2, y, z], [x + len/2, y, z]], matLime));
+}
+// Drawer pulls
+for (let i = 0; i < 3; i++) {
+  const cy = baseY - BASE_H/2 + 0.02 + drawerH/2 + i * drawerH;
+  pull(0, cy, frontZ + 0.04, 0.18);
+}
+// Side door knobs (single small line each)
+pull(-BASE_W/3 + BASE_W/6 - 0.08, baseY, frontZ + 0.04, 0.06);
+pull( BASE_W/3 - BASE_W/6 + 0.08, baseY, frontZ + 0.04, 0.06);
+// Upper door knobs
+pull(-UPPER_W/4 + UPPER_W/4 - 0.05, upperY - 0.05, upperFrontZ + 0.04, 0.06);
+pull( UPPER_W/4 - UPPER_W/4 + 0.05, upperY - 0.05, upperFrontZ + 0.04, 0.06);
+
+// Faucet — vertical line on counter
+finish.add(lineFrom([[-0.6, counterY + COUNTER_T/2, -0.1], [-0.6, counterY + 0.35, -0.1]], matLime));
+// Faucet spout — bent line
+finish.add(lineFrom([[-0.6, counterY + 0.35, -0.1], [-0.6, counterY + 0.4, -0.05], [-0.5, counterY + 0.4, 0]], matLime));
+
+// Sink cutout outline on counter
+const sinkW = 0.55, sinkD = 0.4;
+const sinkPts = [
+  [-0.6 - sinkW/2, counterY + COUNTER_T/2 + 0.001, -sinkD/2],
+  [-0.6 + sinkW/2, counterY + COUNTER_T/2 + 0.001, -sinkD/2],
+  [-0.6 + sinkW/2, counterY + COUNTER_T/2 + 0.001,  sinkD/2],
+  [-0.6 - sinkW/2, counterY + COUNTER_T/2 + 0.001,  sinkD/2],
+  [-0.6 - sinkW/2, counterY + COUNTER_T/2 + 0.001, -sinkD/2],
+];
+finish.add(lineFrom(sinkPts, matCyanDim));
+
+// === POST-PROCESSING ===
 const composer = new EffectComposer(renderer);
 composer.addPass(new RenderPass(scene, camera));
 composer.addPass(new UnrealBloomPass(new THREE.Vector2(800, 800), 0.45, 0.5, 0.6));
@@ -547,14 +485,13 @@ composer.addPass(new OutputPass());
 resize();
 window.addEventListener('resize', resize);
 
-// === SCROLL-DRIVEN PHASES ===
-// 7 phases mapped to scrollPct ranges
+// === SCROLL → 5 PHASES ===
 let phase = 0;
 let scrollPct = 0;
 function updateScroll() {
   const max = document.body.scrollHeight - window.innerHeight;
   scrollPct = Math.min(window.scrollY / max, 1);
-  const newPhase = Math.min(6, Math.floor(scrollPct * 7));
+  const newPhase = Math.min(4, Math.floor(scrollPct * 5));
   if (newPhase !== phase) {
     phase = newPhase;
     document.querySelectorAll('.phase-strip .item').forEach((el, i) => {
@@ -567,51 +504,42 @@ updateScroll();
 
 // === RENDER LOOP ===
 const clock = new THREE.Clock();
-function fade(group, mat, startPct, endPct, finalOp) {
-  const op = Math.max(0, Math.min(1, (scrollPct - startPct) / (endPct - startPct))) * finalOp;
-  mat.opacity = op;
+function phaseOp(startPct, endPct, baseline, target) {
+  const t = Math.max(0, Math.min(1, (scrollPct - startPct) / (endPct - startPct)));
+  return baseline + (target - baseline) * t;
 }
 
 function loop() {
   const t = clock.getElapsedTime();
 
-  // Gentle idle rotation + scroll-driven extra rotation
-  const yRot = t * 0.07 + scrollPct * Math.PI * 0.8;
-  lot.rotation.y = yRot;
-  footing.rotation.y = yRot;
-  slab.rotation.y = yRot;
-  framing.rotation.y = yRot;
-  roof.rotation.y = yRot;
-  siding.rotation.y = yRot;
+  // Idle Y rotation + scroll-driven extra
+  const yRot = t * 0.08 + scrollPct * Math.PI * 0.6;
+  carcass.rotation.y = yRot;
+  upperCarcass.rotation.y = yRot;
+  glides.rotation.y = yRot;
+  fronts.rotation.y = yRot;
+  counter.rotation.y = yRot;
+  bs.rotation.y = yRot;
   finish.rotation.y = yRot;
 
-  // === GHOST PREVIEW + SCROLL INTENSIFY ===
-  // Every phase has a baseline "ghost" opacity so the WHOLE house is visible from scroll=0.
-  // Each phase then intensifies inside its scroll window — that's the "build animation."
-  // Result: you see the full structure on load (like Bath/Concrete), it sharpens as you scroll.
-  function phaseOp(startPct, endPct, baseline, target) {
-    const t = Math.max(0, Math.min(1, (scrollPct - startPct) / (endPct - startPct)));
-    return baseline + (target - baseline) * t;
-  }
+  // === EXPLODED → ASSEMBLED ANIMATION ===
+  // At scrollPct=0, cabinet pieces are OFFSET vertically (exploded view).
+  // As scroll progresses, they settle to their final stacked positions.
+  // Same ghost preview as NEW BUILD: all parts visible from start.
+  const assembleT = Math.min(1, scrollPct / 0.65);
+  upperCarcass.position.y = upperY + (1 - assembleT) * 1.2;   // upper floats higher when exploded
+  counter.position.y = counterY + (1 - assembleT) * 0.6;      // counter floats above
+  bs.position.y = (counterY + COUNTER_T/2 + 0.11) + (1 - assembleT) * 0.85;
+  // Drawer fronts pull forward when exploded
+  fronts.position.z = (1 - assembleT) * 0.35;
 
-  // 01 LOT — always visible, dims slightly as build progresses
-  lotMat.opacity = 0.55 - scrollPct * 0.30;
-  grid.material.opacity = Math.max(0.08, 0.20 - scrollPct * 0.10);
-
-  // 02 FOOTING (cyan box) — baseline 0.15, peak 0.90 in window 0.05-0.20
-  matCyan.opacity = phaseOp(0.05, 0.20, 0.15, 0.90);
-
-  // 03 SLAB + 06 SIDING (cream) — baseline 0.18, peak 0.95 in window 0.20-0.40
-  matCream.opacity = phaseOp(0.20, 0.40, 0.18, 0.95);
-
-  // 04 FRAMING studs / dim lines (cyan dim) — baseline 0.12, peak 0.55 in window 0.30-0.50
-  matCyanDim.opacity = phaseOp(0.30, 0.50, 0.12, 0.55);
-
-  // 05 ROOF (walnut) — baseline 0.20, peak 1.0 in window 0.50-0.70
-  matWalnut.opacity = phaseOp(0.50, 0.70, 0.20, 1.0);
-
-  // 07 FINISH (lime accent, door, windows) — baseline 0.20, peak 1.0 in window 0.75-1.0
-  matLime.opacity = phaseOp(0.75, 1.0, 0.20, 1.0);
+  // Phase opacity windows w/ ghost baseline
+  matCream.opacity = phaseOp(0.0, 0.18, 0.25, 0.95);   // box carcass — visible immediately
+  matCreamDim.opacity = phaseOp(0.0, 0.18, 0.10, 0.50);
+  matCyanDim.opacity = phaseOp(0.18, 0.36, 0.12, 0.60); // glides + sink cutout cyan
+  matWalnut.opacity = phaseOp(0.36, 0.58, 0.18, 0.95);  // fronts walnut
+  // Counter (uses matCream — already at full) — handled above
+  matLime.opacity = phaseOp(0.75, 1.0, 0.15, 1.0);     // hardware lime
 
   composer.render();
   requestAnimationFrame(loop);
@@ -619,7 +547,7 @@ function loop() {
 loop();
 </script>
 
-<!-- Tiny particles -->
+<!-- particles -->
 <script>
 const pc = document.getElementById('particles');
 const pctx = pc.getContext('2d');

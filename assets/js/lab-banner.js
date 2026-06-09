@@ -81,6 +81,7 @@
       <a href="${base}prototypes/concrete-rotating-bars.html">08 Concrete</a>
       <a href="${base}prototypes/bathroom-plumbing-stack.html">09 Bath</a>
       <a href="${base}prototypes/new-construction-assembly.html">10 NewBuild</a>
+      <a href="${base}prototypes/kitchen-exploded-cabinet.html">11 Kitchen</a>
     </div>
     <span class="opc-close" id="opc-close-btn">✕</span>
   `;

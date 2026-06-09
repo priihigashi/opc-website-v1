@@ -36,8 +36,9 @@ Last updated: **2026-06-09**
 | 07 | Combined Gold Glow | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/prototypes/combined-gold-glow.html) |
 | 08 | Concrete Rotating Bars (service tpl) | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/prototypes/concrete-rotating-bars.html) |
 | 09 | Bathroom Plumbing Stack (service tpl) | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/prototypes/bathroom-plumbing-stack.html) |
+| 10 | **New Construction · Sequential Assembly** (BRAND SIGNATURE) | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/prototypes/new-construction-assembly.html) |
 
-Lab banner cache-bust: **?v=4** (bump to ?v=5 on next page added)
+Lab banner cache-bust: **?v=5** (bump to ?v=6 on next page added)
 
 ---
 
@@ -90,6 +91,14 @@ These fire automatically when triggered. Priscila should NOT have to ask:
 | 2026-06-09 | CodePen — osmosupply | [wBGYEMd](https://codepen.io/osmosupply/pen/wBGYEMd) | "save as inspo" — use TBD |
 | 2026-06-09 | CodePen — osmosupply | [RNaeYqp](https://codepen.io/osmosupply/pen/RNaeYqp) | "4 squares, click → image becomes background" — **BG-SWAP candidate (Hero/Services)** |
 | 2026-06-09 | CodePen — hernandack | [GgjRbMq](https://codepen.io/hernandack/pen/GgjRbMq) | "not sure if I will use this but save it" — use TBD |
+| 2026-06-09 | CodePen — Ricardo Oliva Alonso | [KKbWGNZ](https://codepen.io/ricardoolivaalonso/pen/KKbWGNZ) | "another Ricardo 3D — idk where to use it" — service-page 3D library |
+| 2026-06-09 | CodePen — Ricardo Oliva Alonso | [LYxMWQN](https://codepen.io/ricardoolivaalonso/pen/LYxMWQN) | "kitchen 3D — may need better colors" — **KITCHEN candidate** |
+
+### 🔴 Open feedback to resolve
+- **Bathroom 3D — REWORK** (Priscila: "do not like the 3D chosen for bathroom") — get direction first, then rebuild
+- **Bathroom lime ring — FIX** (Priscila: "not a full circle as it rotates, looks broken / glitchy") — ring radius 2.1 < building extent W=4. Increase to >3.5 or relocate inside rotating group
+- **Concrete lime ring — FIX** (Priscila: "around the POLE only, tiny, not sure if supposed to be there") — same root cause; either remove or radius-up to wrap whole composition
+- **Wireframe house-aura — REVISIT** (Priscila: "house is no that good") — rework with line-style approach
 | 2026-06-09 | russell-henderson.com | (reference) | Neon-tube orbital ring halo intensity — bloom inspiration |
 | 2026-06-09 | LUMEN | (reference) | Cursor-follow orb — implemented on 06 + 07 |
 
