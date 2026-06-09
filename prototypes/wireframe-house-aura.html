@@ -53,6 +53,17 @@
     pointer-events: none;
   }
 
+  /* TRANSITION BLOOM — diffuse cyan glow that peaks during phase change */
+  .bloom-glow {
+    position: fixed; inset: 0; z-index: 2;
+    pointer-events: none; opacity: 0;
+    background:
+      radial-gradient(ellipse 70vw 60vh at 50% 50%, rgba(0, 212, 255, 0.35) 0%, rgba(0, 212, 255, 0.18) 25%, transparent 60%),
+      radial-gradient(ellipse 40vw 30vh at 50% 50%, rgba(240, 235, 227, 0.18) 0%, transparent 70%);
+    filter: blur(20px);
+    mix-blend-mode: screen;
+  }
+
   /* SCROLLING CONTENT */
   .scroll-content { position: relative; z-index: 3; pointer-events: none; }
   .scroll-content > * { pointer-events: auto; }
@@ -138,6 +149,9 @@
   <canvas id="canvas"></canvas>
 </div>
 
+<!-- Diffuse bloom glow during transition -->
+<div class="bloom-glow" id="bloomGlow"></div>
+
 <!-- Photo morph overlay (appears at deep scroll) -->
 <div class="photo-morph" id="photoMorph">
   <img src="../assets/img/mike/new-construction/122-dockside-cir-IMG_7853.jpeg" alt="Finished home">
@@ -205,6 +219,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 const canvas = document.getElementById('canvas');
 const photoMorph = document.getElementById('photoMorph');
+const bloomGlow = document.getElementById('bloomGlow');
 
 const scene = new THREE.Scene();
 scene.fog = new THREE.Fog(0x050912, 8, 30);
@@ -469,9 +484,11 @@ function animate() {
   particles.rotation.y = t * 0.025;
 
   // Pixie-dust sparkle: pulse opacity through scroll midpoint
-  const sparkle = 1 - Math.abs(scrollPct - 0.5) * 2; // peaks at 0.5
-  particleMat.opacity = 0.4 + sparkle * 0.6;
-  particleMat.size = 0.04 + sparkle * 0.08;
+  const sparkle = Math.max(0, 1 - Math.abs(scrollPct - 0.5) * 2); // peaks at 0.5
+  particleMat.opacity = 0.4 + sparkle * 0.5;
+  particleMat.size = 0.04 + sparkle * 0.015; // barely changes size — just a hair
+  // Diffuse bloom glow — same duration as sparkle, replaces the chunky size growth
+  bloomGlow.style.opacity = sparkle * 0.85;
 
   // House fades out as scroll progresses
   const houseOpacity = 1 - Math.max(0, (scrollPct - 0.35) / 0.45);
