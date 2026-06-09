@@ -73,10 +73,9 @@
       <a href="${base}index.html">Home</a>
       <a href="${base}prototypes/liquid-glass-components.html">01 Glass</a>
       <a href="${base}prototypes/blueprint-property-transform.html">02 Transform</a>
-      <a href="${base}prototypes/blueprint-lens.html">03 Lens</a>
-      <a href="${base}prototypes/wireframe-house-aura.html">04 3D</a>
-      <a href="${base}prototypes/project-gallery-cube.html">05 Cube</a>
-      <a href="${base}prototypes/hover-gallery-tiles.html">06 Hover</a>
+      <a href="${base}prototypes/wireframe-house-aura.html">03 3D</a>
+      <a href="${base}prototypes/project-gallery-cube.html">04 Cube</a>
+      <a href="${base}prototypes/hover-gallery-tiles.html">05 Hover</a>
     </div>
     <span class="opc-close" id="opc-close-btn">✕</span>
   `;

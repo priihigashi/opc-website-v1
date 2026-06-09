@@ -319,7 +319,7 @@ house.add(lineFrom([[0, -H/2, frontZ], [0, -H/2 + doorH, frontZ]], lineMatDim));
 house.add(lineFrom([[-doorW/2, -H/2 + doorH*0.5, frontZ], [doorW/2, -H/2 + doorH*0.5, frontZ]], lineMatDim));
 
 // Ground floor windows (flanking door)
-function window(cx, cy, cz, w, h, dir) {
+function addWindow(cx, cy, cz, w, h, dir) {
   const z = dir === 'front' ? cz : -cz;
   const pts = [
     [cx-w/2, cy-h/2, z], [cx-w/2, cy+h/2, z],
@@ -331,20 +331,20 @@ function window(cx, cy, cz, w, h, dir) {
   house.add(lineFrom([[cx, cy-h/2, z], [cx, cy+h/2, z]], lineMatDim));
 }
 // front ground windows
-window(-1.5, -H/2 + 0.9, frontZ, 0.9, 0.9, 'front');
-window( 1.5, -H/2 + 0.9, frontZ, 0.9, 0.9, 'front');
+addWindow(-1.5, -H/2 + 0.9, frontZ, 0.9, 0.9, 'front');
+addWindow( 1.5, -H/2 + 0.9, frontZ, 0.9, 0.9, 'front');
 
 // Upper floor windows (front)
-window(-1.7, H/2 - 0.7, frontZ, 0.7, 0.8, 'front');
-window(-0.55, H/2 - 0.7, frontZ, 0.7, 0.8, 'front');
-window( 0.55, H/2 - 0.7, frontZ, 0.7, 0.8, 'front');
-window( 1.7, H/2 - 0.7, frontZ, 0.7, 0.8, 'front');
+addWindow(-1.7, H/2 - 0.7, frontZ, 0.7, 0.8, 'front');
+addWindow(-0.55, H/2 - 0.7, frontZ, 0.7, 0.8, 'front');
+addWindow( 0.55, H/2 - 0.7, frontZ, 0.7, 0.8, 'front');
+addWindow( 1.7, H/2 - 0.7, frontZ, 0.7, 0.8, 'front');
 
 // Back windows
-window(-1.2, -H/2 + 0.9, D/2, 0.8, 0.9, 'back');
-window( 1.2, -H/2 + 0.9, D/2, 0.8, 0.9, 'back');
-window(-1.2, H/2 - 0.7, D/2, 0.7, 0.8, 'back');
-window( 1.2, H/2 - 0.7, D/2, 0.7, 0.8, 'back');
+addWindow(-1.2, -H/2 + 0.9, D/2, 0.8, 0.9, 'back');
+addWindow( 1.2, -H/2 + 0.9, D/2, 0.8, 0.9, 'back');
+addWindow(-1.2, H/2 - 0.7, D/2, 0.7, 0.8, 'back');
+addWindow( 1.2, H/2 - 0.7, D/2, 0.7, 0.8, 'back');
 
 // Side windows (right)
 const sideX = W/2 + 0.001;
