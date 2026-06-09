@@ -190,6 +190,44 @@ Drive Inspiration folder: `1ae7n4VwSZbu0_nt6nUX5WeLINGqYJ-CZ`
 
 ---
 
+## 🧭 WEBSITE BUILD BACKLOG + SEO/ADS RECOMMENDATIONS (audit 2026-06-09, Claude)
+Built from: live oakpark-construction.com audit + repo audit + what I know about OPC. Priority = impact on leads/ranking/ads.
+
+### ✅ Shipped this audit session (2026-06-09)
+- About page: real two-owner section (Matthew=GC, Michael=PM) w/ headshots pulled from live site + brothers' Chicago→FL story.
+- SEO: all 8 remaining service pages now have meta description + canonical + OG/Twitter + Service JSON-LD (only stucco had it before).
+- 3 county landing pages (`areas/broward|palm-beach|miami-dade.html`) — localized, GeneralContractor schema, city chips, in sitemap. For local ranking + ads.
+- Homepage schema upgraded LocalBusiness→GeneralContractor (founders, areaServed, priceRange, knowsAbout). Footer: full 9-service list + SERVICE AREAS column (internal links).
+- Gutter consistency on service prototypes.
+
+### 🔴 HIGH priority (leads + ads — do next)
+1. **Real contact form + lead capture** (FORM-1/2/3 above) — mailto fails on machines w/o a mail client. Server-side form (Formspree/Web3Forms), two-stage email capture, source-page tracking. Biggest single lead leak.
+2. **Analytics + conversion tracking** — GA4 + Google Ads conversion tags on form submit AND `tel:` click (click-to-call event). Without this, ads can't optimize. She explicitly wants ads alignment.
+3. **Connect 3D forks → real service pages** — the recolored house/kitchen 3D heroes are still prototypes; promote into `services/new-construction.html` + `services/kitchen.html` (with static fallback + lazy Three.js for Core Web Vitals).
+4. **Projects / portfolio page** — Mike has hundreds of real job photos; a filterable gallery (by service + county) drives conversion AND gives Google real local imagery. `#projects` is only an anchor now.
+5. **NAP + Google Business Profile alignment** — site has no physical/service-area address; local-pack ranking needs consistent Name-Address-Phone + a GBP. Add a service-area-business address block.
+6. **PPC landing pages per ad group** (service × county) — dedicated single-CTA + form + tracking pages so ad spend lands on a converting page, not the homepage. County pages are the foundation.
+
+### 🟡 MEDIUM priority (ranking + trust)
+7. **Testimonials / reviews section + AggregateRating schema** — social proof is entirely missing. Pull Google reviews.
+8. **"How it works" / process page** — consultation → design → build → walkthrough. Reduces friction, ranks for "process" queries.
+9. **City-level pages** for top cities (Fort Lauderdale, Boca Raton, Miami, Coral Springs) — deeper than county for high-intent local search.
+10. **Image compression** — Mike's JPEGs are large; compress/serve WebP for Core Web Vitals (affects rank + ad Quality Score).
+11. **Blog / cost guides** — "cost to remodel a kitchen in Broward" long-tail content SEO.
+12. **Bathroom #15 real-3D replacement** (see plan below).
+
+### 🟢 LOW priority (polish)
+13. Favicon + default OG share image + web manifest. 14. Accessibility pass (contrast, focus states, form labels). 15. 404 page.
+
+### 🛁 BATHROOM #15 — real-3D replacement plan
+Current `bathroom-waterproofing-section.html` is CSS-layered planes (same family as stucco) — Priscila: "doesn't work, same as stucco." No Ricardo pen exists for a bathroom. Options, best→worst:
+- **(A, recommended)** Reuse the **kitchen-room3d (LYxMWQN) fork pattern** but source a Ricardo *bathroom* room pen if one exists (search his CodePen profile) — same cdpn-fullpage → recolor pipeline that worked for #10/#11.
+- **(B)** Keep the waterproofing wall-section concept but rebuild it as a proper isometric 3D cutaway (preserve-3d box like the stucco assembly but corrected) instead of flat stacked planes — shows framing→cement board→membrane→tile as a real 3D wall slice.
+- **(C)** Commission a baked GLTF bath model (like KKbWGNZ) — highest fidelity, needs Blender/asset budget.
+Decision needed from Priscila on direction before build.
+
+---
+
 ## 📍 WHERE THINGS LIVE (cold-start orientation)
 
 - **Local repo:** `~/ClaudeWorkspace/opc-website/`
