@@ -244,9 +244,9 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-text">
-    <div class="hero-tag">✦ SERVICE · NEW CONSTRUCTION</div>
-    <h1>From <span class="blue">empty lot.</span><br>To <span class="serif">keys</span> in hand.</h1>
-    <p>Watch a house assemble itself. Footing → slab → framing → roof → siding. The same sequence we run on every build. Scroll to see it.</p>
+    <div class="hero-tag">✦ SERVICE · 06 · NEW CONSTRUCTION</div>
+    <h1>From <span class="serif">Ground</span><br>Up.</h1>
+    <p>Lot to keys. Footing, slab, framing, roof, siding — the same sequence we run on every build. Scroll to watch one assemble.</p>
     <a href="#cta" class="hero-cta">Start a Build →</a>
   </div>
   <div class="assembly-stage">
@@ -335,9 +335,9 @@ const canvas = document.getElementById('assemblyCanvas');
 const wrap = canvas.parentElement;
 const scene = new THREE.Scene();
 
-const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 100);
-camera.position.set(6, 5.5, 9);
-camera.lookAt(0, 1.5, 0);
+const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
+camera.position.set(5.5, 3.8, 8.5);
+camera.lookAt(0, 1.9, 0);
 
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -581,30 +581,33 @@ function loop() {
   siding.rotation.y = yRot;
   finish.rotation.y = yRot;
 
-  // === FADE EACH PHASE IN AT ITS WINDOW ===
-  // Phase windows: 7 phases, each ~0.14 wide, overlap a bit
-  // 01 LOT: always visible (lotMat handled below)
-  lotMat.opacity = 0.5 - scrollPct * 0.35; // fades as build progresses
-  grid.material.opacity = Math.max(0.08, 0.18 - scrollPct * 0.10);
+  // === GHOST PREVIEW + SCROLL INTENSIFY ===
+  // Every phase has a baseline "ghost" opacity so the WHOLE house is visible from scroll=0.
+  // Each phase then intensifies inside its scroll window — that's the "build animation."
+  // Result: you see the full structure on load (like Bath/Concrete), it sharpens as you scroll.
+  function phaseOp(startPct, endPct, baseline, target) {
+    const t = Math.max(0, Math.min(1, (scrollPct - startPct) / (endPct - startPct)));
+    return baseline + (target - baseline) * t;
+  }
 
-  // 02 FOOTING: 0.08 - 0.22
-  matCyan.opacity = Math.max(0, Math.min(1, (scrollPct - 0.08) / 0.14)) * 0.9;
+  // 01 LOT — always visible, dims slightly as build progresses
+  lotMat.opacity = 0.55 - scrollPct * 0.30;
+  grid.material.opacity = Math.max(0.08, 0.20 - scrollPct * 0.10);
 
-  // 03 SLAB (cream): 0.22 - 0.36
-  // 04 FRAMING uses cream too — share fade with framing window
-  matCream.opacity = Math.max(0, Math.min(1, (scrollPct - 0.22) / 0.14)) * 0.95;
+  // 02 FOOTING (cyan box) — baseline 0.15, peak 0.90 in window 0.05-0.20
+  matCyan.opacity = phaseOp(0.05, 0.20, 0.15, 0.90);
 
-  // 04 FRAMING DIM lines: 0.36 - 0.50 — share matCyanDim, gets brighter
-  matCyanDim.opacity = Math.max(0, Math.min(1, (scrollPct - 0.30) / 0.14)) * 0.55;
+  // 03 SLAB + 06 SIDING (cream) — baseline 0.18, peak 0.95 in window 0.20-0.40
+  matCream.opacity = phaseOp(0.20, 0.40, 0.18, 0.95);
 
-  // 05 ROOF: 0.50 - 0.65
-  matWalnut.opacity = Math.max(0, Math.min(1, (scrollPct - 0.50) / 0.15)) * 1.0;
+  // 04 FRAMING studs / dim lines (cyan dim) — baseline 0.12, peak 0.55 in window 0.30-0.50
+  matCyanDim.opacity = phaseOp(0.30, 0.50, 0.12, 0.55);
 
-  // 06 SIDING: 0.65 - 0.80 — uses matCream (already faded in earlier, intensify)
-  // (handled by matCream — already at full opacity by this scrollPct)
+  // 05 ROOF (walnut) — baseline 0.20, peak 1.0 in window 0.50-0.70
+  matWalnut.opacity = phaseOp(0.50, 0.70, 0.20, 1.0);
 
-  // 07 FINISH (lime accent + door + windows): 0.80 - 1.0
-  matLime.opacity = Math.max(0, Math.min(1, (scrollPct - 0.80) / 0.20)) * 1.0;
+  // 07 FINISH (lime accent, door, windows) — baseline 0.20, peak 1.0 in window 0.75-1.0
+  matLime.opacity = phaseOp(0.75, 1.0, 0.20, 1.0);
 
   composer.render();
   requestAnimationFrame(loop);
