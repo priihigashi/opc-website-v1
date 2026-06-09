@@ -141,9 +141,12 @@
   }
   .section-title .serif { color: var(--lime); text-transform: none; }
   .phase-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 14px;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
   }
+  @media (max-width: 1100px) { .phase-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 800px)  { .phase-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px)  { .phase-grid { grid-template-columns: 1fr; } }
   .phase-card {
     background: rgba(240, 235, 227, 0.04);
     backdrop-filter: blur(20px) saturate(140%);
@@ -163,7 +166,8 @@
   }
   .phase-card h3 {
     font-family: 'Anton', sans-serif;
-    font-size: 20px; text-transform: uppercase; margin-bottom: 8px;
+    font-size: 26px; text-transform: uppercase; margin-bottom: 10px;
+    letter-spacing: 1px; line-height: 1.05;
   }
   .phase-card p { font-size: 12.5px; line-height: 1.55; opacity: 0.72; }
 
@@ -245,7 +249,7 @@
 <section class="hero">
   <div class="hero-text">
     <div class="hero-tag">✦ SERVICE · 06 · NEW CONSTRUCTION</div>
-    <h1>From <span class="serif">Ground</span><br>Up.</h1>
+    <h1>From<br><span class="serif">Ground</span> Up.</h1>
     <p>Lot to keys. Footing, slab, framing, roof, siding — the same sequence we run on every build. Scroll to watch one assemble.</p>
     <a href="#cta" class="hero-cta">Start a Build →</a>
   </div>

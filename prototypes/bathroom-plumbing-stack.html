@@ -145,9 +145,12 @@
   }
   .section-title .serif { color: var(--lime); text-transform: none; }
   .phase-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    display: grid; grid-template-columns: repeat(4, 1fr);
     gap: 16px;
   }
+  @media (max-width: 1100px) { .phase-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 800px)  { .phase-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px)  { .phase-grid { grid-template-columns: 1fr; } }
   .phase-card {
     background: rgba(240, 235, 227, 0.04);
     backdrop-filter: blur(20px) saturate(140%);
@@ -173,7 +176,8 @@
   }
   .phase-card h3 {
     font-family: 'Anton', sans-serif;
-    font-size: 22px; text-transform: uppercase; margin-bottom: 8px;
+    font-size: 26px; text-transform: uppercase; margin-bottom: 10px;
+    letter-spacing: 1px; line-height: 1.05;
   }
   .phase-card p { font-size: 13px; line-height: 1.55; opacity: 0.75; }
 
