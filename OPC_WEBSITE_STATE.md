@@ -19,15 +19,19 @@ Last updated: **2026-06-09**
 
 CodePen Cloudflare blocks bot fetch — that's why the misread happened. Next chat needs Priscila to **export each pen** (CodePen → ⚙️ → Export ZIP) OR paste the JS/CSS/HTML manually.
 
-**REWORK SCOPE:**
-- 🔴 **#10 NewBuild** → fork `yLOpNdZ` → recolor to OPC palette → drop into existing service-page scaffold
-- 🔴 **#11 Kitchen** → fork `LYxMWQN` → recolor to OPC palette → drop into existing service-page scaffold
-- 🟡 **Future Renovation page** → fork `KKbWGNZ` → recolor to OPC palette
+**REWORK SCOPE (expanded after 2026-06-09 EOD clarification):**
+Priscila: *"You did the first two as 3D objects, then changed to plumbing + blocks I didn't love, then changed AGAIN to lines that look even worse. I never asked for lines."*
 
-**NOT affected — keep these:**
-- ✅ #15 Bath Waterproof Section (CSS layered wall — no Ricardo pen for bath)
-- ✅ #17 Stucco Layer Section (CSS layered wall — no Ricardo pen for stucco)
-- ✅ #16 Floor Plan → 3D Reveal (Plan→3D approved in memo, not a Ricardo pen reference)
+**Every service-page hero "image on the right" must be a Ricardo-style RENDERED 3D OBJECT, recolored to OPC palette only. Not CSS layered planes. Not Three.js wireframe. Not floor plan blueprints. Not exploded line blocks.**
+
+- 🔴 **#10 NewBuild** (currently line-style Three.js house) → fork `yLOpNdZ` → recolor only
+- 🔴 **#11 Kitchen** (currently exploded blocks) → fork `LYxMWQN` → recolor only
+- 🔴 **#15 Bath Waterproof Section** (currently CSS layered planes) → needs Ricardo-style 3D bathroom object. Priscila: "looks even worse than before"
+- 🔴 **#16 Floor Plan → 3D Reveal** (currently top-down blueprint→walls-rise) → NO BLUEPRINT. Replace with rendered 3D house, NOT line-art.
+- 🔴 **#17 Stucco** (currently CSS layered planes — same family as #15) → needs Ricardo-style 3D object, possibly forked from a pen TBD
+- 🟡 **Future Renovation page** → fork `KKbWGNZ` → recolor only
+
+**Open question for Priscila (from EOD voice msg):** *"I already did the bedroom could be on..."* — voice-to-text garbled. Did she mean (a) already mapped a Ricardo pen to a service, (b) has a bathroom image ready, or (c) something else? Ask first thing next chat.
 
 ---
 
