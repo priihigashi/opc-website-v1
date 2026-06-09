@@ -76,6 +76,9 @@
       <a href="${base}prototypes/wireframe-house-aura.html">03 3D</a>
       <a href="${base}prototypes/project-gallery-cube.html">04 Cube</a>
       <a href="${base}prototypes/hover-gallery-tiles.html">05 Hover</a>
+      <a href="${base}prototypes/combined-lumen-vision.html">06 Combo</a>
+      <a href="${base}prototypes/combined-gold-glow.html">07 Gold</a>
+      <a href="${base}prototypes/concrete-rotating-bars.html">08 Concrete</a>
     </div>
     <span class="opc-close" id="opc-close-btn">✕</span>
   `;
