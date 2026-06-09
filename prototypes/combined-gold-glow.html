@@ -35,15 +35,17 @@
   }
   .ambient .glow {
     position: absolute;
-    width: 80vw; height: 80vw;
-    max-width: 1100px; max-height: 1100px;
+    width: 110vw; height: 110vw;
+    max-width: 1400px; max-height: 1400px;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
+    /* Tuned 2026-06-09: softer than v1 — diffuse glow that doesn't wash subject (ref: jerora98 zxoBxWg) */
     background: radial-gradient(circle,
-      rgba(212, 165, 58, 0.10) 0%,
-      rgba(212, 165, 58, 0.04) 30%,
-      transparent 60%);
-    filter: blur(40px);
+      rgba(212, 165, 58, 0.05) 0%,
+      rgba(212, 165, 58, 0.02) 25%,
+      transparent 55%);
+    filter: blur(80px);
+    opacity: 0.85;
   }
   .ambient .ring {
     position: absolute;
@@ -517,6 +519,77 @@
   .cursor-orb.hover::after { transform: translate(-50%, -50%) scale(0); }
   @media (hover: none), (pointer: coarse) { .cursor-orb { display: none; } }
 
+  /* === PARTICLE CURSOR (alternative mode) ===
+     Glowing lime particle with soft trail.
+     Toggle via .cursor-mode-particle on <body>. */
+  body.cursor-mode-particle .cursor-orb { display: none; }
+  .cursor-particle {
+    position: fixed; top: 0; left: 0;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle,
+      rgba(212, 165, 58, 1) 0%,
+      rgba(212, 165, 58, 0.6) 30%,
+      rgba(203, 204, 16, 0) 70%);
+    box-shadow: 0 0 24px rgba(212, 165, 58, 0.6),
+                0 0 48px rgba(212, 165, 58, 0.3);
+    transition: width 0.25s ease, height 0.25s ease, box-shadow 0.25s;
+    display: none;
+  }
+  body.cursor-mode-particle .cursor-particle { display: block; }
+  body.cursor-mode-particle a,
+  body.cursor-mode-particle button,
+  body.cursor-mode-particle input,
+  body.cursor-mode-particle .service-card,
+  body.cursor-mode-particle .cube-cta,
+  body.cursor-mode-particle .cube-3d,
+  body.cursor-mode-particle .nav-cta { cursor: none !important; }
+  body.cursor-mode-particle { cursor: none; }
+  .cursor-particle.hover {
+    width: 36px; height: 36px;
+    box-shadow: 0 0 36px rgba(212, 165, 58, 0.85),
+                0 0 72px rgba(212, 165, 58, 0.45);
+  }
+  .cursor-trail {
+    position: fixed;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(212, 165, 58, 0.6), transparent 70%);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+    display: none;
+  }
+  body.cursor-mode-particle .cursor-trail { display: block; }
+  @media (hover: none), (pointer: coarse) { .cursor-particle, .cursor-trail { display: none !important; } }
+
+  /* === CURSOR MODE TOGGLE (small, bottom-left, ADHD-discoverable) === */
+  .cursor-toggle {
+    position: fixed; bottom: 16px; left: 16px; z-index: 10000;
+    display: flex; gap: 2px;
+    padding: 4px;
+    background: rgba(5,5,5,0.6);
+    backdrop-filter: blur(10px) saturate(150%);
+    border: 1px solid rgba(240,235,227,0.1);
+    border-radius: 999px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 9px; letter-spacing: 1.5px;
+  }
+  .cursor-toggle button {
+    background: transparent; border: none; color: var(--cream);
+    padding: 6px 12px; border-radius: 999px;
+    cursor: pointer; opacity: 0.5;
+    text-transform: uppercase;
+  }
+  .cursor-toggle button.active {
+    background: var(--lime); color: var(--obsidian); opacity: 1;
+  }
+  @media (hover: none), (pointer: coarse) { .cursor-toggle { display: none; } }
+
   /* ===== SIDE DOT NAV (LUMEN style) ===== */
   .side-nav {
     position: fixed; right: 24px; top: 50%;
@@ -557,8 +630,17 @@
 </head>
 <body>
 
-<!-- Cursor orb -->
+<!-- Cursor orb (default = RING mode) -->
 <div class="cursor-orb" id="cursorOrb"></div>
+
+<!-- Cursor particle (PARTICLE mode) -->
+<div class="cursor-particle" id="cursorParticle"></div>
+
+<!-- Cursor mode toggle (bottom-left) -->
+<div class="cursor-toggle" role="group" aria-label="Cursor style">
+  <button id="modeRing" class="active" data-mode="ring">Ring</button>
+  <button id="modeParticle" data-mode="particle">Particle</button>
+</div>
 
 <!-- AMBIENT LAYERS -->
 <div class="ambient">
@@ -888,24 +970,86 @@ function updateTransform() {
 window.addEventListener('scroll', updateTransform, { passive: true });
 updateTransform();
 
-// ====== CURSOR ORB (smooth lerp follower) ======
+// ====== CURSOR (RING + PARTICLE modes, with toggle + localStorage) ======
 const cursorOrb = document.getElementById('cursorOrb');
+const cursorParticle = document.getElementById('cursorParticle');
 let mx = window.innerWidth / 2, my = window.innerHeight / 2;
 let cx = mx, cy = my;
 document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+
+// Trail particles (only used in particle mode) — reuse a small pool
+const TRAIL_COUNT = 8;
+const trailPool = [];
+for (let i = 0; i < TRAIL_COUNT; i++) {
+  const t = document.createElement('div');
+  t.className = 'cursor-trail';
+  document.body.appendChild(t);
+  trailPool.push({ el: t, x: mx, y: my, life: 0 });
+}
+let trailIndex = 0;
+let trailFrame = 0;
+
 function cursorLoop() {
   cx += (mx - cx) * 0.18;
   cy += (my - cy) * 0.18;
   cursorOrb.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
+  cursorParticle.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
+
+  // Trail: drop a particle every 3 frames in particle mode
+  if (document.body.classList.contains('cursor-mode-particle')) {
+    trailFrame++;
+    if (trailFrame % 3 === 0) {
+      const p = trailPool[trailIndex];
+      p.x = cx; p.y = cy; p.life = 1;
+      p.el.style.left = cx + 'px';
+      p.el.style.top = cy + 'px';
+      p.el.style.opacity = '0.6';
+      p.el.style.transform = 'translate(-50%, -50%) scale(1)';
+      // Fade out by removing then re-adding via animation reset
+      setTimeout(() => {
+        p.el.style.opacity = '0';
+        p.el.style.transform = 'translate(-50%, -50%) scale(0.3)';
+      }, 30);
+      trailIndex = (trailIndex + 1) % TRAIL_COUNT;
+    }
+  }
+
   requestAnimationFrame(cursorLoop);
 }
 cursorLoop();
-// Grow on hover over interactive elements
+
+// Hover grow on interactive elements
 const interactive = document.querySelectorAll('a, button, input, .service-card, .cube-cta, .nav-cta');
 interactive.forEach(el => {
-  el.addEventListener('mouseenter', () => cursorOrb.classList.add('hover'));
-  el.addEventListener('mouseleave', () => cursorOrb.classList.remove('hover'));
+  el.addEventListener('mouseenter', () => {
+    cursorOrb.classList.add('hover');
+    cursorParticle.classList.add('hover');
+  });
+  el.addEventListener('mouseleave', () => {
+    cursorOrb.classList.remove('hover');
+    cursorParticle.classList.remove('hover');
+  });
 });
+
+// ====== CURSOR MODE TOGGLE ======
+const modeRingBtn = document.getElementById('modeRing');
+const modeParticleBtn = document.getElementById('modeParticle');
+function setCursorMode(mode) {
+  if (mode === 'particle') {
+    document.body.classList.add('cursor-mode-particle');
+    modeParticleBtn.classList.add('active');
+    modeRingBtn.classList.remove('active');
+  } else {
+    document.body.classList.remove('cursor-mode-particle');
+    modeRingBtn.classList.add('active');
+    modeParticleBtn.classList.remove('active');
+  }
+  localStorage.setItem('opc_cursor_mode', mode);
+}
+modeRingBtn.addEventListener('click', () => setCursorMode('ring'));
+modeParticleBtn.addEventListener('click', () => setCursorMode('particle'));
+// Restore last choice (default = ring, since current users are used to it)
+setCursorMode(localStorage.getItem('opc_cursor_mode') || 'ring');
 
 // ====== SIDE DOT NAV ACTIVE STATE ======
 const sections = ['hero', 'services', 'transform', 'cube', 'trust', 'cta'];
