@@ -486,13 +486,14 @@ function makeRebar(x, z) {
 makeRebar(-0.3, -0.3); makeRebar(0.3, -0.3);
 makeRebar(-0.3, 0.3);  makeRebar(0.3, 0.3);
 
-// Lime accent line ring around the column (like a wrap mark)
-const accentGeo = new THREE.TorusGeometry(0.72, 0.012, 8, 64);
-const accentMat = new THREE.MeshBasicMaterial({ color: 0xCBCC10, transparent: true, opacity: 0.85 });
+// Lime accent ring — wraps the WHOLE composition (not the column).
+// Lives in scene (not in `bars`) so it doesn't spin with the assembly.
+const accentGeo = new THREE.TorusGeometry(2.2, 0.012, 8, 128);
+const accentMat = new THREE.MeshBasicMaterial({ color: 0xCBCC10, transparent: true, opacity: 0.55 });
 const accent = new THREE.Mesh(accentGeo, accentMat);
 accent.rotation.x = Math.PI / 2;
-accent.position.y = 0.45;
-bars.add(accent);
+accent.position.y = -0.55;
+scene.add(accent);
 
 // Ground hint plane
 const groundGeo = new THREE.PlaneGeometry(8, 8);

@@ -601,7 +601,7 @@ tileLayer.add(tileWall);
 tileLayer.traverse(o => { if (o.material) o.material.opacity = 0; });
 
 // === LIME ACCENT RING (the "OPC signature") ===
-const accentGeo = new THREE.TorusGeometry(2.1, 0.015, 8, 100);
+const accentGeo = new THREE.TorusGeometry(3.8, 0.015, 8, 128);
 const accentMat = new THREE.MeshBasicMaterial({ color: 0xE0E223, transparent: true, opacity: 0.9, toneMapped: false });
 const accent = new THREE.Mesh(accentGeo, accentMat);
 accent.rotation.x = Math.PI / 2;
