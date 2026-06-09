@@ -17,7 +17,7 @@ Last updated: **2026-06-09**
 
 - Lab phase — prototypes in `/prototypes/`, all `noindex,nofollow`. Production pages (root, services/*) are also live but not the final design.
 - Settling on a hero / cursor / 3D vocabulary by comparing prototypes side-by-side (LAB banner on every page lets you jump between them).
-- **Open right now:** review newly added Contact Atmosphere, Project Gallery Split, and Background Swap prototypes while Claude handles design-direction options for Bathroom 3D + Wireframe House Aura rework.
+- **Open right now:** build the approved Bathroom 3D replacement first, then the approved Wireframe House Aura replacement.
 
 ---
 
@@ -53,9 +53,11 @@ Lab banner cache-bust: **?v=7** (bump to ?v=8 on next page added)
 - **3D pages:** all prototypes use Three.js loaded via importmap (CDN)
 - **Cursor orb:** scoped to `combined-lumen-vision` + `combined-gold-glow` ONLY (too heavy combined with Three.js + bloom)
 - **Bloom:** must NOT wash out the subject. Anchor params for reference: bathroom-plumbing-stack uses `UnrealBloomPass(0.7, 0.6, 0.4)` with `toneMappingExposure = 1.05` — that's the upper limit that still reads
+- **Bathroom 3D replacement:** approved direction is **Tile + Waterproofing Wall Section** — framing → cement board → waterproofing membrane → mortar → tile → grout, with labels and real bath context photos (`IMG_6595`, `IMG_6425`).
+- **Wireframe House Aura replacement:** approved direction is **Floor Plan → 3D Reveal** — top-down architectural plan first, then walls rise, camera tilts to isometric, roof/materials appear.
 - **Service page 3D recommendations (priority order):**
   1. New Build — sequential assembly (footing → slab → framing → roof) — *brand signature*
-  2. Bathroom — plumbing rough-in stack — *positions OPC as "we know what's behind the wall"* — ✅ BUILT
+  2. Bathroom — tile + waterproofing wall section — *shows invisible premium work under the finish* — ✅ APPROVED TO BUILD
   3. Stucco — 4-layer wall slice (lath → scratch → brown → finish) — *defends pricing*
   4. Kitchen — exploded cabinet
   5. Renovation — house cross-section split
@@ -86,27 +88,27 @@ These fire automatically when triggered. Priscila should NOT have to ask:
 |------|--------|------|------|
 | 2026-06-09 | CodePen — Justin Ross Rythorian | [GgqZzNa](https://codepen.io/Justin-Ross-Rythorian/pen/GgqZzNa) | "could we use this for FAQ? maybe" |
 | 2026-06-09 | CodePen — Justin Ross Rythorian | [MYegaEO](https://codepen.io/Justin-Ross-Rythorian/pen/MYegaEO) | "nice glow" |
-| 2026-06-09 | CodePen — Himanshu Santani | [gbaMbOR](https://codepen.io/Himanshu-Santani-the-bold/pen/gbaMbOR) | "not sure how we would use it" |
+| 2026-06-09 | CodePen — Himanshu Santani | [gbaMbOR](https://codepen.io/Himanshu-Santani-the-bold/pen/gbaMbOR) | "not sure how we would use it" — ⛔ rejected for OPC production; keep archived |
 | 2026-06-09 | CodePen — jerora98 | [zxoBxWg](https://codepen.io/jerora98/pen/zxoBxWg) | "this one has the glow in the back" — diffused gradient ref for combined-lumen-vision lime glow tuning |
 | 2026-06-09 | CodePen — David DeSandro | [OJLYxEB](https://codepen.io/desandro/pen/OJLYxEB) | "maybe use it" — desandro = 3D / gallery effects (isotope/flickity author) |
 | 2026-06-09 | CodePen — Ricardo Oliva Alonso | [yLOpNdZ](https://codepen.io/ricardoolivaalonso/pen/yLOpNdZ) | "maybe for 3D of the NEW BUILD page — need to adjust color" — **NEW BUILD candidate** |
 | 2026-06-09 | CodePen — fbuireu | [XBGZdd](https://codepen.io/fbuireu/pen/XBGZdd) | "bottom of page before last black strip, same color, 2-3 elements max, maybe Contact" — **CONTACT/FOOTER candidate** |
 | 2026-06-09 | CodePen — Nidal95 | [qENQPBp](https://codepen.io/Nidal95/pen/qENQPBp) | "gallery option — may add to Higashi too" — **GALLERY candidate (OPC + maybe Higashi)** |
-| 2026-06-09 | CodePen — osmosupply | [wBGYEMd](https://codepen.io/osmosupply/pen/wBGYEMd) | "save as inspo" — use TBD |
+| 2026-06-09 | CodePen — osmosupply | [wBGYEMd](https://codepen.io/osmosupply/pen/wBGYEMd) | "save as inspo" — defer; loading/microinteraction only |
 | 2026-06-09 | CodePen — osmosupply | [RNaeYqp](https://codepen.io/osmosupply/pen/RNaeYqp) | "4 squares, click → image becomes background" — **BG-SWAP candidate (Hero/Services)** |
-| 2026-06-09 | CodePen — hernandack | [GgjRbMq](https://codepen.io/hernandack/pen/GgjRbMq) | "not sure if I will use this but save it" — use TBD |
-| 2026-06-09 | CodePen — Ricardo Oliva Alonso | [KKbWGNZ](https://codepen.io/ricardoolivaalonso/pen/KKbWGNZ) | "another Ricardo 3D — idk where to use it" — service-page 3D library |
+| 2026-06-09 | CodePen — hernandack | [GgjRbMq](https://codepen.io/hernandack/pen/GgjRbMq) | "not sure if I will use this but save it" — ⛔ rejected for OPC production; keep archived |
+| 2026-06-09 | CodePen — Ricardo Oliva Alonso | [KKbWGNZ](https://codepen.io/ricardoolivaalonso/pen/KKbWGNZ) | "another Ricardo 3D — idk where to use it" — ✅ assigned to Renovation / interior sectional 3D |
 | 2026-06-09 | CodePen — Ricardo Oliva Alonso | [LYxMWQN](https://codepen.io/ricardoolivaalonso/pen/LYxMWQN) | "kitchen 3D — may need better colors" — **KITCHEN candidate** |
 | 2026-06-09 | russell-henderson.com | (reference) | Neon-tube orbital ring halo intensity — bloom inspiration |
 | 2026-06-09 | LUMEN | (reference) | Cursor-follow orb — implemented on 06 + 07 |
 
-### 🔴 Open feedback — AWAITING DIRECTION
+### ✅ Direction decisions from visual memo
 **Visual Direction Memo (saved 2026-06-09):** https://docs.google.com/document/d/1-ltwpYHCW9DX3PPB8Adnbe_hE8gKqB4VI3CnPHVeNsI/edit
 
-- **Bathroom 3D — REWORK** → Pick A (Tile/Waterproof Wall Section) ⭐ / B (Curbless Shower Build) / C (Floor Plan → 3D Bath)
-- **Wireframe house-aura — REWORK** → Pick A (Floor Plan → 3D Reveal) ⭐ / B (Architectural Section Cut) / C (Day-to-Night House)
-- **Reject from inspo** — approve removing `gbaMbOR` + `GgjRbMq`?
-- **KKbWGNZ (Ricardo 3rd 3D)** — assign to Stucco vs Renovation? Need screenshot first
+- **Bathroom:** approved **A — Tile + Waterproofing Wall Section**. Do not keep plumbing-stack as final direction.
+- **Wireframe House Aura:** approved **A — Floor Plan → 3D Reveal**. Rebuild as plan-first line-art, not generic solid house.
+- **CodePen rejects:** `gbaMbOR` and `GgjRbMq` are rejected for OPC production but remain archived in Inspiration.
+- **KKbWGNZ:** assigned to Renovation / interior sectional 3D, not Stucco.
 
 ### ✅ Resolved this session
 - Bathroom lime ring — radius 2.1→3.8 (commit `9081541`)
@@ -142,6 +144,7 @@ Drive Inspiration folder: `1ae7n4VwSZbu0_nt6nUX5WeLINGqYJ-CZ`
 ## 📝 ACTIVITY LOG (auto-appended by `/opc-website` skill after every report-back)
 
 - **2026-06-09** — Combined-lumen-vision + combined-gold-glow: tuned lime/gold ambient gradient softer (spread 80vw→110vw, blur 40→80px, opacity 0.07→0.035), added PARTICLE cursor mode (glowing dot + 8-particle trail) alongside RING mode, RING/PARTICLE toggle bottom-left with localStorage persistence. Gold variant re-synced from lime base.
+- **2026-06-09** — Audited Claude visual-direction memo: approved Bathroom A (Tile + Waterproofing Wall Section), approved House A (Floor Plan → 3D Reveal), rejected `gbaMbOR` + `GgjRbMq` for OPC production, assigned `KKbWGNZ` to Renovation/interior 3D.
 - **2026-06-09** — Built Contact Atmosphere (12), Project Gallery Split (13), and Background Swap Component (14); lab banner/index/state cache-bust synced to `?v=7`. Claude delegated Bathroom 3D + Wireframe House Aura direction memo before rebuild.
 - **2026-06-09** — Wireframe-house-aura REBUILT (commit `61586b3`): solid 3D house added (walls cream / roof walnut / lime accent strip / glass windows), crossfade wireframe→solid at scroll 40-65%, bloom restrained (strength 0.55, threshold 0.55, exposure 0.95), thinner rings + smaller stars, flat photo overlay disabled. Subject now visible at all scroll positions.
 - **2026-06-09** — State system spun up: tracker sheet + this file + `/opc-website` skill + Google Doc mirror. Logged 10 prototypes, 5 CodePens, 13 design decisions. Answered screenshot fix (macOS JPG default).
