@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blueprint Lens — OPC Prototype</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --obsidian: #0A0A0A;
+  --cream: #F0EBE3;
+  --lime: #CBCC10;
+  --blueprint: #4A90E2;
+  --blueprint-bright: #6FB2FF;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; overflow: hidden; cursor: none; }
+body {
+  font-family: 'Roboto Condensed', sans-serif;
+  background: var(--obsidian);
+  color: var(--cream);
+}
+h1, h2 { font-family: 'Anton', sans-serif; letter-spacing: 1px; font-weight: 400; }
+
+/* === STAGE === */
+.stage {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Layer 1 — finished property photo (default visible) */
+.photo-layer {
+  position: absolute; inset: 0;
+  background: url('../assets/img/mike/kitchens/IMG_2837.jpeg') center/cover;
+  filter: brightness(0.85);
+  z-index: 1;
+}
+
+/* Layer 2 — blueprint drawing (hidden, revealed inside lens) */
+.blueprint-layer {
+  position: absolute; inset: 0;
+  background: var(--obsidian);
+  z-index: 2;
+  pointer-events: none;
+  /* Lens reveal — only shows in circle around cursor */
+  --x: 50%;
+  --y: 50%;
+  --r: 180px;
+  mask: radial-gradient(circle var(--r) at var(--x) var(--y),
+    rgba(0,0,0,0) calc(100% - 3px),
+    rgba(0,0,0,1) calc(100% - 3px),
+    rgba(0,0,0,1) 100%);
+  -webkit-mask: radial-gradient(circle var(--r) at var(--x) var(--y),
+    rgba(0,0,0,0) calc(100% - 3px),
+    rgba(0,0,0,1) calc(100% - 3px),
+    rgba(0,0,0,1) 100%);
+  transition: opacity 0.5s;
+}
+
+/* The lens — what's visible inside the circle */
+.lens-content {
+  position: absolute; inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  --x: 50%;
+  --y: 50%;
+  --r: 180px;
+  /* Show only INSIDE the circle */
+  mask: radial-gradient(circle var(--r) at var(--x) var(--y),
+    rgba(0,0,0,1) calc(100% - 3px),
+    rgba(0,0,0,0) calc(100% - 3px));
+  -webkit-mask: radial-gradient(circle var(--r) at var(--x) var(--y),
+    rgba(0,0,0,1) calc(100% - 3px),
+    rgba(0,0,0,0) calc(100% - 3px));
+}
+
+/* Blueprint SVG inside the lens */
+.lens-content svg {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+}
+.lens-content .bg-fill {
+  fill: var(--obsidian);
+}
+.lens-content .line {
+  fill: none;
+  stroke: var(--blueprint-bright);
+  stroke-width: 1.5;
+  opacity: 0.9;
+}
+.lens-content .line.lime {
+  stroke: var(--lime);
+  stroke-width: 1;
+  stroke-dasharray: 6 4;
+}
+.lens-content .text {
+  fill: var(--blueprint-bright);
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+.lens-content .text.lime { fill: var(--lime); }
+
+/* Grid overlay inside lens */
+.lens-content .grid {
+  stroke: rgba(74,144,226,0.15);
+  stroke-width: 0.5;
+  fill: none;
+}
+
+/* The lens ring outline + glow */
+.lens-ring {
+  position: fixed;
+  width: 360px; height: 360px;
+  border-radius: 50%;
+  border: 2px solid var(--lime);
+  pointer-events: none;
+  z-index: 4;
+  transform: translate(-50%, -50%);
+  box-shadow:
+    0 0 32px rgba(203, 204, 16, 0.4),
+    inset 0 0 32px rgba(203, 204, 16, 0.2);
+  transition: width 0.3s, height 0.3s;
+}
+.lens-ring::before {
+  content: "";
+  position: absolute; inset: -2px;
+  border-radius: 50%;
+  border: 1px dashed rgba(74, 144, 226, 0.6);
+  animation: rotate 12s linear infinite;
+}
+.lens-ring::after {
+  content: "X-RAY";
+  position: absolute;
+  bottom: -28px; left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Anton', sans-serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--lime);
+  background: rgba(10,10,10,0.6);
+  backdrop-filter: blur(8px);
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+@keyframes rotate { to { transform: rotate(360deg); } }
+
+/* Header overlay */
+header {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 10;
+  padding: 24px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: auto;
+}
+.logo {
+  font-family: 'Anton', sans-serif;
+  font-size: 18px;
+  letter-spacing: 3px;
+  color: var(--cream);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+  text-decoration: none;
+}
+.logo .lime { color: var(--lime); }
+.back {
+  color: var(--cream);
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  opacity: 0.8;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+}
+
+/* Bottom overlay */
+.intro {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  z-index: 10;
+  padding: 0 40px 64px;
+  text-align: center;
+  pointer-events: none;
+}
+.intro .eyebrow {
+  display: inline-block;
+  font-family: 'Anton', sans-serif;
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: var(--lime);
+  text-transform: uppercase;
+  background: rgba(10,10,10,0.45);
+  backdrop-filter: blur(12px);
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.15);
+  margin-bottom: 24px;
+}
+.intro h1 {
+  font-size: clamp(40px, 6vw, 80px);
+  text-transform: uppercase;
+  color: var(--cream);
+  text-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.75),
+    0 4px 32px rgba(0, 0, 0, 0.5);
+  margin-bottom: 16px;
+}
+.intro h1 .blueprint { color: var(--blueprint-bright); }
+.intro h1 .lime { color: var(--lime); }
+.intro p {
+  font-size: 15px;
+  color: rgba(240,235,227,0.85);
+  max-width: 540px;
+  margin: 0 auto;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.7);
+}
+
+/* Mobile fallback */
+@media (max-width: 768px) {
+  html, body { cursor: auto; }
+  .lens-ring { display: none; }
+  .photo-layer { filter: brightness(0.7); }
+  .blueprint-layer, .lens-content { display: none; }
+  .intro { padding: 0 20px 80px; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .lens-ring::before { animation: none; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="../index.html" class="logo">OAK PARK <span class="lime">CONSTRUCTION</span></a>
+  <a href="../index.html" class="back">← Back to Home</a>
+</header>
+
+<div class="stage" id="stage">
+
+  <!-- Photo of the finished kitchen -->
+  <div class="photo-layer"></div>
+
+  <!-- The blueprint layer overlay (hidden by default, revealed inside lens) -->
+  <div class="blueprint-layer" id="blueprintLayer"></div>
+
+  <!-- What appears INSIDE the lens — the blueprint drawing -->
+  <div class="lens-content" id="lensContent">
+    <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+      <!-- Background dark fill matches lens bg -->
+      <rect class="bg-fill" x="0" y="0" width="1920" height="1080" />
+
+      <!-- Blueprint grid -->
+      <g class="grid">
+        <line x1="0" y1="100" x2="1920" y2="100"/>
+        <line x1="0" y1="200" x2="1920" y2="200"/>
+        <line x1="0" y1="300" x2="1920" y2="300"/>
+        <line x1="0" y1="400" x2="1920" y2="400"/>
+        <line x1="0" y1="500" x2="1920" y2="500"/>
+        <line x1="0" y1="600" x2="1920" y2="600"/>
+        <line x1="0" y1="700" x2="1920" y2="700"/>
+        <line x1="0" y1="800" x2="1920" y2="800"/>
+        <line x1="0" y1="900" x2="1920" y2="900"/>
+        <line x1="0" y1="1000" x2="1920" y2="1000"/>
+        <line x1="100" y1="0" x2="100" y2="1080"/>
+        <line x1="200" y1="0" x2="200" y2="1080"/>
+        <line x1="300" y1="0" x2="300" y2="1080"/>
+        <line x1="400" y1="0" x2="400" y2="1080"/>
+        <line x1="500" y1="0" x2="500" y2="1080"/>
+        <line x1="600" y1="0" x2="600" y2="1080"/>
+        <line x1="700" y1="0" x2="700" y2="1080"/>
+        <line x1="800" y1="0" x2="800" y2="1080"/>
+        <line x1="900" y1="0" x2="900" y2="1080"/>
+        <line x1="1000" y1="0" x2="1000" y2="1080"/>
+        <line x1="1100" y1="0" x2="1100" y2="1080"/>
+        <line x1="1200" y1="0" x2="1200" y2="1080"/>
+        <line x1="1300" y1="0" x2="1300" y2="1080"/>
+        <line x1="1400" y1="0" x2="1400" y2="1080"/>
+        <line x1="1500" y1="0" x2="1500" y2="1080"/>
+        <line x1="1600" y1="0" x2="1600" y2="1080"/>
+        <line x1="1700" y1="0" x2="1700" y2="1080"/>
+        <line x1="1800" y1="0" x2="1800" y2="1080"/>
+      </g>
+
+      <!-- Kitchen floorplan outline -->
+      <g>
+        <!-- Outer walls of kitchen -->
+        <rect class="line" x="280" y="220" width="1360" height="640" />
+
+        <!-- Interior dividers -->
+        <line class="line" x1="280" y1="500" x2="900" y2="500" />
+        <line class="line" x1="900" y1="220" x2="900" y2="500" />
+
+        <!-- Island (center) -->
+        <rect class="line" x="700" y="600" width="520" height="160" rx="4" />
+        <text class="text" x="960" y="690" text-anchor="middle">ISLAND · 9'-2" × 2'-10"</text>
+
+        <!-- Cabinets along top -->
+        <rect class="line" x="280" y="220" width="620" height="80" />
+        <text class="text" x="590" y="270" text-anchor="middle">UPPER CABINETS (WALNUT SLAB)</text>
+        <rect class="line" x="900" y="220" width="740" height="80" />
+        <text class="text" x="1270" y="270" text-anchor="middle">RANGE + HOOD ASSEMBLY</text>
+
+        <!-- Sink area -->
+        <rect class="line" x="320" y="320" width="200" height="80" />
+        <text class="text" x="420" y="370" text-anchor="middle">SINK 36"</text>
+
+        <!-- Refrigerator -->
+        <rect class="line" x="1450" y="320" width="160" height="160" />
+        <text class="text" x="1530" y="410" text-anchor="middle">REF.</text>
+
+        <!-- Dimension lines -->
+        <line class="line lime" x1="280" y1="180" x2="1640" y2="180" />
+        <line class="line lime" x1="280" y1="170" x2="280" y2="190" />
+        <line class="line lime" x1="1640" y1="170" x2="1640" y2="190" />
+        <text class="text lime" x="960" y="165" text-anchor="middle">24'-0"</text>
+
+        <line class="line lime" x1="240" y1="220" x2="240" y2="860" />
+        <line class="line lime" x1="230" y1="220" x2="250" y2="220" />
+        <line class="line lime" x1="230" y1="860" x2="250" y2="860" />
+        <text class="text lime" x="200" y="545" text-anchor="middle" transform="rotate(-90 200 545)">11'-4"</text>
+
+        <!-- Floor material note -->
+        <text class="text" x="490" y="780" text-anchor="middle">PORCELAIN TILE — 24" × 24"</text>
+
+        <!-- North arrow -->
+        <g transform="translate(1740,920)">
+          <circle r="36" fill="none" stroke="#4A90E2" stroke-width="1.5"/>
+          <line x1="0" y1="-30" x2="0" y2="30" stroke="#4A90E2" stroke-width="1.5"/>
+          <line x1="-30" y1="0" x2="30" y2="0" stroke="#4A90E2" stroke-width="1.5"/>
+          <text class="text" x="0" y="-42" text-anchor="middle">N</text>
+        </g>
+
+        <!-- Drawing title block -->
+        <g transform="translate(60,980)">
+          <rect class="line" width="380" height="64" />
+          <text class="text lime" x="16" y="22">OAK PARK CONSTRUCTION</text>
+          <text class="text" x="16" y="38">DRAWING: KITCHEN PLAN — A-101</text>
+          <text class="text" x="16" y="54">SCALE: 1/4" = 1'-0"  ·  CBC1263425</text>
+        </g>
+      </g>
+    </svg>
+  </div>
+
+  <!-- The lens ring (visible cursor) -->
+  <div class="lens-ring" id="lensRing"></div>
+
+  <!-- Bottom intro text -->
+  <div class="intro">
+    <div class="eyebrow">Move Your Mouse — X-Ray Vision</div>
+    <h1>Look <span class="blueprint">behind</span> the <span class="lime">finish.</span></h1>
+    <p>What looks like a finished kitchen is engineered down to the last dimension. Drag the lens across the room — see how we built it.</p>
+  </div>
+</div>
+
+<script>
+const stage = document.getElementById('stage');
+const blueprintLayer = document.getElementById('blueprintLayer');
+const lensContent = document.getElementById('lensContent');
+const lensRing = document.getElementById('lensRing');
+
+let mouseX = window.innerWidth / 2;
+let mouseY = window.innerHeight / 2;
+let lensX = mouseX;
+let lensY = mouseY;
+const LENS_RADIUS = 180;
+
+stage.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+});
+
+function updateLens() {
+  // Spring follow
+  lensX += (mouseX - lensX) * 0.15;
+  lensY += (mouseY - lensY) * 0.15;
+
+  blueprintLayer.style.setProperty('--x', lensX + 'px');
+  blueprintLayer.style.setProperty('--y', lensY + 'px');
+  blueprintLayer.style.setProperty('--r', LENS_RADIUS + 'px');
+
+  lensContent.style.setProperty('--x', lensX + 'px');
+  lensContent.style.setProperty('--y', lensY + 'px');
+  lensContent.style.setProperty('--r', LENS_RADIUS + 'px');
+
+  lensRing.style.transform = `translate(${lensX}px, ${lensY}px) translate(-50%, -50%)`;
+
+  requestAnimationFrame(updateLens);
+}
+updateLens();
+
+// Touch support — show lens at touch point
+stage.addEventListener('touchmove', (e) => {
+  const t = e.touches[0];
+  mouseX = t.clientX;
+  mouseY = t.clientY;
+  e.preventDefault();
+}, { passive: false });
+</script>
+
+</body>
+</html>
