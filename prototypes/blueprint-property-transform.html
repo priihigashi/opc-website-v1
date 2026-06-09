@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blueprint → Property Transform — OPC Prototype</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --obsidian: #0A0A0A;
+  --cream: #F0EBE3;
+  --lime: #CBCC10;
+  --walnut: #5B3C1F;
+  --blueprint: #4A90E2;
+  --blueprint-bright: #6FB2FF;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { cursor: none; }
+body {
+  font-family: 'Roboto Condensed', sans-serif;
+  background: var(--obsidian);
+  color: var(--cream);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Blueprint grid background — alive */
+body::before {
+  content: "";
+  position: fixed; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(rgba(74, 144, 226, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(74, 144, 226, 0.08) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+  animation: gridShift 60s linear infinite;
+}
+@keyframes gridShift {
+  to { background-position: 32px 32px; }
+}
+
+/* Header */
+header {
+  position: relative; z-index: 2;
+  padding: 24px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo {
+  font-family: 'Anton', sans-serif;
+  font-size: 20px;
+  letter-spacing: 3px;
+  color: var(--cream);
+}
+.logo .lime { color: var(--lime); }
+.back-link {
+  color: var(--cream);
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+.back-link:hover { opacity: 1; color: var(--lime); }
+
+/* Hero intro */
+.intro {
+  position: relative; z-index: 2;
+  padding: 60px 40px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+  text-align: center;
+}
+.eyebrow {
+  font-family: 'Anton', sans-serif;
+  font-size: 14px;
+  letter-spacing: 4px;
+  color: var(--lime);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+.intro h1 {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(40px, 7vw, 88px);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+.intro h1 .blueprint { color: var(--blueprint-bright); }
+.intro h1 .lime { color: var(--lime); }
+.intro .lead {
+  font-size: 18px;
+  max-width: 640px;
+  margin: 0 auto;
+  color: #a8b8c8;
+  line-height: 1.6;
+}
+
+/* Floorplan stage */
+.stage {
+  position: relative; z-index: 2;
+  padding: 60px 40px 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+  perspective: 1500px;
+}
+.floorplan-card {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  width: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease;
+}
+.floorplan-card svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Blueprint strokes — drawing animation */
+.line-draw {
+  fill: none;
+  stroke: var(--blueprint);
+  stroke-width: 2;
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 1200;
+  animation: draw 2.5s ease-out forwards;
+}
+.line-draw.delay-1 { animation-delay: 0.3s; }
+.line-draw.delay-2 { animation-delay: 0.6s; }
+.line-draw.delay-3 { animation-delay: 0.9s; }
+.line-draw.delay-4 { animation-delay: 1.2s; }
+.line-draw.dim {
+  stroke: rgba(74, 144, 226, 0.4);
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+}
+.line-draw.dim.delay-2 { animation-delay: 0.5s; }
+.line-draw.dim.delay-3 { animation-delay: 0.8s; }
+
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Dimension markers */
+.dim-line {
+  stroke: var(--lime);
+  stroke-width: 1;
+  stroke-dasharray: 6 4;
+  opacity: 0;
+  animation: fadeIn 1s ease-out 2s forwards;
+}
+.dim-text {
+  fill: var(--lime);
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  letter-spacing: 1px;
+  opacity: 0;
+  animation: fadeIn 1s ease-out 2s forwards;
+}
+@keyframes fadeIn { to { opacity: 1; } }
+
+/* Room interactive areas */
+.room {
+  cursor: none;
+  transition: filter 0.4s ease;
+}
+.room-photo {
+  opacity: 0;
+  transition: opacity 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+.room-overlay {
+  fill: transparent;
+  stroke: transparent;
+  stroke-width: 0;
+  transition: all 0.4s ease;
+}
+.room:hover .room-overlay {
+  stroke: var(--lime);
+  stroke-width: 3;
+  filter: drop-shadow(0 0 12px var(--lime));
+}
+.room:hover .room-photo {
+  opacity: 1;
+}
+.room:hover .room-label {
+  fill: var(--lime);
+  font-size: 16px;
+}
+
+/* Room labels */
+.room-label {
+  fill: var(--blueprint-bright);
+  font-family: 'Anton', sans-serif;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  pointer-events: none;
+  opacity: 0;
+  animation: fadeIn 1s ease-out 1.8s forwards;
+  transition: fill 0.3s, font-size 0.3s;
+}
+
+/* Hint pulse on rooms */
+.room-pulse {
+  fill: var(--lime);
+  opacity: 0;
+  pointer-events: none;
+  animation: pulse 3s ease-in-out 2.5s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0; transform: scale(0.8); }
+  50% { opacity: 0.6; transform: scale(1); }
+}
+
+/* Custom cursor */
+.cursor {
+  position: fixed;
+  width: 16px;
+  height: 16px;
+  background: var(--lime);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, background 0.2s;
+  mix-blend-mode: difference;
+  box-shadow: 0 0 16px rgba(203, 204, 16, 0.6);
+}
+.cursor.hovering {
+  width: 56px;
+  height: 56px;
+  background: transparent;
+  border: 2px solid var(--lime);
+  box-shadow: 0 0 24px rgba(203, 204, 16, 0.8);
+}
+
+/* CTA */
+.cta-section {
+  position: relative; z-index: 2;
+  padding: 80px 40px 120px;
+  text-align: center;
+  background: linear-gradient(180deg, transparent 0%, rgba(10, 10, 10, 0.9) 100%);
+}
+.cta-section h2 {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(32px, 5vw, 56px);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.cta-section p {
+  color: #a8b8c8;
+  margin-bottom: 32px;
+  font-size: 16px;
+}
+.btn {
+  display: inline-block;
+  background: var(--lime);
+  color: var(--obsidian);
+  padding: 22px 40px;
+  font-family: 'Anton', sans-serif;
+  font-size: 18px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  border: 2px solid var(--obsidian);
+  cursor: none;
+}
+
+/* Mobile fallback */
+@media (max-width: 768px) {
+  html { cursor: auto; }
+  .cursor { display: none; }
+  .btn { cursor: pointer; }
+  .room { cursor: pointer; }
+  .stage { padding: 40px 20px; perspective: none; }
+  .floorplan-card { transform: none !important; }
+  .intro { padding: 40px 20px; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .line-draw, .line-draw.dim {
+    stroke-dashoffset: 0 !important;
+    animation: none !important;
+  }
+  .room-pulse { animation: none; opacity: 0; }
+  body::before { animation: none; }
+}
+
+/* Instructions floater */
+.hint {
+  position: relative; z-index: 2;
+  text-align: center;
+  padding: 0 40px 24px;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--blueprint-bright);
+  opacity: 0;
+  animation: fadeIn 1s ease-out 3s forwards;
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+
+<header>
+  <a href="../index.html" class="logo">OAK PARK <span class="lime">CONSTRUCTION</span></a>
+  <a href="../index.html" class="back-link">← Back to Home</a>
+</header>
+
+<section class="intro">
+  <div class="eyebrow">Signature Interaction · Prototype v1</div>
+  <h1>Your <span class="blueprint">Floorplan</span><br>Becomes the <span class="lime">Navigation.</span></h1>
+  <p class="lead">Hover any room. The blueprint dissolves to reveal what we actually built. Click to enter the service.</p>
+</section>
+
+<p class="hint">⤍ Move your cursor over the rooms ⤎</p>
+
+<div class="stage">
+  <div class="floorplan-card" id="card">
+    <svg viewBox="0 0 1200 750" xmlns="http://www.w3.org/2000/svg">
+      <!-- Image clip definitions -->
+      <defs>
+        <clipPath id="clip-kitchen"><rect x="60" y="60" width="380" height="280"/></clipPath>
+        <clipPath id="clip-living"><rect x="460" y="60" width="380" height="280"/></clipPath>
+        <clipPath id="clip-bath"><rect x="860" y="60" width="280" height="280"/></clipPath>
+        <clipPath id="clip-outdoor"><rect x="60" y="360" width="540" height="330"/></clipPath>
+        <clipPath id="clip-addition"><rect x="620" y="360" width="520" height="330"/></clipPath>
+      </defs>
+
+      <!-- Outer building outline -->
+      <rect class="line-draw" x="40" y="40" width="1120" height="670" rx="2" />
+
+      <!-- Interior walls (dim) -->
+      <line class="line-draw dim delay-1" x1="440" y1="40" x2="440" y2="340" />
+      <line class="line-draw dim delay-1" x1="840" y1="40" x2="840" y2="340" />
+      <line class="line-draw dim delay-2" x1="40" y1="340" x2="1160" y2="340" />
+      <line class="line-draw dim delay-2" x1="600" y1="360" x2="600" y2="690" />
+      <line class="line-draw dim delay-3" x1="40" y1="690" x2="1160" y2="690" />
+
+      <!-- KITCHEN room -->
+      <g class="room" data-room="kitchen">
+        <image href="../assets/img/mike/kitchens/IMG_2837.jpeg" x="60" y="60" width="380" height="280"
+               preserveAspectRatio="xMidYMid slice" class="room-photo" clip-path="url(#clip-kitchen)" />
+        <rect class="room-overlay" x="60" y="60" width="380" height="280" />
+        <text class="room-label" x="250" y="200" text-anchor="middle">KITCHEN</text>
+        <circle class="room-pulse" cx="430" cy="70" r="4" />
+      </g>
+
+      <!-- LIVING / FULL RENOVATION -->
+      <g class="room" data-room="renovation">
+        <image href="../assets/img/mike/kitchens/IMG_2877.jpeg" x="460" y="60" width="380" height="280"
+               preserveAspectRatio="xMidYMid slice" class="room-photo" clip-path="url(#clip-living)" />
+        <rect class="room-overlay" x="460" y="60" width="380" height="280" />
+        <text class="room-label" x="650" y="200" text-anchor="middle">FULL RENOVATION</text>
+        <circle class="room-pulse" cx="830" cy="70" r="4" />
+      </g>
+
+      <!-- BATH -->
+      <g class="room" data-room="bath">
+        <image href="../assets/img/mike/bathrooms/IMG_6595.jpeg" x="860" y="60" width="280" height="280"
+               preserveAspectRatio="xMidYMid slice" class="room-photo" clip-path="url(#clip-bath)" />
+        <rect class="room-overlay" x="860" y="60" width="280" height="280" />
+        <text class="room-label" x="1000" y="200" text-anchor="middle">BATH</text>
+        <circle class="room-pulse" cx="1150" cy="70" r="4" />
+      </g>
+
+      <!-- OUTDOOR / PERGOLA -->
+      <g class="room" data-room="outdoor">
+        <image href="../assets/img/mike/exterior-patio-builds/clark-pergola-IMG_0020.jpeg" x="60" y="360" width="540" height="330"
+               preserveAspectRatio="xMidYMid slice" class="room-photo" clip-path="url(#clip-outdoor)" />
+        <rect class="room-overlay" x="60" y="360" width="540" height="330" />
+        <text class="room-label" x="330" y="525" text-anchor="middle">OUTDOOR LIVING</text>
+        <circle class="room-pulse" cx="590" cy="370" r="4" />
+      </g>
+
+      <!-- ADDITION -->
+      <g class="room" data-room="addition">
+        <image href="../assets/img/mike/shell-construction/IMG_5462.jpeg" x="620" y="360" width="520" height="330"
+               preserveAspectRatio="xMidYMid slice" class="room-photo" clip-path="url(#clip-addition)" />
+        <rect class="room-overlay" x="620" y="360" width="520" height="330" />
+        <text class="room-label" x="880" y="525" text-anchor="middle">ADDITION</text>
+        <circle class="room-pulse" cx="1130" cy="370" r="4" />
+      </g>
+
+      <!-- Dimension lines (decorative) -->
+      <line class="dim-line" x1="40" y1="20" x2="1160" y2="20" />
+      <line class="dim-line" x1="40" y1="15" x2="40" y2="25" />
+      <line class="dim-line" x1="1160" y1="15" x2="1160" y2="25" />
+      <text class="dim-text" x="600" y="14" text-anchor="middle">48' × 30'</text>
+
+      <line class="dim-line" x1="20" y1="40" x2="20" y2="710" />
+      <line class="dim-line" x1="15" y1="40" x2="25" y2="40" />
+      <line class="dim-line" x1="15" y1="710" x2="25" y2="710" />
+
+      <!-- Compass -->
+      <g transform="translate(1100,720)" opacity="0.5">
+        <circle r="14" fill="none" stroke="rgba(203,204,16,0.6)" stroke-width="1" />
+        <line x1="0" y1="-10" x2="0" y2="10" stroke="rgba(203,204,16,0.6)" stroke-width="1" />
+        <text x="0" y="-16" text-anchor="middle" fill="rgba(203,204,16,0.8)" font-family="Courier New" font-size="9">N</text>
+      </g>
+    </svg>
+  </div>
+</div>
+
+<section class="cta-section">
+  <h2>Start with your floorplan.</h2>
+  <p>Tell us what you want each room to feel like. We build it.</p>
+  <a href="tel:9542586769" class="btn">CALL (954) 258-6769</a>
+</section>
+
+<script>
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const card = document.getElementById('card');
+let cursorX = 0, cursorY = 0;
+let targetX = 0, targetY = 0;
+
+document.addEventListener('mousemove', (e) => {
+  targetX = e.clientX;
+  targetY = e.clientY;
+});
+
+function updateCursor() {
+  cursorX += (targetX - cursorX) * 0.18;
+  cursorY += (targetY - cursorY) * 0.18;
+  cursor.style.transform = `translate(${cursorX}px, ${cursorY}px) translate(-50%, -50%)`;
+  requestAnimationFrame(updateCursor);
+}
+updateCursor();
+
+// Room hover → cursor grows
+document.querySelectorAll('.room').forEach(room => {
+  room.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+  room.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+});
+
+// 3D card tilt on mousemove
+const stage = document.querySelector('.stage');
+let cardRX = 0, cardRY = 0;
+let targetRX = 0, targetRY = 0;
+
+stage.addEventListener('mousemove', (e) => {
+  const rect = card.getBoundingClientRect();
+  const cx = rect.left + rect.width / 2;
+  const cy = rect.top + rect.height / 2;
+  const dx = (e.clientX - cx) / rect.width;
+  const dy = (e.clientY - cy) / rect.height;
+  targetRY = dx * 6;   // rotateY in degrees
+  targetRX = -dy * 6;  // rotateX in degrees (inverted)
+});
+
+stage.addEventListener('mouseleave', () => {
+  targetRX = 0;
+  targetRY = 0;
+});
+
+function updateTilt() {
+  cardRX += (targetRX - cardRX) * 0.08;
+  cardRY += (targetRY - cardRY) * 0.08;
+  card.style.transform = `rotateX(${cardRX}deg) rotateY(${cardRY}deg)`;
+  requestAnimationFrame(updateTilt);
+}
+updateTilt();
+
+// Touch fallback
+document.querySelectorAll('.room').forEach(room => {
+  room.addEventListener('touchstart', function(e) {
+    document.querySelectorAll('.room').forEach(r => r.classList.remove('touched'));
+    this.classList.add('touched');
+  });
+});
+</script>
+
+</body>
+</html>
