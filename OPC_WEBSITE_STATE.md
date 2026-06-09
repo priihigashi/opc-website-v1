@@ -32,6 +32,21 @@ Priscila confirmed (final): *"I never said new build was right or kitchen actual
 
 **Only acceptable path forward:** Fork Ricardo Oliva Alonso pens, recolor to OPC palette, drop into existing hero-right slot. Find Ricardo pens (or equivalent rendered 3D objects) for Bath + Stucco too instead of inventing.
 
+**EXPLICIT PEN → PAGE MAPPING (Priscila final message 2026-06-09 EOD):**
+*"I gave you the link for you to use new build was a house and kitchen was the kitchen room 3-D."*
+
+| Ricardo CodePen | What's IN it | Service page |
+|---|---|---|
+| `yLOpNdZ` | 🏠 House 3D | **#10 NewBuild** |
+| `LYxMWQN` | 🍳 Kitchen room 3D | **#11 Kitchen** |
+| `KKbWGNZ` | ❓ TBD — ASK PRISCILA what's in this pen before assigning | TBD (was tentatively Renovation, verify first) |
+
+**Next chat first actions:**
+1. Confirm: is `KKbWGNZ` a Renovation/interior 3D, a Bathroom 3D, a Stucco wall 3D, or something else?
+2. Ask Priscila to export `yLOpNdZ` + `LYxMWQN` (+ `KKbWGNZ` if approved for some page) as CodePen ZIPs OR paste JS/CSS/HTML
+3. Find or ask for additional pens that contain a Bathroom 3D + Stucco 3D (since she said #15 #17 also look worse than originals)
+4. Fork each → swap palette to OPC obsidian/cream/lime/walnut → drop into existing service-page hero scaffold (right column)
+
 **Every service-page hero "image on the right" must be a Ricardo-style RENDERED 3D OBJECT, recolored to OPC palette only. Not CSS layered planes. Not Three.js wireframe. Not floor plan blueprints. Not exploded line blocks.**
 
 - 🔴 **#10 NewBuild** (currently line-style Three.js house) → fork `yLOpNdZ` → recolor only
