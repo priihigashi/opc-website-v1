@@ -19,8 +19,18 @@ Last updated: **2026-06-09**
 
 CodePen Cloudflare blocks bot fetch — that's why the misread happened. Next chat needs Priscila to **export each pen** (CodePen → ⚙️ → Export ZIP) OR paste the JS/CSS/HTML manually.
 
-**REWORK SCOPE (expanded after 2026-06-09 EOD clarification):**
-Priscila: *"You did the first two as 3D objects, then changed to plumbing + blocks I didn't love, then changed AGAIN to lines that look even worse. I never asked for lines."*
+**REWORK SCOPE (FINAL after 2026-06-09 EOD clarification — 3 rounds of correction):**
+Priscila confirmed (final): *"I never said new build was right or kitchen actually went wrong."* — every service-page 3D built this session was off, not just the line-art versions.
+
+**Status by prototype:**
+- #09 Bath Plumbing Stack — *"didn't like those image much"* (3D but wrong subject)
+- #10 NewBuild Sequential Assembly — wrong from start (lines)
+- #11 Kitchen Exploded Cabinet — *"actually went wrong"* (3D but wrong)
+- #15 Bath Waterproofing Wall Section — *"looks even worse than before"* (CSS layered)
+- #16 Floor Plan → 3D Reveal — wrong (blueprint lines, never asked for)
+- #17 Stucco Layer Section — wrong (CSS layered, more lines)
+
+**Only acceptable path forward:** Fork Ricardo Oliva Alonso pens, recolor to OPC palette, drop into existing hero-right slot. Find Ricardo pens (or equivalent rendered 3D objects) for Bath + Stucco too instead of inventing.
 
 **Every service-page hero "image on the right" must be a Ricardo-style RENDERED 3D OBJECT, recolored to OPC palette only. Not CSS layered planes. Not Three.js wireframe. Not floor plan blueprints. Not exploded line blocks.**
 
