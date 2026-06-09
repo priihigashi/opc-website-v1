@@ -82,6 +82,9 @@
       <a href="${base}prototypes/bathroom-plumbing-stack.html">09 Bath</a>
       <a href="${base}prototypes/new-construction-assembly.html">10 NewBuild</a>
       <a href="${base}prototypes/kitchen-exploded-cabinet.html">11 Kitchen</a>
+      <a href="${base}prototypes/contact-atmosphere.html">12 Contact</a>
+      <a href="${base}prototypes/project-gallery-split.html">13 Gallery</a>
+      <a href="${base}prototypes/background-swap.html">14 BG Swap</a>
     </div>
     <span class="opc-close" id="opc-close-btn">✕</span>
   `;

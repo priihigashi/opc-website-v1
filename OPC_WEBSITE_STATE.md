@@ -17,7 +17,7 @@ Last updated: **2026-06-09**
 
 - Lab phase — prototypes in `/prototypes/`, all `noindex,nofollow`. Production pages (root, services/*) are also live but not the final design.
 - Settling on a hero / cursor / 3D vocabulary by comparing prototypes side-by-side (LAB banner on every page lets you jump between them).
-- **Open right now:** test the rebuilt `wireframe-house-aura` and tuned `combined-lumen-vision` cursor/gradient; then build the New Build 3D service-page prototype.
+- **Open right now:** review newly added Contact Atmosphere, Project Gallery Split, and Background Swap prototypes while Claude handles design-direction options for Bathroom 3D + Wireframe House Aura rework.
 
 ---
 
@@ -38,8 +38,11 @@ Last updated: **2026-06-09**
 | 09 | Bathroom Plumbing Stack (service tpl) | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/prototypes/bathroom-plumbing-stack.html) |
 | 10 | **New Construction · Sequential Assembly** (BRAND SIGNATURE) | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/prototypes/new-construction-assembly.html) |
 | 11 | Kitchen · Exploded Cabinet (service tpl) | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/prototypes/kitchen-exploded-cabinet.html) |
+| 12 | Contact Atmosphere | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/prototypes/contact-atmosphere.html) |
+| 13 | Project Gallery Split | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/prototypes/project-gallery-split.html) |
+| 14 | Background Swap Component | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/prototypes/background-swap.html) |
 
-Lab banner cache-bust: **?v=6** (bump to ?v=7 on next page added)
+Lab banner cache-bust: **?v=7** (bump to ?v=8 on next page added)
 
 ---
 
@@ -94,14 +97,14 @@ These fire automatically when triggered. Priscila should NOT have to ask:
 | 2026-06-09 | CodePen — hernandack | [GgjRbMq](https://codepen.io/hernandack/pen/GgjRbMq) | "not sure if I will use this but save it" — use TBD |
 | 2026-06-09 | CodePen — Ricardo Oliva Alonso | [KKbWGNZ](https://codepen.io/ricardoolivaalonso/pen/KKbWGNZ) | "another Ricardo 3D — idk where to use it" — service-page 3D library |
 | 2026-06-09 | CodePen — Ricardo Oliva Alonso | [LYxMWQN](https://codepen.io/ricardoolivaalonso/pen/LYxMWQN) | "kitchen 3D — may need better colors" — **KITCHEN candidate** |
+| 2026-06-09 | russell-henderson.com | (reference) | Neon-tube orbital ring halo intensity — bloom inspiration |
+| 2026-06-09 | LUMEN | (reference) | Cursor-follow orb — implemented on 06 + 07 |
 
 ### 🔴 Open feedback to resolve
 - **Bathroom 3D — REWORK** (Priscila: "do not like the 3D chosen for bathroom") — get direction first, then rebuild
 - **Bathroom lime ring — FIX** (Priscila: "not a full circle as it rotates, looks broken / glitchy") — ring radius 2.1 < building extent W=4. Increase to >3.5 or relocate inside rotating group
 - **Concrete lime ring — FIX** (Priscila: "around the POLE only, tiny, not sure if supposed to be there") — same root cause; either remove or radius-up to wrap whole composition
 - **Wireframe house-aura — REVISIT** (Priscila: "house is no that good") — rework with line-style approach
-| 2026-06-09 | russell-henderson.com | (reference) | Neon-tube orbital ring halo intensity — bloom inspiration |
-| 2026-06-09 | LUMEN | (reference) | Cursor-follow orb — implemented on 06 + 07 |
 
 Drive Inspiration folder: `1ae7n4VwSZbu0_nt6nUX5WeLINGqYJ-CZ`
 
@@ -133,6 +136,7 @@ Drive Inspiration folder: `1ae7n4VwSZbu0_nt6nUX5WeLINGqYJ-CZ`
 ## 📝 ACTIVITY LOG (auto-appended by `/opc-website` skill after every report-back)
 
 - **2026-06-09** — Combined-lumen-vision + combined-gold-glow: tuned lime/gold ambient gradient softer (spread 80vw→110vw, blur 40→80px, opacity 0.07→0.035), added PARTICLE cursor mode (glowing dot + 8-particle trail) alongside RING mode, RING/PARTICLE toggle bottom-left with localStorage persistence. Gold variant re-synced from lime base.
+- **2026-06-09** — Built Contact Atmosphere (12), Project Gallery Split (13), and Background Swap Component (14); lab banner/index/state cache-bust synced to `?v=7`. Claude delegated Bathroom 3D + Wireframe House Aura direction memo before rebuild.
 - **2026-06-09** — Wireframe-house-aura REBUILT (commit `61586b3`): solid 3D house added (walls cream / roof walnut / lime accent strip / glass windows), crossfade wireframe→solid at scroll 40-65%, bloom restrained (strength 0.55, threshold 0.55, exposure 0.95), thinner rings + smaller stars, flat photo overlay disabled. Subject now visible at all scroll positions.
 - **2026-06-09** — State system spun up: tracker sheet + this file + `/opc-website` skill + Google Doc mirror. Logged 10 prototypes, 5 CodePens, 13 design decisions. Answered screenshot fix (macOS JPG default).
 - **2026-06-09** — Bathroom plumbing stack (09) shipped: 4-phase scroll (rough-in → supply → fixtures → finish), PVC drain stack + copper supply + fixtures fade-in, lime accent ring with bloom. Live at /prototypes/bathroom-plumbing-stack.html.
