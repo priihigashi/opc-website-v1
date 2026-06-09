@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OPC Liquid Glass — Components Prototype</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --obsidian: #0A0A0A;
+  --cream: #F0EBE3;
+  --lime: #CBCC10;
+  --blueprint: #4A90E2;
+  --walnut: #5B3C1F;
+
+  /* Glass design tokens */
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-bg-strong: rgba(255, 255, 255, 0.14);
+  --glass-bg-dark: rgba(10, 10, 10, 0.45);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-border-strong: rgba(255, 255, 255, 0.3);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+  --glass-shadow-strong: 0 12px 48px 0 rgba(0, 0, 0, 0.6);
+  --glass-blur: blur(20px) saturate(180%);
+  --glass-blur-strong: blur(40px) saturate(200%);
+
+  /* Light mode tokens (toggle) */
+  --bg-base: var(--obsidian);
+  --text-base: var(--cream);
+}
+
+[data-theme="light"] {
+  --glass-bg: rgba(255, 255, 255, 0.45);
+  --glass-bg-strong: rgba(255, 255, 255, 0.6);
+  --glass-bg-dark: rgba(255, 255, 255, 0.35);
+  --glass-border: rgba(255, 255, 255, 0.7);
+  --glass-border-strong: rgba(10, 10, 10, 0.1);
+  --bg-base: var(--cream);
+  --text-base: var(--obsidian);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Roboto Condensed', sans-serif;
+  background: var(--bg-base);
+  color: var(--text-base);
+  min-height: 200vh;
+  position: relative;
+  overflow-x: hidden;
+  transition: background 0.6s, color 0.6s;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Anton', sans-serif;
+  letter-spacing: 1px;
+  line-height: 1.1;
+  font-weight: 400;
+}
+
+/* === BACKGROUND HERO IMAGE === */
+.hero-bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100vh;
+  background: url('../assets/img/mike/new-construction/122-dockside-cir-IMG_7853.jpeg') center/cover;
+  z-index: 0;
+  filter: brightness(0.6) saturate(1.1);
+}
+
+.hero-bg::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg,
+    rgba(10,10,10,0.4) 0%,
+    rgba(10,10,10,0.2) 30%,
+    rgba(10,10,10,0.85) 100%);
+}
+
+/* Floating orbs for liquid glass light source */
+.orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.6;
+  animation: float 20s ease-in-out infinite;
+}
+.orb-1 { width: 400px; height: 400px; background: var(--lime); top: 10%; left: 10%; animation-delay: 0s; }
+.orb-2 { width: 500px; height: 500px; background: var(--blueprint); top: 40%; right: 5%; animation-delay: -5s; }
+.orb-3 { width: 350px; height: 350px; background: var(--walnut); bottom: 10%; left: 30%; animation-delay: -10s; }
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-40px, 30px) scale(0.95); }
+}
+
+/* === GLASS PRIMITIVES === */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+}
+.glass::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.glass-strong {
+  background: var(--glass-bg-strong);
+  backdrop-filter: var(--glass-blur-strong);
+  -webkit-backdrop-filter: var(--glass-blur-strong);
+  border: 1px solid var(--glass-border-strong);
+  box-shadow: var(--glass-shadow-strong);
+  border-radius: 24px;
+}
+
+/* === STICKY GLASS NAV === */
+.nav-glass {
+  position: fixed; top: 16px; left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding: 14px 28px;
+  z-index: 100;
+  border-radius: 999px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+.nav-glass .logo {
+  font-family: 'Anton', sans-serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  color: var(--text-base);
+}
+.nav-glass .logo .lime { color: var(--lime); }
+.nav-glass a {
+  color: var(--text-base);
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-glass a:hover { color: var(--lime); }
+
+.theme-toggle {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 11px;
+  cursor: pointer;
+  color: var(--text-base);
+  letter-spacing: 1px;
+}
+
+/* === HERO === */
+.hero {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.hero .eyebrow {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  font-family: 'Anton', sans-serif;
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: var(--cream);
+  margin-bottom: 32px;
+  width: fit-content;
+}
+.hero h1 {
+  font-size: clamp(56px, 9vw, 128px);
+  color: var(--cream);
+  text-transform: uppercase;
+  max-width: 1000px;
+  margin-bottom: 32px;
+}
+.hero h1 .lime { color: var(--lime); }
+.hero p {
+  font-size: 18px;
+  color: rgba(240,235,227,0.85);
+  max-width: 600px;
+  margin-bottom: 40px;
+}
+
+/* === GLASS BUTTONS === */
+.btn-glass {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 18px 32px;
+  border-radius: 999px;
+  background: var(--glass-bg-strong);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border-strong);
+  color: var(--cream);
+  font-family: 'Anton', sans-serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--glass-shadow);
+}
+.btn-glass:hover {
+  background: rgba(203, 204, 16, 0.25);
+  border-color: var(--lime);
+  transform: translateY(-2px);
+  box-shadow: 0 20px 48px rgba(203, 204, 16, 0.3);
+}
+.btn-glass.primary {
+  background: rgba(203, 204, 16, 0.9);
+  color: var(--obsidian);
+  border-color: var(--lime);
+}
+.btn-glass.primary:hover { background: var(--lime); }
+
+.cta-group { display: flex; gap: 16px; flex-wrap: wrap; }
+
+/* === GLASS CARDS GRID === */
+.section {
+  position: relative;
+  z-index: 1;
+  padding: 120px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.section-eyebrow {
+  font-family: 'Anton', sans-serif;
+  font-size: 14px;
+  letter-spacing: 4px;
+  color: var(--lime);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+.section-title {
+  font-size: clamp(36px, 5vw, 64px);
+  color: var(--cream);
+  text-transform: uppercase;
+  margin-bottom: 64px;
+  max-width: 800px;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.glass-card {
+  padding: 32px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  box-shadow: var(--glass-shadow);
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+.glass-card::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 50%);
+  pointer-events: none;
+}
+.glass-card:hover {
+  background: var(--glass-bg-strong);
+  border-color: var(--lime);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 48px rgba(0,0,0,0.5), 0 0 24px rgba(203,204,16,0.2);
+}
+.card-num {
+  font-family: 'Anton', sans-serif;
+  font-size: 14px;
+  letter-spacing: 3px;
+  color: var(--lime);
+  margin-bottom: 16px;
+}
+.glass-card h3 {
+  color: var(--cream);
+  font-size: 26px;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+.glass-card p {
+  color: rgba(240,235,227,0.75);
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.glass-card .arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--lime);
+  font-family: 'Anton', sans-serif;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* === GLASS FORM === */
+.form-section { padding-bottom: 120px; }
+.glass-form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 48px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur-strong);
+  -webkit-backdrop-filter: var(--glass-blur-strong);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  box-shadow: var(--glass-shadow-strong);
+}
+.glass-form h3 {
+  color: var(--cream);
+  font-size: 36px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+.glass-form p { color: rgba(240,235,227,0.7); margin-bottom: 32px; font-size: 15px; }
+.glass-input {
+  width: 100%;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  color: var(--cream);
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  transition: all 0.3s;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.glass-input:focus {
+  outline: none;
+  border-color: var(--lime);
+  background: rgba(255,255,255,0.1);
+  box-shadow: 0 0 16px rgba(203,204,16,0.2);
+}
+.glass-input::placeholder { color: rgba(240,235,227,0.4); letter-spacing: 1px; text-transform: uppercase; font-size: 12px; }
+textarea.glass-input { min-height: 100px; resize: vertical; font-family: inherit; }
+
+/* === MODAL === */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10,10,10,0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.modal-overlay.open { display: flex; opacity: 1; }
+.modal-glass {
+  max-width: 500px;
+  padding: 48px;
+  background: var(--glass-bg-strong);
+  backdrop-filter: var(--glass-blur-strong);
+  -webkit-backdrop-filter: var(--glass-blur-strong);
+  border: 1px solid var(--glass-border-strong);
+  border-radius: 24px;
+  box-shadow: var(--glass-shadow-strong);
+  position: relative;
+  transform: scale(0.95);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.modal-overlay.open .modal-glass { transform: scale(1); }
+.modal-close {
+  position: absolute; top: 16px; right: 16px;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--glass-border);
+  background: rgba(255,255,255,0.1);
+  color: var(--cream);
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 30px;
+  text-align: center;
+}
+.modal-glass h3 { color: var(--cream); font-size: 32px; margin-bottom: 16px; text-transform: uppercase; }
+.modal-glass p { color: rgba(240,235,227,0.85); margin-bottom: 24px; line-height: 1.6; }
+
+/* === SCROLL HINT === */
+.scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--cream);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  opacity: 0.6;
+  z-index: 1;
+}
+
+/* === BADGE / PILL === */
+.pill-glass {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--cream);
+}
+.pill-glass .dot {
+  width: 8px; height: 8px;
+  background: var(--lime);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--lime);
+}
+
+@media (max-width: 768px) {
+  .nav-glass { gap: 16px; padding: 10px 18px; }
+  .nav-glass a:not(.theme-toggle) { display: none; }
+  .hero, .section { padding: 0 20px; }
+  .section { padding: 80px 20px; }
+}
+</style>
+</head>
+<body data-theme="dark">
+
+<div class="hero-bg"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<!-- GLASS NAV -->
+<nav class="nav-glass">
+  <span class="logo">OAK PARK <span class="lime">CONSTRUCTION</span></span>
+  <a href="#services">Services</a>
+  <a href="#contact">Contact</a>
+  <a href="../index.html">← Site</a>
+  <button class="theme-toggle" onclick="toggleTheme()">◐ MODE</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <span class="eyebrow">Liquid Glass UI Prototype</span>
+  <h1>Premium glass.<br>Built on <span class="lime">real photos.</span></h1>
+  <p>iOS 26 Liquid Glass aesthetic implemented in pure CSS. Translucent panels, frosted blur, and live light refraction over your actual project photography.</p>
+  <div class="cta-group">
+    <a href="#services" class="btn-glass primary">EXPLORE SERVICES</a>
+    <button class="btn-glass" onclick="openModal()">OPEN MODAL DEMO</button>
+  </div>
+  <span class="pill-glass" style="margin-top: 24px;"><span class="dot"></span>LIVE PREVIEW · TILT YOUR PHONE / RESIZE WINDOW</span>
+  <div class="scroll-hint">SCROLL ↓</div>
+</section>
+
+<!-- GLASS CARDS -->
+<section class="section" id="services">
+  <div class="section-eyebrow">Service Cards</div>
+  <h2 class="section-title">Glass cards with hover lift + lime glow.</h2>
+  <div class="cards-grid">
+    <div class="glass-card">
+      <div class="card-num">01</div>
+      <h3>Kitchen</h3>
+      <p>Refresh to down-to-studs. Walnut slab, marble waterfall, fluted islands. Full design-build.</p>
+      <span class="arrow">EXPLORE →</span>
+    </div>
+    <div class="glass-card">
+      <div class="card-num">02</div>
+      <h3>Bath</h3>
+      <p>Full remodel. Tub-to-shower conversions. Tile, plumbing, lighting — all one crew.</p>
+      <span class="arrow">EXPLORE →</span>
+    </div>
+    <div class="glass-card">
+      <div class="card-num">03</div>
+      <h3>Outdoor Living</h3>
+      <p>Pergolas, outdoor kitchens, paver patios. Hurricane-rated, salt-air resistant.</p>
+      <span class="arrow">EXPLORE →</span>
+    </div>
+    <div class="glass-card">
+      <div class="card-num">04</div>
+      <h3>New Build</h3>
+      <p>Custom homes from foundation to keys. Licensed design-build, permits handled.</p>
+      <span class="arrow">EXPLORE →</span>
+    </div>
+  </div>
+</section>
+
+<!-- GLASS FORM -->
+<section class="section form-section" id="contact">
+  <div class="section-eyebrow">Get In Touch</div>
+  <h2 class="section-title">Frosted contact form.</h2>
+  <form class="glass-form" onsubmit="event.preventDefault(); alert('Demo — form not connected');">
+    <h3>Start a project.</h3>
+    <p>Tell us about it. We'll call within 1 business day.</p>
+    <input class="glass-input" type="text" placeholder="Your Name" required>
+    <input class="glass-input" type="tel" placeholder="Phone Number" required>
+    <input class="glass-input" type="text" placeholder="Zip Code" required>
+    <textarea class="glass-input" placeholder="Tell us about the project..." required></textarea>
+    <button type="submit" class="btn-glass primary" style="width: 100%;">SEND MESSAGE</button>
+  </form>
+</section>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="if(event.target.id==='modal') closeModal()">
+  <div class="modal-glass">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <h3>Glass Modal</h3>
+    <p>iOS 26-style frosted glass modal. Background scrolls behind. Strong blur + saturation pop for legibility. Native dialog feel without the box shadow look.</p>
+    <button class="btn-glass primary" onclick="closeModal()">GOT IT</button>
+  </div>
+</div>
+
+<script>
+function toggleTheme() {
+  const body = document.body;
+  body.dataset.theme = body.dataset.theme === 'dark' ? 'light' : 'dark';
+}
+function openModal() { document.getElementById('modal').classList.add('open'); }
+function closeModal() { document.getElementById('modal').classList.remove('open'); }
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+</script>
+
+</body>
+</html>
