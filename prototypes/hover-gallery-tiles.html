@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hover → Gallery Tiles — OPC Prototype</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --obsidian: #0A0A0A;
+    --cream: #F0EBE3;
+    --lime: #CBCC10;
+    --walnut: #8B5A2B;
+    --blueprint: #00D4FF;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    background: var(--obsidian);
+    color: var(--cream);
+    font-family: 'Inter', system-ui, sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* AMBIENT */
+  .orb {
+    position: fixed; border-radius: 50%;
+    filter: blur(220px); opacity: 0.14;
+    mix-blend-mode: screen; pointer-events: none; z-index: 0;
+  }
+  .orb-1 { width: 600px; height: 600px; background: var(--lime); top: -20%; left: -15%; }
+  .orb-2 { width: 500px; height: 500px; background: var(--blueprint); bottom: -10%; right: -10%; }
+
+  /* NAV */
+  nav.top {
+    position: relative; z-index: 5;
+    padding: 32px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid rgba(240, 235, 227, 0.08);
+  }
+  .logo { font-family: 'Anton', sans-serif; font-size: 16px; letter-spacing: 2px; }
+  .logo .lime { color: var(--lime); }
+  .back { font-family: 'Roboto Mono', monospace; font-size: 11px; letter-spacing: 2px; opacity: 0.7; }
+  .back:hover { color: var(--lime); opacity: 1; }
+
+  /* HERO INTRO */
+  .intro {
+    position: relative; z-index: 2;
+    padding: 64px 48px 24px;
+  }
+  .intro-tag { font-family: 'Roboto Mono', monospace; font-size: 11px; letter-spacing: 3px; color: var(--lime); margin-bottom: 14px; }
+  .intro h1 {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(40px, 6vw, 80px);
+    line-height: 0.95; text-transform: uppercase;
+  }
+  .intro h1 .lime { color: var(--lime); }
+  .intro p { margin-top: 18px; max-width: 600px; opacity: 0.85; font-size: 16px; line-height: 1.55; }
+
+  /* GRID OF VARIANTS */
+  .grid {
+    position: relative; z-index: 2;
+    padding: 48px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    max-width: 1600px;
+  }
+
+  .variant {
+    display: flex; flex-direction: column;
+  }
+  .variant-label {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px; letter-spacing: 2.5px;
+    color: var(--lime);
+    margin-bottom: 8px;
+  }
+  .variant-title {
+    font-family: 'Anton', sans-serif;
+    font-size: 24px; text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .variant-desc {
+    font-size: 13px; opacity: 0.65; margin-bottom: 16px;
+  }
+
+  /* ===== BASE TILE ===== */
+  .tile {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 12px;
+    cursor: pointer;
+    background: #111;
+    border: 1px solid rgba(240, 235, 227, 0.1);
+  }
+  .tile img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(.22,1,.36,1), filter 0.6s ease;
+  }
+  .tile-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(10,10,10,0) 40%, rgba(10,10,10,0.85));
+    pointer-events: none;
+    z-index: 2;
+  }
+  .tile-meta {
+    position: absolute; left: 20px; right: 20px; bottom: 18px;
+    z-index: 3;
+    pointer-events: none;
+  }
+  .tile-cat {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px; letter-spacing: 2px;
+    color: var(--lime); margin-bottom: 4px;
+  }
+  .tile-name {
+    font-family: 'Anton', sans-serif;
+    font-size: 22px; text-transform: uppercase;
+    color: var(--cream);
+  }
+  .tile-cta {
+    position: absolute; top: 20px; right: 20px;
+    z-index: 3;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px; letter-spacing: 2px;
+    color: var(--cream);
+    padding: 6px 12px;
+    border: 1px solid rgba(240, 235, 227, 0.3);
+    border-radius: 999px;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: all 0.4s cubic-bezier(.22,1,.36,1);
+    background: rgba(10,10,10,0.4);
+    backdrop-filter: blur(8px);
+  }
+  .tile:hover .tile-cta {
+    opacity: 1;
+    transform: translateY(0);
+    color: var(--lime);
+    border-color: var(--lime);
+  }
+
+  /* ===== VARIANT A — LIQUID RIPPLE ===== */
+  .tile.liquid img {
+    transition: transform 0.5s cubic-bezier(.22,1,.36,1), filter 0.5s ease;
+  }
+  .tile.liquid::before {
+    content: '';
+    position: absolute;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(0, 212, 255, 0.6) 0%, rgba(203, 204, 16, 0.3) 30%, transparent 70%);
+    border-radius: 50%;
+    mix-blend-mode: screen;
+    pointer-events: none;
+    z-index: 2;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.5s cubic-bezier(.22,1,.36,1);
+    left: var(--mx, 50%); top: var(--my, 50%);
+    filter: blur(20px);
+  }
+  .tile.liquid:hover::before { transform: translate(-50%, -50%) scale(2.5); }
+  .tile.liquid:hover img {
+    transform: scale(1.08);
+    filter: contrast(1.1) saturate(1.15);
+  }
+
+  /* ===== VARIANT B — SPOTLIGHT ZOOM ===== */
+  .tile.spotlight img {
+    filter: brightness(0.65) saturate(0.6);
+    transition: filter 0.5s ease, transform 0.5s ease;
+  }
+  .tile.spotlight .spot {
+    position: absolute;
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 2;
+    background-image: var(--bg);
+    background-size: 200% 200%;
+    background-position: var(--bgx, 50%) var(--bgy, 50%);
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.4s cubic-bezier(.22,1,.36,1);
+    left: var(--mx, 50%); top: var(--my, 50%);
+    border: 2px solid var(--lime);
+    box-shadow: 0 0 32px rgba(203, 204, 16, 0.4), inset 0 0 16px rgba(0,0,0,0.4);
+  }
+  .tile.spotlight:hover .spot { transform: translate(-50%, -50%) scale(1); }
+
+  /* ===== VARIANT C — REVEAL SLICE ===== */
+  .tile.slice .slice-half {
+    position: absolute;
+    width: 100%; height: 100%;
+    background-image: var(--bg);
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.6s cubic-bezier(.76,0,.24,1);
+    z-index: 2;
+  }
+  .tile.slice .slice-half.top {
+    clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+  }
+  .tile.slice .slice-half.bottom {
+    clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
+  }
+  .tile.slice:hover .slice-half.top    { transform: translateY(-30%); }
+  .tile.slice:hover .slice-half.bottom { transform: translateY(30%); }
+  .tile.slice .slice-reveal {
+    position: absolute; inset: 0;
+    display: grid; place-items: center;
+    z-index: 1;
+    background: var(--obsidian);
+  }
+  .tile.slice .slice-reveal-inner {
+    text-align: center;
+    transform: scale(0.85);
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(.22,1,.36,1) 0.1s;
+  }
+  .tile.slice:hover .slice-reveal-inner { transform: scale(1); opacity: 1; }
+  .tile.slice .slice-reveal h3 {
+    font-family: 'Anton', sans-serif;
+    font-size: 32px; text-transform: uppercase;
+    color: var(--lime);
+    margin-bottom: 8px;
+  }
+  .tile.slice .slice-reveal span {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px; letter-spacing: 2px;
+    color: var(--cream); opacity: 0.7;
+  }
+
+  /* ===== VARIANT D — CHROMATIC GLITCH ===== */
+  .tile.glitch img {
+    transition: filter 0.4s ease, transform 0.5s ease;
+  }
+  .tile.glitch::before, .tile.glitch::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: var(--bg);
+    background-size: cover;
+    background-position: center;
+    mix-blend-mode: screen;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 2;
+    transition: all 0.4s ease;
+  }
+  .tile.glitch::before {
+    filter: brightness(1.2) contrast(1.5) hue-rotate(20deg);
+    background-color: rgba(0, 212, 255, 0.5);
+    background-blend-mode: multiply;
+  }
+  .tile.glitch::after {
+    filter: brightness(1.2) contrast(1.5) hue-rotate(-20deg);
+    background-color: rgba(255, 0, 100, 0.5);
+    background-blend-mode: multiply;
+  }
+  .tile.glitch:hover img {
+    filter: contrast(1.1) saturate(1.2);
+    transform: scale(1.04);
+  }
+  .tile.glitch:hover::before { opacity: 0.45; transform: translate(-6px, -3px); }
+  .tile.glitch:hover::after  { opacity: 0.45; transform: translate(6px, 3px); }
+
+  /* GO TO GALLERY HINT */
+  .tile.live-link {
+    transition: transform 0.4s cubic-bezier(.22,1,.36,1);
+  }
+  .tile.live-link:hover {
+    transform: translateY(-4px);
+  }
+
+  /* COMPARISON FOOTER */
+  .verdict {
+    position: relative; z-index: 2;
+    padding: 32px 48px 64px;
+    text-align: center;
+  }
+  .verdict p {
+    opacity: 0.7; font-size: 14px; margin-bottom: 16px;
+  }
+  .verdict a {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 24px;
+    border: 1px solid var(--lime);
+    color: var(--lime);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px; letter-spacing: 2px;
+    text-transform: uppercase;
+    border-radius: 999px;
+    transition: all 0.25s;
+  }
+  .verdict a:hover { background: var(--lime); color: var(--obsidian); }
+
+  @media (max-width: 800px) {
+    .grid { grid-template-columns: 1fr; gap: 20px; padding: 24px; }
+    nav.top, .intro, .verdict { padding-left: 20px; padding-right: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
+<nav class="top">
+  <div class="logo">OAK PARK <span class="lime">CONSTRUCTION</span></div>
+  <a href="index.html" class="back">← BACK TO LAB</a>
+</nav>
+
+<div class="intro">
+  <div class="intro-tag">✦ HOVER-TO-GALLERY · 4 VARIANTS</div>
+  <h1>Pick The<br>Best <span class="lime">Hover.</span></h1>
+  <p>Hover each tile. Pick the one closest to the creativeocean pen you sent. I'll polish that one and use it across the Projects page so every clickable image feels invitational.</p>
+</div>
+
+<div class="grid">
+
+  <!-- VARIANT A — LIQUID RIPPLE -->
+  <div class="variant">
+    <div class="variant-label">A · LIQUID RIPPLE</div>
+    <div class="variant-title">Liquid Ripple</div>
+    <div class="variant-desc">Closest guess for creativeocean's style. Soft cyan-lime light follows cursor, image saturates on hover.</div>
+    <a href="project-gallery-cube.html" class="tile liquid live-link" id="tileA">
+      <img src="../assets/img/mike/kitchens/IMG_4493.jpeg" alt="Kitchen">
+      <div class="tile-overlay"></div>
+      <div class="tile-cta">VIEW GALLERY →</div>
+      <div class="tile-meta">
+        <div class="tile-cat">01 · KITCHENS</div>
+        <div class="tile-name">Full Kitchen Remodel</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- VARIANT B — SPOTLIGHT ZOOM -->
+  <div class="variant">
+    <div class="variant-label">B · SPOTLIGHT ZOOM</div>
+    <div class="variant-title">Spotlight Zoom</div>
+    <div class="variant-desc">Image dims; cursor reveals a sharp magnified circle. Like inspecting a blueprint.</div>
+    <a href="project-gallery-cube.html" class="tile spotlight live-link" id="tileB" style="--bg: url('../assets/img/mike/bathrooms/IMG_6400.jpeg')">
+      <img src="../assets/img/mike/bathrooms/IMG_6400.jpeg" alt="Bathroom">
+      <div class="spot"></div>
+      <div class="tile-overlay"></div>
+      <div class="tile-cta">VIEW GALLERY →</div>
+      <div class="tile-meta">
+        <div class="tile-cat">02 · BATHROOMS</div>
+        <div class="tile-name">Master Bath Build</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- VARIANT C — REVEAL SLICE -->
+  <div class="variant">
+    <div class="variant-label">C · REVEAL SLICE</div>
+    <div class="variant-title">Reveal Slice</div>
+    <div class="variant-desc">Image splits horizontally on hover, revealing project title underneath. Bold.</div>
+    <a href="project-gallery-cube.html" class="tile slice live-link" id="tileC">
+      <div class="slice-reveal">
+        <div class="slice-reveal-inner">
+          <h3>122 Dockside</h3>
+          <span>NEW CONSTRUCTION · 7 MONTHS</span>
+        </div>
+      </div>
+      <div class="slice-half top" style="--bg: url('../assets/img/mike/new-construction/122-dockside-cir-IMG_7853.jpeg')"></div>
+      <div class="slice-half bottom" style="--bg: url('../assets/img/mike/new-construction/122-dockside-cir-IMG_7853.jpeg')"></div>
+      <div class="tile-cta" style="z-index: 5;">VIEW GALLERY →</div>
+    </a>
+  </div>
+
+  <!-- VARIANT D — CHROMATIC GLITCH -->
+  <div class="variant">
+    <div class="variant-label">D · CHROMATIC GLITCH</div>
+    <div class="variant-title">Chromatic Glitch</div>
+    <div class="variant-desc">RGB separation pulse on hover. Tech/architectural edge. Subtle.</div>
+    <a href="project-gallery-cube.html" class="tile glitch live-link" id="tileD" style="--bg: url('../assets/img/mike/exterior-patio-builds/clark-pergola-IMG_0020.jpeg')">
+      <img src="../assets/img/mike/exterior-patio-builds/clark-pergola-IMG_0020.jpeg" alt="Exterior pergola">
+      <div class="tile-overlay"></div>
+      <div class="tile-cta">VIEW GALLERY →</div>
+      <div class="tile-meta">
+        <div class="tile-cat">05 · EXTERIORS</div>
+        <div class="tile-name">Clark Pergola + Patio</div>
+      </div>
+    </a>
+  </div>
+
+</div>
+
+<div class="verdict">
+  <p>Which is closest to creativeocean/emBOove? Mark in the tracker.</p>
+  <a href="https://docs.google.com/spreadsheets/d/1q0_v9qYDXKURo59xoS-WISFdHbZWIdc9ukdCDbdDaUQ/edit#gid=402275735" target="_blank">📋 Open verdict tracker →</a>
+</div>
+
+<script>
+// Cursor tracking for liquid + spotlight
+function trackCursor(el) {
+  el.addEventListener('mousemove', e => {
+    const rect = el.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    el.style.setProperty('--mx', x + 'px');
+    el.style.setProperty('--my', y + 'px');
+    // Spotlight bg position
+    const bgx = (x / rect.width) * 100;
+    const bgy = (y / rect.height) * 100;
+    el.style.setProperty('--bgx', bgx + '%');
+    el.style.setProperty('--bgy', bgy + '%');
+  });
+}
+trackCursor(document.getElementById('tileA'));
+trackCursor(document.getElementById('tileB'));
+</script>
+
+</body>
+</html>

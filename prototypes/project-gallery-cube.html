@@ -130,14 +130,27 @@
     position: relative;
     width: 420px; height: 420px;
     transform-style: preserve-3d;
-    transition: transform 0.05s linear;
+    will-change: transform;
   }
   .face {
     position: absolute; inset: 0;
-    border: 1px solid rgba(240, 235, 227, 0.18);
+    border: 1px solid rgba(203, 204, 16, 0.35);
     overflow: hidden;
     background: #1a1a1a;
-    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+    box-shadow:
+      0 30px 80px rgba(0,0,0,0.6),
+      0 0 24px rgba(203, 204, 16, 0.18),
+      0 0 60px rgba(0, 212, 255, 0.08),
+      inset 0 0 30px rgba(240, 235, 227, 0.06);
+  }
+  .face::before {
+    content: '';
+    position: absolute; inset: 0;
+    pointer-events: none;
+    box-shadow:
+      inset 0 0 0 1px rgba(240, 235, 227, 0.08),
+      inset 0 0 20px rgba(203, 204, 16, 0.12);
+    z-index: 1;
   }
   .face img {
     width: 100%; height: 100%;
@@ -361,34 +374,38 @@ function updateInfo(i) {
   dots.forEach((d, di) => d.classList.toggle('active', di === i));
 }
 
-function onScroll() {
+let targetRX = 0, targetRY = 0;
+let currentRX = 0, currentRY = 0;
+
+function computeTarget() {
   const scrollY = window.scrollY;
   const maxScroll = document.body.scrollHeight - window.innerHeight;
   const pct = Math.min(scrollY / maxScroll, 0.9999);
 
-  // segment based on pct
   const segCount = faceAngles.length;
   const segIdx = Math.min(Math.floor(pct * segCount), segCount - 1);
   const segPct = (pct * segCount) - segIdx;
 
-  // interpolate between segIdx and segIdx+1
   const a = faceAngles[segIdx];
   const b = faceAngles[Math.min(segIdx + 1, segCount - 1)];
-  const rx = a.rx + (b.rx - a.rx) * segPct;
-  const ry = a.ry + (b.ry - a.ry) * segPct;
+  targetRX = a.rx + (b.rx - a.rx) * segPct;
+  targetRY = a.ry + (b.ry - a.ry) * segPct;
 
-  cube.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
-
-  // Update info card when segment snaps near a face center
-  // Use segment index as the active project
   updateInfo(segIdx);
-
-  // Fade scroll hint after first scroll
   scrollHint.style.opacity = scrollY > 200 ? 0 : 0.8;
 }
 
-window.addEventListener('scroll', onScroll, { passive: true });
-onScroll();
+// Smooth rAF loop — lerp current toward target
+function renderLoop() {
+  currentRX += (targetRX - currentRX) * 0.12;
+  currentRY += (targetRY - currentRY) * 0.12;
+  cube.style.transform = `rotateX(${currentRX}deg) rotateY(${currentRY}deg)`;
+  requestAnimationFrame(renderLoop);
+}
+renderLoop();
+
+window.addEventListener('scroll', computeTarget, { passive: true });
+computeTarget();
 
 // Click dots to jump
 dots.forEach((d, di) => {
