@@ -90,8 +90,13 @@ Priscila confirmed (final): *"I never said new build was right or kitchen actual
 | 14 | Background Swap Component | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/prototypes/background-swap.html) |
 | 15 | Bathroom · Waterproofing Wall Section | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/prototypes/bathroom-waterproofing-section.html) |
 | 16 | Floor Plan → 3D Reveal | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/prototypes/floor-plan-3d-reveal.html) |
+| 17 | Stucco 4-Coat Layer Section | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/prototypes/stucco-layer-section.html) |
+| 10· | **New Construction · House 3D (Ricardo yLOpNdZ fork, OPC recolor)** | ✅ LIVE — REWORK of #10 | [link](https://priihigashi.github.io/opc-website-v1/prototypes/new-construction-house3d.html) |
+| 11· | **Kitchen · Room 3D (Ricardo LYxMWQN fork, OPC recolor)** | ✅ LIVE — REWORK of #11 | [link](https://priihigashi.github.io/opc-website-v1/prototypes/kitchen-room3d.html) |
 
-Lab banner cache-bust: **?v=9** (bump to ?v=10 on next page added)
+Lab banner cache-bust: **?v=10** (bump to ?v=11 on next page added)
+
+**RICARDO FORKS — how they were built (so this never gets misread again):** source recovered via `curl https://cdpn.io/<user>/fullpage/<hash>` (clears Cloudflare). House (yLOpNdZ) + Kitchen (LYxMWQN) are **CSS-3D** (preserve-3d + hundreds of `.face` divs). Recolor = luminance-mapped hex swap: lavender/grey ramp → obsidian→walnut→tan→cream; blue/teal glass → lime ramp. Audio stripped from kitchen, drag-rotate + click-open kept. Old line-art #10 + exploded #11 left in place for compare (badge later if she wants).
 
 ---
 
@@ -200,6 +205,7 @@ Drive Inspiration folder: `1ae7n4VwSZbu0_nt6nUX5WeLINGqYJ-CZ`
 
 ## 📝 ACTIVITY LOG (auto-appended by `/opc-website` skill after every report-back)
 
+- **2026-06-09** — SHIPPED Ricardo forks: **#10· New Construction House 3D** (`new-construction-house3d.html`) + **#11· Kitchen Room 3D** (`kitchen-room3d.html`). Forked from yLOpNdZ + LYxMWQN via cdpn fullpage source, recolored to OPC palette only (luminance ramp → cream/walnut/obsidian, glass → lime). Screenshot-verified before ship. Lab-banner + index cards + tracker + cache-bust ?v=10 across 28 files. Kitchen keeps drag-rotate + click-open, audio stripped. KKbWGNZ still pending Priscila's call.
 - **2026-06-09** — RICARDO PEN SOURCE RECOVERED via `cdpn.io/<user>/fullpage/<hash>` (clears Cloudflare, real code). Findings: **yLOpNdZ (house) + LYxMWQN (kitchen) are CSS-3D** (preserve-3d + hundreds of `.face` divs, NOT Three.js) → fork+recolor is clean hex swap. **KKbWGNZ is the only real Three.js** = baked GLTF interior room (model.glb + baked.jpg, OrbitControls) → colors baked into the texture, CANNOT recolor to OPC without Blender re-bake. KKbWGNZ decision pending.
 - **2026-06-09** — Batch fixes shipped (commit `b2e7866`): combined-lumen transform title left-aligned to match other section titles; CBC prefix restyled to small mono label (like FL STATE LICENSED); bathroom 'never' serif enlarged to 1.5em feature size like combined hero; contact 'Mike direct' → 'Michael & Matthew' (Matt is co-owner); stucco labels translateZ(150px) so tilted planes stop covering FINISH COAT text.
 - **2026-06-09** — NEW lead-capture/form system logged to Pending (FORM-1 server-side form replacing mailto, FORM-2 two-stage progressive email capture, FORM-3 source-page tracking). Planned, not started, per Priscila.
