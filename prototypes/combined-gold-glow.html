@@ -480,6 +480,43 @@
     color: rgba(240,235,227,0.5);
   }
 
+  /* ===== CURSOR ORB (LUMEN-style follower) ===== */
+  @media (hover: hover) and (pointer: fine) {
+    body { cursor: none; }
+    a, button, input, .service-card, .cube-cta, .cube-3d, .nav-cta { cursor: none !important; }
+  }
+  .cursor-orb {
+    position: fixed; top: 0; left: 0;
+    width: 36px; height: 36px;
+    border: 1px solid var(--lime);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    transition: width 0.3s cubic-bezier(.22,1,.36,1),
+                height 0.3s cubic-bezier(.22,1,.36,1),
+                background 0.3s, border-color 0.3s;
+    mix-blend-mode: difference;
+    backdrop-filter: blur(2px);
+  }
+  .cursor-orb::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 4px; height: 4px;
+    background: var(--lime);
+    border-radius: 50%;
+    transition: transform 0.3s;
+  }
+  .cursor-orb.hover {
+    width: 64px; height: 64px;
+    background: rgba(212, 165, 58, 0.12);
+    border-color: var(--lime);
+  }
+  .cursor-orb.hover::after { transform: translate(-50%, -50%) scale(0); }
+  @media (hover: none), (pointer: coarse) { .cursor-orb { display: none; } }
+
   /* ===== SIDE DOT NAV (LUMEN style) ===== */
   .side-nav {
     position: fixed; right: 24px; top: 50%;
@@ -519,6 +556,9 @@
 </style>
 </head>
 <body>
+
+<!-- Cursor orb -->
+<div class="cursor-orb" id="cursorOrb"></div>
 
 <!-- AMBIENT LAYERS -->
 <div class="ambient">
@@ -847,6 +887,25 @@ function updateTransform() {
 }
 window.addEventListener('scroll', updateTransform, { passive: true });
 updateTransform();
+
+// ====== CURSOR ORB (smooth lerp follower) ======
+const cursorOrb = document.getElementById('cursorOrb');
+let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+let cx = mx, cy = my;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+function cursorLoop() {
+  cx += (mx - cx) * 0.18;
+  cy += (my - cy) * 0.18;
+  cursorOrb.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
+  requestAnimationFrame(cursorLoop);
+}
+cursorLoop();
+// Grow on hover over interactive elements
+const interactive = document.querySelectorAll('a, button, input, .service-card, .cube-cta, .nav-cta');
+interactive.forEach(el => {
+  el.addEventListener('mouseenter', () => cursorOrb.classList.add('hover'));
+  el.addEventListener('mouseleave', () => cursorOrb.classList.remove('hover'));
+});
 
 // ====== SIDE DOT NAV ACTIVE STATE ======
 const sections = ['hero', 'services', 'transform', 'cube', 'trust', 'cta'];
