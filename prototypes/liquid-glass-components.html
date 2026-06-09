@@ -78,39 +78,40 @@ h1, h2, h3, h4 {
     rgba(10,10,10,0.85) 100%);
 }
 
-/* Floating orbs for liquid glass light source — edge-anchored, very diffuse */
+/* Floating orbs for liquid glass light source — edge-anchored, very subtle, screen-blend */
 .orb {
   position: fixed;
   border-radius: 50%;
-  filter: blur(180px);
+  filter: blur(200px);
   z-index: 0;
   pointer-events: none;
-  opacity: 0.35;
-  animation: float 24s ease-in-out infinite;
+  opacity: 0.18;
+  mix-blend-mode: screen;
+  animation: float 28s ease-in-out infinite;
   will-change: transform;
 }
-/* Lime orb — top-left corner, partially off-screen */
+/* Lime orb — top-left corner, deep off-screen */
 .orb-1 {
-  width: 600px; height: 600px;
+  width: 500px; height: 500px;
   background: var(--lime);
-  top: -20%; left: -15%;
+  top: -25%; left: -20%;
   animation-delay: 0s;
 }
-/* Blueprint blue orb — right edge, halfway down, partially off-screen */
+/* Blueprint blue orb — bottom-right, deep off-screen */
 .orb-2 {
-  width: 700px; height: 700px;
+  width: 550px; height: 550px;
   background: var(--blueprint);
-  top: 30%; right: -25%;
-  animation-delay: -8s;
-  opacity: 0.3;
+  bottom: -20%; right: -20%;
+  animation-delay: -10s;
+  opacity: 0.16;
 }
-/* Walnut orb — bottom-right corner, partially off-screen */
+/* Walnut orb — middle right, off-screen */
 .orb-3 {
-  width: 500px; height: 500px;
+  width: 400px; height: 400px;
   background: var(--walnut);
-  bottom: -15%; right: -10%;
-  animation-delay: -14s;
-  opacity: 0.3;
+  top: 45%; right: -15%;
+  animation-delay: -18s;
+  opacity: 0.14;
 }
 
 @keyframes float {
@@ -223,8 +224,19 @@ h1, h2, h3, h4 {
   text-transform: uppercase;
   max-width: 1000px;
   margin-bottom: 32px;
+  text-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.65),
+    0 4px 32px rgba(0, 0, 0, 0.45);
 }
-.hero h1 .lime { color: var(--lime); }
+.hero h1 .lime {
+  color: var(--lime);
+  text-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.8),
+    0 0 1px rgba(10, 10, 10, 0.9);
+}
+.hero p {
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+}
 .hero p {
   font-size: 18px;
   color: rgba(240,235,227,0.85);
