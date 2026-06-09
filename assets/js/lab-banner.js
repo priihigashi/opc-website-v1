@@ -80,6 +80,7 @@
       <a href="${base}prototypes/combined-gold-glow.html">07 Gold</a>
       <a href="${base}prototypes/concrete-rotating-bars.html">08 Concrete</a>
       <a href="${base}prototypes/bathroom-plumbing-stack.html">09 Bath</a>
+      <a href="${base}prototypes/new-construction-assembly.html">10 NewBuild</a>
     </div>
     <span class="opc-close" id="opc-close-btn">✕</span>
   `;

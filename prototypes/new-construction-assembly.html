@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OPC — New Construction · Sequential Assembly Prototype</title>
+<meta name="robots" content="noindex,nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Inter:wght@400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="../assets/js/lab-banner.js?v=5" defer></script>
+<style>
+  :root {
+    --black: #050505;
+    --obsidian: #0A0A0A;
+    --cream: #F0EBE3;
+    --lime: #CBCC10;
+    --walnut: #8B5A2B;
+    --cyan: #00D4FF;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    background: var(--black); color: var(--cream);
+    font-family: 'Inter', system-ui, sans-serif;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  .serif { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500; }
+
+  .ambient { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .ambient .glow {
+    position: absolute; width: 110vw; height: 110vw;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    background: radial-gradient(circle,
+      rgba(0, 212, 255, 0.04) 0%,
+      rgba(203, 204, 16, 0.025) 30%,
+      transparent 60%);
+    filter: blur(80px);
+  }
+  #particles { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+
+  nav.site-nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100; padding: 24px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: linear-gradient(180deg, rgba(5,5,5,0.75), transparent);
+    backdrop-filter: blur(10px);
+  }
+  .logo { font-family: 'Anton', sans-serif; font-size: 14px; letter-spacing: 3px; }
+  .logo .lime { color: var(--lime); }
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .nav-links a {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px; letter-spacing: 2px;
+    text-transform: uppercase; opacity: 0.7;
+  }
+  .nav-links a:hover { opacity: 1; color: var(--lime); }
+  .nav-cta {
+    padding: 8px 18px; border: 1px solid var(--lime);
+    border-radius: 999px; color: var(--lime) !important; opacity: 1 !important;
+  }
+
+  section.hero {
+    position: relative; z-index: 2;
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center; gap: 48px;
+    padding: 120px 48px 60px;
+    max-width: 1500px; margin: 0 auto;
+  }
+  .hero-text { max-width: 560px; }
+  .hero-tag {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px; letter-spacing: 4px;
+    color: var(--lime); margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(48px, 7vw, 96px);
+    line-height: 0.95; text-transform: uppercase;
+  }
+  .hero h1 .serif { text-transform: none; color: var(--lime); font-size: 1.05em; }
+  .hero h1 .blue { color: var(--cyan); font-style: italic; font-family: 'Cormorant Garamond', serif; text-transform: none; font-weight: 500; }
+  .hero p {
+    margin-top: 24px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 13px; letter-spacing: 1px;
+    line-height: 1.7; max-width: 460px; opacity: 0.75;
+  }
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-top: 32px; padding: 14px 28px;
+    background: rgba(240, 235, 227, 0.04);
+    backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid var(--lime); color: var(--lime);
+    border-radius: 999px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px; letter-spacing: 2.5px;
+    text-transform: uppercase; transition: all 0.25s;
+  }
+  .hero-cta:hover { background: var(--lime); color: var(--obsidian); box-shadow: 0 0 30px rgba(203, 204, 16, 0.4); }
+
+  .assembly-stage {
+    position: relative;
+    width: 100%; aspect-ratio: 1;
+    max-width: 680px; margin: 0 auto;
+  }
+  #assemblyCanvas { width: 100%; height: 100%; }
+
+  /* PHASE STRIP — fixed bottom */
+  .phase-strip {
+    position: fixed; bottom: 24px; left: 50%;
+    transform: translateX(-50%); z-index: 50;
+    display: flex; gap: 18px;
+    padding: 14px 24px;
+    background: rgba(5,5,5,0.75);
+    backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid rgba(240, 235, 227, 0.1);
+    border-radius: 999px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px; letter-spacing: 1.5px;
+  }
+  .phase-strip .item { opacity: 0.35; transition: all 0.4s; text-align: center; }
+  .phase-strip .item.active { opacity: 1; color: var(--lime); }
+  .phase-strip .item .num { display: block; font-family: 'Anton', sans-serif; font-size: 15px; margin-bottom: 2px; }
+
+  /* PROCESS — 7 build phases */
+  section.process {
+    position: relative; z-index: 2;
+    padding: 140px 48px;
+    max-width: 1300px; margin: 0 auto;
+  }
+  .section-tag {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px; letter-spacing: 4px;
+    color: var(--lime); margin-bottom: 18px;
+  }
+  .section-title {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 1; text-transform: uppercase;
+    max-width: 800px; margin-bottom: 48px;
+  }
+  .section-title .serif { color: var(--lime); text-transform: none; }
+  .phase-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+  }
+  .phase-card {
+    background: rgba(240, 235, 227, 0.04);
+    backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid rgba(240, 235, 227, 0.1);
+    border-radius: 16px;
+    padding: 26px 22px 28px;
+    transition: all 0.3s;
+  }
+  .phase-card:hover {
+    border-color: rgba(203, 204, 16, 0.4);
+    transform: translateY(-3px);
+  }
+  .phase-card .num {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px; letter-spacing: 2.5px;
+    color: var(--lime); margin-bottom: 10px;
+  }
+  .phase-card h3 {
+    font-family: 'Anton', sans-serif;
+    font-size: 20px; text-transform: uppercase; margin-bottom: 8px;
+  }
+  .phase-card p { font-size: 12.5px; line-height: 1.55; opacity: 0.72; }
+
+  section.cta {
+    position: relative; z-index: 2;
+    padding: 160px 24px;
+    text-align: center;
+  }
+  .cta h2 {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(48px, 7vw, 96px);
+    text-transform: uppercase; max-width: 800px;
+    margin: 0 auto 32px; line-height: 0.95;
+  }
+  .cta h2 .serif { color: var(--lime); text-transform: none; }
+  .cta p {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 13px; letter-spacing: 1px;
+    max-width: 540px; margin: 0 auto 40px; opacity: 0.7; line-height: 1.7;
+  }
+  .cta-form {
+    display: flex; gap: 8px; padding: 6px;
+    background: rgba(240, 235, 227, 0.04);
+    backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid rgba(240, 235, 227, 0.1);
+    border-radius: 999px;
+    max-width: 460px; margin: 0 auto;
+  }
+  .cta-form input {
+    flex: 1; background: transparent; border: none; outline: none;
+    color: var(--cream); font-family: 'Roboto Mono', monospace;
+    font-size: 12px; padding: 12px 20px;
+  }
+  .cta-form input::placeholder { color: rgba(240,235,227,0.4); }
+  .cta-form button {
+    background: var(--lime); color: var(--obsidian);
+    border: none; padding: 12px 24px; border-radius: 999px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    cursor: pointer; font-weight: 600;
+  }
+
+  footer {
+    position: relative; z-index: 2;
+    padding: 48px;
+    border-top: 1px solid rgba(240,235,227,0.05);
+    display: flex; justify-content: space-between;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px; letter-spacing: 2px;
+    color: rgba(240,235,227,0.5);
+  }
+
+  @media (max-width: 900px) {
+    section.hero { grid-template-columns: 1fr; padding: 100px 24px 60px; }
+    .assembly-stage { max-width: 380px; }
+    nav.site-nav { padding: 18px 20px; }
+    .nav-links a:not(.nav-cta) { display: none; }
+    section.process { padding: 80px 20px; }
+    .phase-strip { font-size: 9px; padding: 10px 14px; gap: 10px; bottom: 12px; }
+    .phase-strip .item .num { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="ambient"><div class="glow"></div></div>
+<canvas id="particles"></canvas>
+
+<nav class="site-nav">
+  <div class="logo">OAK PARK <span class="lime">CONSTRUCTION</span></div>
+  <div class="nav-links">
+    <a href="../index.html">Home</a>
+    <a href="#process">Process</a>
+    <a href="#cta" class="nav-cta">Start a Build</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-tag">✦ SERVICE · NEW CONSTRUCTION</div>
+    <h1>From <span class="blue">empty lot.</span><br>To <span class="serif">keys</span> in hand.</h1>
+    <p>Watch a house assemble itself. Footing → slab → framing → roof → siding. The same sequence we run on every build. Scroll to see it.</p>
+    <a href="#cta" class="hero-cta">Start a Build →</a>
+  </div>
+  <div class="assembly-stage">
+    <canvas id="assemblyCanvas"></canvas>
+  </div>
+</section>
+
+<!-- PHASE STRIP -->
+<div class="phase-strip" id="phaseStrip">
+  <div class="item active" data-phase="0"><span class="num">01</span>LOT</div>
+  <div class="item" data-phase="1"><span class="num">02</span>FOOTING</div>
+  <div class="item" data-phase="2"><span class="num">03</span>SLAB</div>
+  <div class="item" data-phase="3"><span class="num">04</span>FRAMING</div>
+  <div class="item" data-phase="4"><span class="num">05</span>ROOF</div>
+  <div class="item" data-phase="5"><span class="num">06</span>SIDING</div>
+  <div class="item" data-phase="6"><span class="num">07</span>FINISH</div>
+</div>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="section-tag">✦ 7 PHASES · ONE GC</div>
+  <h2 class="section-title">Every <span class="serif">phase,</span><br>in-house.</h2>
+  <div class="phase-grid">
+    <div class="phase-card">
+      <div class="num">01 · LOT</div><h3>Site Prep</h3>
+      <p>Survey, clearing, grading, erosion control, utility stub-outs.</p>
+    </div>
+    <div class="phase-card">
+      <div class="num">02 · FOOTING</div><h3>Foundation Footings</h3>
+      <p>Forming, rebar cage, pour, cure. Engineered for FL load.</p>
+    </div>
+    <div class="phase-card">
+      <div class="num">03 · SLAB</div><h3>Monolithic Slab</h3>
+      <p>Vapor barrier, mesh, post-tension cables, slab pour, finish.</p>
+    </div>
+    <div class="phase-card">
+      <div class="num">04 · FRAMING</div><h3>Structural Frame</h3>
+      <p>2x6 walls, engineered trusses, sheathing, hurricane straps.</p>
+    </div>
+    <div class="phase-card">
+      <div class="num">05 · ROOF</div><h3>Roof System</h3>
+      <p>Decking, peel & stick, drip edge, shingle or metal, flashing.</p>
+    </div>
+    <div class="phase-card">
+      <div class="num">06 · SIDING</div><h3>Exterior Envelope</h3>
+      <p>House wrap, stucco lath, scratch + brown + finish coats, paint.</p>
+    </div>
+    <div class="phase-card">
+      <div class="num">07 · FINISH</div><h3>Interior Buildout</h3>
+      <p>Drywall, trim, paint, flooring, cabinetry, fixtures, punch-list.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="cta">
+  <div class="section-tag">✦ START A NEW BUILD</div>
+  <h2>Your <span class="serif">house,</span> from the ground up.</h2>
+  <p>Tell us your lot, square footage, budget. We'll walk it within 48 hours.</p>
+  <form class="cta-form" onsubmit="event.preventDefault(); alert('Prototype form.');">
+    <input type="email" placeholder="Your email..." required>
+    <button type="submit">CONNECT</button>
+  </form>
+</section>
+
+<footer>
+  <div>OAK PARK CONSTRUCTION · CBC1263425</div>
+  <div>BROWARD COUNTY · <span style="color: var(--lime);">NEW CONSTRUCTION DIVISION</span></div>
+</footer>
+
+<!-- THREE.JS SEQUENTIAL ASSEMBLY -->
+<script type="importmap">
+{ "imports": {
+  "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+}}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+
+const canvas = document.getElementById('assemblyCanvas');
+const wrap = canvas.parentElement;
+const scene = new THREE.Scene();
+
+const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 100);
+camera.position.set(6, 5.5, 9);
+camera.lookAt(0, 1.5, 0);
+
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.0;
+
+function resize() {
+  const r = wrap.getBoundingClientRect();
+  renderer.setSize(r.width, r.height, false);
+  camera.aspect = r.width / r.height;
+  camera.updateProjectionMatrix();
+  composer.setSize(r.width, r.height);
+}
+
+// === MATERIALS — line-style, Ricardo yLOpNdZ vibe ===
+// Cool cyan (blueprint) early phases → warm cream/walnut (built) late phases
+const matCyan = new THREE.LineBasicMaterial({ color: 0x00D4FF, transparent: true, opacity: 0 });
+const matCyanDim = new THREE.LineBasicMaterial({ color: 0x00D4FF, transparent: true, opacity: 0 });
+const matCream = new THREE.LineBasicMaterial({ color: 0xF0EBE3, transparent: true, opacity: 0 });
+const matWalnut = new THREE.LineBasicMaterial({ color: 0x8B5A2B, transparent: true, opacity: 0 });
+const matLime = new THREE.LineBasicMaterial({ color: 0xCBCC10, transparent: true, opacity: 0 });
+
+// helper for box edge wireframes
+function boxEdge(w, h, d, mat) {
+  return new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(w, h, d)), mat);
+}
+function lineFrom(points, mat) {
+  const geo = new THREE.BufferGeometry().setFromPoints(points.map(p => new THREE.Vector3(...p)));
+  return new THREE.Line(geo, mat);
+}
+
+// === DIMENSIONS ===
+const W = 4.6, D = 3.2, H = 2.3, RH = 1.3;
+
+// === PHASE 1: LOT (always visible) ===
+const lot = new THREE.Group();
+scene.add(lot);
+// Lot footprint (dashed perimeter)
+const lotMat = new THREE.LineDashedMaterial({ color: 0x00D4FF, transparent: true, opacity: 0.5, dashSize: 0.18, gapSize: 0.1 });
+const lotLine = new THREE.LineLoop(
+  new THREE.BufferGeometry().setFromPoints([
+    new THREE.Vector3(-W/2 - 1, 0, -D/2 - 1),
+    new THREE.Vector3( W/2 + 1, 0, -D/2 - 1),
+    new THREE.Vector3( W/2 + 1, 0,  D/2 + 1),
+    new THREE.Vector3(-W/2 - 1, 0,  D/2 + 1),
+  ]),
+  lotMat
+);
+lotLine.computeLineDistances();
+lot.add(lotLine);
+// Ground grid
+const grid = new THREE.GridHelper(20, 40, 0x00D4FF, 0x0a3040);
+grid.material.transparent = true;
+grid.material.opacity = 0.18;
+lot.add(grid);
+
+// === PHASE 2: FOOTING (perimeter trench) ===
+const footing = new THREE.Group();
+scene.add(footing);
+const footY = -0.05;
+const footingBox = boxEdge(W + 0.3, 0.12, D + 0.3, matCyan);
+footingBox.position.y = footY;
+footing.add(footingBox);
+// Cross-bracing footings (interior)
+const cross1 = boxEdge(W + 0.3, 0.12, 0.12, matCyanDim);
+cross1.position.y = footY;
+footing.add(cross1);
+const cross2 = boxEdge(0.12, 0.12, D + 0.3, matCyanDim);
+cross2.position.y = footY;
+footing.add(cross2);
+
+// === PHASE 3: SLAB ===
+const slab = new THREE.Group();
+scene.add(slab);
+const slabMesh = boxEdge(W, 0.15, D, matCream);
+slabMesh.position.y = 0.07;
+slab.add(slabMesh);
+// Slab grid lines (rebar texture)
+for (let i = -W/2 + 0.4; i < W/2; i += 0.4) {
+  slab.add(lineFrom([[i, 0.15, -D/2], [i, 0.15, D/2]], matCyanDim));
+}
+for (let j = -D/2 + 0.4; j < D/2; j += 0.4) {
+  slab.add(lineFrom([[-W/2, 0.15, j], [W/2, 0.15, j]], matCyanDim));
+}
+
+// === PHASE 4: FRAMING (walls + studs + corner posts) ===
+const framing = new THREE.Group();
+scene.add(framing);
+// Corner posts (heavier)
+const cornerCoords = [
+  [-W/2, -D/2], [W/2, -D/2], [W/2, D/2], [-W/2, D/2],
+];
+cornerCoords.forEach(([x, z]) => {
+  framing.add(lineFrom([[x, 0.15, z], [x, 0.15 + H, z]], matCream));
+});
+// Top plate (perimeter)
+framing.add(lineFrom([
+  [-W/2, 0.15 + H, -D/2], [W/2, 0.15 + H, -D/2],
+  [W/2, 0.15 + H, D/2], [-W/2, 0.15 + H, D/2], [-W/2, 0.15 + H, -D/2]
+], matCream));
+// Studs at 16" o.c. (~0.4 in our scale) on all 4 walls
+const studSpacing = 0.4;
+for (let x = -W/2 + studSpacing; x < W/2; x += studSpacing) {
+  framing.add(lineFrom([[x, 0.15, -D/2], [x, 0.15 + H, -D/2]], matCyanDim));
+  framing.add(lineFrom([[x, 0.15,  D/2], [x, 0.15 + H,  D/2]], matCyanDim));
+}
+for (let z = -D/2 + studSpacing; z < D/2; z += studSpacing) {
+  framing.add(lineFrom([[-W/2, 0.15, z], [-W/2, 0.15 + H, z]], matCyanDim));
+  framing.add(lineFrom([[ W/2, 0.15, z], [ W/2, 0.15 + H, z]], matCyanDim));
+}
+
+// === PHASE 5: ROOF (trusses + ridge + decking outline) ===
+const roof = new THREE.Group();
+scene.add(roof);
+const roofTopY = 0.15 + H + RH;
+// Ridge beam
+roof.add(lineFrom([[0, roofTopY, -D/2], [0, roofTopY, D/2]], matWalnut));
+// Eave lines
+roof.add(lineFrom([[-W/2, 0.15 + H, -D/2], [-W/2, 0.15 + H, D/2]], matWalnut));
+roof.add(lineFrom([[ W/2, 0.15 + H, -D/2], [ W/2, 0.15 + H, D/2]], matWalnut));
+// Gable triangles
+roof.add(lineFrom([
+  [-W/2, 0.15 + H, -D/2], [0, roofTopY, -D/2], [W/2, 0.15 + H, -D/2]
+], matWalnut));
+roof.add(lineFrom([
+  [-W/2, 0.15 + H, D/2], [0, roofTopY, D/2], [W/2, 0.15 + H, D/2]
+], matWalnut));
+// Truss rafters at ~24" o.c.
+for (let z = -D/2 + 0.5; z < D/2; z += 0.5) {
+  roof.add(lineFrom([[-W/2, 0.15 + H, z], [0, roofTopY, z]], matCyanDim));
+  roof.add(lineFrom([[ W/2, 0.15 + H, z], [0, roofTopY, z]], matCyanDim));
+  // Bottom chord
+  roof.add(lineFrom([[-W/2, 0.15 + H, z], [W/2, 0.15 + H, z]], matCyanDim));
+}
+// Roof overhang
+const overhang = 0.25;
+const overhangPoints = [
+  [-W/2 - overhang, 0.15 + H - 0.04, -D/2 - overhang],
+  [ W/2 + overhang, 0.15 + H - 0.04, -D/2 - overhang],
+  [ W/2 + overhang, 0.15 + H - 0.04,  D/2 + overhang],
+  [-W/2 - overhang, 0.15 + H - 0.04,  D/2 + overhang],
+  [-W/2 - overhang, 0.15 + H - 0.04, -D/2 - overhang],
+];
+roof.add(lineFrom(overhangPoints, matCyanDim));
+
+// === PHASE 6: SIDING (panel outlines) ===
+const siding = new THREE.Group();
+scene.add(siding);
+// Front facade panels (3 horizontal bands per wall)
+function sidingPanels(zPos, side) {
+  for (let b = 0; b < 3; b++) {
+    const y1 = 0.15 + b * (H / 3);
+    const y2 = 0.15 + (b + 1) * (H / 3);
+    const pts = side === 'z'
+      ? [[-W/2, y1, zPos], [W/2, y1, zPos], [W/2, y2, zPos], [-W/2, y2, zPos], [-W/2, y1, zPos]]
+      : [[zPos, y1, -D/2], [zPos, y1, D/2], [zPos, y2, D/2], [zPos, y2, -D/2], [zPos, y1, -D/2]];
+    siding.add(lineFrom(pts, matCream));
+  }
+}
+sidingPanels(-D/2, 'z');
+sidingPanels( D/2, 'z');
+sidingPanels(-W/2, 'x');
+sidingPanels( W/2, 'x');
+
+// === PHASE 7: FINISH (door + windows + lime accent) ===
+const finish = new THREE.Group();
+scene.add(finish);
+const frontZ = D/2 + 0.001;
+const doorW = 0.7, doorH = 1.3;
+// Door
+finish.add(lineFrom([
+  [-doorW/2, 0.15, frontZ], [-doorW/2, 0.15 + doorH, frontZ],
+  [doorW/2, 0.15 + doorH, frontZ], [doorW/2, 0.15, frontZ]
+], matWalnut));
+// Lime accent strip beside door
+finish.add(lineFrom([
+  [doorW/2 + 0.08, 0.15, frontZ], [doorW/2 + 0.08, 0.15 + doorH * 0.9, frontZ]
+], matLime));
+finish.add(lineFrom([
+  [doorW/2 + 0.13, 0.15, frontZ], [doorW/2 + 0.13, 0.15 + doorH * 0.9, frontZ]
+], matLime));
+// Windows
+function winRect(cx, cy, cz, w, h) {
+  finish.add(lineFrom([
+    [cx-w/2, cy-h/2, cz], [cx-w/2, cy+h/2, cz],
+    [cx+w/2, cy+h/2, cz], [cx+w/2, cy-h/2, cz], [cx-w/2, cy-h/2, cz]
+  ], matCream));
+  // mullion cross
+  finish.add(lineFrom([[cx-w/2, cy, cz], [cx+w/2, cy, cz]], matCyanDim));
+  finish.add(lineFrom([[cx, cy-h/2, cz], [cx, cy+h/2, cz]], matCyanDim));
+}
+winRect(-1.6, 0.15 + 0.9, frontZ, 0.85, 0.85);
+winRect( 1.6, 0.15 + 0.9, frontZ, 0.85, 0.85);
+
+const allMats = [matCyan, matCyanDim, matCream, matWalnut, matLime];
+
+// === POST-PROCESSING — gentle bloom ===
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, camera));
+composer.addPass(new UnrealBloomPass(new THREE.Vector2(800, 800), 0.45, 0.5, 0.6));
+composer.addPass(new OutputPass());
+
+resize();
+window.addEventListener('resize', resize);
+
+// === SCROLL-DRIVEN PHASES ===
+// 7 phases mapped to scrollPct ranges
+let phase = 0;
+let scrollPct = 0;
+function updateScroll() {
+  const max = document.body.scrollHeight - window.innerHeight;
+  scrollPct = Math.min(window.scrollY / max, 1);
+  const newPhase = Math.min(6, Math.floor(scrollPct * 7));
+  if (newPhase !== phase) {
+    phase = newPhase;
+    document.querySelectorAll('.phase-strip .item').forEach((el, i) => {
+      el.classList.toggle('active', i === phase);
+    });
+  }
+}
+window.addEventListener('scroll', updateScroll, { passive: true });
+updateScroll();
+
+// === RENDER LOOP ===
+const clock = new THREE.Clock();
+function fade(group, mat, startPct, endPct, finalOp) {
+  const op = Math.max(0, Math.min(1, (scrollPct - startPct) / (endPct - startPct))) * finalOp;
+  mat.opacity = op;
+}
+
+function loop() {
+  const t = clock.getElapsedTime();
+
+  // Gentle idle rotation + scroll-driven extra rotation
+  const yRot = t * 0.07 + scrollPct * Math.PI * 0.8;
+  lot.rotation.y = yRot;
+  footing.rotation.y = yRot;
+  slab.rotation.y = yRot;
+  framing.rotation.y = yRot;
+  roof.rotation.y = yRot;
+  siding.rotation.y = yRot;
+  finish.rotation.y = yRot;
+
+  // === FADE EACH PHASE IN AT ITS WINDOW ===
+  // Phase windows: 7 phases, each ~0.14 wide, overlap a bit
+  // 01 LOT: always visible (lotMat handled below)
+  lotMat.opacity = 0.5 - scrollPct * 0.35; // fades as build progresses
+  grid.material.opacity = Math.max(0.08, 0.18 - scrollPct * 0.10);
+
+  // 02 FOOTING: 0.08 - 0.22
+  matCyan.opacity = Math.max(0, Math.min(1, (scrollPct - 0.08) / 0.14)) * 0.9;
+
+  // 03 SLAB (cream): 0.22 - 0.36
+  // 04 FRAMING uses cream too — share fade with framing window
+  matCream.opacity = Math.max(0, Math.min(1, (scrollPct - 0.22) / 0.14)) * 0.95;
+
+  // 04 FRAMING DIM lines: 0.36 - 0.50 — share matCyanDim, gets brighter
+  matCyanDim.opacity = Math.max(0, Math.min(1, (scrollPct - 0.30) / 0.14)) * 0.55;
+
+  // 05 ROOF: 0.50 - 0.65
+  matWalnut.opacity = Math.max(0, Math.min(1, (scrollPct - 0.50) / 0.15)) * 1.0;
+
+  // 06 SIDING: 0.65 - 0.80 — uses matCream (already faded in earlier, intensify)
+  // (handled by matCream — already at full opacity by this scrollPct)
+
+  // 07 FINISH (lime accent + door + windows): 0.80 - 1.0
+  matLime.opacity = Math.max(0, Math.min(1, (scrollPct - 0.80) / 0.20)) * 1.0;
+
+  composer.render();
+  requestAnimationFrame(loop);
+}
+loop();
+</script>
+
+<!-- Tiny particles -->
+<script>
+const pc = document.getElementById('particles');
+const pctx = pc.getContext('2d');
+let pw, ph, ps = [];
+function presize() {
+  pw = pc.width = window.innerWidth * devicePixelRatio;
+  ph = pc.height = window.innerHeight * devicePixelRatio;
+  pc.style.width = window.innerWidth + 'px';
+  pc.style.height = window.innerHeight + 'px';
+}
+presize();
+window.addEventListener('resize', presize);
+for (let i = 0; i < 50; i++) {
+  ps.push({
+    x: Math.random() * pw, y: Math.random() * ph,
+    r: Math.random() * 1.0 + 0.3,
+    vx: (Math.random() - 0.5) * 0.12,
+    vy: (Math.random() - 0.5) * 0.12,
+    a: Math.random() * 0.4 + 0.18,
+    pulse: Math.random() * Math.PI * 2,
+  });
+}
+function ptick() {
+  pctx.clearRect(0, 0, pw, ph);
+  for (const p of ps) {
+    p.x += p.vx; p.y += p.vy;
+    if (p.x < 0) p.x = pw; if (p.x > pw) p.x = 0;
+    if (p.y < 0) p.y = ph; if (p.y > ph) p.y = 0;
+    p.pulse += 0.01;
+    const a = p.a * (0.6 + Math.sin(p.pulse) * 0.4);
+    pctx.beginPath();
+    pctx.arc(p.x, p.y, p.r * devicePixelRatio, 0, Math.PI * 2);
+    pctx.fillStyle = `rgba(240, 235, 227, ${a})`;
+    pctx.fill();
+  }
+  requestAnimationFrame(ptick);
+}
+requestAnimationFrame(ptick);
+</script>
+
+</body>
+</html>
