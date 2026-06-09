@@ -100,11 +100,17 @@ These fire automatically when triggered. Priscila should NOT have to ask:
 | 2026-06-09 | russell-henderson.com | (reference) | Neon-tube orbital ring halo intensity — bloom inspiration |
 | 2026-06-09 | LUMEN | (reference) | Cursor-follow orb — implemented on 06 + 07 |
 
-### 🔴 Open feedback to resolve
-- **Bathroom 3D — REWORK** (Priscila: "do not like the 3D chosen for bathroom") — get direction first, then rebuild
-- **Bathroom lime ring — FIX** (Priscila: "not a full circle as it rotates, looks broken / glitchy") — ring radius 2.1 < building extent W=4. Increase to >3.5 or relocate inside rotating group
-- **Concrete lime ring — FIX** (Priscila: "around the POLE only, tiny, not sure if supposed to be there") — same root cause; either remove or radius-up to wrap whole composition
-- **Wireframe house-aura — REVISIT** (Priscila: "house is no that good") — rework with line-style approach
+### 🔴 Open feedback — AWAITING DIRECTION
+**Visual Direction Memo (saved 2026-06-09):** https://docs.google.com/document/d/1-ltwpYHCW9DX3PPB8Adnbe_hE8gKqB4VI3CnPHVeNsI/edit
+
+- **Bathroom 3D — REWORK** → Pick A (Tile/Waterproof Wall Section) ⭐ / B (Curbless Shower Build) / C (Floor Plan → 3D Bath)
+- **Wireframe house-aura — REWORK** → Pick A (Floor Plan → 3D Reveal) ⭐ / B (Architectural Section Cut) / C (Day-to-Night House)
+- **Reject from inspo** — approve removing `gbaMbOR` + `GgjRbMq`?
+- **KKbWGNZ (Ricardo 3rd 3D)** — assign to Stucco vs Renovation? Need screenshot first
+
+### ✅ Resolved this session
+- Bathroom lime ring — radius 2.1→3.8 (commit `9081541`)
+- Concrete lime ring — radius 0.72→2.2 + moved to scene (commit `9081541`)
 
 Drive Inspiration folder: `1ae7n4VwSZbu0_nt6nUX5WeLINGqYJ-CZ`
 
