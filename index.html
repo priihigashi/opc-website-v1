@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oak Park Construction — Custom Homes & Renovations, Central Florida</title>
+<meta name="description" content="Florida licensed contractor CBC1263425. Custom homes, renovations, additions, kitchens, baths, outdoor living. Broward County. 20+ years.">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+:root { --obsidian: #0A0A0A; --cream: #F0EBE3; --lime: #CBCC10; --walnut: #5B3C1F; --stone: #F5F5F5; --white: #FFFFFF; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Roboto Condensed', sans-serif; color: var(--obsidian); background: var(--white); line-height: 1.5; }
+h1, h2, h3, h4 { font-family: 'Anton', sans-serif; letter-spacing: 1px; line-height: 1.1; font-weight: 400; }
+a { color: inherit; text-decoration: none; }
+
+/* HERO */
+.hero { position: relative; min-height: 100vh; background: var(--obsidian); overflow: hidden; }
+.hero-bg { position: absolute; inset: 0; z-index: 0; background: url('assets/img/full-remodel-1.jpg') center/cover; filter: brightness(0.55) saturate(0.9); }
+.hero-overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(10,10,10,0.5) 0%, rgba(10,10,10,0.1) 40%, rgba(10,10,10,0.95) 100%); }
+.hero-nav { position: relative; z-index: 2; padding: 24px 40px; display: flex; justify-content: space-between; align-items: center; }
+.hero-nav .logo { font-family: 'Anton', sans-serif; font-size: 18px; color: var(--cream); letter-spacing: 2px; }
+.hero-nav .logo .lime { color: var(--lime); }
+.hero-nav .nav-links { display: flex; gap: 32px; }
+.hero-nav .nav-links a { color: var(--cream); font-size: 13px; letter-spacing: 1px; text-transform: uppercase; }
+.hero-nav .nav-links a:hover { color: var(--lime); }
+.hero-content { position: relative; z-index: 2; padding: 12vh 40px 80px; max-width: 1400px; }
+.hero-content h1 { font-size: clamp(56px, 11vw, 144px); color: var(--cream); margin-bottom: 24px; text-transform: uppercase; }
+.hero-content h1 .lime { color: var(--lime); }
+.hero-content .tag { font-size: 18px; color: var(--cream); max-width: 600px; }
+.hero-content .meta { font-family: 'Courier New', monospace; font-size: 12px; color: var(--lime); position: absolute; bottom: 40px; left: 40px; letter-spacing: 2px; }
+
+/* BELOW-FOLD STATEMENT */
+.statement { background: var(--cream); padding: 120px 40px; }
+.statement h2 { font-size: clamp(40px, 6vw, 84px); max-width: 1100px; margin: 0 auto; text-align: center; text-transform: uppercase; line-height: 1.05; }
+.statement h2 .lime-underline { border-bottom: 6px solid var(--lime); padding-bottom: 4px; }
+
+/* WHAT WE DO */
+.what-we-do { background: var(--white); padding: 96px 40px; }
+.container { max-width: 1400px; margin: 0 auto; }
+.section-label { font-family: 'Anton', sans-serif; font-size: 14px; letter-spacing: 3px; color: var(--lime); text-transform: uppercase; margin-bottom: 16px; }
+.section-title { font-size: clamp(36px, 6vw, 64px); margin-bottom: 64px; text-transform: uppercase; }
+.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.service-tile { position: relative; aspect-ratio: 4/3; overflow: hidden; cursor: pointer; }
+.service-tile img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; filter: brightness(0.7); }
+.service-tile:hover img { transform: scale(1.05); filter: brightness(0.9); }
+.service-tile .label { position: absolute; bottom: 20px; left: 20px; color: var(--cream); font-family: 'Anton', sans-serif; font-size: 24px; text-transform: uppercase; letter-spacing: 1px; }
+.service-tile .scope { position: absolute; bottom: 56px; left: 20px; color: var(--lime); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; opacity: 0; transition: opacity 0.3s; }
+.service-tile:hover .scope { opacity: 1; }
+
+/* RECENT PROJECTS */
+.projects-section { background: var(--obsidian); color: var(--cream); padding: 96px 40px; }
+.projects-section .section-title { color: var(--cream); }
+.project-feed { display: grid; grid-template-columns: 1fr; gap: 32px; }
+.project-row { display: grid; grid-template-columns: 1.5fr 1fr; gap: 32px; align-items: center; }
+.project-row.reverse { grid-template-columns: 1fr 1.5fr; }
+.project-row.reverse .project-img-wrap { order: 2; }
+.project-img-wrap { aspect-ratio: 4/3; overflow: hidden; }
+.project-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.project-meta h3 { font-size: 36px; color: var(--cream); text-transform: uppercase; margin-bottom: 16px; }
+.project-meta .meta-line { font-family: 'Courier New', monospace; font-size: 12px; color: var(--lime); letter-spacing: 2px; margin-bottom: 16px; }
+.project-meta p { color: #aaa; font-size: 15px; max-width: 400px; }
+
+/* TRUST */
+.trust-section { background: var(--cream); padding: 96px 40px; text-align: center; }
+.trust-quote { font-family: 'Anton', sans-serif; font-size: clamp(28px, 4vw, 48px); max-width: 900px; margin: 32px auto 24px; line-height: 1.2; text-transform: uppercase; }
+.trust-byline { font-size: 14px; letter-spacing: 2px; color: var(--walnut); }
+.trust-badges { display: flex; justify-content: center; gap: 48px; margin-top: 48px; flex-wrap: wrap; }
+.trust-badge { font-family: 'Courier New', monospace; font-size: 12px; letter-spacing: 1px; }
+
+/* CONTACT */
+.contact-cta { background: var(--lime); padding: 96px 40px; }
+.contact-cta h2 { font-size: clamp(48px, 8vw, 96px); text-transform: uppercase; margin-bottom: 24px; }
+.contact-cta p { font-size: 18px; max-width: 600px; margin-bottom: 40px; }
+.btn { background: var(--obsidian); color: var(--lime); padding: 18px 32px; font-family: 'Anton', sans-serif; font-size: 18px; letter-spacing: 2px; text-decoration: none; display: inline-block; }
+
+/* FOOTER */
+footer { background: var(--obsidian); color: var(--cream); padding: 64px 40px 32px; }
+footer .footer-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; align-items: start; }
+footer .wordmark { font-family: 'Anton', sans-serif; font-size: 40px; letter-spacing: 3px; border-bottom: 6px solid var(--lime); padding-bottom: 12px; display: inline-block; }
+footer .license-line { font-family: 'Courier New', monospace; font-size: 12px; color: var(--lime); margin-top: 16px; }
+footer .col h4 { font-family: 'Anton', sans-serif; font-size: 12px; letter-spacing: 3px; color: var(--lime); margin-bottom: 16px; }
+footer .col a { color: var(--cream); display: block; padding: 6px 0; font-size: 14px; }
+footer .col a:hover { color: var(--lime); }
+footer .copyright { text-align: center; margin-top: 64px; padding-top: 24px; border-top: 1px solid #222; font-size: 11px; color: #555; }
+
+/* STICKY MOBILE CTA */
+.sticky-cta { display: none; position: fixed; bottom: 16px; right: 16px; background: var(--obsidian); color: var(--lime); padding: 14px 22px; border-radius: 999px; font-family: 'Anton', sans-serif; font-size: 16px; letter-spacing: 1px; z-index: 1000; box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+
+@media (max-width: 768px) {
+  .sticky-cta { display: inline-block; }
+  .hero-nav { padding: 16px 20px; }
+  .hero-nav .nav-links { display: none; }
+  .hero-content { padding: 20vh 20px 64px; }
+  .services-grid { grid-template-columns: 1fr; }
+  .project-row, .project-row.reverse { grid-template-columns: 1fr; }
+  .project-row.reverse .project-img-wrap { order: 0; }
+  footer .footer-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <nav class="hero-nav">
+    <div class="logo">OAK PARK <span class="lime">CONSTRUCTION</span></div>
+    <div class="nav-links">
+      <a href="#what-we-do">Services</a>
+      <a href="#projects">Projects</a>
+      <a href="about.html">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+  <div class="hero-content">
+    <h1>We Don't<br>Build Houses.<br>We Build <span class="lime">Homes.</span></h1>
+    <p class="tag">Custom homes, renovations, additions, outdoor living.<br>Central Florida. 20+ years. Licensed contractor CBC1263425.</p>
+    <p class="meta">SCROLL ↓</p>
+  </div>
+</header>
+
+<!-- BELOW-FOLD STATEMENT -->
+<section class="statement">
+  <h2>Built in Central Florida.<br>Engineered for the <span class="lime-underline">next 50 years</span>.</h2>
+</section>
+
+<!-- WHAT WE DO -->
+<section class="what-we-do" id="what-we-do">
+  <div class="container">
+    <div class="section-label">WHAT WE DO</div>
+    <h2 class="section-title">Ten services. One crew. Every job ourselves.</h2>
+    <div class="services-grid">
+      <a href="services/stucco.html" class="service-tile"><img src="assets/img/exterior-1.jpg" alt="Stucco"><div class="scope">REPAIR · RECOAT · RESTUCCO</div><div class="label">STUCCO</div></a>
+      <a href="services/concrete.html" class="service-tile"><img src="assets/img/concrete-landscape-1.jpg" alt="Concrete"><div class="scope">FOUNDATIONS · SLABS · DRIVEWAYS</div><div class="label">CONCRETE</div></a>
+      <a href="services/kitchen.html" class="service-tile"><img src="assets/img/kitchen-1.jpg" alt="Kitchen"><div class="scope">REFRESH TO DOWN-TO-STUDS</div><div class="label">KITCHEN</div></a>
+      <a href="services/bath.html" class="service-tile"><img src="assets/img/kitchen-3.jpg" alt="Bathroom"><div class="scope">FULL REMODEL · TUB-TO-SHOWER</div><div class="label">BATHROOM</div></a>
+      <a href="services/renovation.html" class="service-tile"><img src="assets/img/full-remodel-2.jpg" alt="Full home renovation"><div class="scope">DOWN-TO-STUDS · WHOLE HOME</div><div class="label">FULL RENOVATION</div></a>
+      <a href="services/new-construction.html" class="service-tile"><img src="assets/img/remodel-broward-1.jpg" alt="New construction"><div class="scope">CUSTOM HOMES · DESIGN-BUILD</div><div class="label">NEW BUILD</div></a>
+      <a href="services/additions.html" class="service-tile"><img src="assets/img/addition-1.jpg" alt="Additions"><div class="scope">SECOND-STORY · IN-LAW SUITES</div><div class="label">ADDITIONS</div></a>
+      <a href="services/outdoor.html" class="service-tile"><img src="assets/img/outdoor-1.jpg" alt="Outdoor living"><div class="scope">PERGOLAS · OUTDOOR KITCHENS</div><div class="label">OUTDOOR LIVING</div></a>
+      <a href="services/decks.html" class="service-tile"><img src="assets/img/concrete-landscape-2.jpg" alt="Decks"><div class="scope">DECKS · PATIOS · PAVERS</div><div class="label">DECKS &amp; PATIOS</div></a>
+    </div>
+  </div>
+</section>
+
+<!-- RECENT PROJECTS -->
+<section class="projects-section" id="projects">
+  <div class="container">
+    <div class="section-label">RECENT WORK</div>
+    <h2 class="section-title">Real Broward County builds.</h2>
+    <div class="project-feed">
+      <div class="project-row">
+        <div class="project-img-wrap"><img src="assets/img/full-remodel-1.jpg" alt="Full home remodel"></div>
+        <div class="project-meta">
+          <div class="meta-line">PARKLAND · 2025 · 3,200 SQFT</div>
+          <h3>Full Home Remodel</h3>
+          <p>Down-to-studs renovation: kitchen, all baths, new flooring, exterior stucco recoat, outdoor living build.</p>
+        </div>
+      </div>
+      <div class="project-row reverse">
+        <div class="project-img-wrap"><img src="assets/img/addition-1.jpg" alt="Second-story addition"></div>
+        <div class="project-meta">
+          <div class="meta-line">CORAL SPRINGS · 2025 · 1,400 SQFT ADDED</div>
+          <h3>Second-Story Addition</h3>
+          <p>Engineered for FL hurricane code. Added master suite + two kids' rooms + bathroom over existing footprint.</p>
+        </div>
+      </div>
+      <div class="project-row">
+        <div class="project-img-wrap"><img src="assets/img/kitchen-1.jpg" alt="Kitchen remodel"></div>
+        <div class="project-meta">
+          <div class="meta-line">FORT LAUDERDALE · 2025 · KITCHEN</div>
+          <h3>Walnut Slab Kitchen</h3>
+          <p>Walnut slab cabinets, marble waterfall island, no hardware. Down-to-studs reno in 6 weeks.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="trust-section">
+  <div class="container">
+    <div class="section-label">WHO YOU'RE HIRING</div>
+    <p class="trust-quote">"We do every job ourselves. No subbed-out crews. You get Mike on speed dial."</p>
+    <p class="trust-byline">— MIKE McFOLLING · CBC1263425 · CENTRAL FLORIDA · 20+ YEARS</p>
+    <div class="trust-badges">
+      <div class="trust-badge">FL LICENSE CBC1263425</div>
+      <div class="trust-badge">FULLY INSURED</div>
+      <div class="trust-badge">BBB</div>
+      <div class="trust-badge">BROWARD COUNTY</div>
+      <div class="trust-badge">20+ YEARS</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-cta" id="contact">
+  <div class="container">
+    <h2>Let's build it.</h2>
+    <p>15-min call. Mike will pick up the phone within 1 business day. No sales pitch.</p>
+    <a href="tel:9542586769" class="btn">CALL (954) 258-6769</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="wordmark">OAK PARK CONSTRUCTION</div>
+      <p class="license-line">FL CBC1263425 · INSURED · BBB · BROWARD COUNTY · 20+ YEARS</p>
+    </div>
+    <div class="col">
+      <h4>SERVICES</h4>
+      <a href="services/stucco.html">Stucco</a>
+      <a href="services/concrete.html">Concrete</a>
+      <a href="services/kitchen.html">Kitchen</a>
+      <a href="services/bath.html">Bathroom</a>
+      <a href="services/renovation.html">Renovation</a>
+      <a href="services/outdoor.html">Outdoor</a>
+    </div>
+    <div class="col">
+      <h4>COMPANY</h4>
+      <a href="about.html">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="col">
+      <h4>CONTACT</h4>
+      <a href="tel:9542586769">(954) 258-6769</a>
+      <a href="mailto:priscila@oakpark-construction.com">Email</a>
+    </div>
+  </div>
+  <p class="copyright">© 2026 Oak Park Construction. All rights reserved.</p>
+</footer>
+
+<a href="tel:9542586769" class="sticky-cta">📞 (954) 258-6769</a>
+
+</body>
+</html>
