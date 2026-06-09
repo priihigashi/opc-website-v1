@@ -28,7 +28,9 @@
   /* FIXED STAGE */
   .stage {
     position: fixed; inset: 0; z-index: 1;
-    display: grid; grid-template-columns: 1fr 1fr;
+    display: flex; align-items: center; justify-content: center;
+    gap: 60px;
+    padding: 0 48px;
     overflow: hidden;
   }
 
@@ -65,7 +67,7 @@
   .info {
     position: relative; z-index: 2;
     display: flex; flex-direction: column; justify-content: center;
-    padding: 0 64px;
+    flex: 0 1 480px;
   }
   .info-card {
     background: rgba(240, 235, 227, 0.04);
@@ -125,6 +127,7 @@
     position: relative; z-index: 2;
     display: grid; place-items: center;
     perspective: 1600px;
+    flex: 0 0 auto;
   }
   .cube {
     position: relative;
@@ -217,8 +220,8 @@
 
   /* MOBILE */
   @media (max-width: 900px) {
-    .stage { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
-    .info { padding: 100px 24px 20px; }
+    .stage { flex-direction: column; gap: 24px; padding: 80px 20px 20px; }
+    .info { flex: 0 1 auto; }
     .cube { width: 280px; height: 280px; }
     .face.front  { transform: translateZ(140px); }
     .face.back   { transform: rotateY(180deg) translateZ(140px); }
