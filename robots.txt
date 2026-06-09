@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://priihigashi.github.io/opc-website-v1/sitemap.xml
