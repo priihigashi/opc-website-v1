@@ -79,6 +79,7 @@
       <a href="${base}prototypes/combined-lumen-vision.html">06 Combo</a>
       <a href="${base}prototypes/combined-gold-glow.html">07 Gold</a>
       <a href="${base}prototypes/concrete-rotating-bars.html">08 Concrete</a>
+      <a href="${base}prototypes/bathroom-plumbing-stack.html">09 Bath</a>
     </div>
     <span class="opc-close" id="opc-close-btn">✕</span>
   `;
