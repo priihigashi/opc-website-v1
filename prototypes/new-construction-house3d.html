@@ -38,7 +38,7 @@
 
   /* hero */
   main { position:relative; z-index:2; }
-  section.hero { min-height:100vh; padding:120px 48px 60px; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.05fr); gap:40px; align-items:center; }
+  section.hero { min-height:100vh; padding:120px 48px 60px 96px; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.05fr); gap:40px; align-items:center; }
   .hero-text { max-width:560px; align-self:center; }
   .eyebrow { font-family:'Roboto Mono',monospace; font-size:11px; letter-spacing:4px; color:var(--lime); margin-bottom:22px; }
   .hero h1 { font-family:'Anton',sans-serif; font-size:clamp(50px,8vw,108px); line-height:0.92; text-transform:uppercase; }
@@ -82,7 +82,7 @@
 }
 
 /* Generic */
-.house-stage { position:relative; display:flex; justify-content:center; align-items:center; width:100%; height:100%; min-height:520px; overflow:hidden; background:transparent; }
+.house-wrap { position:relative; display:flex; justify-content:center; align-items:center; width:100%; height:100%; min-height:62vh; overflow:hidden; background:transparent; }
 
 .face {
   position: absolute;
@@ -93,7 +93,7 @@
   position: absolute;
   width: 36vw;
   height: 24vw;
-  transform: perspective(20000px) rotateX(75deg) rotateZ(35deg) translateZ(-9vw);
+  transform: perspective(20000px) rotateX(75deg) rotateZ(35deg) translateZ(-9vw); animation: houseSway 9s ease-in-out infinite;
   transition: transform 0.1s linear;
 }
 
@@ -2663,6 +2663,8 @@
   transform: translateZ(8.4vw);
 }
 
+@keyframes houseSway { 0%,100% { transform: perspective(20000px) rotateX(75deg) rotateZ(32.5deg) translateZ(-9vw); } 50% { transform: perspective(20000px) rotateX(75deg) rotateZ(37.5deg) translateZ(-9vw); } }
+
 </style>
 </head>
 <body>
@@ -2672,7 +2674,7 @@
   <a href="../index.html" class="logo">OAK PARK <span class="lime">CONSTRUCTION</span></a>
   <div class="nav-links">
     <a href="../services/new-construction.html">New Build Service</a>
-    <a href="kitchen-exploded-cabinet.html">Kitchen 11</a>
+    <a href="kitchen-room3d.html">Kitchen 11</a>
     <a href="bathroom-waterproofing-section.html">Bath 15</a>
     <a href="#cta" class="nav-cta">Start a Build</a>
   </div>
@@ -2682,8 +2684,8 @@
   <section class="hero" id="cta">
     <div class="hero-text">
       <div class="eyebrow">Prototype 10 · New Construction · House 3D</div>
-      <h1>We build it <span class="serif">whole.</span><br>Slab to keys.</h1>
-      <p>One crew from the footing to the final walk-through. No subs to chase, no handoffs, no surprises — just a finished home.</p>
+      <h1>From slab<br>to <span class="serif">keys</span></h1>
+      <p>One crew from the footing to the final walk-through. No subs to chase, no handoffs — just a finished home.</p>
       <a class="hero-cta" href="../services/new-construction.html">See the build →</a>
     </div>
 
