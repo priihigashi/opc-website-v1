@@ -85,6 +85,7 @@
       <a href="${base}prototypes/contact-atmosphere.html">12 Contact</a>
       <a href="${base}prototypes/project-gallery-split.html">13 Gallery</a>
       <a href="${base}prototypes/background-swap.html">14 BG Swap</a>
+      <a href="${base}prototypes/bathroom-waterproofing-section.html">15 Bath Wall</a>
     </div>
     <span class="opc-close" id="opc-close-btn">✕</span>
   `;
