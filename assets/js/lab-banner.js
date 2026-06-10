@@ -97,6 +97,8 @@
       <a href="${base}home-b.html">✨ Home B</a>
       <a href="${base}how-it-works.html">✨ How We Work</a>
       <a href="${base}new-construction-b.html">✨ Service B</a>
+      <a href="${base}property-gallery-b.html">🖼 Gallery (matched)</a>
+      <a href="${base}property-gallery.html">🖼 Gallery v1</a>
     </div>
     <span class="opc-close" id="opc-close-btn">✕</span>
   `;
