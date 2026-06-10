@@ -1,0 +1,40 @@
+{
+ "projects": [
+  {
+   "id": "new-construction-additions",
+   "title": "New Construction & Additions",
+   "cat": "New Construction & Additions",
+   "loc": "Broward County, FL",
+   "cover": "https://oakpark-construction.com/wp-content/uploads/2025/06/new-construction-build-full-home-remodel-concrete-shell-kitchen-bath-08.jpg",
+   "live": true,
+   "count": 18
+  },
+  {
+   "id": "full-home-remodel",
+   "title": "Full Home Remodel",
+   "cat": "Full Home Remodel",
+   "loc": "Pompano Beach, FL",
+   "cover": "https://oakpark-construction.com/wp-content/uploads/2025/06/new-construction-build-full-home-remodel-concrete-shell-7.jpg",
+   "count": 52,
+   "live": false
+  },
+  {
+   "id": "shell-concrete",
+   "title": "Shell & Concrete",
+   "cat": "Shell & Concrete",
+   "loc": "Broward County, FL",
+   "cover": "https://oakpark-construction.com/wp-content/uploads/2025/06/new-construction-build-full-home-remodel-concrete-shell-construction-1.jpg",
+   "count": 21,
+   "live": false
+  },
+  {
+   "id": "exterior-features",
+   "title": "Exterior Feature Builds",
+   "cat": "Outdoor & Exterior",
+   "loc": "South Florida",
+   "cover": "https://oakpark-construction.com/wp-content/uploads/2025/05/new-construction-build-and-full-home-remodel-pergola-landscape-1-2.jpg",
+   "count": 13,
+   "live": false
+  }
+ ]
+}

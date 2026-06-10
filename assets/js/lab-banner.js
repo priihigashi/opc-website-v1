@@ -99,6 +99,8 @@
       <a href="${base}new-construction-b.html">✨ Service B</a>
       <a href="${base}property-gallery-b.html">🖼 Gallery (matched)</a>
       <a href="${base}property-gallery.html">🖼 Gallery v1</a>
+      <a href="${base}gallery.html">🖼 Projects Gallery</a>
+      <a href="${base}projects/new-construction-additions.html">🖼 Project · New Constr</a>
     </div>
     <span class="opc-close" id="opc-close-btn">✕</span>
   `;
