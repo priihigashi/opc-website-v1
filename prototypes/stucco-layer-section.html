@@ -481,7 +481,9 @@
 
   function updateWall() {
     const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-    const progress = clamp(window.scrollY / maxScroll, 0, 1);
+    // Effect completes within the first ~80% of one viewport of scroll so the 4 coats separate
+    // WHILE the wall is still on screen — not when it's almost out of sight (Priscila 2026-06-09).
+    const progress = clamp(window.scrollY / (window.innerHeight * 0.8), 0, 1);
     const spread = 30 + progress * 86;
     const active = Math.min(4, Math.floor(progress * 5.2));
 
