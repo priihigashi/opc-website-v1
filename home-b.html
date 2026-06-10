@@ -110,7 +110,8 @@
   .projects-b .ph-sub{font-family:'Roboto Mono',monospace;font-size:14px;letter-spacing:.5px;color:rgba(240,235,227,.55);margin-bottom:46px;}
   .ba-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
   .ba{position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:8px;border:1px solid var(--line);user-select:none;touch-action:none;cursor:ew-resize;}
-  .ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 72%;pointer-events:none;filter:brightness(.82) saturate(.96);}
+  .ba::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:rgba(216,214,206,.07);}
+  .ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 72%;pointer-events:none;filter:brightness(.8) saturate(.74) contrast(.86);}
   .ba .ba-after{clip-path:inset(0 0 0 var(--pos,50%));}
   .ba .ba-handle{position:absolute;top:0;bottom:0;left:var(--pos,50%);width:2px;background:rgba(255,255,255,.9);transform:translateX(-50%);}
   .ba .ba-handle::after{content:"\2039 \203A";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:50px;height:50px;border-radius:50%;background:rgba(15,15,15,.22);backdrop-filter:blur(2px);border:1.5px solid rgba(255,255,255,.92);color:#fff;display:grid;place-items:center;font-size:15px;letter-spacing:2px;box-shadow:0 4px 16px rgba(0,0,0,.4);}
