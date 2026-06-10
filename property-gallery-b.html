@@ -30,15 +30,16 @@
   .ghead h1 .serif{font-family:'Cormorant Garamond',serif;font-style:italic;text-transform:none;color:var(--lime);}
   .gal{flex:1;display:flex;align-items:center;min-height:0;}
   .swiper{width:100%;overflow:visible;}
-  .swiper-slide{width:min(52vw,760px);aspect-ratio:3/2;border-radius:10px;overflow:hidden;position:relative;opacity:.32;transform:scale(.86);transition:opacity .55s cubic-bezier(.22,1,.36,1),transform .55s cubic-bezier(.22,1,.36,1);}
+  .swiper-slide{width:min(54vw,820px);aspect-ratio:3/2;border-radius:10px;overflow:hidden;position:relative;opacity:.45;transform:scale(.62);transition:opacity .55s cubic-bezier(.22,1,.36,1),transform .55s cubic-bezier(.22,1,.36,1);}
   
-  .swiper-slide-active{opacity:1;transform:scale(1.03);box-shadow:0 40px 90px rgba(0,0,0,.55);}
+  .swiper-slide-active{opacity:1;transform:scale(1);box-shadow:0 40px 100px rgba(0,0,0,.6);}
   .swiper-slide .ps-img{position:absolute;inset:0;width:116%;height:100%;left:-8%;background-size:cover;background-position:center 72%;will-change:transform;}
   /* caption: circled number + title */
-  .cap{display:flex;align-items:center;justify-content:center;gap:12px;padding:26px 20px 8px;}
-  .cap .badge{width:26px;height:26px;border-radius:50%;border:1px solid var(--lime);color:var(--lime);font-family:'Roboto Mono',monospace;font-size:11px;display:grid;place-items:center;flex:0 0 auto;}
-  .cap .ttl{font-family:'Roboto Mono',monospace;font-weight:500;font-size:15px;letter-spacing:2px;text-transform:uppercase;color:var(--cream);}
-  .arrows{display:flex;justify-content:center;gap:12px;padding:6px 0 14px;}
+  .gbar{display:flex;align-items:flex-end;justify-content:space-between;padding:22px 40px 30px;}
+  .cap{display:flex;align-items:center;gap:14px;}
+  .cap .badge{width:28px;height:28px;border-radius:50%;border:1px dashed rgba(240,235,227,.55);color:var(--cream);font-family:'Roboto Mono',monospace;font-size:11px;display:grid;place-items:center;flex:0 0 auto;}
+  .cap .ttl{font-family:'Anton',sans-serif;font-size:20px;letter-spacing:1px;text-transform:uppercase;color:var(--cream);}
+  .arrows{display:flex;gap:12px;}
   .arrows button{width:46px;height:46px;border-radius:50%;border:1px solid rgba(240,235,227,.4);background:transparent;color:var(--cream);font-size:17px;cursor:pointer;transition:.25s;display:grid;place-items:center;}
   .arrows button:hover{background:var(--lime);border-color:var(--lime);color:var(--obsidian);}
   .hint{text-align:center;font-family:'Roboto Mono',monospace;font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,235,227,.35);padding-bottom:24px;}
@@ -66,15 +67,16 @@
     </div>
   </div>
 
-  <div class="cap">
-    <div class="badge" id="capNum">1</div>
-    <div class="ttl" id="capTtl">Waterfront exterior</div>
+  <div class="gbar">
+    <div class="cap">
+      <div class="badge" id="capNum">1</div>
+      <div class="ttl" id="capTtl">Waterfront exterior</div>
+    </div>
+    <div class="arrows">
+      <button id="prev" aria-label="Previous">‹</button>
+      <button id="next" aria-label="Next">›</button>
+    </div>
   </div>
-  <div class="arrows">
-    <button id="prev" aria-label="Previous">‹</button>
-    <button id="next" aria-label="Next">›</button>
-  </div>
-  <div class="hint">Drag · swipe · ← →</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -83,7 +85,7 @@
   const sw = new Swiper('#swiper', {
     slidesPerView: 'auto',
     centeredSlides: true,
-    spaceBetween: 70,
+    spaceBetween: 56,
     grabCursor: true,
     loop: true,
     speed: 650,
