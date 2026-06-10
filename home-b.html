@@ -15,7 +15,7 @@
   a{color:inherit;text-decoration:none;}
   h1,h2,h3{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.5px;line-height:1;}
   .serif{font-family:'Cormorant Garamond',serif;font-style:italic;text-transform:none;color:var(--lime);}
-  .label{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--lime);}
+  .label{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--lime);}
   /* ambient lime glow + edge vignette (Priscila) */
   body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(circle at 60% 28%, rgba(203,204,16,.06), transparent 55%);}
   body::after{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;box-shadow:inset 0 0 220px 60px rgba(0,0,0,.92);}
@@ -33,20 +33,22 @@
   .hero{position:relative;height:100vh;min-height:680px;overflow:hidden;}
   .hero img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.5) saturate(.92);}
   .hero .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,5,.4),rgba(5,5,5,.08) 36%,rgba(5,5,5,.82));}
-  .hero .side{position:absolute;left:26px;top:50%;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:rgba(240,235,227,.6);z-index:3;}
-  .hero .h-wrap{position:absolute;left:0;right:0;bottom:9vh;padding:0 64px;display:flex;justify-content:space-between;align-items:flex-end;gap:48px;z-index:3;}
-  .hero .h-left{max-width:780px;}
+  .hero .leftbar{position:absolute;left:0;top:0;bottom:0;width:104px;background:#0A0A0A;z-index:2;}
+  .hero .side{position:absolute;left:0;width:104px;top:50%;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;text-align:center;font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:rgba(240,235,227,.6);z-index:3;}
+  .hero .h-wrap{position:absolute;left:0;right:0;top:50%;transform:translateY(-48%);padding:0 64px 0 150px;z-index:3;}
   .hero .eyebrow{margin-bottom:20px;}
-  .hero h1{font-size:clamp(56px,9vw,128px);color:var(--cream);} .hero h1 .serif{font-size:1.04em;}
-  .hero .h-rule{height:1px;background:rgba(240,235,227,.32);margin:26px 0 18px;max-width:540px;}
-  .hero .h-sub{font-family:'Roboto Mono',monospace;font-size:13.5px;letter-spacing:.5px;line-height:1.75;max-width:480px;color:rgba(240,235,227,.85);}
+  .hero h1{font-size:clamp(56px,8.6vw,124px);color:var(--cream);max-width:1100px;} .hero h1 .serif{font-size:1.18em;}
+  .hero .h-line{position:relative;height:1px;background:rgba(240,235,227,.34);margin:46px 0 40px;}
+  .hero .h-line .circle-btn{position:absolute;right:0;top:50%;transform:translateY(-50%);width:96px;height:96px;}
+  .hero .h-sub{font-family:'Roboto Mono',monospace;font-size:15px;letter-spacing:.5px;line-height:1.75;max-width:520px;color:rgba(240,235,227,.85);}
   /* statement */
   .statement{padding:130px 64px;max-width:1300px;margin:0 auto;}
-  .statement .label{color:var(--walnut);margin-bottom:30px;}
-  .statement h2{font-size:clamp(32px,4.8vw,68px);max-width:1080px;}
+  .statement .label{color:var(--lime);margin-bottom:30px;}
+  .statement h2{font-size:clamp(40px,6vw,86px);max-width:1180px;}
+  .statement h2 .serif{font-size:1.3em;}
   .statement .meta{display:flex;gap:64px;margin-top:54px;flex-wrap:wrap;}
   .statement .meta .m .n{font-family:'Anton',sans-serif;font-size:48px;line-height:1;color:var(--lime);}
-  .statement .meta .m .l{font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:8px;}
+  .statement .meta .m .l{font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:8px;}
   /* services */
   .services{padding:30px 0 130px;}
   .services .head{padding:0 64px;max-width:1300px;margin:0 auto 26px;display:flex;justify-content:space-between;align-items:flex-end;gap:20px;}
@@ -56,12 +58,12 @@
   .svc:last-child{border-bottom:1px solid var(--line);}
   .svc .idx{font-family:'Roboto Mono',monospace;font-size:13px;color:var(--lime);}
   .svc .nm{font-family:'Anton',sans-serif;font-size:clamp(24px,3.4vw,44px);text-transform:uppercase;transition:.3s;}
-  .svc .sc{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:rgba(240,235,227,.5);text-align:right;}
+  .svc .sc{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:rgba(240,235,227,.5);text-align:right;}
   .svc .reveal{position:absolute;right:230px;top:50%;transform:translateY(-50%) scale(.96);width:260px;height:165px;object-fit:cover;opacity:0;pointer-events:none;transition:.35s;z-index:4;border:1px solid var(--line);}
   .svc:hover{padding-left:14px;} .svc:hover .nm{color:var(--lime);} .svc:hover .reveal{opacity:1;transform:translateY(-50%) scale(1);}
   /* owners */
   .owners-sec{padding:130px 64px;max-width:1300px;margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:80px;align-items:center;}
-  .owners-sec .label{color:var(--walnut);margin-bottom:24px;}
+  .owners-sec .label{color:var(--lime);margin-bottom:24px;}
   .owners-sec h2{font-size:clamp(32px,4.4vw,62px);margin-bottom:26px;}
   .owners-sec p{font-size:17px;line-height:1.75;color:rgba(240,235,227,.78);max-width:540px;margin-bottom:16px;}
   .o-cards{display:grid;gap:18px;}
@@ -70,12 +72,12 @@
   .o-card .ph{aspect-ratio:1;border-radius:50%;overflow:hidden;border:2px solid var(--lime);}
   .o-card .ph img{width:100%;height:100%;object-fit:cover;}
   .o-card .nm{font-family:'Anton',sans-serif;font-size:22px;text-transform:uppercase;line-height:1;}
-  .o-card .rl{font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--lime);margin:6px 0 9px;}
+  .o-card .rl{font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--lime);margin:6px 0 9px;}
   .o-card .bio{font-size:13.5px;line-height:1.55;color:rgba(240,235,227,.7);}
   /* areas */
   .areas{padding:30px 64px 130px;}
   .areas .in{max-width:1300px;margin:0 auto;}
-  .areas .label{color:var(--walnut);margin-bottom:22px;}
+  .areas .label{color:var(--lime);margin-bottom:22px;}
   .areas h2{font-size:clamp(30px,4.2vw,58px);margin-bottom:48px;max-width:760px;}
   .area-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
   .area{background:rgba(240,235,227,.04);border:1px solid var(--line);backdrop-filter:blur(18px);padding:30px;position:relative;transition:.25s;}
@@ -88,23 +90,40 @@
   .cta{position:relative;padding:150px 64px;text-align:center;overflow:hidden;}
   .cta img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.34);}
   .cta .in{position:relative;z-index:3;}
-  .cta h2{font-size:clamp(40px,6vw,96px);margin-bottom:20px;} .cta h2 .serif{font-size:1.04em;}
-  .cta p{font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:1px;color:rgba(240,235,227,.78);margin-bottom:34px;}
+  .cta h2{font-size:clamp(40px,6vw,96px);margin-bottom:20px;} .cta h2 .serif{font-size:1.2em;}
+  .cta p{font-family:'Roboto Mono',monospace;font-size:14px;letter-spacing:1px;color:rgba(240,235,227,.78);margin-bottom:34px;}
   /* footer */
   footer{padding:60px 64px 40px;border-top:1px solid var(--line);}
   footer .grid{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;align-items:start;}
   footer .wm{font-family:'Anton',sans-serif;font-size:30px;letter-spacing:2px;border-bottom:4px solid var(--lime);padding-bottom:8px;display:inline-block;}
-  footer .lic{font-family:'Roboto Mono',monospace;font-size:11px;color:var(--lime);margin-top:14px;letter-spacing:1px;}
+  footer .lic{font-family:'Roboto Mono',monospace;font-size:13px;color:var(--lime);margin-top:14px;letter-spacing:1px;}
   footer .col a{display:block;color:rgba(240,235,227,.8);font-size:14px;padding:5px 0;} footer .col a:hover{color:var(--lime);}
-  footer .col h4{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--lime);margin-bottom:14px;}
-  footer .copy{text-align:center;margin-top:44px;font-family:'Roboto Mono',monospace;font-size:10px;color:rgba(240,235,227,.4);}
+  footer .col h4{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:2px;color:var(--lime);margin-bottom:14px;}
+  footer .copy{text-align:center;margin-top:44px;font-family:'Roboto Mono',monospace;font-size:12px;color:rgba(240,235,227,.4);}
+  /* recent projects — before/after reveal */
+  .projects-b{padding:30px 64px 130px;max-width:1300px;margin:0 auto;}
+  .projects-b .label{color:var(--lime);margin-bottom:14px;}
+  .projects-b h2{font-size:clamp(30px,4.2vw,58px);margin-bottom:14px;}
+  .projects-b .ph-sub{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:.5px;color:rgba(240,235,227,.55);margin-bottom:46px;}
+  .ba-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .ba{position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:8px;border:1px solid var(--line);user-select:none;touch-action:none;cursor:ew-resize;}
+  .ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 72%;pointer-events:none;}
+  .ba .ba-after{clip-path:inset(0 0 0 var(--pos,50%));}
+  .ba .ba-handle{position:absolute;top:0;bottom:0;left:var(--pos,50%);width:2px;background:var(--lime);transform:translateX(-50%);}
+  .ba .ba-handle::after{content:"\2039 \203A";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:38px;height:38px;border-radius:50%;background:var(--lime);color:#0A0A0A;display:grid;place-items:center;font-size:13px;letter-spacing:1px;box-shadow:0 4px 14px rgba(0,0,0,.45);}
+  .ba .ba-tag{position:absolute;bottom:12px;font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;background:rgba(5,5,5,.62);backdrop-filter:blur(4px);padding:5px 10px;border-radius:4px;color:var(--cream);}
+  .ba .ba-l{left:12px;} .ba .ba-r{right:12px;}
+  .ba-title{display:flex;justify-content:space-between;align-items:baseline;font-family:'Anton',sans-serif;font-size:19px;text-transform:uppercase;letter-spacing:.5px;margin-top:16px;color:var(--cream);}
+  .ba-title span{font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--lime);}
+  .ba-title:hover span{text-decoration:underline;}
+  .ba-note{font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:.5px;color:rgba(240,235,227,.4);margin-top:26px;}
   @media(max-width:900px){
     nav.top{padding:16px 20px;} nav.top .links{display:none;}
     .hero .h-wrap{padding:0 22px;flex-direction:column;align-items:flex-start;bottom:11vh;} .hero .side{display:none;}
     .statement,.owners-sec,.areas,.cta{padding-left:22px;padding-right:22px;}
     .services .head,.svc-list{padding-left:22px;padding-right:22px;} .svc .reveal{display:none;}
     .svc{grid-template-columns:40px 1fr;gap:16px;} .svc .sc{display:none;}
-    .owners-sec{grid-template-columns:1fr;gap:40px;} .area-grid{grid-template-columns:1fr;} footer .grid{grid-template-columns:1fr;}
+    .owners-sec{grid-template-columns:1fr;gap:40px;} .area-grid{grid-template-columns:1fr;} .ba-grid{grid-template-columns:1fr;} .hero .leftbar{display:none;} .hero .h-wrap{padding:0 22px;} footer .grid{grid-template-columns:1fr;}
   }
 </style>
 </head>
@@ -117,25 +136,23 @@
 <header class="hero">
   <img class="bg" src="assets/img/mike/new-construction/122-dockside-cir-IMG_7853.jpeg" alt="Custom waterfront home built by Oak Park Construction in Broward County">
   <div class="scrim"></div>
+  <div class="leftbar"></div>
   <div class="side">OAK PARK CONSTRUCTION · EST. 2017 · CBC1263425</div>
   <div class="h-wrap">
-    <div class="h-left">
-      <div class="label eyebrow">South Florida · Design-Build</div>
-      <h1>We build it<br><span class="serif">whole.</span></h1>
-      <div class="h-rule"></div>
-      <div class="h-sub">Custom homes and full renovations across Broward, Palm Beach &amp; Miami-Dade — one accountable crew from slab to keys.</div>
-    </div>
-    <a href="projects.html" class="circle-btn">View<br>Work</a>
+    <div class="label eyebrow">South Florida · Design-Build</div>
+    <h1>We build it<br><span class="serif">whole.</span></h1>
+    <div class="h-line"><a href="projects.html" class="circle-btn">View<br>Work</a></div>
+    <div class="h-sub">Custom homes and full renovations across Broward, Palm Beach &amp; Miami-Dade — one accountable crew from slab to keys.</div>
   </div>
 </header>
 
 <main>
 <section class="statement">
   <div class="label">Who we are</div>
-  <h2>Two brothers. One crew. And a standard we'd only accept on <span class="serif">our own home.</span></h2>
+  <h2>Two brothers. One crew.<br>And a standard we'd only accept<br>on <span class="serif">our own home.</span></h2>
   <div class="meta">
     <div class="m"><div class="n">3</div><div class="l">Counties served</div></div>
-    <div class="m"><div class="n">9</div><div class="l">Trades in-house</div></div>
+    <div class="m"><div class="n">20+</div><div class="l">Years building</div></div>
     <div class="m"><div class="n">2017</div><div class="l">Florida since</div></div>
     <div class="m"><div class="n">100%</div><div class="l">Owner-supervised</div></div>
   </div>
@@ -174,6 +191,28 @@
   </div>
 </section>
 
+
+<section class="projects-b" id="projects">
+  <div class="label">Recent work</div>
+  <h2>Before &amp; after.</h2>
+  <div class="ph-sub">Drag each photo to see the transformation.</div>
+  <div class="ba-grid">
+    <div class="ba-card">
+      <div class="ba"><img class="ba-before" src="assets/img/mike/new-construction/122-dockside-cir-IMG_6701.jpeg" alt="Before"><img class="ba-after" src="assets/img/mike/new-construction/122-dockside-cir-IMG_7853.jpeg" alt="After"><div class="ba-tag ba-l">Before</div><div class="ba-tag ba-r">After</div><div class="ba-handle"></div></div>
+      <a class="ba-title" href="services/new-construction.html">New Construction<span>View →</span></a>
+    </div>
+    <div class="ba-card">
+      <div class="ba"><img class="ba-before" src="assets/img/mike/shell-construction/IMG_5402.jpeg" alt="Before"><img class="ba-after" src="assets/img/mike/kitchens/IMG_2837.jpeg" alt="After"><div class="ba-tag ba-l">Before</div><div class="ba-tag ba-r">After</div><div class="ba-handle"></div></div>
+      <a class="ba-title" href="services/kitchen.html">Kitchen Remodel<span>View →</span></a>
+    </div>
+    <div class="ba-card">
+      <div class="ba"><img class="ba-before" src="assets/img/mike/bathrooms/IMG_2874.jpeg" alt="Before"><img class="ba-after" src="assets/img/mike/bathrooms/IMG_6595.jpeg" alt="After"><div class="ba-tag ba-l">Before</div><div class="ba-tag ba-r">After</div><div class="ba-handle"></div></div>
+      <a class="ba-title" href="services/bath.html">Bathroom Remodel<span>View →</span></a>
+    </div>
+  </div>
+  <p class="ba-note">Placeholder before/after pairs — real pairs to be supplied. Cards will link to per-job pages (planned).</p>
+</section>
+
 <section class="areas" id="areas">
   <div class="in">
     <div class="label">Where we build</div>
@@ -208,5 +247,16 @@
   <div class="copy">© 2026 Oak Park Construction · Version B (dark) · (954) 258-6769</div>
 </footer>
 
+<script>
+  document.querySelectorAll('.ba').forEach(ba => {
+    ba.style.setProperty('--pos','50%');
+    let on=false;
+    const set=x=>{const r=ba.getBoundingClientRect();let p=((x-r.left)/r.width)*100;p=Math.max(2,Math.min(98,p));ba.style.setProperty('--pos',p+'%');};
+    ba.addEventListener('pointerdown',e=>{on=true;ba.setPointerCapture(e.pointerId);set(e.clientX);});
+    ba.addEventListener('pointermove',e=>{if(on)set(e.clientX);});
+    ba.addEventListener('pointerup',()=>on=false);
+    ba.addEventListener('pointercancel',()=>on=false);
+  });
+</script>
 </body>
 </html>
