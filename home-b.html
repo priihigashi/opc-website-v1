@@ -9,16 +9,16 @@
 <link rel="icon" href="/opc-website-v1/favicon.svg" type="image/svg+xml">
 <script src="assets/js/lab-banner.js?v=15" defer></script>
 <style>
-  :root{--black:#050505;--obsidian:#0A0A0A;--cream:#F0EBE3;--lime:#CBCC10;--lime-glow:rgba(203,204,16,.4);--walnut:#8B5A2B;--line:rgba(240,235,227,.12);--muted:rgba(240,235,227,.6);}
+  :root{--black:#171717;--obsidian:#1d1d1d;--cream:#F0EBE3;--lime:#CBCC10;--lime-glow:rgba(203,204,16,.4);--walnut:#8B5A2B;--line:rgba(240,235,227,.12);--muted:rgba(240,235,227,.6);}
   *{margin:0;padding:0;box-sizing:border-box;}
   html,body{background:var(--black);color:var(--cream);font-family:'Inter',system-ui,sans-serif;overflow-x:hidden;scroll-behavior:smooth;-webkit-font-smoothing:antialiased;}
   a{color:inherit;text-decoration:none;}
   h1,h2,h3{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.5px;line-height:1;}
   .serif{font-family:'Cormorant Garamond',serif;font-style:italic;text-transform:none;color:var(--lime);}
-  .label{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--lime);}
+  .label{font-family:'Roboto Mono',monospace;font-size:15px;letter-spacing:3px;text-transform:uppercase;color:var(--lime);}
   /* ambient lime glow + edge vignette (Priscila) */
   body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(circle at 60% 28%, rgba(203,204,16,.06), transparent 55%);}
-  body::after{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;box-shadow:inset 0 0 220px 60px rgba(0,0,0,.92);}
+  body::after{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;box-shadow:inset 0 0 220px 60px rgba(0,0,0,.62);}
   main,nav,header,footer{position:relative;z-index:2;}
   .pill{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border:1px solid var(--lime);border-radius:999px;color:var(--lime);font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;transition:.25s;}
   .pill:hover{background:var(--lime);color:var(--obsidian);}
@@ -28,19 +28,20 @@
   /* nav */
   nav.top{position:fixed;top:0;left:0;right:0;z-index:90;display:flex;justify-content:space-between;align-items:center;padding:22px 40px;background:linear-gradient(180deg,rgba(5,5,5,.78),transparent);backdrop-filter:blur(10px);}
   nav.top .brand{font-family:'Anton',sans-serif;font-size:15px;letter-spacing:3px;color:var(--cream);} nav.top .brand .lime{color:var(--lime);}
-  nav.top .links{display:flex;gap:30px;} nav.top .links a{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;opacity:.78;} nav.top .links a:hover{opacity:1;color:var(--lime);}
+  nav.top .links{display:flex;gap:30px;} nav.top .links a{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:2px;text-transform:uppercase;opacity:.78;} nav.top .links a:hover{opacity:1;color:var(--lime);}
   /* hero */
   .hero{position:relative;height:100vh;min-height:680px;overflow:hidden;}
-  .hero img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.5) saturate(.92);}
-  .hero .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,5,.4),rgba(5,5,5,.08) 36%,rgba(5,5,5,.82));}
-  .hero .leftbar{position:absolute;left:0;top:0;bottom:0;width:104px;background:#0A0A0A;z-index:2;}
-  .hero .side{position:absolute;left:0;width:104px;top:50%;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;text-align:center;font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:rgba(240,235,227,.6);z-index:3;}
+  .hero img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.66) saturate(.95);}
+  .hero .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,5,.34),rgba(5,5,5,0) 44%,rgba(5,5,5,.74));}
+  .hero .leftbar{position:absolute;left:0;top:0;bottom:0;width:104px;background:#262626;z-index:2;}
+  
+  .hero .side{position:absolute;left:0;width:104px;top:54%;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;text-align:center;font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:4px;text-transform:uppercase;color:rgba(240,235,227,.6);z-index:3;}
   .hero .h-wrap{position:absolute;left:0;right:0;top:50%;transform:translateY(-48%);padding:0 64px 0 150px;z-index:3;}
   .hero .eyebrow{margin-bottom:20px;}
   .hero h1{font-size:clamp(56px,8.6vw,124px);color:var(--cream);max-width:1100px;} .hero h1 .serif{font-size:1.18em;}
   .hero .h-line{position:relative;height:1px;background:rgba(240,235,227,.34);margin:46px 0 40px;}
   .hero .h-line .circle-btn{position:absolute;right:0;top:50%;transform:translateY(-50%);width:96px;height:96px;}
-  .hero .h-sub{font-family:'Roboto Mono',monospace;font-size:15px;letter-spacing:.5px;line-height:1.75;max-width:520px;color:rgba(240,235,227,.85);}
+  .hero .h-sub{font-family:'Roboto Mono',monospace;font-size:16.5px;letter-spacing:.5px;line-height:1.75;max-width:520px;color:rgba(240,235,227,.85);}
   /* statement */
   .statement{padding:130px 64px;max-width:1300px;margin:0 auto;}
   .statement .label{color:var(--lime);margin-bottom:30px;}
@@ -48,7 +49,7 @@
   .statement h2 .serif{font-size:1.3em;}
   .statement .meta{display:flex;gap:64px;margin-top:54px;flex-wrap:wrap;}
   .statement .meta .m .n{font-family:'Anton',sans-serif;font-size:48px;line-height:1;color:var(--lime);}
-  .statement .meta .m .l{font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:8px;}
+  .statement .meta .m .l{font-family:'Roboto Mono',monospace;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:8px;}
   /* services */
   .services{padding:30px 0 130px;}
   .services .head{padding:0 64px;max-width:1300px;margin:0 auto 26px;display:flex;justify-content:space-between;align-items:flex-end;gap:20px;}
@@ -58,7 +59,7 @@
   .svc:last-child{border-bottom:1px solid var(--line);}
   .svc .idx{font-family:'Roboto Mono',monospace;font-size:13px;color:var(--lime);}
   .svc .nm{font-family:'Anton',sans-serif;font-size:clamp(24px,3.4vw,44px);text-transform:uppercase;transition:.3s;}
-  .svc .sc{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:rgba(240,235,227,.5);text-align:right;}
+  .svc .sc{font-family:'Roboto Mono',monospace;font-size:15px;letter-spacing:1px;text-transform:uppercase;color:rgba(240,235,227,.5);text-align:right;}
   .svc .reveal{position:absolute;right:230px;top:50%;transform:translateY(-50%) scale(.96);width:260px;height:165px;object-fit:cover;opacity:0;pointer-events:none;transition:.35s;z-index:4;border:1px solid var(--line);}
   .svc:hover{padding-left:14px;} .svc:hover .nm{color:var(--lime);} .svc:hover .reveal{opacity:1;transform:translateY(-50%) scale(1);}
   /* owners */
@@ -84,39 +85,39 @@
   .area::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--lime);}
   .area:hover{transform:translateY(-4px);background:rgba(240,235,227,.06);}
   .area h3{font-size:26px;text-transform:uppercase;margin-bottom:10px;}
-  .area .cities{font-size:13.5px;color:rgba(240,235,227,.6);line-height:1.7;}
+  .area .cities{font-size:15px;color:rgba(240,235,227,.6);line-height:1.7;}
   .area .go{font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--lime);margin-top:18px;display:inline-block;}
   /* cta */
   .cta{position:relative;padding:150px 64px;text-align:center;overflow:hidden;}
   .cta img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.34);}
   .cta .in{position:relative;z-index:3;}
   .cta h2{font-size:clamp(40px,6vw,96px);margin-bottom:20px;} .cta h2 .serif{font-size:1.2em;}
-  .cta p{font-family:'Roboto Mono',monospace;font-size:14px;letter-spacing:1px;color:rgba(240,235,227,.78);margin-bottom:34px;}
+  .cta p{font-family:'Roboto Mono',monospace;font-size:15.5px;letter-spacing:1px;color:rgba(240,235,227,.78);margin-bottom:34px;}
   /* footer */
   footer{padding:60px 64px 40px;border-top:1px solid var(--line);}
   footer .grid{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;align-items:start;}
   footer .wm{font-family:'Anton',sans-serif;font-size:30px;letter-spacing:2px;border-bottom:4px solid var(--lime);padding-bottom:8px;display:inline-block;}
-  footer .lic{font-family:'Roboto Mono',monospace;font-size:13px;color:var(--lime);margin-top:14px;letter-spacing:1px;}
-  footer .col a{display:block;color:rgba(240,235,227,.8);font-size:14px;padding:5px 0;} footer .col a:hover{color:var(--lime);}
-  footer .col h4{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:2px;color:var(--lime);margin-bottom:14px;}
-  footer .copy{text-align:center;margin-top:44px;font-family:'Roboto Mono',monospace;font-size:12px;color:rgba(240,235,227,.4);}
+  footer .lic{font-family:'Roboto Mono',monospace;font-size:14px;color:var(--lime);margin-top:14px;letter-spacing:1px;}
+  footer .col a{display:block;color:rgba(240,235,227,.8);font-size:15px;padding:5px 0;} footer .col a:hover{color:var(--lime);}
+  footer .col h4{font-family:'Roboto Mono',monospace;font-size:14px;letter-spacing:2px;color:var(--lime);margin-bottom:14px;}
+  footer .copy{text-align:center;margin-top:44px;font-family:'Roboto Mono',monospace;font-size:13px;color:rgba(240,235,227,.4);}
   /* recent projects — before/after reveal */
   .projects-b{padding:30px 64px 130px;max-width:1300px;margin:0 auto;}
   .projects-b .label{color:var(--lime);margin-bottom:14px;}
   .projects-b h2{font-size:clamp(30px,4.2vw,58px);margin-bottom:14px;}
-  .projects-b .ph-sub{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:.5px;color:rgba(240,235,227,.55);margin-bottom:46px;}
+  .projects-b .ph-sub{font-family:'Roboto Mono',monospace;font-size:14px;letter-spacing:.5px;color:rgba(240,235,227,.55);margin-bottom:46px;}
   .ba-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
   .ba{position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:8px;border:1px solid var(--line);user-select:none;touch-action:none;cursor:ew-resize;}
-  .ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 72%;pointer-events:none;}
+  .ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 72%;pointer-events:none;filter:brightness(.82) saturate(.96);}
   .ba .ba-after{clip-path:inset(0 0 0 var(--pos,50%));}
-  .ba .ba-handle{position:absolute;top:0;bottom:0;left:var(--pos,50%);width:2px;background:var(--lime);transform:translateX(-50%);}
-  .ba .ba-handle::after{content:"\2039 \203A";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:38px;height:38px;border-radius:50%;background:var(--lime);color:#0A0A0A;display:grid;place-items:center;font-size:13px;letter-spacing:1px;box-shadow:0 4px 14px rgba(0,0,0,.45);}
-  .ba .ba-tag{position:absolute;bottom:12px;font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;background:rgba(5,5,5,.62);backdrop-filter:blur(4px);padding:5px 10px;border-radius:4px;color:var(--cream);}
+  .ba .ba-handle{position:absolute;top:0;bottom:0;left:var(--pos,50%);width:2px;background:rgba(255,255,255,.9);transform:translateX(-50%);}
+  .ba .ba-handle::after{content:"\2039 \203A";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:50px;height:50px;border-radius:50%;background:rgba(15,15,15,.22);backdrop-filter:blur(2px);border:1.5px solid rgba(255,255,255,.92);color:#fff;display:grid;place-items:center;font-size:15px;letter-spacing:2px;box-shadow:0 4px 16px rgba(0,0,0,.4);}
+  .ba .ba-tag{position:absolute;bottom:12px;font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;background:rgba(5,5,5,.62);backdrop-filter:blur(4px);padding:5px 10px;border-radius:4px;color:var(--cream);}
   .ba .ba-l{left:12px;} .ba .ba-r{right:12px;}
   .ba-title{display:flex;justify-content:space-between;align-items:baseline;font-family:'Anton',sans-serif;font-size:19px;text-transform:uppercase;letter-spacing:.5px;margin-top:16px;color:var(--cream);}
-  .ba-title span{font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--lime);}
+  .ba-title span{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:var(--lime);}
   .ba-title:hover span{text-decoration:underline;}
-  .ba-note{font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:.5px;color:rgba(240,235,227,.4);margin-top:26px;}
+  .ba-note{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:.5px;color:rgba(240,235,227,.4);margin-top:26px;}
   @media(max-width:900px){
     nav.top{padding:16px 20px;} nav.top .links{display:none;}
     .hero .h-wrap{padding:0 22px;flex-direction:column;align-items:flex-start;bottom:11vh;} .hero .side{display:none;}
@@ -134,7 +135,7 @@
 </nav>
 
 <header class="hero">
-  <img class="bg" src="assets/img/mike/new-construction/122-dockside-cir-IMG_7853.jpeg" alt="Custom waterfront home built by Oak Park Construction in Broward County">
+  <img class="bg" src="assets/img/gallery/newbuild-b.jpg" alt="Custom waterfront home built by Oak Park Construction in Broward County">
   <div class="scrim"></div>
   <div class="leftbar"></div>
   <div class="side">OAK PARK CONSTRUCTION · EST. 2017 · CBC1263425</div>
@@ -153,7 +154,7 @@
   <div class="meta">
     <div class="m"><div class="n">3</div><div class="l">Counties served</div></div>
     <div class="m"><div class="n">20+</div><div class="l">Years building</div></div>
-    <div class="m"><div class="n">2017</div><div class="l">Florida since</div></div>
+    <div class="m"><div class="n">2005</div><div class="l">In construction since</div></div>
     <div class="m"><div class="n">100%</div><div class="l">Owner-supervised</div></div>
   </div>
 </section>
@@ -164,32 +165,18 @@
     <a href="contact.html" class="pill solid">Start a project</a>
   </div>
   <div class="svc-list">
-    <a class="svc" href="services/new-construction.html"><span class="idx">01</span><span class="nm">New Construction</span><span class="sc">Custom homes · Design-build</span><img class="reveal" src="assets/img/mike/new-construction/122-dockside-cir-IMG_6701.jpeg" alt="New construction"></a>
+    <a class="svc" href="services/new-construction.html"><span class="idx">01</span><span class="nm">New Construction</span><span class="sc">Custom homes · Design-build</span><img class="reveal" src="assets/img/gallery/newbuild-a.jpg" alt="New construction"></a>
     <a class="svc" href="services/renovation.html"><span class="idx">02</span><span class="nm">Full Renovation</span><span class="sc">Down-to-studs · Whole home</span><img class="reveal" src="assets/img/mike/kitchens/IMG_2877.jpeg" alt="Renovation"></a>
-    <a class="svc" href="services/kitchen.html"><span class="idx">03</span><span class="nm">Kitchens</span><span class="sc">Refresh to gut · Custom cabinetry</span><img class="reveal" src="assets/img/mike/kitchens/IMG_2837.jpeg" alt="Kitchen"></a>
+    <a class="svc" href="services/kitchen.html"><span class="idx">03</span><span class="nm">Kitchens</span><span class="sc">Refresh to gut · Custom cabinetry</span><img class="reveal" src="assets/img/gallery/remodel-b.jpg" alt="Kitchen"></a>
     <a class="svc" href="services/bath.html"><span class="idx">04</span><span class="nm">Bathrooms</span><span class="sc">Tub-to-shower · Full remodel</span><img class="reveal" src="assets/img/mike/bathrooms/IMG_2873.jpeg" alt="Bathroom"></a>
     <a class="svc" href="services/additions.html"><span class="idx">05</span><span class="nm">Additions</span><span class="sc">Second-story · In-law suites</span><img class="reveal" src="assets/img/mike/shell-construction/IMG_5462.jpeg" alt="Addition"></a>
     <a class="svc" href="services/outdoor.html"><span class="idx">06</span><span class="nm">Outdoor Living</span><span class="sc">Pergolas · Outdoor kitchens</span><img class="reveal" src="assets/img/mike/exterior-patio-builds/clark-pergola-IMG_0020.jpeg" alt="Outdoor"></a>
     <a class="svc" href="services/concrete.html"><span class="idx">07</span><span class="nm">Concrete</span><span class="sc">Foundations · Slabs · Driveways</span><img class="reveal" src="assets/img/mike/concrete-work/2112-rio-vista--IMG_3721.jpeg" alt="Concrete"></a>
-    <a class="svc" href="services/stucco.html"><span class="idx">08</span><span class="nm">Stucco</span><span class="sc">Repair · Recoat · Restucco</span><img class="reveal" src="assets/img/mike/shell-construction/IMG_5402.jpeg" alt="Stucco"></a>
+    <a class="svc" href="services/stucco.html"><span class="idx">08</span><span class="nm">Stucco</span><span class="sc">Repair · Recoat · Restucco</span><img class="reveal" src="assets/img/gallery/remodel-a.jpg" alt="Stucco"></a>
     <a class="svc" href="services/decks.html"><span class="idx">09</span><span class="nm">Decks &amp; Patios</span><span class="sc">Decks · Patios · Pavers</span><img class="reveal" src="assets/img/mike/exterior-patio-builds/1270-harbor-ct-IMG_3370.jpeg" alt="Decks"></a>
   </div>
 </section>
 
-<section class="owners-sec">
-  <div>
-    <div class="label">Who builds it</div>
-    <h2>The people who answer<br>the phone are on<br>your <span class="serif">site.</span></h2>
-    <p>Michael and Matthew McFolling learned the trade alongside their father in Chicago more than twenty years ago. In 2017 they brought that Midwest craftsmanship to South Florida — and they still run every job themselves.</p>
-    <p>No sub-contractor blame game. No phantom change orders. No call center. Daily progress photos and a real answer when you call.</p>
-  </div>
-  <div class="o-cards">
-    <div class="o-card"><div class="ph"><img src="assets/img/team/matthew-mcfolling.jpg" alt="Matthew McFolling, General Contractor"></div>
-      <div><div class="nm">Matthew McFolling</div><div class="rl">General Contractor · Co-Owner</div><div class="bio">Runs the build. Holds the license, the schedule, and the standard every trade has to hit.</div></div></div>
-    <div class="o-card"><div class="ph"><img src="assets/img/team/michael-mcfolling.jpg" alt="Michael McFolling, Project Manager"></div>
-      <div><div class="nm">Michael McFolling</div><div class="rl">Project Manager · Co-Owner</div><div class="bio">Your day-to-day contact. Keeps the job moving and the surprises off your plate.</div></div></div>
-  </div>
-</section>
 
 
 <section class="projects-b" id="projects">
@@ -198,19 +185,19 @@
   <div class="ph-sub">Drag each photo to see the transformation.</div>
   <div class="ba-grid">
     <div class="ba-card">
-      <div class="ba"><img class="ba-before" src="assets/img/mike/new-construction/122-dockside-cir-IMG_6701.jpeg" alt="Before"><img class="ba-after" src="assets/img/mike/new-construction/122-dockside-cir-IMG_7853.jpeg" alt="After"><div class="ba-tag ba-l">Before</div><div class="ba-tag ba-r">After</div><div class="ba-handle"></div></div>
-      <a class="ba-title" href="services/new-construction.html">New Construction<span>View →</span></a>
+      <div class="ba"><img class="ba-before" src="assets/img/gallery/newbuild-a.jpg" alt="Before"><img class="ba-after" src="assets/img/gallery/newbuild-b.jpg" alt="After"><div class="ba-tag ba-l">Before</div><div class="ba-tag ba-r">After</div><div class="ba-handle"></div></div>
+      <a class="ba-title" href="services/new-construction.html">New Build &amp; Additions<span>View →</span></a>
     </div>
     <div class="ba-card">
-      <div class="ba"><img class="ba-before" src="assets/img/mike/shell-construction/IMG_5402.jpeg" alt="Before"><img class="ba-after" src="assets/img/mike/kitchens/IMG_2837.jpeg" alt="After"><div class="ba-tag ba-l">Before</div><div class="ba-tag ba-r">After</div><div class="ba-handle"></div></div>
-      <a class="ba-title" href="services/kitchen.html">Kitchen Remodel<span>View →</span></a>
+      <div class="ba"><img class="ba-before" src="assets/img/gallery/remodel-a.jpg" alt="Before"><img class="ba-after" src="assets/img/gallery/remodel-b.jpg" alt="After"><div class="ba-tag ba-l">Before</div><div class="ba-tag ba-r">After</div><div class="ba-handle"></div></div>
+      <a class="ba-title" href="services/renovation.html">Full Home Remodel<span>View →</span></a>
     </div>
     <div class="ba-card">
-      <div class="ba"><img class="ba-before" src="assets/img/mike/bathrooms/IMG_2874.jpeg" alt="Before"><img class="ba-after" src="assets/img/mike/bathrooms/IMG_6595.jpeg" alt="After"><div class="ba-tag ba-l">Before</div><div class="ba-tag ba-r">After</div><div class="ba-handle"></div></div>
-      <a class="ba-title" href="services/bath.html">Bathroom Remodel<span>View →</span></a>
+      <div class="ba"><img class="ba-before" src="assets/img/gallery/kitchenbath-a.jpg" alt="Before"><img class="ba-after" src="assets/img/gallery/kitchenbath-b.jpg" alt="After"><div class="ba-tag ba-l">Before</div><div class="ba-tag ba-r">After</div><div class="ba-handle"></div></div>
+      <a class="ba-title" href="services/kitchen.html">Kitchen &amp; Bath<span>View →</span></a>
     </div>
   </div>
-  <p class="ba-note">Placeholder before/after pairs — real pairs to be supplied. Cards will link to per-job pages (planned).</p>
+  <p class="ba-note">Drag each photo to compare before &amp; after — real Oak Park Construction jobs. Each links to the full project.</p>
 </section>
 
 <section class="areas" id="areas">
