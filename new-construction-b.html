@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>New Construction — Oak Park Construction (Version B · Architectural)</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@1,500&family=Inter:wght@300;400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="assets/js/lab-banner.js?v=12" defer></script>
+<style>
+  :root{--ink:#0A0A0A;--paper:#F4F1EA;--paper-2:#ECE7DC;--white:#fff;--lime:#CBCC10;--walnut:#8B5A2B;--line:rgba(10,10,10,.14);--muted:rgba(10,10,10,.55);}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;text-decoration:none;}
+  h1,h2,h3{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.5px;line-height:.98;}
+  .serif{font-family:'Cormorant Garamond',serif;font-style:italic;text-transform:none;color:var(--lime);}
+  .label{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;}
+  .pill{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border:1px solid var(--ink);border-radius:999px;font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;transition:.25s;}
+  .pill:hover{background:var(--ink);color:var(--paper);}
+  .pill.solid{background:var(--lime);border-color:var(--lime);}
+  .pill.solid:hover{background:var(--ink);border-color:var(--ink);color:var(--paper);}
+  .circle-btn{display:inline-flex;align-items:center;justify-content:center;width:104px;height:104px;border-radius:50%;border:1px solid rgba(255,255,255,.7);color:#fff;font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;text-align:center;line-height:1.3;transition:.3s;}
+  .circle-btn:hover{background:#fff;color:var(--ink);}
+
+  nav.top{position:fixed;top:0;left:0;right:0;z-index:90;display:flex;justify-content:space-between;align-items:center;padding:22px 40px;mix-blend-mode:difference;color:#fff;}
+  nav.top .brand{font-family:'Anton',sans-serif;font-size:15px;letter-spacing:3px;}
+  nav.top .links{display:flex;gap:30px;}
+  nav.top .links a{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;opacity:.85;}
+
+  /* HERO */
+  .hero{position:relative;height:92vh;min-height:620px;overflow:hidden;}
+  .hero img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.66);}
+  .hero .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,.4),rgba(10,10,10,.1) 40%,rgba(10,10,10,.6));}
+  .hero .side{position:absolute;left:26px;top:50%;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.8);}
+  .hero .h-wrap{position:absolute;left:0;right:0;bottom:8vh;padding:0 64px;color:#fff;display:flex;justify-content:space-between;align-items:flex-end;gap:40px;}
+  .hero .crumb{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:18px;}
+  .hero .crumb a{color:var(--lime);}
+  .hero h1{font-size:clamp(54px,8.5vw,118px);color:#fff;}
+  .hero h1 .serif{color:var(--lime);}
+  .hero .h-rule{height:1px;background:rgba(255,255,255,.35);margin:24px 0 16px;max-width:480px;}
+  .hero .h-sub{font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:1px;line-height:1.7;max-width:430px;color:rgba(255,255,255,.85);}
+
+  /* INTRO */
+  .intro{padding:120px 64px;max-width:1300px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+  .intro .label{color:var(--walnut);margin-bottom:22px;}
+  .intro h2{font-size:clamp(30px,4vw,56px);}
+  .intro p{font-size:17px;line-height:1.75;color:#2a2a2a;margin-bottom:16px;}
+
+  /* INCLUDED */
+  .included{background:var(--ink);color:var(--paper);padding:120px 64px;}
+  .included .in{max-width:1300px;margin:0 auto;}
+  .included .label{color:var(--lime);margin-bottom:18px;}
+  .included h2{color:var(--paper);font-size:clamp(28px,3.6vw,50px);margin-bottom:54px;max-width:760px;}
+  .inc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(244,241,234,.16);border:1px solid rgba(244,241,234,.16);}
+  .inc{background:var(--ink);padding:34px 30px;}
+  .inc .n{font-family:'Roboto Mono',monospace;font-size:12px;color:var(--lime);margin-bottom:16px;}
+  .inc h3{font-size:22px;color:var(--paper);margin-bottom:12px;text-transform:uppercase;}
+  .inc p{font-size:14px;line-height:1.6;color:rgba(244,241,234,.6);}
+
+  /* PROCESS */
+  .process{padding:120px 64px;max-width:1300px;margin:0 auto;}
+  .process .label{color:var(--walnut);margin-bottom:18px;}
+  .process h2{font-size:clamp(28px,3.6vw,50px);margin-bottom:48px;}
+  .step{display:grid;grid-template-columns:90px 1fr;gap:30px;padding:28px 0;border-top:1px solid var(--line);}
+  .step:last-child{border-bottom:1px solid var(--line);}
+  .step .s-n{font-family:'Anton',sans-serif;font-size:40px;color:var(--lime);line-height:1;}
+  .step h3{font-size:26px;text-transform:uppercase;margin-bottom:8px;}
+  .step p{font-size:15px;line-height:1.7;color:#333;max-width:640px;}
+
+  /* GALLERY */
+  .gallery{padding:0 0 120px;}
+  .gallery .label{color:var(--walnut);margin:0 64px 24px;}
+  .g-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:0 64px;}
+  .g-strip img{width:100%;aspect-ratio:3/4;object-fit:cover;}
+
+  /* FAQ */
+  .faq{background:var(--paper-2);padding:120px 64px;}
+  .faq .in{max-width:980px;margin:0 auto;}
+  .faq .label{color:var(--walnut);margin-bottom:18px;}
+  .faq h2{font-size:clamp(28px,3.6vw,50px);margin-bottom:40px;}
+  details{border-top:1px solid var(--line);padding:22px 0;}
+  details:last-child{border-bottom:1px solid var(--line);}
+  summary{font-family:'Anton',sans-serif;font-size:20px;text-transform:uppercase;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;letter-spacing:.5px;}
+  summary::-webkit-details-marker{display:none;}
+  summary::after{content:"+";color:var(--lime);font-size:26px;font-family:'Inter';}
+  details[open] summary::after{content:"–";}
+  details p{margin-top:14px;font-size:15px;line-height:1.7;color:#333;max-width:760px;}
+
+  /* CTA */
+  .cta{position:relative;padding:150px 64px;text-align:center;overflow:hidden;}
+  .cta img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.4);}
+  .cta .in{position:relative;z-index:2;color:#fff;}
+  .cta h2{font-size:clamp(38px,5.5vw,90px);color:#fff;margin-bottom:18px;}
+  .cta h2 .serif{color:var(--lime);}
+  .cta p{font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:1px;color:rgba(255,255,255,.8);margin-bottom:32px;}
+  .cta .pill{border-color:#fff;color:#fff;}
+  .cta .pill.solid{background:var(--lime);border-color:var(--lime);color:var(--ink);}
+
+  footer{background:var(--ink);color:var(--paper);padding:54px 64px 38px;text-align:center;}
+  footer .wm{font-family:'Anton',sans-serif;font-size:24px;letter-spacing:2px;}
+  footer .lic{font-family:'Roboto Mono',monospace;font-size:11px;color:var(--lime);margin-top:12px;letter-spacing:1px;}
+
+  @media(max-width:900px){
+    nav.top{padding:16px 20px;} nav.top .links{display:none;}
+    .hero .side{display:none;} .hero .h-wrap{padding:0 22px;flex-direction:column;align-items:flex-start;}
+    .intro{grid-template-columns:1fr;gap:30px;padding:80px 22px;}
+    .included,.process,.faq,.cta{padding-left:22px;padding-right:22px;}
+    .inc-grid{grid-template-columns:1fr;} .g-strip{grid-template-columns:1fr 1fr;padding:0 22px;} .gallery .label{margin-left:22px;}
+    .step{grid-template-columns:60px 1fr;gap:18px;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <a href="home-b.html" class="brand">OAK PARK CONSTRUCTION</a>
+  <div class="links"><a href="home-b.html#work">Work</a><a href="about.html">About</a><a href="#contact">Contact</a></div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <img class="bg" src="assets/img/mike/new-construction/122-dockside-cir-IMG_6701.jpeg" alt="Custom home under construction by Oak Park Construction in Broward County">
+  <div class="scrim"></div>
+  <div class="side">NEW CONSTRUCTION · DESIGN-BUILD · CBC1263425</div>
+  <div class="h-wrap">
+    <div>
+      <div class="crumb"><a href="home-b.html">Home</a> / New Construction</div>
+      <h1>From slab<br>to <span class="serif">keys.</span></h1>
+      <div class="h-rule"></div>
+      <div class="h-sub">Custom, design-build homes across South Florida — one crew from the footing to the final walk-through.</div>
+    </div>
+    <a href="#contact" class="circle-btn">Start<br>a build</a>
+  </div>
+</header>
+
+<!-- INTRO -->
+<section class="intro">
+  <div>
+    <div class="label">The OPC way</div>
+    <h2>One crew. No handoffs. No surprises.</h2>
+  </div>
+  <div>
+    <p>Most "custom home" builds are really a general contractor managing a rotating cast of subs — and every handoff is a place for the budget, the schedule, and the quality to slip.</p>
+    <p>We do it differently. Oak Park Construction self-performs the core trades and keeps an owner on site every day, so the person who shipped your foundation is accountable for the home you move into. Licensed Florida contractor, CBC1263425, serving Broward, Palm Beach &amp; Miami-Dade.</p>
+  </div>
+</section>
+
+<!-- INCLUDED -->
+<section class="included">
+  <div class="in">
+    <div class="label">What's included</div>
+    <h2>A design-build home, handled end to end.</h2>
+    <div class="inc-grid">
+      <div class="inc"><div class="n">01</div><h3>Design &amp; Planning</h3><p>Architectural plans, engineering, and a real budget before a shovel hits dirt.</p></div>
+      <div class="inc"><div class="n">02</div><h3>Permitting</h3><p>We pull and manage the permits and inspections — Broward, Palm Beach, Miami-Dade.</p></div>
+      <div class="inc"><div class="n">03</div><h3>Site &amp; Foundation</h3><p>Clearing, grading, footings and slab — poured by our own concrete crew.</p></div>
+      <div class="inc"><div class="n">04</div><h3>Shell &amp; Framing</h3><p>Block, framing, roof, and a hurricane-grade envelope built for South Florida.</p></div>
+      <div class="inc"><div class="n">05</div><h3>Interiors &amp; Finishes</h3><p>Kitchens, baths, millwork, flooring — the finish level you actually approved.</p></div>
+      <div class="inc"><div class="n">06</div><h3>Walk-Through</h3><p>A punch-list done right and a real handoff. Keys, warranty, done.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process">
+  <div class="label">How it works</div>
+  <h2>Five steps, one accountable owner.</h2>
+  <div class="step"><div class="s-n">01</div><div><h3>Consult</h3><p>Tell us about the lot and what you want. We walk the site and talk budget honestly before anything's promised.</p></div></div>
+  <div class="step"><div class="s-n">02</div><div><h3>Design &amp; Estimate</h3><p>Plans, selections, and a line-item estimate — no vague allowances that balloon later.</p></div></div>
+  <div class="step"><div class="s-n">03</div><div><h3>Permit</h3><p>We handle the paperwork, the engineering, and the city. You stay informed, not buried.</p></div></div>
+  <div class="step"><div class="s-n">04</div><div><h3>Build</h3><p>One crew, owner on site daily, with progress photos so you always know where it stands.</p></div></div>
+  <div class="step"><div class="s-n">05</div><div><h3>Walk-Through &amp; Keys</h3><p>We finish the punch list, hand over the warranty, and you move into a home built like it's ours.</p></div></div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery">
+  <div class="label">Recent work · 122 Dockside Cir</div>
+  <div class="g-strip">
+    <img src="assets/img/mike/new-construction/122-dockside-cir-IMG_6701.jpeg" alt="New construction — exterior">
+    <img src="assets/img/mike/new-construction/122-dockside-cir-IMG_6718.jpeg" alt="New construction — interior">
+    <img src="assets/img/mike/new-construction/122-dockside-cir-IMG_6742.jpeg" alt="New construction — detail">
+    <img src="assets/img/mike/new-construction/122-dockside-cir-IMG_7853.jpeg" alt="New construction — finished">
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="in">
+    <div class="label">Questions</div>
+    <h2>What people ask before they build.</h2>
+    <details open><summary>How long does a custom home take?</summary><p>Most custom homes run 10–16 months from permit to keys depending on size, site, and selections. We give you a real schedule up front and update it as we go.</p></details>
+    <details><summary>Do you handle design and permits, or just build?</summary><p>Both. We're design-build — architectural plans, engineering, permitting, and construction all under one roof, so nothing falls through the cracks between firms.</p></details>
+    <details><summary>What areas do you build in?</summary><p>Broward (our base), Palm Beach, and Miami-Dade — including Fort Lauderdale, Boca Raton, Coral Springs, Weston, Miami, and surrounding cities.</p></details>
+    <details><summary>Are you licensed and insured?</summary><p>Yes — licensed Florida general contractor CBC1263425, fully insured. Both owners are on the job, not a call center.</p></details>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+  <img class="bg" src="assets/img/mike/new-construction/122-dockside-cir-IMG_6718.jpeg" alt="Oak Park Construction custom home">
+  <div class="in">
+    <div class="label" style="color:var(--lime);margin-bottom:18px;">Ready to build?</div>
+    <h2>Let's start with <span class="serif">your lot.</span></h2>
+    <p>Tell us about the project — we reply within one business day.</p>
+    <a class="pill solid" href="tel:9542586769">Call (954) 258-6769</a>
+    <a class="pill" href="about.html">Meet the brothers →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wm">OAK PARK CONSTRUCTION</div>
+  <div class="lic">FL CBC1263425 · NEW CONSTRUCTION · BROWARD · PALM BEACH · MIAMI-DADE · Version B</div>
+</footer>
+
+</body>
+</html>

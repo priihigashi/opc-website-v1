@@ -93,6 +93,10 @@ Priscila confirmed (final): *"I never said new build was right or kitchen actual
 | 17 | Stucco 4-Coat Layer Section | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/prototypes/stucco-layer-section.html) |
 | 10· | **New Construction · House 3D (Ricardo yLOpNdZ fork, OPC recolor)** | ✅ LIVE — REWORK of #10 | [link](https://priihigashi.github.io/opc-website-v1/prototypes/new-construction-house3d.html) |
 | 11· | **Kitchen · Room 3D (Ricardo LYxMWQN fork, OPC recolor)** | ✅ LIVE — REWORK of #11 | [link](https://priihigashi.github.io/opc-website-v1/prototypes/kitchen-room3d.html) |
+| B-home | **Home · Version B (architectural-minimal direction)** | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/home-b.html) |
+| B-svc | **New Construction · Version B (service template, real content)** | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/new-construction-b.html) |
+
+**🆕 VERSION B — architectural direction (2026-06-09):** Light/off-white (`#F4F1EA`) + off-black (`#0A0A0A`) theme, lime kept as a SPARING accent (hairlines, circular buttons, small labels), Anton titles + Cormorant italic serif accent + Roboto Mono labels. Inspired by Webflow *Architectural Bureau* (full-bleed photo hero, sideways nav label, circular outline buttons, thin rules, numbered indexed service list — showcase-slider inspo, whitespace) FUSED with OPC brand + REAL content (brothers, 9 services, counties, license) + real Mike photos. `home-b.html` (home) + `new-construction-b.html` (service template w/ included grid + 5-step process + photo gallery + FAQ accordion + CTA — also the fix-pattern for the 9 stub service pages). Not in production nav; in lab banner as ✨ Home B / ✨ Service B. Priscila brief: "off black and white title + my brand, real content, one home + one service."
 
 Lab banner cache-bust: **?v=10** (bump to ?v=11 on next page added)
 

@@ -92,6 +92,8 @@
       <a href="${base}areas/broward.html">📍 Broward</a>
       <a href="${base}areas/palm-beach.html">📍 Palm Beach</a>
       <a href="${base}areas/miami-dade.html">📍 Miami-Dade</a>
+      <a href="${base}home-b.html">✨ Home B</a>
+      <a href="${base}new-construction-b.html">✨ Service B</a>
     </div>
     <span class="opc-close" id="opc-close-btn">✕</span>
   `;
