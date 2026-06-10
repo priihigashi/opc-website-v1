@@ -93,7 +93,7 @@
   position: absolute;
   width: 36vw;
   height: 24vw;
-  transform: perspective(20000px) rotateX(75deg) rotateZ(35deg) translateZ(-9vw); animation: houseSway 9s ease-in-out infinite;
+  transform: perspective(20000px) rotateX(75deg) rotateZ(35deg) translateZ(-9vw); animation: houseSway 7s ease-in-out infinite;
   transition: transform 0.1s linear;
 }
 
@@ -2663,7 +2663,7 @@
   transform: translateZ(8.4vw);
 }
 
-@keyframes houseSway { 0%,100% { transform: perspective(20000px) rotateX(75deg) rotateZ(34deg) translateZ(-9vw); } 50% { transform: perspective(20000px) rotateX(75deg) rotateZ(36deg) translateZ(-9vw); } }
+@keyframes houseSway { 0%,100% { transform: perspective(20000px) rotateX(75deg) rotateZ(35deg) translateZ(-9.5vw); } 50% { transform: perspective(20000px) rotateX(75deg) rotateZ(35deg) translateZ(-8.4vw); } }
 
 
 /* z-fighting fix 2026-06-09: hide back-faces + GPU-stabilize so coplanar pieces don't flash through when the house sways (doorway flicker) */
