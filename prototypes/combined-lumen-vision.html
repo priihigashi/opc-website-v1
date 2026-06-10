@@ -39,13 +39,14 @@
     max-width: 1400px; max-height: 1400px;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    /* Tuned 2026-06-09: softer than v1 — diffuse glow that doesn't wash subject (ref: jerora98 zxoBxWg) */
+    /* Restored centered lime glow 2026-06-09 (Priscila: like OG LUMEN inspo — present but soft) */
     background: radial-gradient(circle,
-      rgba(203, 204, 16, 0.035) 0%,
-      rgba(203, 204, 16, 0.012) 25%,
-      transparent 55%);
-    filter: blur(80px);
-    opacity: 0.85;
+      rgba(203, 204, 16, 0.20) 0%,
+      rgba(203, 204, 16, 0.07) 26%,
+      rgba(203, 204, 16, 0.02) 42%,
+      transparent 62%);
+    filter: blur(70px);
+    opacity: 0.95;
   }
   .ambient .ring {
     position: absolute;
@@ -637,6 +638,13 @@
     .side-nav { display: none; }
     .hero-meta { flex-direction: column; gap: 12px; margin-top: 48px; }
   }
+  /* ===== CUSTOM CURSOR REMOVED 2026-06-09 (Priscila: slow — restore normal pointer) ===== */
+  body, a, button, input, .service-card, .cube-cta, .cube-3d, .nav-cta,
+  body.cursor-mode-particle, body.cursor-mode-particle a, body.cursor-mode-particle button,
+  body.cursor-mode-particle input, body.cursor-mode-particle .service-card,
+  body.cursor-mode-particle .cube-cta, body.cursor-mode-particle .cube-3d,
+  body.cursor-mode-particle .nav-cta { cursor: auto !important; }
+  #cursorOrb, #cursorParticle, .cursor-orb, .cursor-particle, .cursor-trail, .cursor-toggle { display: none !important; }
 </style>
 </head>
 <body>
