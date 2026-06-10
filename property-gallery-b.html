@@ -30,9 +30,9 @@
   .ghead h1 .serif{font-family:'Cormorant Garamond',serif;font-style:italic;text-transform:none;color:var(--lime);}
   .gal{flex:1;display:flex;align-items:center;min-height:0;}
   .swiper{width:100%;overflow:visible;}
-  .swiper-slide{width:min(54vw,820px);aspect-ratio:3/2;border-radius:10px;overflow:hidden;position:relative;opacity:.45;transform:scale(.62);transition:opacity .55s cubic-bezier(.22,1,.36,1),transform .55s cubic-bezier(.22,1,.36,1);}
+  .swiper-slide{width:min(54vw,820px);aspect-ratio:3/2;border-radius:10px;overflow:hidden;position:relative;transform-origin:center center;will-change:transform,opacity;}
   
-  .swiper-slide-active{opacity:1;transform:scale(1);box-shadow:0 40px 100px rgba(0,0,0,.6);}
+  .swiper-slide-active{box-shadow:0 40px 100px rgba(0,0,0,.6);}
   .swiper-slide .ps-img{position:absolute;inset:0;width:116%;height:100%;left:-8%;background-size:cover;background-position:center 72%;will-change:transform;}
   /* caption: circled number + title */
   .gbar{display:flex;align-items:flex-end;justify-content:space-between;padding:22px 40px 30px;}
@@ -93,10 +93,13 @@
     keyboard: { enabled: true },
     navigation: { nextEl: '#next', prevEl: '#prev' },
   });
-  function parallax(){
+  function fx(){
     sw.slides.forEach(s => {
+      const p = Math.max(-2, Math.min(2, s.progress || 0));
+      const a = Math.min(1, Math.abs(p));
+      s.style.transform = `scale(${(1 - a*0.40).toFixed(3)})`;   // center 1.0  ·  neighbours ~0.60
+      s.style.opacity   = (1 - a*0.55).toFixed(3);
       const img = s.querySelector('.ps-img');
-      const p = Math.max(-1, Math.min(1, s.progress || 0));
       if (img) img.style.transform = `translateX(${p * 8}%)`;
     });
   }
@@ -105,10 +108,10 @@
     document.getElementById('capNum').textContent = (i+1);
     document.getElementById('capTtl').textContent = TITLES[i] || '';
   }
-  sw.on('progress', parallax);
-  sw.on('setTranslate', parallax);
+  sw.on('progress', fx);
+  sw.on('setTranslate', fx);
   sw.on('slideChange', caption);
-  parallax(); caption();
+  fx(); caption();
 </script>
 </body>
 </html>
