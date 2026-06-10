@@ -71,6 +71,7 @@
     <a href="${base}prototypes/">ALL PROTOTYPES →</a>
     <div class="opc-quick">
       <a href="${base}index.html">Home</a>
+      <a href="${base}about.html">About</a>
       <a href="${base}prototypes/liquid-glass-components.html">01 Glass</a>
       <a href="${base}prototypes/blueprint-property-transform.html">02 Transform</a>
       <a href="${base}prototypes/wireframe-house-aura.html">03 3D</a>
@@ -89,6 +90,7 @@
       <a href="${base}prototypes/background-swap.html">14 BG Swap</a>
       <a href="${base}prototypes/bathroom-waterproofing-section.html">15 Bath Wall</a>
       <a href="${base}prototypes/floor-plan-3d-reveal.html">16 Plan→3D</a>
+      <a href="${base}prototypes/stucco-layer-section.html">17 Stucco</a>
       <a href="${base}areas/broward.html">📍 Broward</a>
       <a href="${base}areas/palm-beach.html">📍 Palm Beach</a>
       <a href="${base}areas/miami-dade.html">📍 Miami-Dade</a>

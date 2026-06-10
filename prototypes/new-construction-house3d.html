@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex,nofollow">
 <title>OPC — New Construction · House 3D (Ricardo fork, OPC recolor)</title>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Inter:wght@400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script src="../assets/js/lab-banner.js?v=12" defer></script>
+<script src="../assets/js/lab-banner.js?v=13" defer></script>
 <style>
   :root {
     --black:#050505; --obsidian:#0A0A0A; --cream:#F0EBE3; --lime:#CBCC10;
@@ -2663,7 +2663,13 @@
   transform: translateZ(8.4vw);
 }
 
-@keyframes houseSway { 0%,100% { transform: perspective(20000px) rotateX(75deg) rotateZ(32.5deg) translateZ(-9vw); } 50% { transform: perspective(20000px) rotateX(75deg) rotateZ(37.5deg) translateZ(-9vw); } }
+@keyframes houseSway { 0%,100% { transform: perspective(20000px) rotateX(75deg) rotateZ(34deg) translateZ(-9vw); } 50% { transform: perspective(20000px) rotateX(75deg) rotateZ(36deg) translateZ(-9vw); } }
+
+
+/* z-fighting fix 2026-06-09: hide back-faces + GPU-stabilize so coplanar pieces don't flash through when the house sways (doorway flicker) */
+.house, .house * { backface-visibility:hidden; -webkit-backface-visibility:hidden; }
+.house .face { outline:1px solid transparent; transform-style:preserve-3d; }
+.house { will-change:transform; }
 
 </style>
 </head>
