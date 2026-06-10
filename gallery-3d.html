@@ -21,24 +21,24 @@
  header.head h1{font-size:clamp(40px,6vw,92px);margin:12px 0 10px;} header.head h1 .serif{font-size:1.12em;}
  header.head p{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:.5px;color:rgba(240,235,227,.6);}
  /* SCATTERED SKEWED PILE (faithful to PKQONZ: skew + rotateX + overlap) */
- .stack{position:relative;z-index:2;max-width:780px;margin:10px auto 0;padding:3rem 2rem 12rem;perspective:3000px;
+ .stack{position:relative;z-index:2;max-width:780px;margin:10px auto 0;padding:8rem 2rem 12rem;perspective:3000px;
    display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;}
- .gcard{position:relative;height:210px;margin:-3rem 0 0;display:block;border-radius:4px;overflow:hidden;
+ .gcard{position:relative;height:210px;margin:-3rem 0 0;display:block;border-radius:16px;overflow:hidden;
    transform:translateY(9vh) skew(60deg,-15deg) rotateX(40deg);
    box-shadow:-6px 7px 34px rgba(0,0,0,.5);
    transition:transform .5s cubic-bezier(.22,1,.36,1), box-shadow .5s, border-radius .5s;}
  .gcard .img{position:absolute;inset:0;background-size:cover;background-position:center 70%;filter:brightness(.82) saturate(.78) contrast(.9);}
  .gcard .veil{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(10,10,8,.88));opacity:.55;transition:.5s;}
- .gcard .reveal{position:absolute;left:22px;right:22px;bottom:18px;opacity:0;transform:translateY(10px);transition:.45s .05s;}
+ .gcard .reveal{position:absolute;left:22px;right:22px;bottom:18px;}
  .gcard .reveal .num{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--lime);margin-bottom:6px;}
- .gcard .reveal h3{font-size:clamp(19px,2vw,27px);text-transform:uppercase;}
+ .gcard .reveal h3{font-size:clamp(18px,1.9vw,25px);text-transform:none;text-shadow:0 2px 14px rgba(0,0,0,.7);}
  .gcard .reveal .go{display:flex;align-items:center;justify-content:space-between;margin-top:8px;font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(240,235,227,.6);}
- .gcard .reveal .view{color:var(--lime);display:flex;align-items:center;gap:6px;} .gcard .reveal .view em{font-style:normal;font-size:15px;}
+ .gcard .reveal .view{color:var(--lime);display:flex;align-items:center;gap:6px;opacity:0;transform:translateX(-8px);transition:.35s;} .gcard .reveal .view em{font-style:normal;font-size:15px;}
  .gcard .reveal .soon{position:absolute;right:0;top:-2px;color:rgba(240,235,227,.6);font-size:10px;}
  /* hover: flatten out of the pile + reveal */
- .gcard:hover{transform:translateY(-6px) skew(0) rotateX(0) scale(1.06);border-radius:8px;z-index:20;box-shadow:0 36px 80px rgba(0,0,0,.62), 0 0 0 1px rgba(203,204,16,.55);}
+ .gcard:hover{transform:translateY(3vh) skew(0) rotateX(0) scale(1.04);border-radius:20px;z-index:20;box-shadow:0 36px 80px rgba(0,0,0,.62), 0 0 0 1px rgba(203,204,16,.55);}
  .gcard:hover .veil{opacity:.95;} .gcard:hover .img{filter:brightness(.95) saturate(.95) contrast(1);}
- .gcard:hover .reveal{opacity:1;transform:translateY(0);}
+ .gcard:hover .view{opacity:1;transform:translateX(0);}
  footer{position:relative;z-index:2;padding:40px 40px;border-top:1px solid var(--line);text-align:center;}
  footer .wm{font-family:'Anton',sans-serif;font-size:24px;letter-spacing:2px;border-bottom:4px solid var(--lime);padding-bottom:8px;display:inline-block;}
  footer .lic{font-family:'Roboto Mono',monospace;font-size:13px;color:var(--lime);margin-top:12px;letter-spacing:1px;}
