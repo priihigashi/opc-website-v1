@@ -24,11 +24,16 @@
   .ctx{text-align:center;font-family:'Roboto Mono',monospace;font-size:10.5px;letter-spacing:3px;text-transform:uppercase;color:rgba(240,235,227,.5);padding-top:4px;}
   .ctx b{color:var(--lime);font-weight:500;}
   /* swiper — centered, neighbors peek at far edges */
+  .ghead{padding:8px 40px 0;text-align:center;}
+  .ghead .eyebrow{font-family:'Roboto Mono',monospace;font-size:10.5px;letter-spacing:3px;text-transform:uppercase;color:rgba(240,235,227,.5);margin-bottom:10px;}
+  .ghead h1{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.5px;font-size:clamp(26px,3.4vw,44px);line-height:1;}
+  .ghead h1 .serif{font-family:'Cormorant Garamond',serif;font-style:italic;text-transform:none;color:var(--lime);}
   .gal{flex:1;display:flex;align-items:center;min-height:0;}
   .swiper{width:100%;overflow:visible;}
-  .swiper-slide{width:min(52vw,760px);aspect-ratio:3/2;border-radius:10px;overflow:hidden;position:relative;opacity:.34;transition:opacity .5s;}
-  .swiper-slide-active{opacity:1;}
-  .swiper-slide .ps-img{position:absolute;inset:0;width:116%;height:100%;left:-8%;background-size:cover;background-position:center;will-change:transform;}
+  .swiper-slide{width:min(52vw,760px);aspect-ratio:3/2;border-radius:10px;overflow:hidden;position:relative;opacity:.32;transform:scale(.86);transition:opacity .55s cubic-bezier(.22,1,.36,1),transform .55s cubic-bezier(.22,1,.36,1);}
+  
+  .swiper-slide-active{opacity:1;transform:scale(1.03);box-shadow:0 40px 90px rgba(0,0,0,.55);}
+  .swiper-slide .ps-img{position:absolute;inset:0;width:116%;height:100%;left:-8%;background-size:cover;background-position:center 72%;will-change:transform;}
   /* caption: circled number + title */
   .cap{display:flex;align-items:center;justify-content:center;gap:12px;padding:26px 20px 8px;}
   .cap .badge{width:26px;height:26px;border-radius:50%;border:1px solid var(--lime);color:var(--lime);font-family:'Roboto Mono',monospace;font-size:11px;display:grid;place-items:center;flex:0 0 auto;}
@@ -46,7 +51,7 @@
     <a href="index.html" class="brand">OAK PARK <span class="lime">CONSTRUCTION</span></a>
     <a href="index.html#projects" class="back">← Projects</a>
   </nav>
-  <div class="ctx">122 Dockside Cir &nbsp;·&nbsp; <b>New Construction</b> &nbsp;·&nbsp; Broward County, FL</div>
+  <div class="ghead"><div class="eyebrow">Projects / New Construction · Broward County</div><h1>122 Dockside Cir<span class="serif"> — waterfront new build.</span></h1></div>
 
   <div class="gal">
     <div class="swiper" id="swiper">
