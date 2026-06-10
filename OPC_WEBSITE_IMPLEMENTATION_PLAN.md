@@ -14,8 +14,8 @@ The proposed plan's **strategy is correct**: stop building new prototypes, finis
 
 | Proposed plan said | Reality (verify in git log / files) | Verdict |
 |---|---|---|
-| "Service pages still need to be built (Phase 2)" | All 9 service pages were rebuilt **dark, with real content** on 2026-06-09 (hero + intro + included grid + 5-step process + real photo gallery + FAQ + CTA). Commits `79d7085`, `3033e10`. | ⚠️ STALE — content DONE; only the 3D hero component + before/after + real testimonials + form remain |
-| "Bathroom approved direction = Waterproofing Wall Section (#15)" | Priscila **rejected** #15: *"looks even worse than before"*, *"should be a bathroom 3d not tiles here on the left."* | ❌ WRONG — #15 is rejected; bathroom needs a **real 3D object**, source TBD |
+| "Service pages still need to be built (Phase 2)" | 8 service pages were rebuilt **dark, with real content** on 2026-06-09 (hero + intro + included grid + 5-step process + real photo gallery + FAQ + CTA). Stucco remains the old/light outlier with a fake `action="#"` form and `mailto`. Commits `79d7085`, `3033e10`. | ⚠️ STALE — 8 content pages DONE; stucco needs cleanup; 3D hero component + before/after + real testimonials + forms remain |
+| "Bathroom direction = Waterproofing Wall Section (#15)" | Priscila **rejected** #15: *"looks even worse than before"*, *"should be a bathroom 3d not tiles here on the left."* | ❌ WRONG — #15 is rejected; bathroom needs a **real 3D object**, source TBD |
 | "Promote Bathroom #15 → replace #09; Floor Plan #16 → replace Wireframe #03" | Superseded. The line-art/CSS prototypes were replaced by **Ricardo forks**: #10· House 3D (`new-construction-house3d.html`), #11· Kitchen Room 3D (`kitchen-room3d.html`). #15/#16/#17 all flagged not-good. | ❌ WRONG — these promotions are obsolete |
 | "Homepage hero = Floor Plan→3D Reveal OR Sequential Assembly" | Both **disliked** by Priscila (blueprint lines / line-art, *"I never asked for lines"*). | ❌ WRONG — see locked direction below |
 | "Stucco 4-layer slice = approved" | The CSS slice exists (#17) but Priscila flagged it *"should be a 3d object, not lines/CSS layers."* Scroll-timing was fixed (`968188c`). Price-defense rationale is valid; execution contested. | ⚠️ PARTIAL |
@@ -39,19 +39,19 @@ The proposed plan's **strategy is correct**: stop building new prototypes, finis
 ## PART B — CURRENT STATE (verified 2026-06-10, audit each)
 
 **DONE / LIVE:**
-- ✅ All 9 service pages dark + real content + per-page SEO (title/desc/canonical/OG/Service JSON-LD); 8 also have FAQPage + BreadcrumbList schema. *Audit: open any `services/*.html`; confirm dark theme + 6-cell "what's included" + 5-step process + gallery + `<details>` FAQ + `application/ld+json` FAQPage.*
+- ✅ 8 service pages dark + real content + per-page SEO (title/desc/canonical/OG/Service JSON-LD) plus FAQPage + BreadcrumbList schema. ⚠️ `services/stucco.html` is still the old/light outlier. *Audit: run the service audit loop; stucco reports `dark=no`, `FAQ=no`, `mailto=yes`, `form=yes`.*
 - ✅ About dark/glass; combined-lumen (glow restored, cursor removed); contact-atmosphere fits viewport; 3 county pages dark with GeneralContractor schema. *Audit: `grep -c FAQPage`, visual check.*
 - ✅ Ricardo 3D forks: `new-construction-house3d.html` (#10·), `kitchen-room3d.html` (#11·), z-fighting fixed (non-rotating float). *Audit: drag kitchen, watch house sway — no devil-flash.*
 - ✅ `home-b.html` dark, `how-it-works.html` (HowTo schema), `404.html`, `favicon.svg`, `site.webmanifest`, `sitemap.xml`, `robots.txt`. Favicon injected sitewide.
 
 **NOT DONE (the real gaps):**
-- ❌ No analytics (no `gtag`/GTM anywhere). *Audit: `grep -rE "gtag|googletagmanager" .` → empty.*
-- ❌ No real lead form (only `mailto:`/`tel:` + prototype demo forms that `alert()`). *Audit: `grep -rE "formspree|web3forms|action=" services/` → none.*
+- ❌ No analytics snippets in production HTML. *Audit: `rg -n "gtag|googletagmanager|GTM-" --glob "*.html" .` → empty.*
+- 🟡 Contact page MVP exists at `/contact.html` with source-page/referrer hidden fields and sticky mobile Call/Quote bar, but the backend is still a placeholder `action="#"`. *Audit: open `contact.html`; backend TODO visible in source; no Formspree/Web3Forms key installed yet.*
 - ❌ No city-level SEO pages (only county). *Audit: `ls areas/` → broward/palm-beach/miami-dade only.*
-- ❌ No projects/gallery page. *Audit: `ls *.html | grep -i gallery` → none.*
+- 🟡 Projects gallery MVP exists at `/projects.html` with 12 verified real OPC photos and category filters. Next: expand with more Drive photos and project-detail pages. *Audit: open `projects.html`; filter buttons work; sitemap contains projects URL.*
 - ❌ Production `index.html` is the old homepage, not the dark `home-b` direction. *Audit: diff `index.html` vs `home-b.html`.*
 - ❌ Service-page **3D hero objects** not embedded into the real `services/*.html` (the forks live only as `prototypes/*`).
-- ❌ No real testimonials / reviews / AggregateRating. No before/after sliders. No legal pages (privacy/terms — required before ads).
+- ❌ No real testimonials / reviews / AggregateRating. No before/after sliders. Privacy MVP exists; Terms page still missing before ads.
 
 ---
 
@@ -79,7 +79,7 @@ The proposed plan's **strategy is correct**: stop building new prototypes, finis
 ### PHASE 3 — Conversion infrastructure (do early; without it ads can't optimize)
 - **3.1** Real **lead form** backend (Formspree / Web3Forms / serverless) replacing every `mailto:`. **Audit:** submitting the form delivers an email to OPC + shows a success state; works on a machine with no mail client.
 - **3.2** Two-stage progressive email capture (capture email on first field, save even on abandon) + **source-page** field. **Audit:** payload/notification includes which page it came from.
-- **3.3** **Dedicated dark Contact page** (form + map + phone) replacing the `#contact` anchor. **Audit:** `/contact.html` exists, dark, with a working form.
+- **3.3** **Dedicated dark Contact page** (form + map + phone) replacing the `#contact` anchor. **Audit:** `/contact.html` exists, dark, with source tracking; backend endpoint still needs Formspree/Web3Forms/Basin key.
 - **3.4** **GA4** + **Google Search Console** + **GTM**. **Audit:** `gtag`/GTM container present sitewide; GSC property verified; sitemap submitted.
 - **3.5** **Call tracking** (`tel:` click → GA event) + **form-submit** conversion event. **Audit:** clicking the phone fires a GA event; form submit fires a conversion.
 - **3.6** **Sticky mobile Call/Quote bar** (always-visible CTA on phones). **Audit:** fixed bar visible < 768px with Call + Quote.
@@ -97,7 +97,7 @@ Pull real photos from the New Construction shared drive; build a filterable gall
 - **6.1** WebP + `width`/`height` on Mike's JPEGs (stop CLS). **Audit:** Lighthouse CLS < 0.1; images served WebP.
 - **6.2** Lazy-load Three.js / heavy heroes via IntersectionObserver + static fallback. **Audit:** LCP < 2.5s on a service page.
 - **6.3** Accessibility: skip-link, `focus-visible`, aria labels, contrast audit. **Audit:** Lighthouse a11y ≥ 90.
-- **6.4** Legal: Privacy Policy + Terms (**required before running Google Ads**). **Audit:** `/privacy.html` + `/terms.html` exist, linked in footer.
+- **6.4** Legal: Privacy Policy + Terms (**required before running Google Ads**). **Audit:** `/privacy.html` exists and is linked from contact; `/terms.html` still needs to be created and linked in footer.
 
 ### PHASE 7 — Deferred (do NOT spend time here until 1–6 ship)
 New prototypes, AI wireframe→photo morph, CodePen experiments, extra cursor/glow tuning. (Keep the glow + removed cursor as-is.)

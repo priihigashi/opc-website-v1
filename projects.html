@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oak Park Construction Projects — South Florida Portfolio</title>
+<meta name="description" content="Explore real Oak Park Construction projects across South Florida: custom homes, kitchens, bathrooms, stucco, outdoor living, concrete, patios, and commercial build-outs.">
+<link rel="canonical" href="https://priihigashi.github.io/opc-website-v1/projects.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Oak Park Construction Projects — South Florida Portfolio">
+<meta property="og:description" content="Real project photos from Oak Park Construction across Broward, Palm Beach, and Miami-Dade.">
+<meta property="og:url" content="https://priihigashi.github.io/opc-website-v1/projects.html">
+<meta property="og:image" content="https://priihigashi.github.io/opc-website-v1/assets/img/mike/new-construction/122-dockside-cir-IMG_7853.jpeg">
+<link rel="icon" href="/opc-website-v1/favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@1,500&family=Inter:wght@300;400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--black:#050505;--obsidian:#0A0A0A;--cream:#F0EBE3;--lime:#CBCC10;--lime-glow:rgba(203,204,16,.36);--walnut:#8B5A2B;--line:rgba(240,235,227,.12);--muted:rgba(240,235,227,.64);}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--black);color:var(--cream);font-family:'Inter',system-ui,sans-serif;overflow-x:hidden;scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  h1,h2,h3{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.5px;line-height:1}
+  .serif{font-family:'Cormorant Garamond',serif;font-style:italic;text-transform:none;color:var(--lime)}
+  .label{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--lime)}
+  body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(circle at 63% 24%,rgba(203,204,16,.07),transparent 54%)}
+  body::after{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;box-shadow:inset 0 0 220px 60px rgba(0,0,0,.92)}
+  nav.top,main,footer{position:relative;z-index:2}
+  nav.top{position:fixed;top:0;left:0;right:0;z-index:90;display:flex;justify-content:space-between;align-items:center;padding:22px 40px;background:linear-gradient(180deg,rgba(5,5,5,.82),transparent);backdrop-filter:blur(10px)}
+  nav.top .brand{font-family:'Anton',sans-serif;font-size:15px;letter-spacing:3px}.brand .lime{color:var(--lime)}
+  nav.top .links{display:flex;gap:30px}.links a{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;opacity:.78}.links a:hover{opacity:1;color:var(--lime)}
+  .pill{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 26px;border:1px solid var(--lime);border-radius:999px;color:var(--lime);font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;transition:.25s}
+  .pill:hover,.pill.solid{background:var(--lime);color:var(--obsidian)}.pill.solid:hover{background:#dddd30;box-shadow:0 0 24px var(--lime-glow)}
+  .hero{min-height:78vh;position:relative;display:flex;align-items:flex-end;padding:132px 64px 72px;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;background:url('assets/img/mike/new-construction/122-dockside-cir-IMG_7853.jpeg') center/cover;filter:brightness(.38) saturate(.9)}
+  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,5,.28),rgba(5,5,5,.9))}
+  .hero .inner{position:relative;z-index:2;max-width:940px}
+  .hero .label{margin-bottom:20px}.hero h1{font-size:clamp(54px,9vw,126px)}.hero p{margin-top:22px;font-family:'Roboto Mono',monospace;font-size:13.5px;letter-spacing:.5px;line-height:1.75;max-width:610px;color:rgba(240,235,227,.84)}
+  .filters{position:sticky;top:70px;z-index:20;background:rgba(5,5,5,.84);backdrop-filter:blur(16px);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 64px;display:flex;gap:10px;overflow-x:auto}
+  .filter{border:1px solid rgba(240,235,227,.18);background:rgba(240,235,227,.04);color:var(--cream);border-radius:999px;padding:10px 16px;font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;white-space:nowrap}
+  .filter.active,.filter:hover{border-color:var(--lime);color:var(--lime)}
+  .portfolio{padding:64px;max-width:1500px;margin:0 auto}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .card{position:relative;min-height:410px;overflow:hidden;border:1px solid var(--line);background:rgba(240,235,227,.04);transition:.35s}
+  .card:nth-child(1),.card:nth-child(6){grid-column:span 2}.card:nth-child(1){min-height:560px}
+  .card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.72) saturate(.92);transition:.45s}
+  .card:hover{transform:translateY(-4px);border-color:rgba(203,204,16,.45)}.card:hover img{transform:scale(1.04);filter:brightness(.88)}
+  .card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 42%,rgba(5,5,5,.9))}
+  .meta{position:absolute;left:22px;right:22px;bottom:22px;z-index:2}
+  .tag{font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--lime);margin-bottom:9px}
+  .meta h3{font-size:28px;margin-bottom:8px}.meta p{font-size:13px;line-height:1.55;color:rgba(240,235,227,.74)}
+  .cta{padding:110px 64px 130px;text-align:center}.cta h2{font-size:clamp(40px,6vw,88px);margin-bottom:20px}.cta p{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:1px;color:var(--muted);margin:0 auto 32px;max-width:560px;line-height:1.7}
+  footer{padding:56px 64px 38px;border-top:1px solid var(--line)}footer .grid-foot{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px}.wm{font-family:'Anton',sans-serif;font-size:30px;letter-spacing:2px;border-bottom:4px solid var(--lime);padding-bottom:8px;display:inline-block}.lic{font-family:'Roboto Mono',monospace;font-size:11px;color:var(--lime);margin-top:14px;letter-spacing:1px}.col h4{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--lime);margin-bottom:14px}.col a{display:block;color:rgba(240,235,227,.8);font-size:14px;padding:5px 0}.col a:hover{color:var(--lime)}
+  @media(max-width:1050px){.grid{grid-template-columns:repeat(2,1fr)}.card:nth-child(1),.card:nth-child(6){grid-column:span 1}}
+  @media(max-width:760px){nav.top{padding:16px 20px}.links{display:none}.hero{padding:112px 22px 56px}.filters{top:58px;padding:12px 20px}.portfolio{padding:32px 20px}.grid{grid-template-columns:1fr}.card{min-height:380px}.cta{padding:80px 22px 100px}footer{padding:42px 22px}.grid-foot{grid-template-columns:1fr!important}}
+</style>
+</head>
+<body>
+<nav class="top">
+  <a href="index.html" class="brand">OAK PARK <span class="lime">CONSTRUCTION</span></a>
+  <div class="links"><a href="index.html">Home</a><a href="projects.html">Projects</a><a href="how-it-works.html">How We Work</a><a href="contact.html">Contact</a></div>
+</nav>
+<main>
+  <header class="hero">
+    <div class="inner">
+      <div class="label">Real South Florida Projects</div>
+      <h1>Built work,<br><span class="serif">not renderings.</span></h1>
+      <p>A first pass at the OPC project gallery using verified photos from Mike's folders: homes, kitchens, baths, shell work, outdoor builds, concrete, patios, and commercial build-outs.</p>
+    </div>
+  </header>
+
+  <div class="filters" aria-label="Project filters">
+    <button class="filter active" data-filter="all">All</button>
+    <button class="filter" data-filter="new">New Construction</button>
+    <button class="filter" data-filter="kitchen">Kitchens</button>
+    <button class="filter" data-filter="bath">Bathrooms</button>
+    <button class="filter" data-filter="stucco">Stucco</button>
+    <button class="filter" data-filter="outdoor">Outdoor</button>
+    <button class="filter" data-filter="concrete">Concrete</button>
+    <button class="filter" data-filter="decks">Decks</button>
+    <button class="filter" data-filter="commercial">Commercial</button>
+  </div>
+
+  <section class="portfolio" aria-label="Project gallery">
+    <div class="grid">
+      <article class="card" data-cat="new"><img src="assets/img/mike/new-construction/122-dockside-cir-IMG_7853.jpeg" alt="122 Dockside Cir finished custom home by Oak Park Construction"><div class="meta"><div class="tag">New Construction · Finished</div><h3>122 Dockside Cir</h3><p>Custom home exterior and final structure, built by OPC in South Florida.</p></div></article>
+      <article class="card" data-cat="new"><img src="assets/img/mike/new-construction/122-dockside-cir-IMG_6718.jpeg" alt="122 Dockside Cir interior construction by Oak Park Construction"><div class="meta"><div class="tag">New Construction · Interior</div><h3>Interior Shell</h3><p>Interior progress from the same custom build.</p></div></article>
+      <article class="card" data-cat="new"><img src="assets/img/mike/new-construction/122-dockside-cir-IMG_6742.jpeg" alt="122 Dockside Cir custom home construction detail"><div class="meta"><div class="tag">New Construction · Detail</div><h3>Build Detail</h3><p>Close project detail from the Dockside custom home.</p></div></article>
+      <article class="card" data-cat="kitchen"><img src="assets/img/mike/kitchens/IMG_2837.jpeg" alt="Finished fluted island kitchen remodel by Oak Park Construction"><div class="meta"><div class="tag">Kitchen · Finished</div><h3>Fluted Island Kitchen</h3><p>Light wood cabinetry, black fluted island, and finished vaulted kitchen.</p></div></article>
+      <article class="card" data-cat="kitchen"><img src="assets/img/mike/kitchens/IMG_4493.jpeg" alt="Custom kitchen remodel by Oak Park Construction"><div class="meta"><div class="tag">Kitchen · Custom</div><h3>Custom Kitchen</h3><p>Another real OPC kitchen build for the gallery set.</p></div></article>
+      <article class="card" data-cat="bath"><img src="assets/img/mike/bathrooms/IMG_6595.jpeg" alt="Spa bathroom remodel with tile and vanity by Oak Park Construction"><div class="meta"><div class="tag">Bathroom · Spa Bath</div><h3>Spa Bath</h3><p>Finished bathroom tile and vanity detail.</p></div></article>
+      <article class="card" data-cat="bath"><img src="assets/img/mike/bathrooms/IMG_2873.jpeg" alt="Tub-to-shower bathroom remodel by Oak Park Construction"><div class="meta"><div class="tag">Bathroom · Tub-to-Shower</div><h3>Glass Shower</h3><p>Bathroom remodel with frameless glass shower.</p></div></article>
+      <article class="card" data-cat="stucco"><img src="assets/img/mike/shell-construction/IMG_5402.jpeg" alt="Shell construction and stucco envelope by Oak Park Construction"><div class="meta"><div class="tag">Stucco · Shell</div><h3>Building Envelope</h3><p>Shell and stucco context from an OPC build.</p></div></article>
+      <article class="card" data-cat="outdoor"><img src="assets/img/mike/exterior-patio-builds/clark-pergola-IMG_1194.JPG" alt="Clark Pergola outdoor living build by Oak Park Construction"><div class="meta"><div class="tag">Outdoor · Pergola</div><h3>Clark Pergola</h3><p>Outdoor living structure built for year-round South Florida use.</p></div></article>
+      <article class="card" data-cat="concrete"><img src="assets/img/mike/concrete-work/2112-rio-vista--IMG_3721.jpeg" alt="2112 Rio Vista concrete slab project by Oak Park Construction"><div class="meta"><div class="tag">Concrete · Slab</div><h3>2112 Rio Vista</h3><p>Concrete work from a verified OPC project address.</p></div></article>
+      <article class="card" data-cat="decks"><img src="assets/img/mike/exterior-patio-builds/1270-harbor-ct-IMG_3370.jpeg" alt="1270 Harbor Ct patio and deck project by Oak Park Construction"><div class="meta"><div class="tag">Decks · Patio</div><h3>1270 Harbor Ct</h3><p>Patio and outdoor surface build from Mike's project folder.</p></div></article>
+      <article class="card" data-cat="commercial"><img src="assets/img/mike/commercial-build-out/plantation-beauty-salon-IMG_0427.jpeg" alt="Plantation Beauty Salon commercial build-out by Oak Park Construction"><div class="meta"><div class="tag">Commercial · Build-Out</div><h3>Plantation Beauty Salon</h3><p>Commercial interior build-out from OPC's photo archive.</p></div></article>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2>See a project like <span class="serif">yours?</span></h2>
+    <p>Tell us what you want to build and we will point you to the closest real project, photo set, or next step.</p>
+    <a class="pill solid" href="contact.html">Get a free estimate</a>
+  </section>
+</main>
+<footer>
+  <div class="grid-foot">
+    <div><div class="wm">OAK PARK CONSTRUCTION</div><div class="lic">FL CBC1263425 · BROWARD · PALM BEACH · MIAMI-DADE</div></div>
+    <div class="col"><h4>SERVICES</h4><a href="services/new-construction.html">New Construction</a><a href="services/kitchen.html">Kitchen</a><a href="services/bath.html">Bathroom</a><a href="services/stucco.html">Stucco</a></div>
+    <div class="col"><h4>NEXT</h4><a href="contact.html">Start a Project</a><a href="how-it-works.html">How We Work</a><a href="about.html">About OPC</a></div>
+  </div>
+</footer>
+<script>
+  const filters = [...document.querySelectorAll('.filter')];
+  const cards = [...document.querySelectorAll('.card')];
+  filters.forEach((button) => {
+    button.addEventListener('click', () => {
+      const filter = button.dataset.filter;
+      filters.forEach((item) => item.classList.toggle('active', item === button));
+      cards.forEach((card) => {
+        const show = filter === 'all' || card.dataset.cat === filter;
+        card.style.display = show ? '' : 'none';
+      });
+    });
+  });
+</script>
+</body>
+</html>

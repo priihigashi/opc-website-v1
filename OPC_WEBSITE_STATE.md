@@ -13,50 +13,16 @@ Last updated: **2026-06-09**
 
 ---
 
-## 🚨 NEXT CHAT — READ THIS FIRST (REWORK NEEDED)
+## 🚨 CURRENT TRUTH — READ THIS FIRST
 
-**Misread captured end-of-session 2026-06-09.** Priscila gave us Ricardo Oliva Alonso CodePens (`yLOpNdZ`, `KKbWGNZ`, `LYxMWQN`) that contain **actual rendered 3D objects**. Previous Claude treated them as vibe references and built line-style 3D from scratch. The correct approach was to **fork the pens and recolor to OPC palette**.
+The site has moved out of prototype-chasing and into commercial MVP work. The locked direction is **dark / lime / glass**, using real OPC photos and restrained Ricardo-style rendered 3D only where it helps.
 
-CodePen Cloudflare blocks bot fetch — that's why the misread happened. Next chat needs Priscila to **export each pen** (CodePen → ⚙️ → Export ZIP) OR paste the JS/CSS/HTML manually.
+**3D status:**
+- ✅ Ricardo forks exist: `new-construction-house3d.html` (#10· House 3D) and `kitchen-room3d.html` (#11· Kitchen Room 3D).
+- ⛔ Superseded/rejected for production: #15 Bathroom Waterproofing Wall, #16 Floor Plan → 3D Reveal, and #17 Stucco Layer Section. They stay in the lab for audit/history only.
+- 🟡 Future hero 3D should use rendered 3D object sources/forks, not line-art blueprints or flat CSS layer planes.
 
-**REWORK SCOPE (FINAL after 2026-06-09 EOD clarification — 3 rounds of correction):**
-Priscila confirmed (final): *"I never said new build was right or kitchen actually went wrong."* — every service-page 3D built this session was off, not just the line-art versions.
-
-**Status by prototype:**
-- #09 Bath Plumbing Stack — *"didn't like those image much"* (3D but wrong subject)
-- #10 NewBuild Sequential Assembly — wrong from start (lines)
-- #11 Kitchen Exploded Cabinet — *"actually went wrong"* (3D but wrong)
-- #15 Bath Waterproofing Wall Section — *"looks even worse than before"* (CSS layered)
-- #16 Floor Plan → 3D Reveal — wrong (blueprint lines, never asked for)
-- #17 Stucco Layer Section — wrong (CSS layered, more lines)
-
-**Only acceptable path forward:** Fork Ricardo Oliva Alonso pens, recolor to OPC palette, drop into existing hero-right slot. Find Ricardo pens (or equivalent rendered 3D objects) for Bath + Stucco too instead of inventing.
-
-**EXPLICIT PEN → PAGE MAPPING (Priscila final message 2026-06-09 EOD):**
-*"I gave you the link for you to use new build was a house and kitchen was the kitchen room 3-D."*
-
-| Ricardo CodePen | What's IN it | Service page |
-|---|---|---|
-| `yLOpNdZ` | 🏠 House 3D | **#10 NewBuild** |
-| `LYxMWQN` | 🍳 Kitchen room 3D | **#11 Kitchen** |
-| `KKbWGNZ` | ❓ TBD — ASK PRISCILA what's in this pen before assigning | TBD (was tentatively Renovation, verify first) |
-
-**Next chat first actions:**
-1. Confirm: is `KKbWGNZ` a Renovation/interior 3D, a Bathroom 3D, a Stucco wall 3D, or something else?
-2. Ask Priscila to export `yLOpNdZ` + `LYxMWQN` (+ `KKbWGNZ` if approved for some page) as CodePen ZIPs OR paste JS/CSS/HTML
-3. Find or ask for additional pens that contain a Bathroom 3D + Stucco 3D (since she said #15 #17 also look worse than originals)
-4. Fork each → swap palette to OPC obsidian/cream/lime/walnut → drop into existing service-page hero scaffold (right column)
-
-**Every service-page hero "image on the right" must be a Ricardo-style RENDERED 3D OBJECT, recolored to OPC palette only. Not CSS layered planes. Not Three.js wireframe. Not floor plan blueprints. Not exploded line blocks.**
-
-- 🔴 **#10 NewBuild** (currently line-style Three.js house) → fork `yLOpNdZ` → recolor only
-- 🔴 **#11 Kitchen** (currently exploded blocks) → fork `LYxMWQN` → recolor only
-- 🔴 **#15 Bath Waterproof Section** (currently CSS layered planes) → needs Ricardo-style 3D bathroom object. Priscila: "looks even worse than before"
-- 🔴 **#16 Floor Plan → 3D Reveal** (currently top-down blueprint→walls-rise) → NO BLUEPRINT. Replace with rendered 3D house, NOT line-art.
-- 🔴 **#17 Stucco** (currently CSS layered planes — same family as #15) → needs Ricardo-style 3D object, possibly forked from a pen TBD
-- 🟡 **Future Renovation page** → fork `KKbWGNZ` → recolor only
-
-**Open question for Priscila (from EOD voice msg):** *"I already did the bedroom could be on..."* — voice-to-text garbled. Did she mean (a) already mapped a Ricardo pen to a service, (b) has a bathroom image ready, or (c) something else? Ask first thing next chat.
+**Commercial MVP focus now:** production contact form, contact page, projects gallery, analytics hooks, homepage promotion, city SEO, and legal/performance polish.
 
 ---
 
@@ -64,7 +30,7 @@ Priscila confirmed (final): *"I never said new build was right or kitchen actual
 
 - Lab phase — prototypes in `/prototypes/`, all `noindex,nofollow`. Production pages (root, services/*) are also live but not the final design.
 - Settling on a hero / cursor / 3D vocabulary by comparing prototypes side-by-side (LAB banner on every page lets you jump between them).
-- **Open right now:** rework #10 + #11 using actual Ricardo 3D objects (see REWORK section above), then review Bathroom Waterproofing Wall Section (15) and Floor Plan → 3D Reveal (16) for promote-to-production decision.
+- **Open right now:** finish commercial MVP gaps — real form backend, analytics/form hooks, homepage promotion readiness, city SEO, stucco service cleanup, and projects gallery expansion.
 
 ---
 
@@ -88,9 +54,9 @@ Priscila confirmed (final): *"I never said new build was right or kitchen actual
 | 12 | Contact Atmosphere | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/prototypes/contact-atmosphere.html) |
 | 13 | Project Gallery Split | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/prototypes/project-gallery-split.html) |
 | 14 | Background Swap Component | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/prototypes/background-swap.html) |
-| 15 | Bathroom · Waterproofing Wall Section | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/prototypes/bathroom-waterproofing-section.html) |
-| 16 | Floor Plan → 3D Reveal | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/prototypes/floor-plan-3d-reveal.html) |
-| 17 | Stucco 4-Coat Layer Section | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/prototypes/stucco-layer-section.html) |
+| 15 | Bathroom · Waterproofing Wall Section | ⛔ REJECTED / LAB ONLY | [link](https://priihigashi.github.io/opc-website-v1/prototypes/bathroom-waterproofing-section.html) |
+| 16 | Floor Plan → 3D Reveal | ⛔ REJECTED / LAB ONLY | [link](https://priihigashi.github.io/opc-website-v1/prototypes/floor-plan-3d-reveal.html) |
+| 17 | Stucco 4-Coat Layer Section | ⛔ SUPERSEDED / LAB ONLY | [link](https://priihigashi.github.io/opc-website-v1/prototypes/stucco-layer-section.html) |
 | 10· | **New Construction · House 3D (Ricardo yLOpNdZ fork, OPC recolor)** | ✅ LIVE — REWORK of #10 | [link](https://priihigashi.github.io/opc-website-v1/prototypes/new-construction-house3d.html) |
 | 11· | **Kitchen · Room 3D (Ricardo LYxMWQN fork, OPC recolor)** | ✅ LIVE — REWORK of #11 | [link](https://priihigashi.github.io/opc-website-v1/prototypes/kitchen-room3d.html) |
 | B-home | **Home · Version B (architectural-minimal direction)** | ✅ LIVE | [link](https://priihigashi.github.io/opc-website-v1/home-b.html) |
@@ -111,12 +77,12 @@ Lab banner cache-bust: **?v=10** (bump to ?v=11 on next page added)
 - **3D pages:** all prototypes use Three.js loaded via importmap (CDN)
 - **Cursor orb:** scoped to `combined-lumen-vision` + `combined-gold-glow` ONLY (too heavy combined with Three.js + bloom)
 - **Bloom:** must NOT wash out the subject. Anchor params for reference: bathroom-plumbing-stack uses `UnrealBloomPass(0.7, 0.6, 0.4)` with `toneMappingExposure = 1.05` — that's the upper limit that still reads
-- **Bathroom 3D replacement:** approved direction is **Tile + Waterproofing Wall Section** — framing → cement board → waterproofing membrane → mortar → tile → grout, with labels and real bath context photos (`IMG_6595`, `IMG_6425`).
-- **Wireframe House Aura replacement:** approved direction is **Floor Plan → 3D Reveal** — top-down architectural plan first, then walls rise, camera tilts to isometric, roof/materials appear.
+- **Rejected prototype note:** #15 Bathroom Waterproofing Wall and #16 Floor Plan → 3D Reveal were useful explorations but are not production candidates.
+- **Future service 3D rule:** use Ricardo-style rendered 3D objects/forks where available. Avoid line-art blueprints and flat CSS layer planes as final service heroes.
 - **Service page 3D recommendations (priority order):**
   1. New Build — sequential assembly (footing → slab → framing → roof) — *brand signature*
-  2. Bathroom — tile + waterproofing wall section — *shows invisible premium work under the finish* — ✅ APPROVED TO BUILD
-  3. Stucco — 4-layer wall slice (lath → scratch → brown → finish) — *defends pricing*
+  2. Bathroom — needs a recognizable rendered 3D bath object or approved source
+  3. Stucco — needs a solid rendered 3D wall/object, not flat CSS planes
   4. Kitchen — exploded cabinet
   5. Renovation — house cross-section split
   6. Additions — flying-in addition box
@@ -165,11 +131,11 @@ These fire automatically when triggered. Priscila should NOT have to ask:
 | 2026-06-09 | russell-henderson.com | (reference) | Neon-tube orbital ring halo intensity — bloom inspiration |
 | 2026-06-09 | LUMEN | (reference) | Cursor-follow orb — implemented on 06 + 07 |
 
-### ✅ Direction decisions from visual memo
+### ⛔ Superseded direction decisions from visual memo
 **Visual Direction Memo (saved 2026-06-09):** https://docs.google.com/document/d/1-ltwpYHCW9DX3PPB8Adnbe_hE8gKqB4VI3CnPHVeNsI/edit
 
-- **Bathroom:** approved **A — Tile + Waterproofing Wall Section**. Do not keep plumbing-stack as final direction.
-- **Wireframe House Aura:** approved **A — Floor Plan → 3D Reveal**. Rebuild as plan-first line-art, not generic solid house.
+- **Bathroom:** #15 Tile + Waterproofing Wall Section was built and then rejected for production.
+- **Wireframe House Aura:** #16 Floor Plan → 3D Reveal was built and then rejected for production.
 - **CodePen rejects:** `gbaMbOR` and `GgjRbMq` are rejected for OPC production but remain archived in Inspiration.
 - **KKbWGNZ:** assigned to Renovation / interior sectional 3D, not Stucco.
 
@@ -253,14 +219,15 @@ Decision needed from Priscila on direction before build.
 ## 📝 ACTIVITY LOG (auto-appended by `/opc-website` skill after every report-back)
 
 - **2026-06-09** — Polished forks per Priscila (commit `338d00a`): house headline 'From slab to keys' (no dot) + more left gutter + idle sway; kitchen darker/browner + scaled-to-fit (0.78) + 'Down to the studs, back to life' + idle sway + constrained drag (full-spin was causing the mustard-flash/disappearing-cream-wall backface glitch). OPEN polish: (a) headlines are judgment calls — easy to swap if she wants different copy; (b) left-gutter consistency should be extended to ALL service pages (stucco/bath use different paddings); (c) kitchen drag glitch is mitigated via constrained range, not a true z-fighting fix — verify on live.
+- **2026-06-10** — Commercial MVP pieces started: built production `projects.html` with 12 verified OPC photos + filters, built production `contact.html` with dark form UI + source/referrer hidden fields + sticky mobile Call/Quote bar, linked from `home-b.html`, and added both to sitemap. Backend endpoint + analytics still pending.
 - **2026-06-09** — SHIPPED Ricardo forks: **#10· New Construction House 3D** (`new-construction-house3d.html`) + **#11· Kitchen Room 3D** (`kitchen-room3d.html`). Forked from yLOpNdZ + LYxMWQN via cdpn fullpage source, recolored to OPC palette only (luminance ramp → cream/walnut/obsidian, glass → lime). Screenshot-verified before ship. Lab-banner + index cards + tracker + cache-bust ?v=10 across 28 files. Kitchen keeps drag-rotate + click-open, audio stripped. KKbWGNZ still pending Priscila's call.
 - **2026-06-09** — RICARDO PEN SOURCE RECOVERED via `cdpn.io/<user>/fullpage/<hash>` (clears Cloudflare, real code). Findings: **yLOpNdZ (house) + LYxMWQN (kitchen) are CSS-3D** (preserve-3d + hundreds of `.face` divs, NOT Three.js) → fork+recolor is clean hex swap. **KKbWGNZ is the only real Three.js** = baked GLTF interior room (model.glb + baked.jpg, OrbitControls) → colors baked into the texture, CANNOT recolor to OPC without Blender re-bake. KKbWGNZ decision pending.
 - **2026-06-09** — Batch fixes shipped (commit `b2e7866`): combined-lumen transform title left-aligned to match other section titles; CBC prefix restyled to small mono label (like FL STATE LICENSED); bathroom 'never' serif enlarged to 1.5em feature size like combined hero; contact 'Mike direct' → 'Michael & Matthew' (Matt is co-owner); stucco labels translateZ(150px) so tilted planes stop covering FINISH COAT text.
 - **2026-06-09** — NEW lead-capture/form system logged to Pending (FORM-1 server-side form replacing mailto, FORM-2 two-stage progressive email capture, FORM-3 source-page tracking). Planned, not started, per Priscila.
 - **2026-06-09** — Combined-lumen-vision + combined-gold-glow: tuned lime/gold ambient gradient softer (spread 80vw→110vw, blur 40→80px, opacity 0.07→0.035), added PARTICLE cursor mode (glowing dot + 8-particle trail) alongside RING mode, RING/PARTICLE toggle bottom-left with localStorage persistence. Gold variant re-synced from lime base.
-- **2026-06-09** — Built Floor Plan → 3D Reveal (16): approved House A replacement, CSS 3D floor plan with rising walls, camera tilt, roof drop-in, windows/door finish, and real OPC new-build photo context; lab/index/tracker cache-bust synced to `?v=9`.
-- **2026-06-09** — Built Bathroom Waterproofing Wall Section (15): approved Bathroom A replacement, CSS 3D cut-away layers (framing → cement board → membrane → mortar → tile → grout), real bath photos, lab/index/tracker cache-bust synced to `?v=8`.
-- **2026-06-09** — Audited Claude visual-direction memo: approved Bathroom A (Tile + Waterproofing Wall Section), approved House A (Floor Plan → 3D Reveal), rejected `gbaMbOR` + `GgjRbMq` for OPC production, assigned `KKbWGNZ` to Renovation/interior 3D.
+- **2026-06-09** — Built Floor Plan → 3D Reveal (16): CSS 3D floor plan with rising walls, camera tilt, roof drop-in, windows/door finish, and real OPC new-build photo context; later superseded by the Ricardo dark forks and kept as lab-only.
+- **2026-06-09** — Built Bathroom Waterproofing Wall Section (15): CSS 3D cut-away layers (framing → cement board → membrane → mortar → tile → grout), real bath photos, lab/index/tracker cache-bust synced to `?v=8`; later rejected for production because Priscila wants a recognizable 3D bathroom object.
+- **2026-06-09** — Audited Claude visual-direction memo: Bathroom A (Tile + Waterproofing Wall Section) and House A (Floor Plan → 3D Reveal) were tested, then superseded/rejected for production; `gbaMbOR` + `GgjRbMq` rejected for OPC production; `KKbWGNZ` assigned to Renovation/interior 3D.
 - **2026-06-09** — Built Contact Atmosphere (12), Project Gallery Split (13), and Background Swap Component (14); lab banner/index/state cache-bust synced to `?v=7`. Claude delegated Bathroom 3D + Wireframe House Aura direction memo before rebuild.
 - **2026-06-09** — Wireframe-house-aura REBUILT (commit `61586b3`): solid 3D house added (walls cream / roof walnut / lime accent strip / glass windows), crossfade wireframe→solid at scroll 40-65%, bloom restrained (strength 0.55, threshold 0.55, exposure 0.95), thinner rings + smaller stars, flat photo overlay disabled. Subject now visible at all scroll positions.
 - **2026-06-09** — State system spun up: tracker sheet + this file + `/opc-website` skill + Google Doc mirror. Logged 10 prototypes, 5 CodePens, 13 design decisions. Answered screenshot fix (macOS JPG default).
