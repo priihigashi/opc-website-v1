@@ -89,6 +89,9 @@
       <a href="${base}prototypes/background-swap.html">14 BG Swap</a>
       <a href="${base}prototypes/bathroom-waterproofing-section.html">15 Bath Wall</a>
       <a href="${base}prototypes/floor-plan-3d-reveal.html">16 Plan→3D</a>
+      <a href="${base}areas/broward.html">📍 Broward</a>
+      <a href="${base}areas/palm-beach.html">📍 Palm Beach</a>
+      <a href="${base}areas/miami-dade.html">📍 Miami-Dade</a>
     </div>
     <span class="opc-close" id="opc-close-btn">✕</span>
   `;
