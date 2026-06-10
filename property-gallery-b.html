@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>122 Dockside Cir — Gallery (matched) · Oak Park Construction</title>
+<link rel="icon" href="/opc-website-v1/favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@1,500&family=Inter:wght@300;400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<script src="assets/js/lab-banner.js?v=14" defer></script>
+<style>
+  :root{--black:#070707;--obsidian:#0A0A0A;--cream:#F0EBE3;--lime:#CBCC10;--line:rgba(240,235,227,.14);}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{background:var(--black);color:var(--cream);font-family:'Inter',system-ui,sans-serif;overflow:hidden;height:100%;}
+  a{color:inherit;text-decoration:none;}
+  body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(circle at 50% 42%, rgba(203,204,16,.05), transparent 58%);}
+  .stage{position:relative;z-index:2;height:100vh;display:flex;flex-direction:column;}
+  /* minimal top */
+  nav.top{display:flex;justify-content:space-between;align-items:center;padding:22px 34px;font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;}
+  nav.top .brand{font-family:'Anton',sans-serif;font-size:14px;letter-spacing:3px;opacity:.9;}
+  nav.top .brand .lime{color:var(--lime);}
+  nav.top a.back{opacity:.55;} nav.top a.back:hover{opacity:1;color:var(--lime);}
+  .ctx{text-align:center;font-family:'Roboto Mono',monospace;font-size:10.5px;letter-spacing:3px;text-transform:uppercase;color:rgba(240,235,227,.5);padding-top:4px;}
+  .ctx b{color:var(--lime);font-weight:500;}
+  /* swiper — centered, neighbors peek at far edges */
+  .gal{flex:1;display:flex;align-items:center;min-height:0;}
+  .swiper{width:100%;overflow:visible;}
+  .swiper-slide{width:min(52vw,760px);aspect-ratio:3/2;border-radius:10px;overflow:hidden;position:relative;opacity:.34;transition:opacity .5s;}
+  .swiper-slide-active{opacity:1;}
+  .swiper-slide .ps-img{position:absolute;inset:0;width:116%;height:100%;left:-8%;background-size:cover;background-position:center;will-change:transform;}
+  /* caption: circled number + title */
+  .cap{display:flex;align-items:center;justify-content:center;gap:12px;padding:26px 20px 8px;}
+  .cap .badge{width:26px;height:26px;border-radius:50%;border:1px solid var(--lime);color:var(--lime);font-family:'Roboto Mono',monospace;font-size:11px;display:grid;place-items:center;flex:0 0 auto;}
+  .cap .ttl{font-family:'Roboto Mono',monospace;font-weight:500;font-size:15px;letter-spacing:2px;text-transform:uppercase;color:var(--cream);}
+  .arrows{display:flex;justify-content:center;gap:12px;padding:6px 0 14px;}
+  .arrows button{width:46px;height:46px;border-radius:50%;border:1px solid rgba(240,235,227,.4);background:transparent;color:var(--cream);font-size:17px;cursor:pointer;transition:.25s;display:grid;place-items:center;}
+  .arrows button:hover{background:var(--lime);border-color:var(--lime);color:var(--obsidian);}
+  .hint{text-align:center;font-family:'Roboto Mono',monospace;font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,235,227,.35);padding-bottom:24px;}
+  @media(max-width:760px){.swiper-slide{width:84vw;} nav.top{padding:16px 18px;}}
+</style>
+</head>
+<body>
+<div class="stage">
+  <nav class="top">
+    <a href="index.html" class="brand">OAK PARK <span class="lime">CONSTRUCTION</span></a>
+    <a href="index.html#projects" class="back">← Projects</a>
+  </nav>
+  <div class="ctx">122 Dockside Cir &nbsp;·&nbsp; <b>New Construction</b> &nbsp;·&nbsp; Broward County, FL</div>
+
+  <div class="gal">
+    <div class="swiper" id="swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><div class="ps-img" style="background-image:url('assets/img/mike/new-construction/122-dockside-cir-IMG_7853.jpeg')"></div></div>
+        <div class="swiper-slide"><div class="ps-img" style="background-image:url('assets/img/mike/new-construction/122-dockside-cir-IMG_6701.jpeg')"></div></div>
+        <div class="swiper-slide"><div class="ps-img" style="background-image:url('assets/img/mike/new-construction/122-dockside-cir-IMG_6718.jpeg')"></div></div>
+        <div class="swiper-slide"><div class="ps-img" style="background-image:url('assets/img/mike/new-construction/122-dockside-cir-IMG_6742.jpeg')"></div></div>
+        <div class="swiper-slide"><div class="ps-img" style="background-image:url('assets/img/mike/new-construction/122-dockside-cir-IMG_6799.jpeg')"></div></div>
+        <div class="swiper-slide"><div class="ps-img" style="background-image:url('assets/img/mike/new-construction/122-dockside-cir-IMG_7200.jpeg')"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cap">
+    <div class="badge" id="capNum">1</div>
+    <div class="ttl" id="capTtl">Waterfront exterior</div>
+  </div>
+  <div class="arrows">
+    <button id="prev" aria-label="Previous">‹</button>
+    <button id="next" aria-label="Next">›</button>
+  </div>
+  <div class="hint">Drag · swipe · ← →</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+  const TITLES = ["Waterfront exterior","Front elevation","Living space","Interior","Detail","Finished walk-through"];
+  const sw = new Swiper('#swiper', {
+    slidesPerView: 'auto',
+    centeredSlides: true,
+    spaceBetween: 70,
+    grabCursor: true,
+    loop: true,
+    speed: 650,
+    watchSlidesProgress: true,
+    keyboard: { enabled: true },
+    navigation: { nextEl: '#next', prevEl: '#prev' },
+  });
+  function parallax(){
+    sw.slides.forEach(s => {
+      const img = s.querySelector('.ps-img');
+      const p = Math.max(-1, Math.min(1, s.progress || 0));
+      if (img) img.style.transform = `translateX(${p * 8}%)`;
+    });
+  }
+  function caption(){
+    const i = sw.realIndex;
+    document.getElementById('capNum').textContent = (i+1);
+    document.getElementById('capTtl').textContent = TITLES[i] || '';
+  }
+  sw.on('progress', parallax);
+  sw.on('setTranslate', parallax);
+  sw.on('slideChange', caption);
+  parallax(); caption();
+</script>
+</body>
+</html>
