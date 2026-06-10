@@ -88,7 +88,7 @@
     spaceBetween: 56,
     grabCursor: true,
     loop: true,
-    speed: 650,
+    speed: 850,
     watchSlidesProgress: true,
     keyboard: { enabled: true },
     navigation: { nextEl: '#next', prevEl: '#prev' },
@@ -111,6 +111,15 @@
   sw.on('progress', fx);
   sw.on('setTranslate', fx);
   sw.on('slideChange', caption);
+  sw.on('setTransition', (sp, dur) => {
+    sw.slides.forEach(sl => {
+      sl.style.transitionProperty = 'transform, opacity';
+      sl.style.transitionDuration = dur + 'ms';
+      sl.style.transitionTimingFunction = 'cubic-bezier(.22,1,.36,1)';
+      const im = sl.querySelector('.ps-img');
+      if (im){ im.style.transitionProperty='transform'; im.style.transitionDuration=dur+'ms'; im.style.transitionTimingFunction='cubic-bezier(.22,1,.36,1)'; }
+    });
+  });
   fx(); caption();
 </script>
 </body>
