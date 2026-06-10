@@ -1,0 +1,123 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects · Oak Park Construction</title>
+<meta name="description" content="Oak Park Construction projects across South Florida.">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@1,500&family=Inter:wght@200;300;400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="/opc-website-v1/favicon.svg" type="image/svg+xml">
+<script src="assets/js/lab-banner.js?v=15" defer></script>
+<style>
+ :root{--black:#1b1a13;--obsidian:#141309;--cream:#F0EBE3;--lime:#CBCC10;--line:rgba(240,235,227,.14);}
+ *{margin:0;padding:0;box-sizing:border-box;}
+ html,body{background:var(--black);color:var(--cream);font-family:'Inter',system-ui,sans-serif;overflow-x:hidden;min-height:100%;}
+ a{color:inherit;text-decoration:none;}
+ h1{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.5px;line-height:1;}
+ .serif{font-family:'Cormorant Garamond',serif;font-style:italic;text-transform:none;color:var(--lime);}
+ .label{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--lime);}
+ body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(circle at 30% 50%, rgba(203,204,16,.05), transparent 55%);}
+ nav.top{position:fixed;top:0;left:0;right:0;z-index:90;display:flex;justify-content:space-between;align-items:center;padding:22px 40px;background:linear-gradient(180deg,rgba(10,10,8,.8),transparent);backdrop-filter:blur(10px);}
+ nav.top .brand{font-family:'Anton',sans-serif;font-size:15px;letter-spacing:3px;} nav.top .brand .lime{color:var(--lime);}
+ nav.top .links{display:flex;gap:28px;} nav.top .links a{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:2px;text-transform:uppercase;opacity:.78;} nav.top .links a:hover{opacity:1;color:var(--lime);}
+ .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;min-height:100vh;gap:40px;padding:90px 56px 40px;max-width:1400px;margin:0 auto;}
+ /* LEFT: stacked deck */
+ .deck{position:relative;height:560px;}
+ .card{position:absolute;top:30px;left:60px;width:380px;height:480px;border-radius:8px;overflow:hidden;
+   box-shadow:0 30px 70px rgba(0,0,0,.5);transition:transform .55s cubic-bezier(.22,1,.36,1), opacity .55s;cursor:pointer;}
+ .card .cimg{position:absolute;inset:0;background-size:cover;background-position:center 70%;filter:brightness(.5) saturate(.7) contrast(.95);transition:.5s;}
+ .card .cveil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,8,.35),rgba(10,10,8,.8));}
+ .card .cnum{position:absolute;top:42%;left:0;right:0;text-align:center;transform:translateY(-50%);font-family:'Anton',sans-serif;font-size:140px;line-height:1;color:var(--cream);}
+ .card .cidx{position:absolute;right:22px;top:50%;transform:translateY(-50%);font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:1px;color:var(--lime);}
+ .card .ctitle{position:absolute;left:24px;right:24px;bottom:26px;font-family:'Anton',sans-serif;font-size:24px;text-transform:none;text-align:center;}
+ .card.active .cimg{filter:brightness(.62) saturate(.85) contrast(1);}
+ /* RIGHT: item list */
+ .listwrap{padding-left:20px;}
+ .listwrap .label{margin-bottom:26px;}
+ .litem{position:relative;display:grid;grid-template-columns:54px 1fr;align-items:center;gap:18px;padding:20px 0;border-top:1px solid var(--line);transition:.3s;}
+ .litem:last-child{border-bottom:1px solid var(--line);}
+ .litem .lnum{font-family:'Roboto Mono',monospace;font-size:12px;color:rgba(240,235,227,.45);transition:.3s;}
+ .litem .lname{font-family:'Anton',sans-serif;font-size:clamp(20px,2vw,30px);text-transform:none;color:rgba(240,235,227,.6);transition:.3s;}
+ .litem.active{padding-left:10px;} .litem.active .lnum{color:var(--lime);} .litem.active .lname{color:var(--cream);}
+ .litem.active::before{content:"";position:absolute;right:100%;top:50%;width:120px;height:1px;background:var(--lime);opacity:.6;}
+ @media(max-width:980px){nav.top .links{display:none;} .wrap{grid-template-columns:1fr;padding:90px 24px 40px;} .deck{height:380px;} .card{width:280px;height:340px;left:20px;} .card .cnum{font-size:100px;}}
+</style></head><body>
+<nav class="top"><a href="index.html" class="brand">OAK PARK <span class="lime">CONSTRUCTION</span></a>
+<div class="links"><a href="index.html">Home</a><a href="about.html">About</a><a href="how-it-works.html">How We Work</a><a href="contact.html">Contact</a></div></nav>
+<div class="wrap">
+  <div class="deck" id="deck">
+      <a class="card" href="projects/new-construction-additions.html" data-i="0">
+        <div class="cimg" style="background-image:url('https://oakpark-construction.com/wp-content/uploads/2025/06/new-construction-build-full-home-remodel-concrete-shell-kitchen-bath-08.jpg')"></div>
+        <div class="cveil"></div>
+        <div class="cnum">1</div>
+        <div class="cidx">01</div>
+        <div class="ctitle">New Construction & Additions</div>
+      </a>
+      <a class="card" href="#" data-i="1">
+        <div class="cimg" style="background-image:url('https://oakpark-construction.com/wp-content/uploads/2025/06/new-construction-build-full-home-remodel-concrete-shell-7.jpg')"></div>
+        <div class="cveil"></div>
+        <div class="cnum">2</div>
+        <div class="cidx">02</div>
+        <div class="ctitle">Full Home Remodel</div>
+      </a>
+      <a class="card" href="#" data-i="2">
+        <div class="cimg" style="background-image:url('https://oakpark-construction.com/wp-content/uploads/2025/06/new-construction-build-full-home-remodel-concrete-shell-construction-1.jpg')"></div>
+        <div class="cveil"></div>
+        <div class="cnum">3</div>
+        <div class="cidx">03</div>
+        <div class="ctitle">Shell & Concrete</div>
+      </a>
+      <a class="card" href="#" data-i="3">
+        <div class="cimg" style="background-image:url('https://oakpark-construction.com/wp-content/uploads/2025/05/IMG_2843.jpg')"></div>
+        <div class="cveil"></div>
+        <div class="cnum">4</div>
+        <div class="cidx">04</div>
+        <div class="ctitle">Kitchen & Bath</div>
+      </a>
+      <a class="card" href="#" data-i="4">
+        <div class="cimg" style="background-image:url('https://oakpark-construction.com/wp-content/uploads/2025/05/new-construction-build-and-full-home-remodel-pergola-landscape-1-2.jpg')"></div>
+        <div class="cveil"></div>
+        <div class="cnum">5</div>
+        <div class="cidx">05</div>
+        <div class="ctitle">Outdoor & Exterior</div>
+      </a>
+      <a class="card" href="#" data-i="5">
+        <div class="cimg" style="background-image:url('assets/img/mike/commercial-build-out/plantation-beauty-salon-IMG_0427.jpeg')"></div>
+        <div class="cveil"></div>
+        <div class="cnum">6</div>
+        <div class="cidx">06</div>
+        <div class="ctitle">Commercial</div>
+      </a>
+  </div>
+  <div class="listwrap">
+    <div class="label">Our Work · Projects</div>
+      <a class="litem" href="projects/new-construction-additions.html" data-i="0" onmouseenter="setActive(0)">
+        <span class="lnum">01</span><span class="lname">New Construction & Additions</span>
+      </a>
+      <a class="litem" href="#" data-i="1" onmouseenter="setActive(1)">
+        <span class="lnum">02</span><span class="lname">Full Home Remodel</span>
+      </a>
+      <a class="litem" href="#" data-i="2" onmouseenter="setActive(2)">
+        <span class="lnum">03</span><span class="lname">Shell & Concrete</span>
+      </a>
+      <a class="litem" href="#" data-i="3" onmouseenter="setActive(3)">
+        <span class="lnum">04</span><span class="lname">Kitchen & Bath</span>
+      </a>
+      <a class="litem" href="#" data-i="4" onmouseenter="setActive(4)">
+        <span class="lnum">05</span><span class="lname">Outdoor & Exterior</span>
+      </a>
+      <a class="litem" href="#" data-i="5" onmouseenter="setActive(5)">
+        <span class="lnum">06</span><span class="lname">Commercial</span>
+      </a>
+  </div>
+</div>
+<script>
+ const cards=[...document.querySelectorAll('.card')], items=[...document.querySelectorAll('.litem')];
+ function setActive(a){
+   cards.forEach((c,i)=>{
+     const d=i-a;
+     if(d<0){c.style.transform='translateX(-120px) scale(.9)';c.style.opacity='0';c.style.zIndex=0;}
+     else{c.style.transform=`translateX(${-d*30}px) translateY(${-d*12}px) scale(${1-d*0.045})`;c.style.opacity=d>3?0:1;c.style.zIndex=20-d;}
+     c.classList.toggle('active',i===a);
+   });
+   items.forEach((it,i)=>it.classList.toggle('active',i===a));
+ }
+ setActive(0);
+</script></body></html>
