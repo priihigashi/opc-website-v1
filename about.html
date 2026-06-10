@@ -9,6 +9,7 @@
 <meta property="og:title" content="About Oak Park Construction — South Florida Builders">
 <meta property="og:description" content="Licensed Florida contractor CBC1263425. Broward, Palm Beach, Miami-Dade.">
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500&family=Inter:wght@300;400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -157,6 +158,33 @@ footer .copyright { text-align: center; margin-top: 48px; padding-top: 24px; bor
   .hero-meta { position: relative; flex-direction: column; gap: 24px; padding: 32px 20px 0; margin-top: 40px; }
   footer .footer-grid { grid-template-columns: 1fr; }
 }
+</style>
+<!-- ===== DARK COHESION OVERRIDE 2026-06-09 — match combined-lumen-vision + contact-atmosphere (obsidian/lime/glass) ===== -->
+<style>
+  body{background:#0A0A0A!important;color:#F0EBE3!important;font-family:'Inter',system-ui,sans-serif!important;}
+  /* flip the light sections to dark */
+  .founder,.footprint,.services-overview{background:#0A0A0A!important;}
+  .founder-content h2,.footprint h2,.services-overview h2,.owner-name,.belief h3{color:#F0EBE3!important;}
+  .founder-content p,.owner-bio{color:#cfc9bd!important;}
+  .section-label,.belief .num,.founder-content .section-label{color:#CBCC10!important;}
+  /* serif accents → Cormorant italic lime (matches combined-lumen) */
+  .founder-quote .accent,.hero h1 .accent{color:#CBCC10!important;font-family:'Cormorant Garamond',serif!important;font-style:italic!important;text-transform:none!important;}
+  .founder-quote{border-color:rgba(240,235,227,0.22)!important;color:#F0EBE3!important;}
+  .founder-byline{color:#8B5A2B!important;}
+  /* cards → glassmorphism */
+  .owner-card,.county-card{background:rgba(240,235,227,0.045)!important;border:1px solid rgba(240,235,227,0.12)!important;backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);}
+  .owner-card::before,.county-card::before{background:#CBCC10!important;}
+  .county-card .cities{color:#b8b0a3!important;} .county-card .meta{color:#CBCC10!important;border-top-color:rgba(240,235,227,0.12)!important;}
+  .owner-role{color:#CBCC10!important;}
+  /* footprint blueprint grid → lime tint */
+  .footprint::before{opacity:0.10!important;background-image:linear-gradient(rgba(203,204,16,0.32) 1px,transparent 1px),linear-gradient(90deg,rgba(203,204,16,0.32) 1px,transparent 1px)!important;}
+  /* final CTA → dark + lime (not a full lime block), matches combined-lumen final CTA */
+  .cta-final{background:#0A0A0A!important;border-top:1px solid rgba(240,235,227,0.08);}
+  .cta-final h2{color:#F0EBE3!important;} .cta-final p{color:#b8b0a3!important;}
+  .cta-final .btn{background:#CBCC10!important;color:#0A0A0A!important;}
+  .cta-final .btn-outline{background:transparent!important;color:#F0EBE3!important;border:1px solid rgba(240,235,227,0.4)!important;}
+  /* subtle ambient lime glow behind the page, like the combined-lumen ambient */
+  body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(circle at 60% 30%, rgba(203,204,16,0.05), transparent 55%);}
 </style>
 <script src="assets/js/lab-banner.js?v=13" defer></script>
 </head>
