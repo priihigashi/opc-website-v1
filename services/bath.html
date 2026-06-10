@@ -17,46 +17,127 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Service","serviceType":"Bathroom Remodeling","name":"Bathroom Remodeling — Oak Park Construction","description":"Bathroom remodels in South Florida, from tub-to-shower conversions to full gut renovations. Licensed Florida contractor CBC1263425 serving Broward, Palm Beach & Miami-Dade.","url":"https://priihigashi.github.io/opc-website-v1/services/bath.html","areaServed":[{"@type":"AdministrativeArea","name":"Broward County, FL"},{"@type":"AdministrativeArea","name":"Palm Beach County, FL"},{"@type":"AdministrativeArea","name":"Miami-Dade County, FL"}],"provider":{"@type":"GeneralContractor","name":"Oak Park Construction","telephone":"+1-954-258-6769","areaServed":"South Florida","identifier":"CBC1263425","url":"https://priihigashi.github.io/opc-website-v1/"}}
 </script>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@1,500&family=Inter:wght@300;400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="../assets/js/lab-banner.js?v=13" defer></script>
 <style>
-:root { --obsidian: #0A0A0A; --cream: #F0EBE3; --lime: #CBCC10; }
-* { margin:0; padding:0; box-sizing: border-box; }
-body { font-family: 'Roboto Condensed', sans-serif; color: var(--obsidian); }
-h1,h2,h3 { font-family: 'Anton', sans-serif; letter-spacing: 1px; }
-.hero { position: relative; min-height: 60vh; background: var(--obsidian); display: flex; flex-direction: column; padding: 0; overflow: hidden; }
-.hero-bg { position: absolute; inset: 0; background: url('../assets/img/mike/bathrooms/IMG_6595.jpeg') center/cover; filter: brightness(0.55); }
-.hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,10,10,0.5), rgba(10,10,10,0.95)); }
-.hero-nav { position: relative; z-index: 2; padding: 24px 40px; display: flex; justify-content: space-between; align-items: center; }
-.hero-nav a { color: var(--cream); text-decoration: none; }
-.hero-nav .logo { font-family: 'Anton', sans-serif; font-size: 18px; letter-spacing: 2px; }
-.hero-nav .logo .lime { color: var(--lime); }
-.hero-content { position: relative; z-index: 2; padding: 80px 40px; }
-.hero-content h1 { font-size: clamp(40px, 7vw, 72px); color: var(--cream); text-transform: uppercase; max-width: 900px; }
-.coming { background: var(--cream); padding: 80px 40px; text-align: center; }
-.coming h2 { font-size: clamp(32px, 5vw, 48px); margin-bottom: 16px; }
-.coming p { font-size: 18px; max-width: 600px; margin: 0 auto 24px; }
-.btn { background: var(--obsidian); color: var(--lime); padding: 18px 32px; font-family: 'Anton', sans-serif; font-size: 16px; letter-spacing: 2px; text-decoration: none; display: inline-block; margin: 8px; }
-.btn-lime { background: var(--lime); color: var(--obsidian); border: 2px solid var(--obsidian); }
-.sticky-cta { position: fixed; bottom: 16px; right: 16px; background: var(--obsidian); color: var(--lime); padding: 14px 22px; border-radius: 999px; font-family: 'Anton', sans-serif; text-decoration: none; z-index: 100; }
-</style><script src="../assets/js/lab-banner.js?v=13" defer></script>
-</head>
+  :root{--black:#050505;--obsidian:#0A0A0A;--cream:#F0EBE3;--lime:#CBCC10;--lime-glow:rgba(203,204,16,.4);--walnut:#8B5A2B;--line:rgba(240,235,227,.12);--muted:rgba(240,235,227,.6);}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{background:var(--black);color:var(--cream);font-family:'Inter',system-ui,sans-serif;overflow-x:hidden;scroll-behavior:smooth;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;text-decoration:none;} h1,h2,h3{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.5px;line-height:1;}
+  .serif{font-family:'Cormorant Garamond',serif;font-style:italic;text-transform:none;color:var(--lime);}
+  .label{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--lime);}
+  body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(circle at 62% 26%, rgba(203,204,16,.06), transparent 55%);}
+  body::after{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;box-shadow:inset 0 0 200px 50px rgba(0,0,0,.9);}
+  main,nav,header,footer,section{position:relative;z-index:2;}
+  .pill{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border:1px solid var(--lime);border-radius:999px;color:var(--lime);font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;transition:.25s;}
+  .pill:hover{background:var(--lime);color:var(--obsidian);} .pill.solid{background:var(--lime);color:var(--obsidian);}
+  .circle-btn{display:inline-flex;align-items:center;justify-content:center;width:104px;height:104px;border-radius:50%;border:1px solid rgba(240,235,227,.6);color:var(--cream);font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;text-align:center;line-height:1.3;transition:.3s;flex:0 0 auto;}
+  .circle-btn:hover{background:var(--lime);border-color:var(--lime);color:var(--obsidian);}
+  nav.top{position:fixed;top:0;left:0;right:0;z-index:90;display:flex;justify-content:space-between;align-items:center;padding:22px 40px;background:linear-gradient(180deg,rgba(5,5,5,.78),transparent);backdrop-filter:blur(10px);}
+  nav.top .brand{font-family:'Anton',sans-serif;font-size:15px;letter-spacing:3px;} nav.top .brand .lime{color:var(--lime);}
+  nav.top .links{display:flex;gap:28px;} nav.top .links a{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;opacity:.75;} nav.top .links a:hover{opacity:1;color:var(--lime);}
+  .hero{position:relative;height:88vh;min-height:600px;overflow:hidden;}
+  .hero img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.48) saturate(.92);}
+  .hero .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,5,.4),rgba(5,5,5,.1) 38%,rgba(5,5,5,.84));}
+  .hero .side{position:absolute;left:26px;top:50%;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:rgba(240,235,227,.6);z-index:3;}
+  .hero .h-wrap{position:absolute;left:0;right:0;bottom:9vh;padding:0 64px;display:flex;justify-content:space-between;align-items:flex-end;gap:40px;z-index:3;}
+  .hero .crumb{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,235,227,.6);margin-bottom:16px;} .hero .crumb a{color:var(--lime);}
+  .hero h1{font-size:clamp(52px,8vw,116px);} .hero h1 .serif{font-size:1.04em;}
+  .hero .h-rule{height:1px;background:rgba(240,235,227,.3);margin:22px 0 16px;max-width:460px;}
+  .hero .h-sub{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:.5px;line-height:1.7;max-width:440px;color:rgba(240,235,227,.85);}
+  .intro{padding:120px 64px;max-width:1300px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+  .intro .label{color:var(--walnut);margin-bottom:22px;} .intro h2{font-size:clamp(30px,4vw,56px);}
+  .intro p{font-size:17px;line-height:1.75;color:rgba(240,235,227,.78);margin-bottom:16px;}
+  .included{padding:30px 64px 120px;max-width:1300px;margin:0 auto;}
+  .included .label{color:var(--lime);margin-bottom:18px;} .included h2{font-size:clamp(28px,3.6vw,50px);margin-bottom:48px;max-width:760px;}
+  .inc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .inc{background:var(--obsidian);padding:34px 30px;} .inc .n{font-family:'Roboto Mono',monospace;font-size:12px;color:var(--lime);margin-bottom:16px;}
+  .inc h3{font-size:21px;margin-bottom:12px;text-transform:uppercase;} .inc p{font-size:14px;line-height:1.6;color:rgba(240,235,227,.6);}
+  .process{padding:0 64px 120px;max-width:1300px;margin:0 auto;} .process .label{color:var(--walnut);margin-bottom:18px;} .process h2{font-size:clamp(28px,3.6vw,50px);margin-bottom:44px;}
+  .step{display:grid;grid-template-columns:90px 1fr;gap:30px;padding:26px 0;border-top:1px solid var(--line);} .step:last-child{border-bottom:1px solid var(--line);}
+  .step .s-n{font-family:'Anton',sans-serif;font-size:40px;color:var(--lime);line-height:1;} .step h3{font-size:25px;text-transform:uppercase;margin-bottom:8px;} .step p{font-size:15px;line-height:1.7;color:rgba(240,235,227,.72);max-width:640px;}
+  .gallery{padding:0 0 120px;} .gallery .label{color:var(--walnut);margin:0 64px 24px;} .g-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:0 64px;} .g-strip img{width:100%;aspect-ratio:3/4;object-fit:cover;border:1px solid var(--line);}
+  .faq{padding:0 64px 120px;} .faq .in{max-width:980px;margin:0 auto;} .faq .label{color:var(--walnut);margin-bottom:18px;} .faq h2{font-size:clamp(28px,3.6vw,50px);margin-bottom:40px;}
+  details{border-top:1px solid var(--line);padding:22px 0;} details:last-child{border-bottom:1px solid var(--line);}
+  summary{font-family:'Anton',sans-serif;font-size:20px;text-transform:uppercase;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;letter-spacing:.5px;}
+  summary::-webkit-details-marker{display:none;} summary::after{content:"+";color:var(--lime);font-size:26px;} details[open] summary::after{content:"\2013";}
+  details p{margin-top:14px;font-size:15px;line-height:1.7;color:rgba(240,235,227,.72);max-width:760px;}
+  .cta{position:relative;padding:150px 64px;text-align:center;overflow:hidden;} .cta img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.32);}
+  .cta .in{position:relative;z-index:3;} .cta h2{font-size:clamp(38px,5.5vw,90px);margin-bottom:18px;} .cta h2 .serif{font-size:1.04em;}
+  .cta p{font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:1px;color:rgba(240,235,227,.78);margin-bottom:32px;}
+  footer{padding:54px 64px 38px;text-align:center;border-top:1px solid var(--line);} footer .wm{font-family:'Anton',sans-serif;font-size:24px;letter-spacing:2px;} footer .lic{font-family:'Roboto Mono',monospace;font-size:11px;color:var(--lime);margin-top:12px;letter-spacing:1px;}
+  @media(max-width:900px){nav.top{padding:16px 20px;} nav.top .links{display:none;} .hero .side{display:none;} .hero .h-wrap{padding:0 22px;flex-direction:column;align-items:flex-start;} .intro{grid-template-columns:1fr;gap:30px;padding:80px 22px;} .included,.process,.faq,.cta{padding-left:22px;padding-right:22px;} .inc-grid{grid-template-columns:1fr;} .g-strip{grid-template-columns:1fr 1fr;padding:0 22px;} .gallery .label{margin-left:22px;} .step{grid-template-columns:60px 1fr;gap:18px;}}
+</style></head>
 <body>
+<nav class="top"><a href="../index.html" class="brand">OAK PARK <span class="lime">CONSTRUCTION</span></a>
+  <div class="links"><a href="../index.html">Home</a><a href="../about.html">About</a><a href="#contact">Contact</a></div></nav>
 <header class="hero">
-  <div class="hero-bg"></div><div class="hero-overlay"></div>
-  <nav class="hero-nav">
-    <a href="../index.html" class="logo">OAK PARK <span class="lime">CONSTRUCTION</span></a>
-    <a href="../index.html">← Home</a>
-  </nav>
-  <div class="hero-content">
-    <h1>Bathroom Remodels</h1>
-    <p style="color: var(--cream); font-size: 18px; margin-top: 16px; max-width: 600px;">Licensed FL contractor CBC1263425 · Broward · Palm Beach · Miami-Dade</p>
+  <img class="bg" src="../assets/img/mike/bathrooms/IMG_2873.jpeg" alt="Oak Park Construction bath project in South Florida">
+  <div class="scrim"></div>
+  <div class="side">BATHROOM REMODELS · CBC1263425</div>
+  <div class="h-wrap">
+    <div>
+      <div class="crumb"><a href="../index.html">Home</a> / Services / Bathroom Remodels</div>
+      <h1>The part you<br><span class="serif">never see.</span></h1>
+      <div class="h-rule"></div>
+      <div class="h-sub">Licensed Florida contractor (CBC1263425) serving Broward, Palm Beach &amp; Miami-Dade.</div>
+    </div>
+    <a href="#contact" class="circle-btn">Get a<br>quote</a>
   </div>
 </header>
-<section class="coming">
-  <h2>Full page coming soon</h2>
-  <p>We're building out this service page with project photos, pricing tiers, and process details. In the meantime — call or send a quote request.</p>
-  <a href="tel:9542586769" class="btn btn-lime">CALL (954) 258-6769</a>
-  <a href="../index.html#contact" class="btn">REQUEST QUOTE</a>
+<main>
+<section class="intro">
+  <div><div class="label">Bathroom Remodels</div><h2>Tub-to-shower, or full gut.</h2></div>
+  <div>
+    <p>The tile and the fixtures are what you see. The waterproofing, the slope, the membrane behind the wall — that's what decides whether your bathroom still looks new in ten years. We build both like they matter.</p>
+    <p>From a clean tub-to-shower conversion to a full down-to-the-studs remodel, the same crew handles demo, waterproofing, plumbing, tile, and finish. Licensed Florida contractor, CBC1263425, serving Broward, Palm Beach &amp; Miami-Dade.</p>
+  </div>
 </section>
-<a href="tel:9542586769" class="sticky-cta">📞 (954) 258-6769</a>
+<section class="included">
+  <div class="label">What's included</div><h2>Handled end to end.</h2>
+  <div class="inc-grid">
+      <div class="inc"><div class="n">01</div><h3>Design & Layout</h3><p>Fixture placement, niche and bench planning, and a real budget.</p></div>
+      <div class="inc"><div class="n">02</div><h3>Demolition</h3><p>Careful tear-out down to studs and subfloor where needed.</p></div>
+      <div class="inc"><div class="n">03</div><h3>Waterproofing</h3><p>Cement board, membrane, and proper slope — the premium part you never see.</p></div>
+      <div class="inc"><div class="n">04</div><h3>Plumbing & Electrical</h3><p>Valves, drains, vent fans, lighting — permitted and inspected.</p></div>
+      <div class="inc"><div class="n">05</div><h3>Tile & Fixtures</h3><p>Floor, walls, niches, glass, and fixtures set by our crew.</p></div>
+      <div class="inc"><div class="n">06</div><h3>Finish & Punch</h3><p>Grout, seal, hardware, and a punch list done right.</p></div>
+  </div>
+</section>
+<section class="process">
+  <div class="label">How it works</div><h2>Five steps, one accountable owner.</h2>
+  <div class="step"><div class="s-n">01</div><div><h3>Consult</h3><p>We look at the space, talk through how you use it, and give an honest budget.</p></div></div>
+  <div class="step"><div class="s-n">02</div><div><h3>Design & Selections</h3><p>Layout, tile, fixtures, and glass — locked with a line-item estimate.</p></div></div>
+  <div class="step"><div class="s-n">03</div><div><h3>Demo</h3><p>Dust-controlled tear-out, with the rest of your home protected.</p></div></div>
+  <div class="step"><div class="s-n">04</div><div><h3>Waterproof & Build</h3><p>Membrane, slope, plumbing, tile — done in the right order, owner on site.</p></div></div>
+  <div class="step"><div class="s-n">05</div><div><h3>Reveal</h3><p>Final seal, clean, and the keys to a bathroom built to last.</p></div></div>
+</section>
+<section class="gallery">
+  <div class="label">Recent work</div>
+  <div class="g-strip">
+    <img src="../assets/img/mike/bathrooms/IMG_2873.jpeg" alt="bath project">
+    <img src="../assets/img/mike/bathrooms/IMG_2874.jpeg" alt="bath project">
+    <img src="../assets/img/mike/bathrooms/IMG_6595.jpeg" alt="bath project">
+    <img src="../assets/img/mike/bathrooms/IMG_6400.jpeg" alt="bath project">
+  </div>
+</section>
+<section class="faq">
+  <div class="in"><div class="label">Questions</div><h2>What people ask first.</h2>
+    <details open><summary>How long does a bathroom remodel take?</summary><p>Most bathrooms run 3–5 weeks depending on scope and whether the layout changes. We give you a real schedule up front.</p></details>
+    <details><summary>Why does waterproofing matter so much?</summary><p>It's what keeps water out of your walls and floor. Done wrong, you get mold and rot behind beautiful tile. We build the system, not just the surface.</p></details>
+    <details><summary>Can you do a tub-to-shower conversion?</summary><p>Yes — it's one of our most common jobs. Curbless options, benches, niches, and frameless glass all on the table.</p></details>
+    <details><summary>What areas do you serve?</summary><p>Broward, Palm Beach, and Miami-Dade — Fort Lauderdale, Boca Raton, Coral Springs, Weston, Miami, and surrounding cities.</p></details>
+  </div>
+</section>
+</main>
+<section class="cta" id="contact">
+  <img class="bg" src="../assets/img/mike/bathrooms/IMG_2873.jpeg" alt="Oak Park Construction project">
+  <div class="in"><div class="label" style="margin-bottom:16px;">Ready to start?</div>
+    <h2>Let's build <span class="serif">your bathroom.</span></h2>
+    <p>Tell us about your project — we reply within one business day.</p>
+    <a class="pill solid" href="tel:9542586769">Call (954) 258-6769</a>
+    <a class="pill" href="../about.html">Meet the brothers →</a>
+  </div>
+</section>
+<footer><div class="wm">OAK PARK CONSTRUCTION</div><div class="lic">FL CBC1263425 · BATHROOM REMODELS · BROWARD · PALM BEACH · MIAMI-DADE</div></footer>
 </body></html>
