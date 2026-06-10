@@ -24,14 +24,14 @@
  .stack{position:relative;z-index:2;max-width:780px;margin:10px auto 0;padding:8rem 2rem 12rem;perspective:3000px;
    display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;}
  .gcard{position:relative;height:210px;margin:-3rem 0 0;display:block;border-radius:16px;overflow:hidden;
-   transform:translateY(9vh) skew(60deg,-15deg) rotateX(40deg);
+   transform:translateY(5vh) skew(28deg,-9deg) rotateX(24deg);
    box-shadow:-6px 7px 34px rgba(0,0,0,.5);
    transition:transform .5s cubic-bezier(.22,1,.36,1), box-shadow .5s, border-radius .5s;}
  .gcard .img{position:absolute;inset:0;background-size:cover;background-position:center 70%;filter:brightness(.82) saturate(.78) contrast(.9);}
- .gcard .veil{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(10,10,8,.88));opacity:.55;transition:.5s;}
+ .gcard .veil{position:absolute;inset:0;background:linear-gradient(180deg,transparent 32%,rgba(10,10,8,.92));opacity:.8;transition:.5s;}
  .gcard .reveal{position:absolute;left:22px;right:22px;bottom:18px;}
  .gcard .reveal .num{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--lime);margin-bottom:6px;}
- .gcard .reveal h3{font-size:clamp(18px,1.9vw,25px);text-transform:none;text-shadow:0 2px 14px rgba(0,0,0,.7);}
+ .gcard .reveal h3{font-size:clamp(18px,1.9vw,26px);text-transform:none;text-shadow:0 2px 16px rgba(0,0,0,.85);}
  .gcard .reveal .go{display:flex;align-items:center;justify-content:space-between;margin-top:8px;font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(240,235,227,.6);}
  .gcard .reveal .view{color:var(--lime);display:flex;align-items:center;gap:6px;opacity:0;transform:translateX(-8px);transition:.35s;} .gcard .reveal .view em{font-style:normal;font-size:15px;}
  .gcard .reveal .soon{position:absolute;right:0;top:-2px;color:rgba(240,235,227,.6);font-size:10px;}
@@ -42,12 +42,12 @@
  footer{position:relative;z-index:2;padding:40px 40px;border-top:1px solid var(--line);text-align:center;}
  footer .wm{font-family:'Anton',sans-serif;font-size:24px;letter-spacing:2px;border-bottom:4px solid var(--lime);padding-bottom:8px;display:inline-block;}
  footer .lic{font-family:'Roboto Mono',monospace;font-size:13px;color:var(--lime);margin-top:12px;letter-spacing:1px;}
- @media(max-width:760px){nav.top .links{display:none;} .stack{grid-template-columns:1fr;max-width:420px;perspective:1500px;} .gcard{transform:translateY(4vh) skew(45deg,-12deg) rotateX(34deg);margin:-2rem 0 0;}}
+ @media(max-width:760px){nav.top .links{display:none;} .stack{grid-template-columns:1fr;max-width:420px;perspective:1500px;} .gcard{transform:translateY(3vh) skew(20deg,-7deg) rotateX(18deg);margin:-1.5rem 0 0;}}
 </style></head><body>
 <nav class="top"><a href="index.html" class="brand">OAK PARK <span class="lime">CONSTRUCTION</span></a>
 <div class="links"><a href="index.html">Home</a><a href="about.html">About</a><a href="how-it-works.html">How We Work</a><a href="contact.html">Contact</a></div></nav>
-<header class="head"><div class="label">Our Work</div><h1>Built, <span class="serif">not rendered.</span></h1>
-<p>Hover a project to pull it from the pile.</p></header>
+<header class="head"><div class="label">Our Work</div><h1>Real <span class="serif">projects.</span></h1>
+<p>Real Oak Park Construction work across South Florida — hover a category to step in.</p></header>
 <main class="stack">
       <a class="gcard" href="projects/new-construction-additions.html" style="--i:0">
         <div class="img" style="background-image:url('https://oakpark-construction.com/wp-content/uploads/2025/06/new-construction-build-full-home-remodel-concrete-shell-kitchen-bath-08.jpg')"></div>
