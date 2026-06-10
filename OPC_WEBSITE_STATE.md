@@ -5,7 +5,7 @@
 - **Repo:** https://github.com/priihigashi/opc-website-v1
 - **Live:** https://priihigashi.github.io/opc-website-v1/
 - **Local:** `~/ClaudeWorkspace/opc-website/`
-- **Tracker (sheet):** https://docs.google.com/spreadsheets/d/1AKwzJlO8gRiTE_PL5R8jnBzOe8aDhVy-PCaZY7QWIOI/edit
+- **Tracker (sheet):** https://docs.google.com/spreadsheets/d/1q0_v9qYDXKURo59xoS-WISFdHbZWIdc9ukdCDbdDaUQ/edit  ← CANONICAL (Marketing (shared drive) › Website Projects › 'OPC Website — Build Tracker')
 - **Drive mirror of this doc:** https://docs.google.com/document/d/1j2Y1z6rYRBS9fwE1Uk4seMvUNk9jFMZA-SZDAuCSZ2E/edit (ID `1j2Y1z6rYRBS9fwE1Uk4seMvUNk9jFMZA-SZDAuCSZ2E`)
 - **Skill:** `/opc-website` (loader skill — reads this file on activation)
 
@@ -210,7 +210,7 @@ Decision needed from Priscila on direction before build.
 - **Assets:** `assets/js/lab-banner.js` (auto-injected on every page) · `assets/img/mike/<service>/` (real photos)
 - **Three.js loading:** importmap via unpkg CDN (`three@0.160.0`)
 - **GitHub Pages deploy:** auto on push to `main`
-- **Tracker spreadsheet:** `1AKwzJlO8gRiTE_PL5R8jnBzOe8aDhVy-PCaZY7QWIOI` (Marketing > Claude Code Workspace)
+- **Tracker spreadsheet:** `1q0_v9qYDXKURo59xoS-WISFdHbZWIdc9ukdCDbdDaUQ` (Marketing (shared drive) › Website Projects › 'OPC Website — Build Tracker'). OLD `1AKwzJlO8gRiTE_PL5R8jnBzOe8aDhVy-PCaZY7QWIOI` is ARCHIVED ('ZZ_ARCHIVED — OPC Website Tracker').
 - **Inspiration Drive folder:** `1ae7n4VwSZbu0_nt6nUX5WeLINGqYJ-CZ`
 - **CodePen inspo doc (2026-06-09):** `1AQYwKAvnOf2s3i2EtXl_zMm18FGzcu_QAm-jOjRg-1c`
 

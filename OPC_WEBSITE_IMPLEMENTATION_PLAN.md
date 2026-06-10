@@ -1,7 +1,7 @@
 # OPC Website — Implementation Plan (auditable)
 
 **Created:** 2026-06-10 · **Owner:** Claude/Codex · **Repo:** priihigashi/opc-website-v1
-**Source of truth:** `OPC_WEBSITE_STATE.md` + Tracker sheet `1AKwzJlO8gRiTE_PL5R8jnBzOe8aDhVy-PCaZY7QWIOI` (Pending Tasks tab)
+**Source of truth:** `OPC_WEBSITE_STATE.md` + Tracker sheet `1q0_v9qYDXKURo59xoS-WISFdHbZWIdc9ukdCDbdDaUQ` — **OPC Website — Build Tracker**, in Marketing (shared drive) › Website Projects › 'OPC Website — Build Tracker' (canonical; old `1AKwzJlO8gRiTE_PL5R8jnBzOe8aDhVy-PCaZY7QWIOI` archived)
 **Live:** https://priihigashi.github.io/opc-website-v1/
 
 This doc is written so **Codex can audit each line**: every task has a **STATUS**, an **Audit check** (a concrete, verifiable test), and the **files** involved.
