@@ -102,6 +102,7 @@
       <a href="${base}gallery.html">🖼 Projects Gallery</a>
       <a href="${base}gallery-3d.html">🖼 Gallery 3D</a>
       <a href="${base}gallery-3d-v2.html">🖼 Gallery 3D v2</a>
+      <a href="${base}gallery-3d-v3.html">🖼 Gallery 3D v3 glass</a>
       <a href="${base}gallery-list.html">🖼 Gallery List</a>
       <a href="${base}gallery-showcase.html">🖼 Gallery Showcase</a>
       <a href="${base}projects/new-construction-additions.html">🖼 Project · New Constr</a>

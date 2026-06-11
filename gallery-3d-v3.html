@@ -1,0 +1,151 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects v3 (glass+glow) · Oak Park Construction</title>
+<meta name="description" content="Oak Park Construction projects across South Florida — new construction, remodels, kitchens, baths, exteriors, commercial.">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@1,500&family=Inter:wght@200;300;400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="/opc-website-v1/favicon.svg" type="image/svg+xml">
+<script src="assets/js/lab-banner.js?v=15" defer></script>
+<style>
+ :root{--black:#1b1a13;--obsidian:#141309;--cream:#F0EBE3;--lime:#CBCC10;--line:rgba(240,235,227,.12);}
+ *{margin:0;padding:0;box-sizing:border-box;}
+ html,body{background:var(--black);color:var(--cream);font-family:'Inter',system-ui,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+ a{color:inherit;text-decoration:none;}
+ h1,h3{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.5px;line-height:1;}
+ .serif{font-family:'Cormorant Garamond',serif;font-style:italic;text-transform:none;color:var(--lime);}
+ .label{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--lime);}
+ body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(circle at 50% 46%, rgba(203,204,16,.045), transparent 56%);}
+ nav.top{position:fixed;top:0;left:0;right:0;z-index:90;display:flex;justify-content:space-between;align-items:center;padding:22px 40px;background:linear-gradient(180deg,rgba(10,10,8,.8),transparent);backdrop-filter:blur(10px);}
+ nav.top .brand{font-family:'Anton',sans-serif;font-size:15px;letter-spacing:3px;} nav.top .brand .lime{color:var(--lime);}
+ nav.top .links{display:flex;gap:28px;} nav.top .links a{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:2px;text-transform:uppercase;opacity:.78;} nav.top .links a:hover{opacity:1;color:var(--lime);}
+ header.head{padding:130px 40px 0;text-align:center;}
+ header.head h1{font-size:clamp(40px,6vw,92px);margin:12px 0 10px;} header.head h1 .serif{font-size:1.12em;}
+ header.head p{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:.5px;color:rgba(240,235,227,.6);}
+ /* SCATTERED SKEWED PILE (faithful to PKQONZ: skew + rotateX + overlap) */
+ .stack{position:relative;z-index:2;max-width:780px;margin:10px auto 0;padding:4rem 2rem 13rem;perspective:3000px;
+   display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;}
+ .gcard{position:relative;height:210px;margin:-3rem 0 0;display:block;border-radius:16px;overflow:hidden;
+   transform:translateY(2vh) skew(60deg,-15deg) rotateX(40deg);
+   box-shadow:-6px 7px 34px rgba(0,0,0,.5);
+   transition:transform .5s cubic-bezier(.22,1,.36,1), box-shadow .5s, border-radius .5s;}
+ .gcard .img{position:absolute;inset:0;background-size:cover;background-position:center 70%;filter:brightness(.82) saturate(.78) contrast(.9);}
+ .gcard .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,8,.92),transparent 55%);opacity:.85;transition:.5s;}
+ .gcard .reveal{position:absolute;top:16px;right:18px;left:auto;max-width:64%;text-align:right;}
+ .gcard .reveal .num{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--lime);margin-bottom:6px;}
+ .gcard .reveal h3{font-size:clamp(18px,1.9vw,26px);text-transform:none;text-shadow:0 2px 16px rgba(0,0,0,.85);transform:scaleY(.8);transform-origin:top right;line-height:.98;}
+ .gcard .reveal .go{display:flex;align-items:center;justify-content:flex-end;gap:14px;margin-top:8px;font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(240,235,227,.6);}
+ .gcard .reveal .view{color:var(--lime);display:flex;align-items:center;gap:6px;opacity:0;transform:translateX(-8px);transition:.35s;} .gcard .reveal .view em{font-style:normal;font-size:15px;}
+ .gcard .soon{position:absolute;left:16px;top:14px;color:rgba(240,235,227,.75);font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;background:rgba(10,10,8,.5);padding:4px 9px;border-radius:6px;backdrop-filter:blur(4px);z-index:3;}
+ /* hover: flatten out of the pile + reveal */
+ .gcard:hover{transform:translateY(3vh) skew(0) rotateX(0) scale(1.04);border-radius:20px;z-index:20;box-shadow:0 36px 80px rgba(0,0,0,.62), 0 0 0 1px rgba(203,204,16,.55);}
+ .gcard:hover .veil{opacity:.95;} .gcard:hover .img{filter:brightness(.95) saturate(.95) contrast(1);}
+ .gcard:hover .view{opacity:1;transform:translateX(0);}
+ footer{position:relative;z-index:2;padding:40px 40px;border-top:1px solid var(--line);text-align:center;}
+ footer .wm{font-family:'Anton',sans-serif;font-size:24px;letter-spacing:2px;border-bottom:4px solid var(--lime);padding-bottom:8px;display:inline-block;}
+ footer .lic{font-family:'Roboto Mono',monospace;font-size:13px;color:var(--lime);margin-top:12px;letter-spacing:1px;}
+ @media(max-width:760px){nav.top .links{display:none;} .stack{grid-template-columns:1fr;max-width:420px;perspective:1500px;} .gcard{transform:translateY(3vh) skew(20deg,-7deg) rotateX(18deg);margin:-1.5rem 0 0;}}
+
+ /* v3 magical layer: particles + glow + glass holographic */
+ #particles{position:fixed;inset:0;z-index:1;pointer-events:none;}
+ .stack{position:relative;}
+ .pile-glow{position:absolute;left:50%;bottom:5rem;transform:translateX(-50%);width:640px;max-width:80%;height:320px;z-index:0;pointer-events:none;
+   background:radial-gradient(ellipse at center, rgba(203,204,16,.22), rgba(203,204,16,.06) 45%, transparent 72%);filter:blur(46px);opacity:.55;transition:opacity .45s, transform .45s;}
+ .stack:hover .pile-glow{opacity:1;transform:translateX(-50%) scale(1.08);}
+ /* glass card: translucent edge highlight + holographic sheen on the image */
+ .gcard{border:1px solid rgba(240,235,227,.16);box-shadow:-6px 7px 34px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.14);}
+ .gcard .holo{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.4;transition:opacity .5s;mix-blend-mode:screen;
+   background:linear-gradient(115deg, rgba(255,90,210,.16) 0%, rgba(90,200,255,.16) 28%, rgba(203,204,16,.14) 55%, rgba(150,90,255,.16) 80%, transparent 100%);}
+ .gcard .gloss{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.5;transition:.5s;
+   background:linear-gradient(125deg, rgba(255,255,255,.22) 0%, transparent 22%, transparent 60%, rgba(255,255,255,.08) 100%);}
+ .gcard:hover .holo{opacity:.7;}
+</style></head><body>
+<nav class="top"><a href="index.html" class="brand">OAK PARK <span class="lime">CONSTRUCTION</span></a>
+<div class="links"><a href="index.html">Home</a><a href="about.html">About</a><a href="how-it-works.html">How We Work</a><a href="contact.html">Contact</a></div></nav>
+<header class="head"><div class="label">Our Work</div><h1>Real <span class="serif">projects.</span></h1>
+<p>Real Oak Park Construction work across South Florida — hover a category to step in.</p></header>
+<canvas id="particles"></canvas>
+<main class="stack">
+      <div class="pile-glow"></div>
+      <a class="gcard" href="projects/new-construction-additions.html" style="--i:0">
+        <div class="img" style="background-image:url('https://oakpark-construction.com/wp-content/uploads/2025/06/new-construction-build-full-home-remodel-concrete-shell-kitchen-bath-08.jpg')"></div>
+        <div class="veil"></div>
+        <div class="holo"></div>
+        <div class="gloss"></div>
+        <div class="reveal">
+          <div class="num">01</div>
+          <h3>New Construction & Additions</h3>
+          <div class="go"><span>18 Photos</span><span class="view">View Project <em>&rarr;</em></span></div>
+          
+        </div>
+      </a>
+      <a class="gcard" href="#" style="--i:1">
+        <div class="img" style="background-image:url('https://oakpark-construction.com/wp-content/uploads/2025/06/new-construction-build-full-home-remodel-concrete-shell-7.jpg')"></div>
+        <div class="veil"></div>
+        <div class="holo"></div>
+        <div class="gloss"></div>
+        <div class="reveal">
+          <div class="num">02</div>
+          <h3>Full Home Remodel</h3>
+          <div class="go"><span>52 Photos</span><span class="view">View Project <em>&rarr;</em></span></div>
+          </div>
+        <span class="soon">Coming soon</span>
+      </a>
+      <a class="gcard" href="#" style="--i:2">
+        <div class="img" style="background-image:url('https://oakpark-construction.com/wp-content/uploads/2025/06/new-construction-build-full-home-remodel-concrete-shell-construction-1.jpg')"></div>
+        <div class="veil"></div>
+        <div class="holo"></div>
+        <div class="gloss"></div>
+        <div class="reveal">
+          <div class="num">03</div>
+          <h3>Shell & Concrete</h3>
+          <div class="go"><span>21 Photos</span><span class="view">View Project <em>&rarr;</em></span></div>
+          </div>
+        <span class="soon">Coming soon</span>
+      </a>
+      <a class="gcard" href="#" style="--i:3">
+        <div class="img" style="background-image:url('https://oakpark-construction.com/wp-content/uploads/2025/05/IMG_2843.jpg')"></div>
+        <div class="veil"></div>
+        <div class="holo"></div>
+        <div class="gloss"></div>
+        <div class="reveal">
+          <div class="num">04</div>
+          <h3>Kitchen & Bath</h3>
+          <div class="go"><span>Gallery</span><span class="view">View Project <em>&rarr;</em></span></div>
+          </div>
+        <span class="soon">Coming soon</span>
+      </a>
+      <a class="gcard" href="#" style="--i:4">
+        <div class="img" style="background-image:url('https://oakpark-construction.com/wp-content/uploads/2025/05/new-construction-build-and-full-home-remodel-pergola-landscape-1-2.jpg')"></div>
+        <div class="veil"></div>
+        <div class="holo"></div>
+        <div class="gloss"></div>
+        <div class="reveal">
+          <div class="num">05</div>
+          <h3>Outdoor & Exterior</h3>
+          <div class="go"><span>13 Photos</span><span class="view">View Project <em>&rarr;</em></span></div>
+          </div>
+        <span class="soon">Coming soon</span>
+      </a>
+      <a class="gcard" href="#" style="--i:5">
+        <div class="img" style="background-image:url('assets/img/mike/commercial-build-out/plantation-beauty-salon-IMG_0427.jpeg')"></div>
+        <div class="veil"></div>
+        <div class="holo"></div>
+        <div class="gloss"></div>
+        <div class="reveal">
+          <div class="num">06</div>
+          <h3>Commercial</h3>
+          <div class="go"><span>Gallery</span><span class="view">View Project <em>&rarr;</em></span></div>
+          </div>
+        <span class="soon">Coming soon</span>
+      </a>
+</main>
+<footer><div class="wm">OAK PARK CONSTRUCTION</div><div class="lic">FL CBC1263425 · INSURED · BROWARD · PALM BEACH · MIAMI-DADE</div></footer>
+<script>
+(function(){
+ const c=document.getElementById('particles'),x=c.getContext('2d');let W,H,P=[];
+ function rs(){W=c.width=innerWidth*devicePixelRatio;H=c.height=innerHeight*devicePixelRatio;c.style.width=innerWidth+'px';c.style.height=innerHeight+'px';}
+ rs();addEventListener('resize',rs);
+ for(let i=0;i<48;i++)P.push({x:Math.random()*W,y:Math.random()*H,r:(Math.random()*1.6+.4)*devicePixelRatio,vx:(Math.random()-.5)*.12,vy:(Math.random()-.5)*.12-.04,a:Math.random()*.5+.2,p:Math.random()*6.28});
+ (function t(){x.clearRect(0,0,W,H);for(const o of P){o.x+=o.vx;o.y+=o.vy;o.p+=.015;if(o.x<0)o.x=W;if(o.x>W)o.x=0;if(o.y<0)o.y=H;if(o.y>H)o.y=0;const al=o.a*(.55+Math.sin(o.p)*.45);x.beginPath();x.arc(o.x,o.y,o.r,0,6.28);x.fillStyle='rgba(203,204,16,'+al*.7+')';x.shadowBlur=6*devicePixelRatio;x.shadowColor='rgba(203,204,16,.6)';x.fill();}requestAnimationFrame(t);})();
+})();
+</script>
+</body></html>
