@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v7 Projects v6 (real 3D glass) · Oak Park Construction</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@1,500&family=Inter:wght@200;300;400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="/opc-website-v1/favicon.svg" type="image/svg+xml">
+<script src="assets/js/lab-banner.js?v=15" defer></script>
+<style>
+ :root{--black:#1b1a13;--obsidian:#141309;--cream:#F0EBE3;--lime:#CBCC10;--line:rgba(240,235,227,.14);--thick:12px;}
+ *{margin:0;padding:0;box-sizing:border-box;}
+ html,body{background:var(--black);color:var(--cream);font-family:'Inter',system-ui,sans-serif;overflow-x:hidden;}
+ a{color:inherit;text-decoration:none;}
+ h1,h3{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.5px;line-height:1;}
+ .serif{font-family:'Cormorant Garamond',serif;font-style:italic;text-transform:none;color:var(--lime);}
+ .label{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--lime);}
+ body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(circle at 50% 50%, rgba(203,204,16,.04), transparent 60%);}
+ nav.top{position:fixed;top:0;left:0;right:0;z-index:90;display:flex;justify-content:space-between;align-items:center;padding:22px 40px;background:linear-gradient(180deg,rgba(10,10,8,.8),transparent);backdrop-filter:blur(10px);}
+ nav.top .brand{font-family:'Anton',sans-serif;font-size:15px;letter-spacing:3px;} nav.top .brand .lime{color:var(--lime);}
+ nav.top .links{display:flex;gap:28px;} nav.top .links a{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:2px;text-transform:uppercase;opacity:.78;}
+ #particles{position:fixed;inset:0;z-index:1;pointer-events:none;}
+ header.head{position:relative;z-index:2;padding:130px 40px 0;text-align:center;}
+ header.head h1{font-size:clamp(44px,7vw,104px);margin:14px 0 10px;} header.head h1 .serif{font-size:1.15em;}
+ header.head p{font-family:'Roboto Mono',monospace;font-size:13px;color:rgba(240,235,227,.6);}
+ .stack{position:relative;z-index:2;max-width:760px;margin:20px auto 0;padding:6rem 3rem 13rem;perspective:2600px;
+   display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;}
+ .pile-glow{position:absolute;left:50%;bottom:3rem;transform:translateX(-50%);width:760px;max-width:88%;height:300px;z-index:0;pointer-events:none;
+   background:radial-gradient(ellipse at center, rgba(203,204,16,.34) 0%, rgba(150,90,255,.10) 42%, transparent 74%);filter:blur(54px);opacity:.7;animation:glowPulse 6s ease-in-out infinite;}
+ @keyframes glowPulse{0%,100%{opacity:.6}50%{opacity:.82}}
+ .gcard{position:relative;aspect-ratio:4/3;transform-style:preserve-3d;cursor:pointer;margin:-3.5rem 0 0;
+   transform:rotateX(46deg) rotateZ(-30deg) translateY(calc(var(--i)*-4px));transition:transform .55s cubic-bezier(.22,1,.36,1);}
+ .slab{position:absolute;inset:0;transform-style:preserve-3d;}
+ .face{position:absolute;inset:0;border-radius:14px;}
+ .face.front{background-size:cover;background-position:center 70%;overflow:hidden;transform:translateZ(calc(var(--thick)/2));
+   box-shadow:0 0 0 1px rgba(255,255,255,.16), inset 0 1px 0 rgba(255,255,255,.25);filter:brightness(.92) saturate(.85) contrast(.98);}
+ .face.front .veil{position:absolute;inset:0;background:linear-gradient(160deg,rgba(10,10,8,.5),transparent 45%);}
+ .face.back{transform:translateZ(calc(var(--thick)/-2));background:rgba(20,19,14,.9);border-radius:14px;}
+ /* glass thickness faces (bottom + left = the front edges at this angle) */
+ .face.bottom{height:var(--thick);top:auto;bottom:0;transform-origin:center bottom;transform:translateZ(calc(var(--thick)/-2)) rotateX(90deg);border-radius:0 0 6px 6px;
+   background:linear-gradient(180deg, rgba(235,238,248,.34), rgba(160,168,190,.20) 50%, rgba(90,96,120,.26));box-shadow:inset 0 1px 0 rgba(255,255,255,.5);}
+ .face.left{width:var(--thick);right:auto;left:0;transform-origin:left center;transform:translateZ(calc(var(--thick)/-2)) rotateY(-90deg);border-radius:6px 0 0 6px;
+   background:linear-gradient(90deg, rgba(90,96,120,.26), rgba(200,206,225,.28));box-shadow:inset 1px 0 0 rgba(255,255,255,.45);}
+ .reveal{position:absolute;top:14px;right:16px;left:auto;max-width:66%;text-align:right;z-index:5;transform:translateZ(calc(var(--thick)/2 + 1px));}
+ .reveal .num{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--lime);margin-bottom:4px;}
+ .reveal h3{font-size:clamp(17px,1.8vw,24px);text-transform:none;text-shadow:0 2px 16px rgba(0,0,0,.9);transform:scaleY(.8);transform-origin:top right;line-height:.98;}
+ .reveal .go{display:flex;align-items:center;justify-content:flex-end;gap:12px;margin-top:8px;font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(240,235,227,.7);}
+ .reveal .view{color:var(--lime);opacity:0;transform:translateX(-8px);transition:.35s;display:flex;align-items:center;gap:6px;} .reveal .view em{font-style:normal;font-size:16px;}
+ .soon{position:absolute;top:14px;left:16px;z-index:5;transform:translateZ(calc(var(--thick)/2 + 1px));color:rgba(240,235,227,.75);font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;background:rgba(10,10,8,.5);padding:4px 9px;border-radius:6px;backdrop-filter:blur(4px);}
+ .gcard:hover{transform:rotateX(40deg) rotateZ(-24deg) translateY(-10px) scale(1.04);z-index:20;}
+ .gcard:hover .view{opacity:1;transform:translateX(0);}
+ footer{position:relative;z-index:2;padding:50px 40px 40px;border-top:1px solid var(--line);text-align:center;}
+ footer .wm{font-family:'Anton',sans-serif;font-size:26px;letter-spacing:2px;border-bottom:4px solid var(--lime);padding-bottom:8px;display:inline-block;}
+ footer .lic{font-family:'Roboto Mono',monospace;font-size:13px;color:var(--lime);margin-top:14px;}
+ @media(max-width:760px){.stack{grid-template-columns:1fr;max-width:420px;} nav.top .links{display:none;}}
+</style></head><body>
+<canvas id="particles"></canvas>
+<nav class="top"><a href="index.html" class="brand">OAK PARK <span class="lime">CONSTRUCTION</span></a>
+<div class="links"><a href="index.html">Home</a><a href="about.html">About</a><a href="contact.html">Contact</a></div></nav>
+<header class="head"><div class="label">Our Work</div><h1>Real <span class="serif">projects.</span></h1>
+<p>Real Oak Park Construction work across South Florida — hover a category to step in.</p></header>
+<main class="stack"><div class="pile-glow"></div>
+      <a class="gcard" href="projects/new-construction-additions.html" style="--i:0">
+        <div class="slab">
+          <div class="face front" style="background-image:url('https://oakpark-construction.com/wp-content/uploads/2025/06/new-construction-build-full-home-remodel-concrete-shell-kitchen-bath-08.jpg')"><div class="veil"></div></div>
+          <div class="face bottom"></div>
+          <div class="face left"></div>
+          <div class="face back"></div>
+        </div>
+        <div class="reveal"><div class="num">01</div><h3>New Construction & Additions</h3>
+          <div class="go"><span>18 Photos</span><span class="view">View Project <em>&rarr;</em></span></div></div>
+        
+      </a>
+      <a class="gcard" href="#" style="--i:1">
+        <div class="slab">
+          <div class="face front" style="background-image:url('https://oakpark-construction.com/wp-content/uploads/2025/06/new-construction-build-full-home-remodel-concrete-shell-7.jpg')"><div class="veil"></div></div>
+          <div class="face bottom"></div>
+          <div class="face left"></div>
+          <div class="face back"></div>
+        </div>
+        <div class="reveal"><div class="num">02</div><h3>Full Home Remodel</h3>
+          <div class="go"><span>52 Photos</span><span class="view">View Project <em>&rarr;</em></span></div></div>
+        <span class="soon">Coming soon</span>
+      </a>
+      <a class="gcard" href="#" style="--i:2">
+        <div class="slab">
+          <div class="face front" style="background-image:url('https://oakpark-construction.com/wp-content/uploads/2025/06/new-construction-build-full-home-remodel-concrete-shell-construction-1.jpg')"><div class="veil"></div></div>
+          <div class="face bottom"></div>
+          <div class="face left"></div>
+          <div class="face back"></div>
+        </div>
+        <div class="reveal"><div class="num">03</div><h3>Shell & Concrete</h3>
+          <div class="go"><span>21 Photos</span><span class="view">View Project <em>&rarr;</em></span></div></div>
+        <span class="soon">Coming soon</span>
+      </a>
+      <a class="gcard" href="#" style="--i:3">
+        <div class="slab">
+          <div class="face front" style="background-image:url('https://oakpark-construction.com/wp-content/uploads/2025/05/IMG_2843.jpg')"><div class="veil"></div></div>
+          <div class="face bottom"></div>
+          <div class="face left"></div>
+          <div class="face back"></div>
+        </div>
+        <div class="reveal"><div class="num">04</div><h3>Kitchen & Bath</h3>
+          <div class="go"><span>Gallery</span><span class="view">View Project <em>&rarr;</em></span></div></div>
+        <span class="soon">Coming soon</span>
+      </a>
+      <a class="gcard" href="#" style="--i:4">
+        <div class="slab">
+          <div class="face front" style="background-image:url('https://oakpark-construction.com/wp-content/uploads/2025/05/new-construction-build-and-full-home-remodel-pergola-landscape-1-2.jpg')"><div class="veil"></div></div>
+          <div class="face bottom"></div>
+          <div class="face left"></div>
+          <div class="face back"></div>
+        </div>
+        <div class="reveal"><div class="num">05</div><h3>Outdoor & Exterior</h3>
+          <div class="go"><span>13 Photos</span><span class="view">View Project <em>&rarr;</em></span></div></div>
+        <span class="soon">Coming soon</span>
+      </a>
+      <a class="gcard" href="#" style="--i:5">
+        <div class="slab">
+          <div class="face front" style="background-image:url('assets/img/mike/commercial-build-out/plantation-beauty-salon-IMG_0427.jpeg')"><div class="veil"></div></div>
+          <div class="face bottom"></div>
+          <div class="face left"></div>
+          <div class="face back"></div>
+        </div>
+        <div class="reveal"><div class="num">06</div><h3>Commercial</h3>
+          <div class="go"><span>Gallery</span><span class="view">View Project <em>&rarr;</em></span></div></div>
+        <span class="soon">Coming soon</span>
+      </a>
+</main>
+<footer><div class="wm">OAK PARK CONSTRUCTION</div><div class="lic">FL CBC1263425 · INSURED · BROWARD · PALM BEACH · MIAMI-DADE</div></footer>
+<script>
+(function(){const c=document.getElementById('particles'),x=c.getContext('2d');let W,H,P=[];
+function rs(){W=c.width=innerWidth*devicePixelRatio;H=c.height=innerHeight*devicePixelRatio;c.style.width=innerWidth+'px';c.style.height=innerHeight+'px';}rs();addEventListener('resize',rs);
+for(let i=0;i<70;i++)P.push({x:Math.random()*W,y:H*0.5+Math.random()*H*0.5,r:(Math.random()*0.9+0.25)*devicePixelRatio,vx:(Math.random()-.5)*.06,vy:-(Math.random()*.05+.015),a:Math.random()*.45+.15,p:Math.random()*6.28});
+(function t(){x.clearRect(0,0,W,H);for(const o of P){o.x+=o.vx;o.y+=o.vy;o.p+=.012;if(o.x<0)o.x=W;if(o.x>W)o.x=0;if(o.y<H*0.45){o.y=H;o.x=Math.random()*W;}const al=o.a*(.5+Math.sin(o.p)*.5);x.beginPath();x.arc(o.x,o.y,o.r,0,6.28);x.fillStyle='rgba(240,238,225,'+al*.8+')';x.shadowBlur=2*devicePixelRatio;x.shadowColor='rgba(203,204,16,.5)';x.fill();}requestAnimationFrame(t);})();
+})();
+</script></body></html>
