@@ -67,13 +67,14 @@ Showcase (gallery-showcase.html) is Priscila's current favorite; this competes.
 - *(possible 4th: Cube — would be rebuilt in-brand if wanted)*
 
 ### VIEWERS (after you enter — the category's photos) — choosing
-- A `projects/new-construction-additions.html` — grow-to-center SWIPER
-- B `projects/nc-stacked.html` — stacked horizontal scroll-galleries (closest to old site; scrollbar→arrows, header aligned) — Priscila *may keep*
-- `projects/nc-stacked-swiper.html` — stacked structure + a SWIPER per project (122 Dockside + Home Addition) — NEW variation
-- D `projects/nc-grid.html` — justified grid (mixes all photos one page) — Priscila *saving*
-- E `projects/nc-fullbleed.html` — cinematic big stacked photos
-- F `projects/nc-horizontal.html` — sideways filmstrip
+- A `projects/new-construction-additions.html` — grow-to-center SWIPER (all photos, one swiper)
+- B `projects/nc-stacked.html` — stacked horizontal strips per project — FIXED: no scrollbar, end arrows, aligned header — Priscila *may keep*
+- B2 `projects/nc-stacked-swiper.html` — NEW: stacked structure + a grow-to-center SWIPER per project (122 Dockside + Home Addition)
+- D `projects/nc-grid.html` — justified grid (all photos one page) — Priscila *saving*
+- E `projects/nc-fullbleed.html` — cinematic stacked photos (kept as example only)
+- E2 `projects/nc-projectcards.html` — NEW: fullbleed ADAPTED — one big card per PROJECT, side arrows cycle that project's photos in place (counter + dots)
 - ❌ `nc-collage.html` — DELETED (disliked)
+- ❌ `nc-horizontal.html` — DELETED (sideways scrollbar feel — "definitely not good")
 
 ### PENDING (Priscila's calls)
 1. Pick the ENTRY gallery (3D v13 / Showcase / BG v3)
