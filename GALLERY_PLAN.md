@@ -55,3 +55,33 @@ Polish the 3D pile into a "magical floating stack of glass cards." **Keep** the 
 5. Soft glow at the bottom of the pile; stronger on hover/select.
 6. Glassmorphism + glow aesthetic. Refs (Inspiration tab): Dribbble "Glow Card Design" https://dribbble.com/shots/26140947-Glow-Card-Design + glass-card images.
 Showcase (gallery-showcase.html) is Priscila's current favorite; this competes.
+
+---
+
+## 📌 CURRENT GALLERY STATE — 2026-06-11 (single source of truth, nothing lost)
+
+### ENTRY galleries (pick a category) — all live in lab + Build Tracker
+- `gallery-3d-v13.html` — 3D glass pile (FINAL of that style); `gallery-3d-v2.html` also saved
+- `gallery-showcase.html` — stacked card deck + numbered item list (Priscila favorite)
+- `gallery-bg-v3.html` — BG-swap expertise+gallery selector (KEPT; base/v1/v2 deleted)
+- *(possible 4th: Cube — would be rebuilt in-brand if wanted)*
+
+### VIEWERS (after you enter — the category's photos) — choosing
+- A `projects/new-construction-additions.html` — grow-to-center SWIPER
+- B `projects/nc-stacked.html` — stacked horizontal scroll-galleries (closest to old site; scrollbar→arrows, header aligned) — Priscila *may keep*
+- `projects/nc-stacked-swiper.html` — stacked structure + a SWIPER per project (122 Dockside + Home Addition) — NEW variation
+- D `projects/nc-grid.html` — justified grid (mixes all photos one page) — Priscila *saving*
+- E `projects/nc-fullbleed.html` — cinematic big stacked photos
+- F `projects/nc-horizontal.html` — sideways filmstrip
+- ❌ `nc-collage.html` — DELETED (disliked)
+
+### PENDING (Priscila's calls)
+1. Pick the ENTRY gallery (3D v13 / Showcase / BG v3)
+2. Pick the VIEWER (swiper / stacked / stacked-swiper / grid / fullbleed / horizontal)
+3. Then: wire chosen entry→viewer, delete the rest, swap in real per-category photos, fix Commercial finished photo
+
+### WHERE EVERYTHING LIVES (so it's never lost)
+- **GitHub repo** `priihigashi/opc-website-v1` — every version committed with descriptive messages (full history)
+- **Lab banner** (top of every page) — all live versions clickable
+- **Build Tracker** sheet `1q0_v9q…` 🧪 Prototypes + 🔖 Inspiration tabs — kept galleries + all inspo links
+- **This doc** (`GALLERY_PLAN.md`) + `OPC_WEBSITE_STATE.md` — decisions
