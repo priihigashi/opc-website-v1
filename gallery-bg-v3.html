@@ -14,8 +14,8 @@
  nav.top .brand{font-family:'Anton',sans-serif;font-size:15px;letter-spacing:3px;} nav.top .brand .lime{color:var(--lime);}
  nav.top .links{display:flex;gap:28px;} nav.top .links a{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:2px;text-transform:uppercase;opacity:.8;} nav.top .links a:hover{opacity:1;color:var(--lime);}
  .hero{position:relative;height:100vh;display:flex;align-items:center;padding:0 6vw;isolation:isolate;}
- .bg{position:absolute;inset:0;background-image:var(--bg);background-size:cover;background-position:center 60%;filter:brightness(.62) saturate(.9);transform:scale(1.04);transition:background-image .4s, filter .5s, transform .8s;z-index:-3;}
- .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(95deg, rgba(15,14,9,.86) 0%, rgba(15,14,9,.45) 42%, rgba(15,14,9,.30) 70%, rgba(15,14,9,.55) 100%);z-index:-2;}
+ .bg{position:absolute;inset:0;background-image:var(--bg);background-size:cover;background-position:center 60%;filter:brightness(.70) saturate(.92);image-orientation:from-image;transform:scale(1.04);transition:background-image .4s, filter .5s, transform .8s;z-index:-3;}
+ .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(95deg, rgba(15,14,9,.78) 0%, rgba(15,14,9,.38) 42%, rgba(15,14,9,.20) 70%, rgba(15,14,9,.48) 100%);z-index:-2;}
  .glow{position:absolute;left:-10%;bottom:-10%;width:60vw;height:60vw;background:radial-gradient(circle, rgba(203,204,16,.10), transparent 60%);z-index:-1;pointer-events:none;}
  /* LEFT copy */
  .copy{max-width:560px;}
@@ -28,7 +28,7 @@
  .copy .enter em{font-style:normal;font-size:15px;}
  /* RIGHT squares (bigger) */
  .choices{position:absolute;right:5vw;top:50%;transform:translateY(-50%);display:grid;grid-template-columns:repeat(2,212px);gap:16px;}
- .choice{height:158px;border:none;background-image:var(--thumb);background-size:cover;background-position:center;border-radius:16px;cursor:pointer;position:relative;overflow:hidden;transition:.28s;box-shadow:inset 0 1px 0 rgba(255,255,255,.22), inset 0 0 0 1px rgba(255,255,255,.08), 0 18px 40px rgba(0,0,0,.45);}
+ .choice{height:158px;border:none;background-image:var(--thumb);background-size:cover;background-position:center;image-orientation:from-image;border-radius:16px;cursor:pointer;position:relative;overflow:hidden;transition:.28s;box-shadow:inset 0 1px 0 rgba(255,255,255,.22), inset 0 0 0 1px rgba(255,255,255,.08), 0 18px 40px rgba(0,0,0,.45);}
  .choice::before{content:"";position:absolute;inset:0;background:linear-gradient(transparent 35%, rgba(8,8,5,.82));}
  .choice .clabel{position:absolute;left:12px;right:12px;bottom:11px;font-family:'Anton',sans-serif;font-size:15px;text-transform:uppercase;letter-spacing:.5px;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.8);z-index:2;line-height:1.05;}
  .choice:hover{transform:translateY(-3px);border-color:rgba(203,204,16,.6);}
@@ -61,8 +61,8 @@
       <button class="choice" data-i="4" style="--thumb:url('assets/img/mike/exterior-patio-builds/clark-pergola-IMG_4626.jpeg')"
         data-bg="url('assets/img/mike/exterior-patio-builds/clark-pergola-IMG_4626.jpeg')" data-title="Outdoor & Exterior" data-blurb="From pergolas and outdoor kitchens to patios and pavers, we extend your home outside with spaces built for South Florida living." data-href="#">
         <span class="clabel">Outdoor</span></button>
-      <button class="choice" data-i="5" style="--thumb:url('assets/img/mike/commercial-build-out/plantation-beauty-salon-IMG_0427.jpeg')"
-        data-bg="url('assets/img/mike/commercial-build-out/plantation-beauty-salon-IMG_0427.jpeg')" data-title="Commercial" data-blurb="Office spaces and commercial build-outs delivered on schedule, on budget, for South Florida businesses." data-href="#">
+      <button class="choice" data-i="5" style="--thumb:url('assets/img/mike/commercial-build-out/plantation-beauty-salon-IMG_1008.JPG')"
+        data-bg="url('assets/img/mike/commercial-build-out/plantation-beauty-salon-IMG_1008.JPG')" data-title="Commercial" data-blurb="Office spaces and commercial build-outs delivered on schedule, on budget, for South Florida businesses." data-href="#">
         <span class="clabel">Commercial</span></button>
   </nav>
 </main>
