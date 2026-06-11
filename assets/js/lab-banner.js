@@ -105,9 +105,6 @@
       <a href="${base}gallery-3d-v13.html">🖼 Gallery 3D v13</a>
       <a href="${base}gallery-list.html">🖼 Gallery List</a>
       <a href="${base}gallery-showcase.html">🖼 Gallery Showcase</a>
-      <a href="${base}gallery-bg.html">🖼 Gallery BG-Swap</a>
-      <a href="${base}gallery-bg-v1.html">🖼 BG v1</a>
-      <a href="${base}gallery-bg-v2.html">🖼 BG v2 clean</a>
       <a href="${base}gallery-bg-v3.html">🖼 BG v3 glass</a>
       <a href="${base}projects/new-construction-additions.html">🖼 Project · New Constr</a>
     </div>
