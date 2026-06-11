@@ -24,15 +24,15 @@
  .stack{position:relative;z-index:2;max-width:780px;margin:10px auto 0;padding:8rem 2rem 12rem;perspective:3000px;
    display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;}
  .gcard{position:relative;height:210px;margin:-3rem 0 0;display:block;border-radius:16px;overflow:hidden;
-   transform:translateY(5vh) skew(28deg,-9deg) rotateX(24deg);
+   transform:translateY(9vh) skew(60deg,-15deg) rotateX(40deg);
    box-shadow:-6px 7px 34px rgba(0,0,0,.5);
    transition:transform .5s cubic-bezier(.22,1,.36,1), box-shadow .5s, border-radius .5s;}
  .gcard .img{position:absolute;inset:0;background-size:cover;background-position:center 70%;filter:brightness(.82) saturate(.78) contrast(.9);}
- .gcard .veil{position:absolute;inset:0;background:linear-gradient(180deg,transparent 32%,rgba(10,10,8,.92));opacity:.8;transition:.5s;}
- .gcard .reveal{position:absolute;left:22px;right:22px;bottom:18px;}
+ .gcard .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,8,.92),transparent 55%);opacity:.85;transition:.5s;}
+ .gcard .reveal{position:absolute;top:16px;right:18px;left:auto;max-width:64%;text-align:right;}
  .gcard .reveal .num{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--lime);margin-bottom:6px;}
  .gcard .reveal h3{font-size:clamp(18px,1.9vw,26px);text-transform:none;text-shadow:0 2px 16px rgba(0,0,0,.85);}
- .gcard .reveal .go{display:flex;align-items:center;justify-content:space-between;margin-top:8px;font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(240,235,227,.6);}
+ .gcard .reveal .go{display:flex;align-items:center;justify-content:flex-end;gap:14px;margin-top:8px;font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(240,235,227,.6);}
  .gcard .reveal .view{color:var(--lime);display:flex;align-items:center;gap:6px;opacity:0;transform:translateX(-8px);transition:.35s;} .gcard .reveal .view em{font-style:normal;font-size:15px;}
  .gcard .reveal .soon{position:absolute;right:0;top:-2px;color:rgba(240,235,227,.6);font-size:10px;}
  /* hover: flatten out of the pile + reveal */
