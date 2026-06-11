@@ -1,0 +1,81 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v3 Our Work · Oak Park Construction</title>
+<meta name="description" content="Explore Oak Park Construction's work across South Florida by category — new construction, remodels, kitchens, baths, concrete, outdoor and commercial.">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@1,500&family=Inter:wght@300;400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="/opc-website-v1/favicon.svg" type="image/svg+xml">
+<script src="assets/js/lab-banner.js?v=15" defer></script>
+<style>
+ :root{--black:#1b1a13;--obsidian:#141309;--cream:#F0EBE3;--lime:#CBCC10;--line:rgba(240,235,227,.14);}
+ *{margin:0;padding:0;box-sizing:border-box;}
+ html,body{height:100%;background:var(--black);color:var(--cream);font-family:'Inter',system-ui,sans-serif;overflow:hidden;}
+ a{color:inherit;text-decoration:none;}
+ nav.top{position:fixed;top:0;left:0;right:0;z-index:90;display:flex;justify-content:space-between;align-items:center;padding:22px 40px;}
+ nav.top .brand{font-family:'Anton',sans-serif;font-size:15px;letter-spacing:3px;} nav.top .brand .lime{color:var(--lime);}
+ nav.top .links{display:flex;gap:28px;} nav.top .links a{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:2px;text-transform:uppercase;opacity:.8;} nav.top .links a:hover{opacity:1;color:var(--lime);}
+ .hero{position:relative;height:100vh;display:flex;align-items:center;padding:0 6vw;isolation:isolate;}
+ .bg{position:absolute;inset:0;background-image:var(--bg);background-size:cover;background-position:center 60%;filter:brightness(.62) saturate(.9);transform:scale(1.04);transition:background-image .4s, filter .5s, transform .8s;z-index:-3;}
+ .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(95deg, rgba(15,14,9,.86) 0%, rgba(15,14,9,.45) 42%, rgba(15,14,9,.30) 70%, rgba(15,14,9,.55) 100%);z-index:-2;}
+ .glow{position:absolute;left:-10%;bottom:-10%;width:60vw;height:60vw;background:radial-gradient(circle, rgba(203,204,16,.10), transparent 60%);z-index:-1;pointer-events:none;}
+ /* LEFT copy */
+ .copy{max-width:560px;}
+ .copy .eyebrow{font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--lime);margin-bottom:20px;}
+ .copy h1{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(40px,5.4vw,80px);line-height:.96;}
+ .copy h1 .serif{font-family:'Cormorant Garamond',serif;font-style:italic;text-transform:none;color:var(--lime);}
+ .copy .lead{margin-top:22px;font-size:17px;line-height:1.7;color:rgba(240,235,227,.86);max-width:480px;min-height:90px;}
+ .copy .enter{display:inline-flex;align-items:center;gap:10px;margin-top:30px;padding:15px 30px;background:var(--lime);color:var(--obsidian);border-radius:999px;font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:600;transition:.25s;}
+ .copy .enter:hover{background:#fff;box-shadow:0 0 28px rgba(203,204,16,.4);}
+ .copy .enter em{font-style:normal;font-size:15px;}
+ /* RIGHT squares (bigger) */
+ .choices{position:absolute;right:5vw;top:50%;transform:translateY(-50%);display:grid;grid-template-columns:repeat(2,212px);gap:16px;}
+ .choice{height:158px;border:none;background-image:var(--thumb);background-size:cover;background-position:center;border-radius:16px;cursor:pointer;position:relative;overflow:hidden;transition:.28s;box-shadow:inset 0 1px 0 rgba(255,255,255,.22), inset 0 0 0 1px rgba(255,255,255,.08), 0 18px 40px rgba(0,0,0,.45);}
+ .choice::before{content:"";position:absolute;inset:0;background:linear-gradient(transparent 35%, rgba(8,8,5,.82));}
+ .choice .clabel{position:absolute;left:12px;right:12px;bottom:11px;font-family:'Anton',sans-serif;font-size:15px;text-transform:uppercase;letter-spacing:.5px;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.8);z-index:2;line-height:1.05;}
+ .choice:hover{transform:translateY(-3px);border-color:rgba(203,204,16,.6);}
+ .choice.active{border-color:var(--lime);box-shadow:0 0 0 2px rgba(203,204,16,.3), 0 0 44px rgba(203,204,16,.28);transform:translateY(-3px);}
+ @media(max-width:980px){nav.top .links{display:none;} .hero{flex-direction:column;justify-content:center;align-items:flex-start;} .choices{position:static;transform:none;margin-top:30px;grid-template-columns:repeat(3,1fr);width:100%;} .copy h1{font-size:38px;}}
+</style></head><body>
+<nav class="top"><a href="index.html" class="brand">OAK PARK <span class="lime">CONSTRUCTION</span></a>
+<div class="links"><a href="index.html">Home</a><a href="about.html">About</a><a href="how-it-works.html">How We Work</a><a href="contact.html">Contact</a></div></nav>
+<main class="hero" id="hero" style="--bg:url('https://oakpark-construction.com/wp-content/uploads/2025/06/new-construction-build-full-home-remodel-concrete-shell-kitchen-bath-08.jpg')">
+  <div class="bg"></div><div class="glow"></div>
+  <section class="copy">
+    <div class="eyebrow">Our Work · Explore by Category</div>
+    <h1 id="cTitle">New Construction & Additions</h1>
+    <p class="lead" id="cLead">From the first footing to the final walk-through, we build custom homes whole — and add space that blends seamlessly with the home you already love.</p>
+    <a class="enter" id="cEnter" href="projects/new-construction-additions.html">Enter Gallery <em>&rarr;</em></a>
+  </section>
+  <nav class="choices" aria-label="Project categories">
+      <button class="choice active" data-i="0" style="--thumb:url('https://oakpark-construction.com/wp-content/uploads/2025/06/new-construction-build-full-home-remodel-concrete-shell-kitchen-bath-08.jpg')"
+        data-bg="url('https://oakpark-construction.com/wp-content/uploads/2025/06/new-construction-build-full-home-remodel-concrete-shell-kitchen-bath-08.jpg')" data-title="New Construction & Additions" data-blurb="From the first footing to the final walk-through, we build custom homes whole — and add space that blends seamlessly with the home you already love." data-href="projects/new-construction-additions.html">
+        <span class="clabel">New Construction</span></button>
+      <button class="choice" data-i="1" style="--thumb:url('assets/img/mike/kitchens/IMG_2877.jpeg')"
+        data-bg="url('assets/img/mike/kitchens/IMG_2877.jpeg')" data-title="Full Home Remodel" data-blurb="From small updates to down-to-the-studs makeovers, we transform whole homes — one accountable crew from demo day to the reveal." data-href="#">
+        <span class="clabel">Full Remodel</span></button>
+      <button class="choice" data-i="2" style="--thumb:url('https://oakpark-construction.com/wp-content/uploads/2025/05/IMG_2843.jpg')"
+        data-bg="url('https://oakpark-construction.com/wp-content/uploads/2025/05/IMG_2843.jpg')" data-title="Kitchen & Bath" data-blurb="The rooms that sell a home, built right behind the finish — custom cabinetry and waterproofed baths, designed and built in-house." data-href="#">
+        <span class="clabel">Kitchen & Bath</span></button>
+      <button class="choice" data-i="3" style="--thumb:url('https://oakpark-construction.com/wp-content/uploads/2025/06/new-construction-build-full-home-remodel-concrete-shell-construction-1.jpg')"
+        data-bg="url('https://oakpark-construction.com/wp-content/uploads/2025/06/new-construction-build-full-home-remodel-concrete-shell-construction-1.jpg')" data-title="Shell & Concrete" data-blurb="The parts that hold everything up — structural shell, foundations, slabs, driveways and pavers, poured by our own crew for longevity." data-href="#">
+        <span class="clabel">Shell · Concrete</span></button>
+      <button class="choice" data-i="4" style="--thumb:url('assets/img/mike/exterior-patio-builds/clark-pergola-IMG_4626.jpeg')"
+        data-bg="url('assets/img/mike/exterior-patio-builds/clark-pergola-IMG_4626.jpeg')" data-title="Outdoor & Exterior" data-blurb="From pergolas and outdoor kitchens to patios and pavers, we extend your home outside with spaces built for South Florida living." data-href="#">
+        <span class="clabel">Outdoor</span></button>
+      <button class="choice" data-i="5" style="--thumb:url('assets/img/mike/commercial-build-out/plantation-beauty-salon-IMG_0427.jpeg')"
+        data-bg="url('assets/img/mike/commercial-build-out/plantation-beauty-salon-IMG_0427.jpeg')" data-title="Commercial" data-blurb="Office spaces and commercial build-outs delivered on schedule, on budget, for South Florida businesses." data-href="#">
+        <span class="clabel">Commercial</span></button>
+  </nav>
+</main>
+<script>
+ const hero=document.getElementById('hero'), title=document.getElementById('cTitle'), lead=document.getElementById('cLead'), enter=document.getElementById('cEnter');
+ document.querySelectorAll('.choice').forEach(btn=>{
+   btn.addEventListener('mouseenter',()=>activate(btn));
+   btn.addEventListener('click',()=>{activate(btn); const h=btn.dataset.href; if(h && h!=='#') location.href=h;});
+ });
+ function activate(btn){
+   document.querySelectorAll('.choice').forEach(b=>b.classList.remove('active'));
+   btn.classList.add('active');
+   hero.style.setProperty('--bg', btn.dataset.bg);
+   title.textContent=btn.dataset.title; lead.textContent=btn.dataset.blurb; enter.setAttribute('href',btn.dataset.href);
+ }
+</script></body></html>
