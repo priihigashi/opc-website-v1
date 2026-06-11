@@ -112,6 +112,7 @@
       <a href="${base}projects/nc-fullbleed.html">▦ Viewer Fullbleed</a>
       <a href="${base}projects/nc-horizontal.html">▦ Viewer Horizontal</a>
       <a href="${base}projects/nc-stacked-swiper.html">▦ Viewer Stacked-Swiper</a>
+      <a href="${base}projects/nc-projectcards.html">▦ Viewer Project-Cards</a>
     </div>
     <span class="opc-close" id="opc-close-btn">✕</span>
   `;
