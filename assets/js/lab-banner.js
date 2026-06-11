@@ -102,16 +102,6 @@
       <a href="${base}gallery.html">🖼 Projects Gallery</a>
       <a href="${base}gallery-3d.html">🖼 Gallery 3D</a>
       <a href="${base}gallery-3d-v2.html">🖼 Gallery 3D v2</a>
-      <a href="${base}gallery-3d-v3.html">🖼 Gallery 3D v3 glass</a>
-      <a href="${base}gallery-3d-v4.html">🖼 Gallery 3D v4 thick</a>
-      <a href="${base}gallery-3d-v5.html">🖼 Gallery 3D v5 glow</a>
-      <a href="${base}gallery-3d-v6.html">🖼 Gallery 3D v6 real3D</a>
-      <a href="${base}gallery-3d-v7.html">🖼 Gallery 3D v7 stack</a>
-      <a href="${base}gallery-3d-v8.html">🖼 Gallery 3D v8 up</a>
-      <a href="${base}gallery-3d-v9.html">🖼 Gallery 3D v9 corners</a>
-      <a href="${base}gallery-3d-v10.html">🖼 Gallery 3D v10 tight</a>
-      <a href="${base}gallery-3d-v11.html">🖼 Gallery 3D v11</a>
-      <a href="${base}gallery-3d-v12.html">🖼 Gallery 3D v12 FINAL</a>
       <a href="${base}gallery-3d-v13.html">🖼 Gallery 3D v13</a>
       <a href="${base}gallery-list.html">🖼 Gallery List</a>
       <a href="${base}gallery-showcase.html">🖼 Gallery Showcase</a>
