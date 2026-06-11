@@ -43,3 +43,15 @@ How to organize "projects":
 1. Write `projects.json` (the map) — one entry per project with its image list.
 2. Build ONE `gallery.html` (dark, home-b style) + ONE `project.html` template + wire the existing swiper as the per-project viewer.
 3. Scales forever: new project = JSON entry + photos, no new code.
+
+---
+
+## gallery-3d — GLOW/PARTICLES UPGRADE (planned 2026-06-11, for next chat)
+Polish the 3D pile into a "magical floating stack of glass cards." **Keep** the steep PKQONZ skew(60,-15) rotateX(40) + the current title font. **Save versions, don't overwrite.**
+1. Lift the pile up so bottom cards aren't cropped at the viewport edge.
+2. Reduce vertical text stretch → skewed titles easier to read.
+3. Fix top-right collision: "01" number vs "Coming soon" badge overlap → separate.
+4. Tiny floating particles around the pile (magical float).
+5. Soft glow at the bottom of the pile; stronger on hover/select.
+6. Glassmorphism + glow aesthetic. Refs (Inspiration tab): Dribbble "Glow Card Design" https://dribbble.com/shots/26140947-Glow-Card-Design + glass-card images.
+Showcase (gallery-showcase.html) is Priscila's current favorite; this competes.
