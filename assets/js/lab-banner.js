@@ -100,13 +100,11 @@
       <a href="${base}property-gallery-b.html">🖼 Gallery (matched)</a>
       <a href="${base}property-gallery.html">🖼 Gallery v1</a>
       <a href="${base}gallery.html">🖼 Projects Gallery</a>
-      <a href="${base}gallery-3d.html">🖼 Gallery 3D</a>
       <a href="${base}gallery-3d-v2.html">🖼 Gallery 3D v2</a>
       <a href="${base}gallery-3d-v13.html">🖼 Gallery 3D v13</a>
       <a href="${base}gallery-list.html">🖼 Gallery List</a>
       <a href="${base}gallery-showcase.html">🖼 Gallery Showcase</a>
       <a href="${base}gallery-bg-v3.html">🖼 BG v3 glass</a>
-      <a href="${base}gallery-bg-v1.html">🖼 BG v1 (restored)</a>
       <a href="${base}projects/new-construction-additions.html">🖼 Project · New Constr</a>
       <a href="${base}projects/nc-stacked.html">▦ Viewer B Stacked</a>
       <a href="${base}projects/nc-grid.html">▦ Viewer Grid</a>
