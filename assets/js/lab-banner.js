@@ -108,10 +108,10 @@
       <a href="${base}gallery-bg-v3.html">🖼 BG v3 glass</a>
       <a href="${base}projects/new-construction-additions.html">🖼 Project · New Constr</a>
       <a href="${base}projects/nc-stacked.html">▦ Viewer B Stacked</a>
-      <a href="${base}projects/nc-collage.html">▦ Viewer D Collage</a>
       <a href="${base}projects/nc-grid.html">▦ Viewer Grid</a>
       <a href="${base}projects/nc-fullbleed.html">▦ Viewer Fullbleed</a>
       <a href="${base}projects/nc-horizontal.html">▦ Viewer Horizontal</a>
+      <a href="${base}projects/nc-stacked-swiper.html">▦ Viewer Stacked-Swiper</a>
     </div>
     <span class="opc-close" id="opc-close-btn">✕</span>
   `;
