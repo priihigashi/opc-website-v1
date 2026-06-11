@@ -111,7 +111,7 @@
       <a href="${base}projects/nc-stacked.html">▦ Viewer B Stacked</a>
       <a href="${base}projects/nc-grid.html">▦ Viewer Grid</a>
       <a href="${base}projects/nc-fullbleed.html">▦ Viewer Fullbleed</a>
-      <a href="${base}projects/nc-stacked-swiper.html">▦ Viewer Stacked-Swiper</a>
+      <a href="${base}projects/nc-stacked-swiper.html">⭐ Viewer Stacked-Swiper</a>
       <a href="${base}projects/nc-projectcards.html">▦ Viewer Project-Cards</a>
     </div>
     <span class="opc-close" id="opc-close-btn">✕</span>
