@@ -112,6 +112,7 @@
       <a href="${base}gallery-3d-v10.html">🖼 Gallery 3D v10 tight</a>
       <a href="${base}gallery-3d-v11.html">🖼 Gallery 3D v11</a>
       <a href="${base}gallery-3d-v12.html">🖼 Gallery 3D v12 FINAL</a>
+      <a href="${base}gallery-3d-v13.html">🖼 Gallery 3D v13</a>
       <a href="${base}gallery-list.html">🖼 Gallery List</a>
       <a href="${base}gallery-showcase.html">🖼 Gallery Showcase</a>
       <a href="${base}projects/new-construction-additions.html">🖼 Project · New Constr</a>
