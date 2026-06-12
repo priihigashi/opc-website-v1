@@ -86,3 +86,11 @@ Showcase (gallery-showcase.html) is Priscila's current favorite; this competes.
 - **Lab banner** (top of every page) — all live versions clickable
 - **Build Tracker** sheet `1q0_v9q…` 🧪 Prototypes + 🔖 Inspiration tabs — kept galleries + all inspo links
 - **This doc** (`GALLERY_PLAN.md`) + `OPC_WEBSITE_STATE.md` — decisions
+
+---
+
+## ✅ FINAL WIRED STATE — 2026-06-12 (autonomous build session complete)
+**Flow:** index.html (promoted home-b) → entry gallery (V1 Deck = default; V2 3D; V3 Swap via switcher pill) → category viewer (⭐ stacked-swiper template).
+**Viewers (all live, SEO'd, animated):** nc-stacked-swiper-v2 (NC&A ⭐, 4 projects) · full-home-remodel (4) · shell-concrete (5) · kitchen-bath (2) · outdoor-exterior (3) · commercial (1).
+**New Drive jobs added:** 528 NE 8th Ave Victoria Park, Kinney Build (→ ⭐), 9720 SW 92nd Ter + 122 Dockside sitework (→ shell-concrete), 1270 Harbor Ct (→ outdoor). 40 photos in assets/img/mike/drive/.
+**Site-wide:** warm-black palette unified (20 pages), sitemap 27 URLs, count-up + scroll-reveal animations, audit (Explore agent) passed — 4 minor findings all fixed (033e113).
