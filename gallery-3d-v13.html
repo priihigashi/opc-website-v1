@@ -50,6 +50,10 @@
  footer .wm{font-family:'Anton',sans-serif;font-size:26px;letter-spacing:2px;border-bottom:4px solid var(--lime);padding-bottom:8px;display:inline-block;}
  footer .lic{font-family:'Roboto Mono',monospace;font-size:13px;color:var(--lime);margin-top:14px;}
  @media(max-width:760px){.stack{grid-template-columns:1fr;max-width:420px;} nav.top .links{display:none;}}
+.gswitch{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:95;display:flex;align-items:center;gap:6px;padding:7px 10px;background:rgba(20,19,9,.6);border:1px solid rgba(240,235,227,.18);border-radius:999px;backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%)}
+.gswitch span{font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,235,227,.5);margin:0 4px}
+.gswitch a{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--cream);padding:7px 14px;border-radius:999px;transition:.25s}
+.gswitch a:hover{color:var(--lime)}.gswitch a.on{background:var(--lime);color:#141309;font-weight:600}
 </style></head><body>
 <canvas id="particles"></canvas>
 <nav class="top"><a href="index.html" class="brand">OAK PARK <span class="lime">CONSTRUCTION</span></a>
@@ -57,7 +61,7 @@
 <header class="head"><div class="label">Our Work</div><h1>Real <span class="serif">Projects.</span></h1>
 <p>Real Oak Park Construction work across South Florida — hover a category to step in.</p></header>
 <main class="stack"><div class="pile-glow"></div>
-      <a class="gcard" href="projects/new-construction-additions.html" style="--i:0">
+      <a class="gcard" href="projects/nc-stacked-swiper-v2.html" style="--i:0">
         <div class="slab">
           <div class="face front" style="background-image:url('https://oakpark-construction.com/wp-content/uploads/2025/06/new-construction-build-full-home-remodel-concrete-shell-kitchen-bath-08.jpg')"><div class="veil"></div></div>
           <div class="face bottom"></div>
@@ -68,7 +72,7 @@
           <div class="go"><span>18 Photos</span><span class="view">View Project <em>&rarr;</em></span></div></div>
         
       </a>
-      <a class="gcard" href="#" style="--i:1">
+      <a class="gcard" href="projects/full-home-remodel.html" style="--i:1">
         <div class="slab">
           <div class="face front" style="background-image:url('assets/img/mike/kitchens/IMG_2877.jpeg')"><div class="veil"></div></div>
           <div class="face bottom"></div>
@@ -77,9 +81,8 @@
         </div>
         <div class="reveal"><div class="num">02</div><h3>Full Home Remodel</h3>
           <div class="go"><span>52 Photos</span><span class="view">View Project <em>&rarr;</em></span></div></div>
-        <span class="soon">Coming soon</span>
       </a>
-      <a class="gcard" href="#" style="--i:2">
+      <a class="gcard" href="projects/shell-concrete.html" style="--i:2">
         <div class="slab">
           <div class="face front" style="background-image:url('https://oakpark-construction.com/wp-content/uploads/2025/06/new-construction-build-full-home-remodel-concrete-shell-construction-1.jpg')"><div class="veil"></div></div>
           <div class="face bottom"></div>
@@ -88,9 +91,8 @@
         </div>
         <div class="reveal"><div class="num">03</div><h3>Shell & Concrete</h3>
           <div class="go"><span>21 Photos</span><span class="view">View Project <em>&rarr;</em></span></div></div>
-        <span class="soon">Coming soon</span>
       </a>
-      <a class="gcard" href="#" style="--i:3">
+      <a class="gcard" href="projects/kitchen-bath.html" style="--i:3">
         <div class="slab">
           <div class="face front" style="background-image:url('https://oakpark-construction.com/wp-content/uploads/2025/05/IMG_2843.jpg')"><div class="veil"></div></div>
           <div class="face bottom"></div>
@@ -99,9 +101,8 @@
         </div>
         <div class="reveal"><div class="num">04</div><h3>Kitchen & Bath</h3>
           <div class="go"><span>Gallery</span><span class="view">View Project <em>&rarr;</em></span></div></div>
-        <span class="soon">Coming soon</span>
       </a>
-      <a class="gcard" href="#" style="--i:4">
+      <a class="gcard" href="projects/outdoor-exterior.html" style="--i:4">
         <div class="slab">
           <div class="face front" style="background-image:url('assets/img/mike/exterior-patio-builds/clark-pergola-IMG_4626.jpeg')"><div class="veil"></div></div>
           <div class="face bottom"></div>
@@ -110,9 +111,8 @@
         </div>
         <div class="reveal"><div class="num">05</div><h3>Outdoor & Exterior</h3>
           <div class="go"><span>13 Photos</span><span class="view">View Project <em>&rarr;</em></span></div></div>
-        <span class="soon">Coming soon</span>
       </a>
-      <a class="gcard" href="#" style="--i:5">
+      <a class="gcard" href="projects/commercial.html" style="--i:5">
         <div class="slab">
           <div class="face front" style="background-image:url('assets/img/mike/commercial-build-out/plantation-beauty-salon-IMG_0427.jpeg')"><div class="veil"></div></div>
           <div class="face bottom"></div>
@@ -121,7 +121,6 @@
         </div>
         <div class="reveal"><div class="num">06</div><h3>Commercial</h3>
           <div class="go"><span>Gallery</span><span class="view">View Project <em>&rarr;</em></span></div></div>
-        <span class="soon">Coming soon</span>
       </a>
 </main>
 <footer><div class="wm">OAK PARK CONSTRUCTION</div><div class="lic">FL CBC1263425 · INSURED · BROWARD · PALM BEACH · MIAMI-DADE</div></footer>
@@ -131,4 +130,5 @@ function rs(){W=c.width=innerWidth*devicePixelRatio;H=c.height=innerHeight*devic
 for(let i=0;i<70;i++)P.push({x:Math.random()*W,y:H*0.5+Math.random()*H*0.5,r:(Math.random()*0.9+0.25)*devicePixelRatio,vx:(Math.random()-.5)*.06,vy:-(Math.random()*.05+.015),a:Math.random()*.45+.15,p:Math.random()*6.28});
 (function t(){x.clearRect(0,0,W,H);for(const o of P){o.x+=o.vx;o.y+=o.vy;o.p+=.012;if(o.x<0)o.x=W;if(o.x>W)o.x=0;if(o.y<H*0.45){o.y=H;o.x=Math.random()*W;}const al=o.a*(.5+Math.sin(o.p)*.5);x.beginPath();x.arc(o.x,o.y,o.r,0,6.28);x.fillStyle='rgba(240,238,225,'+al*.8+')';x.shadowBlur=2*devicePixelRatio;x.shadowColor='rgba(203,204,16,.5)';x.fill();}requestAnimationFrame(t);})();
 })();
-</script></body></html>
+</script><div class="gswitch"><span>Style</span><a href="gallery-showcase.html">V1 · Deck</a><a href="gallery-3d-v13.html" class="on">V2 · 3D</a><a href="gallery-bg-v3.html">V3 · Swap</a></div>
+</body></html>

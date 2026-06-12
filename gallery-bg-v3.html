@@ -34,6 +34,10 @@
  .choice:hover{transform:translateY(-3px);border-color:rgba(203,204,16,.6);}
  .choice.active{border-color:var(--lime);box-shadow:0 0 0 2px rgba(203,204,16,.3), 0 0 44px rgba(203,204,16,.28);transform:translateY(-3px);}
  @media(max-width:980px){nav.top .links{display:none;} .hero{flex-direction:column;justify-content:center;align-items:flex-start;} .choices{position:static;transform:none;margin-top:30px;grid-template-columns:repeat(3,1fr);width:100%;} .copy h1{font-size:38px;}}
+.gswitch{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:95;display:flex;align-items:center;gap:6px;padding:7px 10px;background:rgba(20,19,9,.6);border:1px solid rgba(240,235,227,.18);border-radius:999px;backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%)}
+.gswitch span{font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,235,227,.5);margin:0 4px}
+.gswitch a{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--cream);padding:7px 14px;border-radius:999px;transition:.25s}
+.gswitch a:hover{color:var(--lime)}.gswitch a.on{background:var(--lime);color:#141309;font-weight:600}
 </style></head><body>
 <nav class="top"><a href="index.html" class="brand">OAK PARK <span class="lime">CONSTRUCTION</span></a>
 <div class="links"><a href="index.html">Home</a><a href="about.html">About</a><a href="how-it-works.html">How We Work</a><a href="contact.html">Contact</a></div></nav>
@@ -43,26 +47,26 @@
     <div class="eyebrow">Our Work · Explore by Category</div>
     <h1 id="cTitle">New Construction & Additions</h1>
     <p class="lead" id="cLead">From the first footing to the final walk-through, we build custom homes whole — and add space that blends seamlessly with the home you already love.</p>
-    <a class="enter" id="cEnter" href="projects/new-construction-additions.html">Enter Gallery <em>&rarr;</em></a>
+    <a class="enter" id="cEnter" href="projects/nc-stacked-swiper-v2.html">Enter Gallery <em>&rarr;</em></a>
   </section>
   <nav class="choices" aria-label="Project categories">
       <button class="choice active" data-i="0" style="--thumb:url('https://oakpark-construction.com/wp-content/uploads/2025/06/new-construction-build-full-home-remodel-concrete-shell-kitchen-bath-08.jpg')"
         data-bg="url('https://oakpark-construction.com/wp-content/uploads/2025/06/new-construction-build-full-home-remodel-concrete-shell-kitchen-bath-08.jpg')" data-title="New Construction & Additions" data-blurb="From the first footing to the final walk-through, we build custom homes whole — and add space that blends seamlessly with the home you already love." data-href="projects/new-construction-additions.html">
         <span class="clabel">New Construction</span></button>
       <button class="choice" data-i="1" style="--thumb:url('assets/img/mike/kitchens/IMG_2877.jpeg')"
-        data-bg="url('assets/img/mike/kitchens/IMG_2877.jpeg')" data-title="Full Home Remodel" data-blurb="From small updates to down-to-the-studs makeovers, we transform whole homes — one accountable crew from demo day to the reveal." data-href="#">
+        data-bg="url('assets/img/mike/kitchens/IMG_2877.jpeg')" data-title="Full Home Remodel" data-blurb="From small updates to down-to-the-studs makeovers, we transform whole homes — one accountable crew from demo day to the reveal." data-href="projects/full-home-remodel.html">
         <span class="clabel">Full Remodel</span></button>
       <button class="choice" data-i="2" style="--thumb:url('https://oakpark-construction.com/wp-content/uploads/2025/05/IMG_2843.jpg')"
-        data-bg="url('https://oakpark-construction.com/wp-content/uploads/2025/05/IMG_2843.jpg')" data-title="Kitchen & Bath" data-blurb="The rooms that sell a home, built right behind the finish — custom cabinetry and waterproofed baths, designed and built in-house." data-href="#">
+        data-bg="url('https://oakpark-construction.com/wp-content/uploads/2025/05/IMG_2843.jpg')" data-title="Kitchen & Bath" data-blurb="The rooms that sell a home, built right behind the finish — custom cabinetry and waterproofed baths, designed and built in-house." data-href="projects/kitchen-bath.html">
         <span class="clabel">Kitchen & Bath</span></button>
       <button class="choice" data-i="3" style="--thumb:url('https://oakpark-construction.com/wp-content/uploads/2025/06/new-construction-build-full-home-remodel-concrete-shell-construction-1.jpg')"
-        data-bg="url('https://oakpark-construction.com/wp-content/uploads/2025/06/new-construction-build-full-home-remodel-concrete-shell-construction-1.jpg')" data-title="Shell & Concrete" data-blurb="The parts that hold everything up — structural shell, foundations, slabs, driveways and pavers, poured by our own crew for longevity." data-href="#">
+        data-bg="url('https://oakpark-construction.com/wp-content/uploads/2025/06/new-construction-build-full-home-remodel-concrete-shell-construction-1.jpg')" data-title="Shell & Concrete" data-blurb="The parts that hold everything up — structural shell, foundations, slabs, driveways and pavers, poured by our own crew for longevity." data-href="projects/shell-concrete.html">
         <span class="clabel">Shell · Concrete</span></button>
       <button class="choice" data-i="4" style="--thumb:url('assets/img/mike/exterior-patio-builds/clark-pergola-IMG_4626.jpeg')"
-        data-bg="url('assets/img/mike/exterior-patio-builds/clark-pergola-IMG_4626.jpeg')" data-title="Outdoor & Exterior" data-blurb="From pergolas and outdoor kitchens to patios and pavers, we extend your home outside with spaces built for South Florida living." data-href="#">
+        data-bg="url('assets/img/mike/exterior-patio-builds/clark-pergola-IMG_4626.jpeg')" data-title="Outdoor & Exterior" data-blurb="From pergolas and outdoor kitchens to patios and pavers, we extend your home outside with spaces built for South Florida living." data-href="projects/outdoor-exterior.html">
         <span class="clabel">Outdoor</span></button>
       <button class="choice" data-i="5" style="--thumb:url('assets/img/mike/commercial-build-out/plantation-beauty-salon-IMG_1008.JPG')"
-        data-bg="url('assets/img/mike/commercial-build-out/plantation-beauty-salon-IMG_1008.JPG')" data-title="Commercial" data-blurb="Office spaces and commercial build-outs delivered on schedule, on budget, for South Florida businesses." data-href="#">
+        data-bg="url('assets/img/mike/commercial-build-out/plantation-beauty-salon-IMG_1008.JPG')" data-title="Commercial" data-blurb="Office spaces and commercial build-outs delivered on schedule, on budget, for South Florida businesses." data-href="projects/commercial.html">
         <span class="clabel">Commercial</span></button>
   </nav>
 </main>
@@ -78,4 +82,5 @@
    hero.style.setProperty('--bg', btn.dataset.bg);
    title.textContent=btn.dataset.title; lead.textContent=btn.dataset.blurb; enter.setAttribute('href',btn.dataset.href);
  }
-</script></body></html>
+</script><div class="gswitch"><span>Style</span><a href="gallery-showcase.html">V1 · Deck</a><a href="gallery-3d-v13.html">V2 · 3D</a><a href="gallery-bg-v3.html" class="on">V3 · Swap</a></div>
+</body></html>
