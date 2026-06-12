@@ -109,9 +109,7 @@
       <a href="${base}projects/nc-stacked.html">▦ Viewer B Stacked</a>
       <a href="${base}projects/nc-grid.html">▦ Viewer Grid</a>
       <a href="${base}projects/nc-fullbleed.html">▦ Viewer Fullbleed</a>
-      <a href="${base}projects/nc-stacked-swiper.html">⭐ Viewer Stacked-Swiper</a>
-      <a href="${base}projects/nc-projectcards.html">▦ Viewer Project-Cards</a>
-      <a href="${base}projects/nc-stacked-swiper-v2.html">▦ Stacked-Swiper v2 left</a>
+      <a href="${base}projects/nc-stacked-swiper-v2.html">⭐ Stacked-Swiper v2 SUPER</a>
       <a href="${base}projects/nc-projectcards-v2.html">▦ Project-Cards v2 menu</a>
     </div>
     <span class="opc-close" id="opc-close-btn">✕</span>
