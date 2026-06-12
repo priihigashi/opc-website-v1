@@ -135,6 +135,11 @@
     .svc{grid-template-columns:40px 1fr;gap:16px;} .svc .sc{display:none;}
     .owners-sec{grid-template-columns:1fr;gap:40px;} .area-grid{grid-template-columns:1fr;} .ba-grid{grid-template-columns:1fr;} .hero img.bg,.hero .scrim,.hero .haze{clip-path:inset(0 0 40px 0);} .hero .h-wrap{padding:0 22px;} footer .grid{grid-template-columns:1fr;}
   }
+
+  /* scroll-reveal + stat count-up (tasteful, reduced-motion safe) */
+  .rv{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+  .rv.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion: reduce){.rv{opacity:1;transform:none;transition:none}}
 </style>
 </head>
 <body>
@@ -260,6 +265,22 @@
 </script>
 <script>
   (function(){var hl=document.getElementById('heroLead');if(hl)hl.addEventListener('submit',function(e){e.preventDefault();document.getElementById('heroLeadMsg').textContent="Thanks \u2014 we'll reply within 24 hours.";hl.reset();});})();
+</script>
+<script>
+(function(){
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var secs=document.querySelectorAll('.statement,.services .head,.svc,.ba-card,.area,.cta .in,.owners-sec,footer .grid');
+  secs.forEach(function(el,i){el.classList.add('rv');el.style.transitionDelay=(Math.min(i%6,4)*60)+'ms';});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
+  document.querySelectorAll('.rv').forEach(function(el){io.observe(el);});
+  // stat count-up
+  var done=false;
+  function countUp(el){var raw=el.textContent.trim();var m=raw.match(/^(\d+)(.*)$/);if(!m)return;var target=+m[1],suf=m[2]||'';var t0=null;
+    function step(ts){if(!t0)t0=ts;var p=Math.min(1,(ts-t0)/1100);var ease=1-Math.pow(1-p,3);el.textContent=Math.round(target*ease)+suf;if(p<1)requestAnimationFrame(step);}
+    requestAnimationFrame(step);}
+  var meta=document.querySelector('.statement .meta');
+  if(meta){var io2=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!done){done=true;meta.querySelectorAll('.n').forEach(countUp);io2.disconnect();}});},{threshold:.4});io2.observe(meta);}
+})();
 </script>
 </body>
 </html>
