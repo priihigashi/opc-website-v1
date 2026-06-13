@@ -15,12 +15,12 @@ nav.top .links{display:flex;gap:24px}nav.top .links a{font-family:'Roboto Mono',
 .f .ok{display:none;margin-top:16px;text-align:center;font-family:'Roboto Mono',monospace;font-size:13px;color:var(--lime)}
 footer{position:relative;z-index:2;text-align:center;padding:46px 40px 38px;border-top:1px solid var(--line)}
 footer .wm{font-family:'Anton',sans-serif;font-size:22px;letter-spacing:2px;border-bottom:4px solid var(--lime);padding-bottom:7px;display:inline-block}footer .lic{font-family:'Roboto Mono',monospace;font-size:12px;color:var(--lime);margin-top:11px}body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(circle at 50% 20%,rgba(203,204,16,.06),transparent 55%)}
-.head{position:relative;z-index:2;text-align:center;padding:60px 24px 8px}
-.head h1{font-size:clamp(52px,8vw,116px)}.head h1 .serif{font-size:1.12em}
+.head{position:relative;z-index:2;text-align:center;padding:22px 24px 0}
+.head h1{font-size:clamp(38px,5vw,66px)}.head h1 .serif{font-size:1.12em}
 .head p{margin:18px auto 0;font-family:'Roboto Mono',monospace;font-size:13.5px;line-height:1.7;color:rgba(240,235,227,.7);max-width:520px}
-.row{position:relative;z-index:2;max-width:1180px;margin:40px auto 70px;padding:0 40px;display:grid;grid-template-columns:1.1fr .9fr;gap:26px;align-items:stretch}
-.card{background:rgba(240,235,227,.05);border:1px solid var(--line);border-radius:20px;padding:30px;backdrop-filter:blur(20px)}
-.photo{border-radius:20px;overflow:hidden;border:1px solid var(--line);position:relative;min-height:420px}
+.row{position:relative;z-index:2;max-width:1180px;margin:20px auto 36px;padding:0 40px;display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:stretch}
+.card{background:rgba(240,235,227,.05);border:1px solid var(--line);border-radius:18px;padding:20px 22px;backdrop-filter:blur(20px)}
+.photo{border-radius:18px;overflow:hidden;border:1px solid var(--line);position:relative;min-height:0}
 .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 70%;filter:brightness(.8) saturate(.85)}
 .photo .ov{position:absolute;left:22px;bottom:20px;right:22px}
 .photo .ov .k{font-family:'Roboto Mono',monospace;font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--lime)}
@@ -29,19 +29,26 @@ footer .wm{font-family:'Anton',sans-serif;font-size:22px;letter-spacing:2px;bord
 .s{border:1px solid var(--line);border-radius:14px;padding:18px;text-align:center;background:rgba(240,235,227,.04)}
 .s .k{font-family:'Roboto Mono',monospace;font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,235,227,.55)}
 .s .v{font-family:'Anton',sans-serif;font-size:20px;margin-top:6px;text-transform:uppercase}.s .v a:hover{color:var(--lime)}
-@media(max-width:880px){.row,.strip{grid-template-columns:1fr;padding:0 20px}nav.top .links{display:none}}</style></head><body><nav class="top"><a href="index.html" class="brand">OAK PARK <span class="lime">CONSTRUCTION</span></a><div class="links"><a href="index.html">Home</a><a href="gallery-showcase.html">Our Work</a><a href="about.html">About</a><a href="how-it-works.html">How We Work</a></div></nav><header class="head"><div class="label">Ready when you are</div><h1>Let's <span class="serif">build it.</span></h1><p>Send the form, call, or text — Michael or Matthew replies within one business day.</p></header><main class="row"><div class="card"><form class="f" id="leadForm">
+@media(max-width:880px){.row,.strip{grid-template-columns:1fr;padding:0 20px}nav.top .links{display:none}}.cswitch{position:fixed;right:18px;bottom:18px;z-index:95;display:flex;align-items:center;gap:6px;padding:6px 9px;background:rgba(20,19,9,.65);border:1px solid rgba(240,235,227,.18);border-radius:999px;backdrop-filter:blur(16px) saturate(140%)}
+.cswitch span{font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,235,227,.5);margin:0 4px}
+.cswitch a{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--cream);padding:6px 12px;border-radius:999px;transition:.25s}
+.cswitch a:hover{color:var(--lime)}.cswitch a.on{background:var(--lime);color:#141309;font-weight:600}.f .grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+.f label{margin:10px 0 5px;font-size:10px}
+.f input,.f select,.f textarea{padding:10px 13px;font-size:13px;border-radius:10px}
+.f textarea{min-height:56px}
+.f button{margin-top:14px;padding:13px;font-size:12px}
+.f .priv{margin-top:9px;font-size:10.5px}
+</style></head><body><nav class="top"><a href="index.html" class="brand">OAK PARK <span class="lime">CONSTRUCTION</span></a><div class="links"><a href="index.html">Home</a><a href="gallery-showcase.html">Our Work</a><a href="about.html">About</a><a href="how-it-works.html">How We Work</a></div></nav><header class="head"><div class="label">Ready when you are</div><h1>Let's <span class="serif">build it.</span></h1><p>Send the form, call, or text — Michael or Matthew replies within one business day.</p></header><main class="row"><div class="card"><form class="f" id="leadForm">
   <!-- TODO backend: set action to Formspree/Web3Forms endpoint (FORM-1) -->
   <input type="hidden" name="source_page" id="srcPage"><input type="hidden" name="referrer" id="srcRef">
-  <label>Full name</label><input type="text" name="name" placeholder="So we know who we're talking to" required>
-  <label>Phone</label><input type="tel" name="phone" placeholder="Best number to reach you — we don't share it" required>
-  <label>Email</label><input type="email" name="email" placeholder="Where we'll send your estimate" required>
-  <label>Project ZIP / city</label><input type="text" name="zip" placeholder="Helps us confirm we serve your area" required>
+  <div class="grid2"><div><label>Full name</label><input type="text" name="name" placeholder="So we know who we're talking to" required></div><div><label>Phone</label><input type="tel" name="phone" placeholder="Best number to reach you — we don't share it" required></div><div><label>Email</label><input type="email" name="email" placeholder="Where we'll send your estimate" required></div><div><label>Project ZIP / city</label><input type="text" name="zip" placeholder="Helps us confirm we serve your area" required></div></div>
   <label>Service</label><select name="service"><option>Not sure yet</option><option>New Construction</option><option>Addition</option><option>Full Home Remodel</option><option>Kitchen</option><option>Bathroom</option><option>Shell / Concrete</option><option>Outdoor / Exterior</option><option>Commercial</option></select>
   <label>Tell us about the project</label><textarea name="message" placeholder="A sentence is plenty. Timeline, budget range, and what you're picturing all help."></textarea>
   <button type="submit">Send — Get My Free Estimate</button>
   <div class="ok" id="okMsg">Got it — thank you. Michael or Matthew will reach out within one business day.</div>
   <div class="priv">We only use your details to respond to your inquiry — no spam, never sold.</div>
-</form></div><div class="photo"><img src="assets/img/mike/exterior-patio-builds/clark-pergola-IMG_4626.jpeg" alt="Clark pergola outdoor kitchen by Oak Park Construction"><div class="ov"><div class="k">Recent build</div><div class="v">Clark Pergola · Outdoor Kitchen</div></div></div></main><div class="strip"><div class="s"><div class="k">Call or text</div><div class="v"><a href="tel:9542586769">(954) 258-6769</a></div></div><div class="s"><div class="k">Owners</div><div class="v">Michael &amp; Matthew</div></div><div class="s"><div class="k">Licensed FL GC</div><div class="v">CBC1263425</div></div></div><footer><div class="wm">OAK PARK CONSTRUCTION</div><div class="lic">FL CBC1263425 · INSURED · BROWARD · PALM BEACH · MIAMI-DADE · (954) 258-6769</div></footer><script>
+</form></div><div class="photo"><img src="assets/img/mike/exterior-patio-builds/clark-pergola-IMG_4626.jpeg" alt="Clark pergola outdoor kitchen by Oak Park Construction"><div class="ov"><div class="k">Recent build</div><div class="v">Clark Pergola · Outdoor Kitchen</div><div class="k" style="margin-top:12px">Call or text</div><div class="v"><a href="tel:9542586769">(954) 258-6769</a></div><div class="k" style="margin-top:8px">Licensed FL GC</div><div class="v">CBC1263425</div></div></div></main><footer><div class="wm">OAK PARK CONSTRUCTION</div><div class="lic">FL CBC1263425 · INSURED · BROWARD · PALM BEACH · MIAMI-DADE · (954) 258-6769</div></footer><script>
 document.getElementById('srcPage').value=location.pathname;document.getElementById('srcRef').value=document.referrer||'direct';
 document.getElementById('leadForm').addEventListener('submit',function(e){e.preventDefault();document.getElementById('okMsg').style.display='block';this.querySelector('button').textContent='SENT ✓';});
-</script></body></html>
+</script><div class="cswitch"><span>Version</span><a href="contact-v1.html">V1</a><a href="contact-v2.html">V2</a><a href="contact-v3.html" class="on">V3</a></div>
+</body></html>

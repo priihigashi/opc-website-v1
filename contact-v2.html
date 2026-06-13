@@ -14,21 +14,27 @@ nav.top .links{display:flex;gap:24px}nav.top .links a{font-family:'Roboto Mono',
 .f .priv{margin-top:14px;font-size:11.5px;line-height:1.6;color:rgba(240,235,227,.45);text-align:center}
 .f .ok{display:none;margin-top:16px;text-align:center;font-family:'Roboto Mono',monospace;font-size:13px;color:var(--lime)}
 footer{position:relative;z-index:2;text-align:center;padding:46px 40px 38px;border-top:1px solid var(--line)}
-footer .wm{font-family:'Anton',sans-serif;font-size:22px;letter-spacing:2px;border-bottom:4px solid var(--lime);padding-bottom:7px;display:inline-block}footer .lic{font-family:'Roboto Mono',monospace;font-size:12px;color:var(--lime);margin-top:11px}.hero{position:relative;min-height:100vh;display:grid;place-items:center;padding:90px 24px 60px;isolation:isolate}
+footer .wm{font-family:'Anton',sans-serif;font-size:22px;letter-spacing:2px;border-bottom:4px solid var(--lime);padding-bottom:7px;display:inline-block}footer .lic{font-family:'Roboto Mono',monospace;font-size:12px;color:var(--lime);margin-top:11px}.hero{position:relative;height:100vh;display:grid;place-items:center;padding:74px 24px 28px;isolation:isolate}
 .hero img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.5) saturate(.74) contrast(.86);z-index:-2}
 .hero::after{content:"";position:absolute;inset:0;background:rgba(216,214,206,.07);z-index:-1}
 .hero .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,14,9,.55),rgba(15,14,9,.25) 40%,rgba(15,14,9,.7));z-index:-1}
-.card{width:min(620px,94vw);background:rgba(20,19,14,.55);border:1px solid rgba(240,235,227,.18);border-radius:24px;padding:38px 36px;backdrop-filter:blur(26px) saturate(150%);box-shadow:0 40px 90px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.16)}
-.card .label{margin-bottom:10px}.card h1{font-size:clamp(34px,4.6vw,54px)}.card h1 .serif{font-size:1.1em}
+.card{width:min(640px,94vw);background:rgba(20,19,14,.58);border:1px solid rgba(240,235,227,.18);border-radius:20px;padding:22px 26px;backdrop-filter:blur(26px) saturate(150%);box-shadow:0 40px 90px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.16)}
+.card .label{margin-bottom:10px}.card h1{font-size:clamp(26px,3.2vw,38px)}.card h1 .serif{font-size:1.1em}
 .card .ch{margin-top:10px;font-family:'Roboto Mono',monospace;font-size:12.5px;color:rgba(240,235,227,.65)}
-.alt{margin-top:16px;text-align:center;font-family:'Roboto Mono',monospace;font-size:12px;color:rgba(240,235,227,.55)}.alt a{color:var(--lime)}
-@media(max-width:760px){nav.top .links{display:none}}</style></head><body><nav class="top"><a href="index.html" class="brand">OAK PARK <span class="lime">CONSTRUCTION</span></a><div class="links"><a href="index.html">Home</a><a href="gallery-showcase.html">Our Work</a><a href="about.html">About</a><a href="how-it-works.html">How We Work</a></div></nav><main class="hero"><img class="bg" src="assets/img/mike/new-construction/122-dockside-cir-IMG_7853.jpeg" alt="Oak Park Construction custom home"><div class="scrim"></div><div class="card"><div class="label">Contact · Free Estimate</div><h1>Start a <span class="serif">project.</span></h1><div class="ch">Reply within one business day · No obligation · (954) 258-6769</div><form class="f" id="leadForm">
+.alt{margin-top:9px;text-align:center;font-family:'Roboto Mono',monospace;font-size:12px;color:rgba(240,235,227,.55)}.alt a{color:var(--lime)}
+@media(max-width:760px){nav.top .links{display:none}}.cswitch{position:fixed;right:18px;bottom:18px;z-index:95;display:flex;align-items:center;gap:6px;padding:6px 9px;background:rgba(20,19,9,.65);border:1px solid rgba(240,235,227,.18);border-radius:999px;backdrop-filter:blur(16px) saturate(140%)}
+.cswitch span{font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,235,227,.5);margin:0 4px}
+.cswitch a{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--cream);padding:6px 12px;border-radius:999px;transition:.25s}
+.cswitch a:hover{color:var(--lime)}.cswitch a.on{background:var(--lime);color:#141309;font-weight:600}.f .grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+.f label{margin:10px 0 5px;font-size:10px}
+.f input,.f select,.f textarea{padding:10px 13px;font-size:13px;border-radius:10px}
+.f textarea{min-height:56px}
+.f button{margin-top:14px;padding:13px;font-size:12px}
+.f .priv{margin-top:9px;font-size:10.5px}
+</style></head><body><nav class="top"><a href="index.html" class="brand">OAK PARK <span class="lime">CONSTRUCTION</span></a><div class="links"><a href="index.html">Home</a><a href="gallery-showcase.html">Our Work</a><a href="about.html">About</a><a href="how-it-works.html">How We Work</a></div></nav><main class="hero"><img class="bg" src="assets/img/mike/new-construction/122-dockside-cir-IMG_7853.jpeg" alt="Oak Park Construction custom home"><div class="scrim"></div><div class="card"><div class="label">Contact · Free Estimate</div><h1>Start a <span class="serif">project.</span></h1><div class="ch">Reply within one business day · No obligation · (954) 258-6769</div><form class="f" id="leadForm">
   <!-- TODO backend: set action to Formspree/Web3Forms endpoint (FORM-1) -->
   <input type="hidden" name="source_page" id="srcPage"><input type="hidden" name="referrer" id="srcRef">
-  <label>Full name</label><input type="text" name="name" placeholder="So we know who we're talking to" required>
-  <label>Phone</label><input type="tel" name="phone" placeholder="Best number to reach you — we don't share it" required>
-  <label>Email</label><input type="email" name="email" placeholder="Where we'll send your estimate" required>
-  <label>Project ZIP / city</label><input type="text" name="zip" placeholder="Helps us confirm we serve your area" required>
+  <div class="grid2"><div><label>Full name</label><input type="text" name="name" placeholder="So we know who we're talking to" required></div><div><label>Phone</label><input type="tel" name="phone" placeholder="Best number to reach you — we don't share it" required></div><div><label>Email</label><input type="email" name="email" placeholder="Where we'll send your estimate" required></div><div><label>Project ZIP / city</label><input type="text" name="zip" placeholder="Helps us confirm we serve your area" required></div></div>
   <label>Service</label><select name="service"><option>Not sure yet</option><option>New Construction</option><option>Addition</option><option>Full Home Remodel</option><option>Kitchen</option><option>Bathroom</option><option>Shell / Concrete</option><option>Outdoor / Exterior</option><option>Commercial</option></select>
   <label>Tell us about the project</label><textarea name="message" placeholder="A sentence is plenty. Timeline, budget range, and what you're picturing all help."></textarea>
   <button type="submit">Send — Get My Free Estimate</button>
@@ -37,4 +43,5 @@ footer .wm{font-family:'Anton',sans-serif;font-size:22px;letter-spacing:2px;bord
 </form><div class="alt">Prefer to talk? <a href="tel:9542586769">Call (954) 258-6769</a></div></div></main><footer><div class="wm">OAK PARK CONSTRUCTION</div><div class="lic">FL CBC1263425 · INSURED · BROWARD · PALM BEACH · MIAMI-DADE · (954) 258-6769</div></footer><script>
 document.getElementById('srcPage').value=location.pathname;document.getElementById('srcRef').value=document.referrer||'direct';
 document.getElementById('leadForm').addEventListener('submit',function(e){e.preventDefault();document.getElementById('okMsg').style.display='block';this.querySelector('button').textContent='SENT ✓';});
-</script></body></html>
+</script><div class="cswitch"><span>Version</span><a href="contact-v1.html">V1</a><a href="contact-v2.html" class="on">V2</a><a href="contact-v3.html">V3</a></div>
+</body></html>
