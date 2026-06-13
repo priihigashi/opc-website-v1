@@ -31,7 +31,7 @@
  .item .arr{position:absolute;right:0;bottom:24px;color:var(--lime);opacity:0;transform:translateX(-10px);transition:.3s;font-size:18px;}
  .item.active{padding-left:14px;} .item.active .idx{color:var(--lime);} .item.active .nm{color:var(--lime);} .item.active .arr{opacity:1;transform:translateX(0);}
  /* right: big preview that swaps */
- .prevcol{position:relative;overflow:hidden;}
+ .prevcol{position:relative;overflow-x:hidden;}
  .pv{position:absolute;inset:0;background-size:cover;background-position:center 70%;opacity:0;transform:scale(1.06);transition:opacity .6s ease, transform 1.2s ease;filter:brightness(.8) saturate(.8) contrast(.92);}
  .pv.active{opacity:1;transform:scale(1);}
  .prevcol::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,var(--black),transparent 26%);pointer-events:none;}
@@ -95,4 +95,5 @@
    document.querySelectorAll('.pv').forEach(p=>p.classList.toggle('active',+p.dataset.i===i));
    document.querySelectorAll('.item').forEach(it=>it.classList.toggle('active',+it.dataset.i===i));
  }
-</script></body></html>
+</script><footer style="position:relative;z-index:5;text-align:center;padding:42px 40px 36px;border-top:1px solid rgba(240,235,227,.14);background:var(--black,#1b1a13)"><div class="wm">OAK PARK CONSTRUCTION</div><div class="lic">FL CBC1263425 · INSURED · BROWARD · PALM BEACH · MIAMI-DADE · (954) 258-6769</div></footer>
+</body></html>

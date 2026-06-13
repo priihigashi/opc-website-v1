@@ -36,7 +36,7 @@
   /* swiper */
   .gal{flex:1;display:flex;align-items:center;min-height:0;padding:26px 0 0;}
   .swiper{width:100%;padding:10px 0;}
-  .swiper-slide{width:64%;max-width:920px;aspect-ratio:16/10;border-radius:6px;overflow:hidden;position:relative;opacity:.32;transition:opacity .45s, box-shadow .45s;border:1px solid var(--line);}
+  .swiper-slide{width:64%;max-width:920px;aspect-ratio:16/10;border-radius:6px;overflow-x:hidden;position:relative;opacity:.32;transition:opacity .45s, box-shadow .45s;border:1px solid var(--line);}
   .swiper-slide-active{opacity:1;box-shadow:0 40px 90px rgba(0,0,0,.6), 0 0 0 1px rgba(203,204,16,.35);}
   .swiper-slide .ps-img{position:absolute;inset:0;width:118%;height:100%;left:-9%;background-size:cover;background-position:center;will-change:transform;}
   .swiper-slide .veil{position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(5,5,5,.55));}
@@ -130,5 +130,6 @@
   sw.on('slideChange', caption);
   parallax(); caption();
 </script>
+<footer style="position:relative;z-index:5;text-align:center;padding:42px 40px 36px;border-top:1px solid rgba(240,235,227,.14);background:var(--black,#1b1a13)"><div class="wm">OAK PARK CONSTRUCTION</div><div class="lic">FL CBC1263425 · INSURED · BROWARD · PALM BEACH · MIAMI-DADE · (954) 258-6769</div></footer>
 </body>
 </html>
