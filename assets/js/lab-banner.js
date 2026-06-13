@@ -26,13 +26,15 @@
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid #CBCC10;
-      padding: 10px 24px;
-      display: flex; align-items: center; justify-content: center;
-      gap: 16px; flex-wrap: wrap;
+      padding: 8px 16px;
+      display: flex; align-items: center; justify-content: flex-start;
+      gap: 10px; flex-wrap: nowrap;
       font-family: 'Courier New', monospace;
       font-size: 11px; letter-spacing: 2px;
       color: #F0EBE3;
+      overflow-x: auto; scrollbar-width: none; white-space: nowrap;
     }
+    .opc-lab-banner::-webkit-scrollbar{display:none}
     .opc-lab-banner .opc-tag { color: #CBCC10; font-weight: 700; }
     .opc-lab-banner a {
       color: #CBCC10; text-decoration: none;
@@ -41,7 +43,7 @@
       transition: all 0.2s;
     }
     .opc-lab-banner a:hover { background: #CBCC10; color: #0A0A0A; }
-    .opc-lab-banner .opc-quick { display: flex; gap: 6px; flex-wrap: wrap; }
+    .opc-lab-banner .opc-quick { display: flex; gap: 6px; flex-wrap: nowrap; }
     .opc-lab-banner .opc-quick a {
       padding: 4px 10px; font-size: 10px;
       border-color: rgba(240,235,227,0.25);
@@ -55,7 +57,7 @@
       user-select: none;
     }
     .opc-lab-banner .opc-close:hover { opacity: 1; color: #CBCC10; }
-    body.opc-lab-active { padding-top: 50px; }
+    body.opc-lab-active { padding-top: 44px; }
     @media (max-width: 768px) {
       .opc-lab-banner .opc-quick { display: none; }
       .opc-lab-banner { font-size: 10px; padding: 8px 12px; }
