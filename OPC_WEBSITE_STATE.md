@@ -9,7 +9,7 @@
 - **Drive mirror of this doc:** https://docs.google.com/document/d/1j2Y1z6rYRBS9fwE1Uk4seMvUNk9jFMZA-SZDAuCSZ2E/edit (ID `1j2Y1z6rYRBS9fwE1Uk4seMvUNk9jFMZA-SZDAuCSZ2E`)
 - **Skill:** `/opc-website` (loader skill — reads this file on activation)
 
-Last updated: **2026-06-09**
+Last updated: **2026-06-15**
 
 ---
 
@@ -22,15 +22,15 @@ The site has moved out of prototype-chasing and into commercial MVP work. The lo
 - ⛔ Superseded/rejected for production: #15 Bathroom Waterproofing Wall, #16 Floor Plan → 3D Reveal, and #17 Stucco Layer Section. They stay in the lab for audit/history only.
 - 🟡 Future hero 3D should use rendered 3D object sources/forks, not line-art blueprints or flat CSS layer planes.
 
-**Commercial MVP focus now:** production contact form, contact page, projects gallery, analytics hooks, homepage promotion, city SEO, and legal/performance polish.
+**Commercial MVP focus now:** conversion plumbing (real form backend + analytics), production service proof (before/after, testimonials, 3D hero promotion), local SEO/city pages, image performance, and tracker/backlog cleanup against the now-live site.
 
 ---
 
 ## 🎯 CURRENT FOCUS
 
-- Lab phase — prototypes in `/prototypes/`, all `noindex,nofollow`. Production pages (root, services/*) are also live but not the final design.
-- Settling on a hero / cursor / 3D vocabulary by comparing prototypes side-by-side (LAB banner on every page lets you jump between them).
-- **Open right now:** finish commercial MVP gaps — real form backend, analytics/form hooks, homepage promotion readiness, city SEO, stucco service cleanup, and projects gallery expansion.
+- Production site is live on GitHub Pages with `home-b` promoted to `index.html`, gallery/category viewers built from real OPC photos, service pages live, and shared nav/font/footer/readability layers applied.
+- Prototypes remain in `/prototypes/` as lab/reference history, all `noindex,nofollow`; Ricardo-style 3D forks are the preferred future 3D family.
+- **Open right now:** real form backend, GA4/GTM + conversion tracking, 3D fork promotion into production service pages, before/after/testimonials, city SEO, image performance/WebP, and cleanup of stale Backlog rows in the canonical tracker.
 
 ---
 
@@ -218,6 +218,7 @@ Decision needed from Priscila on direction before build.
 
 ## 📝 ACTIVITY LOG (auto-appended by `/opc-website` skill after every report-back)
 
+- **2026-06-15** — Audited canonical tracker sheet `1q0_v9qYDXKURo59xoS-WISFdHbZWIdc9ukdCDbdDaUQ` against repo: confirmed it lives in Marketing › Website Projects, updated Service Pages rows to current live URLs/status, refreshed the fonts design decision, appended 11 missing prototype rows, added recent Done rows, and added Backlog task `T-900` for stale backlog cleanup.
 - **2026-06-12** — Alignment audit verified and tightened: 44 non-prototype pages now have canonical brand fonts, `opc-shared.css` as the final style layer, zero Roboto Condensed references, zero missing local refs, and standard `.wm`/`.lic` footer hooks; fixed leftover drift in `index-legacy.html`, `about.html`, `contact.html`, `privacy.html`, and `404.html`.
 - **2026-06-12** — FULL SITE BUILD SESSION (autonomous): all 6 category viewers built from ⭐ stacked-swiper template w/ real photos (40 new job photos pulled from OPC Drive ‘Mikes Photos & Videos’: Victoria Park, Kinney Build, 1270 Harbor Ct, 9720 SW 92nd Ter, 122 Dockside concrete); 5 entry galleries wired to viewers + V1 Deck/V2 3D/V3 Swap switcher; palette unified to warm black on 20 pages; about.html fonts fixed; home-b PROMOTED to index.html w/ production SEO + GeneralContractor schema (index-legacy.html kept); sitemap 27 URLs; count-up stats + scroll-reveal animations. Tracker updated (categorized Gallery Menu vs Viewers).
 - **2026-06-09** — Polished forks per Priscila (commit `338d00a`): house headline 'From slab to keys' (no dot) + more left gutter + idle sway; kitchen darker/browner + scaled-to-fit (0.78) + 'Down to the studs, back to life' + idle sway + constrained drag (full-spin was causing the mustard-flash/disappearing-cream-wall backface glitch). OPEN polish: (a) headlines are judgment calls — easy to swap if she wants different copy; (b) left-gutter consistency should be extended to ALL service pages (stucco/bath use different paddings); (c) kitchen drag glitch is mitigated via constrained range, not a true z-fighting fix — verify on live.
