@@ -4,11 +4,11 @@
 :root{--black:#1b1a13;--obsidian:#141309;--cream:#F0EBE3;--lime:#CBCC10;--line:rgba(240,235,227,.14);}
 /* ---- TOP NAV (nav.top, .site-nav, .hero-nav all normalized) ---- */
 nav.top,nav.site-nav,nav.hero-nav{padding:20px 40px !important;display:flex;justify-content:space-between;align-items:center;}
-nav.top .brand,nav.site-nav .logo,nav.hero-nav .logo{font-family:'Anton',sans-serif !important;font-size:15px !important;letter-spacing:3px !important;color:var(--cream) !important;text-transform:uppercase;}
+nav.top .brand,nav.site-nav .logo,nav.hero-nav .logo{font-family:'Anton',sans-serif !important;font-size:16px !important;letter-spacing:3px !important;color:var(--cream) !important;text-transform:uppercase;}
 nav.top .brand .lime,nav.site-nav .logo .lime,nav.hero-nav .logo .lime{color:var(--lime) !important;}
 nav.top .links,nav.site-nav .nav-links,nav.hero-nav .nav-links{display:flex;gap:26px;align-items:center;}
 nav.top .links a,nav.site-nav .nav-links a,nav.hero-nav .nav-links a{
-  font-family:'Roboto Mono',monospace !important;font-size:13px !important;letter-spacing:2px !important;
+  font-family:'Roboto Mono',monospace !important;font-size:14.5px !important;letter-spacing:2px !important;
   text-transform:uppercase !important;opacity:.8;color:var(--cream) !important;font-weight:400 !important;border:none !important;padding:0 !important;background:none !important;}
 nav.top .links a:hover,nav.site-nav .nav-links a:hover,nav.hero-nav .nav-links a:hover{opacity:1;color:var(--lime) !important;}
 @media(max-width:860px){nav.top{padding:16px 20px !important;}nav.top .links,nav.site-nav .nav-links,nav.hero-nav .nav-links{display:none;}}
@@ -16,7 +16,7 @@ nav.top .links a:hover,nav.site-nav .nav-links a:hover,nav.hero-nav .nav-links a
 .label{font-family:'Roboto Mono',monospace;letter-spacing:3px;text-transform:uppercase;color:var(--lime);}
 /* ---- FOOTER ---- */
 footer .wm{font-family:'Anton',sans-serif !important;font-size:24px !important;letter-spacing:2px !important;border-bottom:4px solid var(--lime);padding-bottom:8px;display:inline-block;}
-footer .lic{font-family:'Roboto Mono',monospace !important;font-size:13px !important;color:var(--lime) !important;letter-spacing:1px;margin-top:12px;}
+footer .lic{font-family:'Roboto Mono',monospace !important;font-size:14.5px !important;color:var(--lime) !important;letter-spacing:1px;margin-top:12px;}
 /* ---- base type guards ---- */
 h1,h2,h3{font-family:'Anton',sans-serif;font-weight:400;}
 .serif{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--lime);text-transform:none;}

@@ -13,15 +13,15 @@
  a{color:inherit;text-decoration:none;}
  h1,h3{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.5px;line-height:1;}
  .serif{font-family:'Cormorant Garamond',serif;font-style:italic;text-transform:none;color:var(--lime);}
- .label{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--lime);}
+ .label{font-family:'Roboto Mono',monospace;font-size:14.5px;letter-spacing:3px;text-transform:uppercase;color:var(--lime);}
  body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(circle at 50% 50%, rgba(203,204,16,.04), transparent 60%);}
  nav.top{position:fixed;top:0;left:0;right:0;z-index:90;display:flex;justify-content:space-between;align-items:center;padding:22px 40px;background:linear-gradient(180deg,rgba(10,10,8,.8),transparent);backdrop-filter:blur(10px);}
- nav.top .brand{font-family:'Anton',sans-serif;font-size:15px;letter-spacing:3px;} nav.top .brand .lime{color:var(--lime);}
- nav.top .links{display:flex;gap:28px;} nav.top .links a{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:2px;text-transform:uppercase;opacity:.78;}
+ nav.top .brand{font-family:'Anton',sans-serif;font-size:16px;letter-spacing:3px;} nav.top .brand .lime{color:var(--lime);}
+ nav.top .links{display:flex;gap:28px;} nav.top .links a{font-family:'Roboto Mono',monospace;font-size:14.5px;letter-spacing:2px;text-transform:uppercase;opacity:.78;}
  #particles{position:fixed;inset:0;z-index:1;pointer-events:none;}
  header.head{position:relative;z-index:2;padding:114px 40px 26px;text-align:center;}
  header.head h1{font-size:clamp(44px,7vw,104px);margin:14px 0 10px;} header.head h1 .serif{font-size:1.15em;}
- header.head p{font-family:'Roboto Mono',monospace;font-size:13px;color:rgba(240,235,227,.6);}
+ header.head p{font-family:'Roboto Mono',monospace;font-size:14.5px;color:rgba(240,235,227,.6);}
  .stack{position:relative;z-index:2;max-width:820px;margin:20px auto 0;padding:5rem 2rem 6rem;perspective:2400px;
    display:grid;grid-template-columns:repeat(2,1fr);gap:0.2rem;}
  .pile-glow{position:absolute;left:50%;bottom:3rem;transform:translateX(-50%);width:760px;max-width:88%;height:300px;z-index:0;pointer-events:none;
@@ -41,20 +41,20 @@
  .face.left{width:var(--thick);right:auto;left:0;transform-origin:left center;transform:translateZ(calc(var(--thick)/2)) rotateY(90deg);border-radius:6px 0 0 6px;
    background:linear-gradient(90deg, rgba(90,96,120,.26), rgba(200,206,225,.28));box-shadow:inset 1px 0 0 rgba(255,255,255,.45);}
  .reveal{position:absolute;top:14px;right:16px;left:auto;max-width:66%;text-align:right;z-index:5;transform:translateZ(calc(var(--thick)/2 + 1px));}
- .reveal .num{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--lime);margin-bottom:4px;}
+ .reveal .num{font-family:'Roboto Mono',monospace;font-size:12.5px;letter-spacing:2px;color:var(--lime);margin-bottom:4px;}
  .reveal h3{font-size:clamp(17px,1.8vw,24px);text-transform:none;text-shadow:0 2px 16px rgba(0,0,0,.9);transform:scaleY(.8);transform-origin:top right;line-height:.98;}
- .reveal .go{display:flex;align-items:center;justify-content:flex-end;gap:12px;margin-top:8px;font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(240,235,227,.7);}
- .reveal .view{color:var(--lime);opacity:0;transform:translateX(-8px);transition:.35s;display:flex;align-items:center;gap:6px;} .reveal .view em{font-style:normal;font-size:16px;}
+ .reveal .go{display:flex;align-items:center;justify-content:flex-end;gap:12px;margin-top:8px;font-family:'Roboto Mono',monospace;font-size:13.5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(240,235,227,.7);}
+ .reveal .view{color:var(--lime);opacity:0;transform:translateX(-8px);transition:.35s;display:flex;align-items:center;gap:6px;} .reveal .view em{font-style:normal;font-size:17px;}
  .soon{position:absolute;top:14px;left:16px;z-index:5;transform:translateZ(calc(var(--thick)/2 + 1px));color:rgba(240,235,227,.75);font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;background:rgba(10,10,8,.5);padding:4px 9px;border-radius:6px;backdrop-filter:blur(4px);}
  .gcard:hover{transform:rotateX(20deg) rotateZ(-12deg) translateY(-10px) scale(1.05);z-index:20;}
  .gcard:hover .view{opacity:1;transform:translateX(0);}
  footer{position:relative;z-index:2;padding:50px 40px 40px;border-top:1px solid var(--line);text-align:center;}
  footer .wm{font-family:'Anton',sans-serif;font-size:26px;letter-spacing:2px;border-bottom:4px solid var(--lime);padding-bottom:8px;display:inline-block;}
- footer .lic{font-family:'Roboto Mono',monospace;font-size:13px;color:var(--lime);margin-top:14px;}
+ footer .lic{font-family:'Roboto Mono',monospace;font-size:14.5px;color:var(--lime);margin-top:14px;}
  @media(max-width:760px){.stack{grid-template-columns:1fr;max-width:420px;} nav.top .links{display:none;}}
 .gswitch{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:95;display:flex;align-items:center;gap:6px;padding:7px 10px;background:rgba(20,19,9,.6);border:1px solid rgba(240,235,227,.18);border-radius:999px;backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%)}
-.gswitch span{font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,235,227,.5);margin:0 4px}
-.gswitch a{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--cream);padding:7px 14px;border-radius:999px;transition:.25s}
+.gswitch span{font-family:'Roboto Mono',monospace;font-size:11.5px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,235,227,.5);margin:0 4px}
+.gswitch a{font-family:'Roboto Mono',monospace;font-size:12.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--cream);padding:7px 14px;border-radius:999px;transition:.25s}
 .gswitch a:hover{color:var(--lime)}.gswitch a.on{background:var(--lime);color:#141309;font-weight:600}
 </style>
 <link rel="stylesheet" href="assets/css/opc-shared.css"></head><body>
