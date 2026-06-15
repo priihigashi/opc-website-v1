@@ -108,6 +108,7 @@
       <a href="${base}gallery-showcase.html">🖼 Gallery Showcase</a>
       <a href="${base}gallery-bg-v3.html">🖼 BG v3 glass</a>
       <a href="${base}projects/new-construction-additions.html">🖼 Project · New Constr</a>
+      <a href="${base}kitchen-vision.html">🍳 AI Kitchen Vision</a>
       <a href="${base}contact-v1.html">✉ Contact v1 split</a>
       <a href="${base}contact-v2.html">✉ Contact v2 photo</a>
       <a href="${base}contact-v3.html">✉ Contact v3 row</a>

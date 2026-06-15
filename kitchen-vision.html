@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Kitchen Vision — See Your Remodel · Oak Park Construction</title>
+<meta name="description" content="Upload a photo of your kitchen and get an AI redesign concept from Oak Park Construction — pick your style, materials and colors, then get your free estimate. Licensed FL GC CBC1263425.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://priihigashi.github.io/opc-website-v1/kitchen-vision.html">
+<meta property="og:title" content="AI Kitchen Vision — Oak Park Construction">
+<meta property="og:description" content="Upload your kitchen, choose a style, see an AI redesign concept — then get a free estimate.">
+<meta property="og:url" content="https://priihigashi.github.io/opc-website-v1/kitchen-vision.html">
+<meta property="og:image" content="https://priihigashi.github.io/opc-website-v1/assets/img/mike/kitchens/IMG_2837.jpeg">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@1,500&family=Inter:wght@200;300;400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="/opc-website-v1/favicon.svg" type="image/svg+xml">
+<script src="assets/js/lab-banner.js?v=15" defer></script>
+<style>
+ :root{--black:#1b1a13;--obsidian:#141309;--cream:#F0EBE3;--lime:#CBCC10;--line:rgba(240,235,227,.16)}
+ *{margin:0;padding:0;box-sizing:border-box}
+ html{scroll-behavior:smooth}html,body{background:var(--black);color:var(--cream);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+ a{color:inherit;text-decoration:none}
+ h1,h2,h3{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.5px;line-height:1}
+ .serif{font-family:'Cormorant Garamond',serif;font-style:italic;text-transform:none;color:var(--lime)}
+ .label{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--lime)}
+ body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(circle at 60% 16%,rgba(203,204,16,.06),transparent 55%)}
+ nav.top{position:sticky;top:0;z-index:90;display:flex;justify-content:space-between;align-items:center;padding:20px 40px;background:linear-gradient(180deg,rgba(20,19,9,.85),transparent);backdrop-filter:blur(10px)}
+ nav.top .brand{font-family:'Anton',sans-serif;font-size:15px;letter-spacing:3px}nav.top .brand .lime{color:var(--lime)}
+ nav.top .links{display:flex;gap:24px}nav.top .links a{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:2px;text-transform:uppercase;opacity:.8}nav.top .links a:hover{opacity:1;color:var(--lime)}
+ .head{position:relative;z-index:2;text-align:center;padding:54px 24px 6px;max-width:780px;margin:0 auto}
+ .head h1{font-size:clamp(40px,6.4vw,92px)}.head h1 .serif{font-size:1.12em}
+ .head p{margin:18px auto 0;font-family:'Roboto Mono',monospace;font-size:14.5px;line-height:1.7;color:rgba(240,235,227,.72);max-width:560px}
+ .head .tags{margin-top:18px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+ .head .tags span{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(240,235,227,.6);border:1px solid var(--line);border-radius:999px;padding:6px 13px}
+ /* progress */
+ .prog{position:relative;z-index:2;max-width:760px;margin:30px auto 0;padding:0 40px;display:flex;gap:8px}
+ .prog .dot{flex:1;height:3px;border-radius:3px;background:rgba(240,235,227,.14);transition:.4s}
+ .prog .dot.on{background:var(--lime)}
+ /* glass card */
+ .card{position:relative;z-index:2;max-width:760px;margin:20px auto 70px;padding:34px 34px 38px;background:rgba(240,235,227,.05);border:1px solid var(--line);border-radius:22px;backdrop-filter:blur(22px) saturate(140%);box-shadow:0 36px 80px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.1)}
+ .step{display:none;animation:fade .5s ease}.step.on{display:block}
+ @keyframes fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+ .step h2{font-size:clamp(22px,3vw,32px)}.step .sub{margin-top:6px;font-family:'Roboto Mono',monospace;font-size:12.5px;color:rgba(240,235,227,.6)}
+ /* dropzone */
+ .drop{margin-top:20px;border:1.5px dashed rgba(240,235,227,.3);border-radius:16px;padding:34px 20px;text-align:center;cursor:pointer;transition:.25s;position:relative;overflow:hidden}
+ .drop:hover,.drop.drag{border-color:var(--lime);background:rgba(203,204,16,.05)}
+ .drop .ic{font-size:30px}.drop .t{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:1px;margin-top:8px}.drop .s{font-family:'Roboto Mono',monospace;font-size:11px;color:rgba(240,235,227,.5);margin-top:6px}
+ .drop img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5}
+ .drop.has .ph{position:relative;z-index:2;background:rgba(10,10,8,.55);display:inline-block;padding:8px 14px;border-radius:999px;font-family:'Roboto Mono',monospace;font-size:12px}
+ /* question groups */
+ .q{margin-top:24px}.q>.qt{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--lime);margin-bottom:10px}
+ .chips{display:flex;flex-wrap:wrap;gap:8px}
+ .chip{font-family:'Roboto Mono',monospace;font-size:12.5px;letter-spacing:.5px;color:var(--cream);border:1px solid var(--line);background:rgba(240,235,227,.04);border-radius:999px;padding:9px 16px;cursor:pointer;transition:.2s;user-select:none}
+ .chip:hover{border-color:rgba(203,204,16,.5)}
+ .chip.on{background:var(--lime);color:var(--obsidian);border-color:var(--lime);font-weight:600}
+ /* buttons */
+ .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;margin-top:28px;background:var(--lime);color:var(--obsidian);border:none;border-radius:999px;padding:16px;font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:2px;text-transform:uppercase;font-weight:600;cursor:pointer;transition:.3s}
+ .btn:hover{background:#fff;box-shadow:0 0 34px rgba(203,204,16,.45);transform:translateY(-1px)}
+ .btn[disabled]{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+ .ghost{background:transparent;border:1px solid var(--line);color:var(--cream)}.ghost:hover{background:rgba(240,235,227,.06);box-shadow:none;color:var(--lime);border-color:var(--lime)}
+ /* loading */
+ .loading{text-align:center;padding:30px 0}
+ .spin{width:54px;height:54px;border-radius:50%;border:3px solid rgba(240,235,227,.15);border-top-color:var(--lime);margin:0 auto;animation:spin 1s linear infinite}
+ @keyframes spin{to{transform:rotate(360deg)}}
+ .loading .lt{margin-top:18px;font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:1px}
+ .loading .ls{margin-top:6px;font-family:'Roboto Mono',monospace;font-size:11.5px;color:rgba(240,235,227,.5)}
+ /* preview */
+ .preview{position:relative;margin-top:18px;border-radius:14px;overflow:hidden;border:1px solid var(--line);aspect-ratio:4/3}
+ .preview img{width:100%;height:100%;object-fit:cover;filter:blur(2px) brightness(.92)}
+ .preview .wm{position:absolute;inset:0;display:grid;place-items:center;background:repeating-linear-gradient(-30deg,rgba(10,10,8,.0),rgba(10,10,8,.0) 60px,rgba(10,10,8,.14) 60px,rgba(10,10,8,.14) 120px)}
+ .preview .wm span{font-family:'Anton',sans-serif;font-size:clamp(18px,3vw,28px);letter-spacing:2px;color:rgba(255,255,255,.6);text-transform:uppercase;transform:rotate(-8deg);text-align:center;text-shadow:0 2px 14px rgba(0,0,0,.6)}
+ .preview .badge{position:absolute;top:12px;left:12px;font-family:'Roboto Mono',monospace;font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--lime);background:rgba(10,10,8,.6);padding:6px 11px;border-radius:999px;backdrop-filter:blur(6px)}
+ .unlock{margin-top:20px;padding:18px;border:1px solid rgba(203,204,16,.35);border-radius:14px;background:rgba(203,204,16,.05);text-align:center}
+ .unlock .ut{font-family:'Anton',sans-serif;font-size:20px;text-transform:uppercase}.unlock .us{font-family:'Roboto Mono',monospace;font-size:12px;color:rgba(240,235,227,.7);margin-top:6px;line-height:1.6}
+ /* form */
+ .f label{display:block;font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,235,227,.6);margin:16px 0 6px}
+ .f input{width:100%;background:rgba(240,235,227,.06);border:1px solid var(--line);border-radius:12px;color:var(--cream);font-family:'Roboto Mono',monospace;font-size:14px;padding:13px 15px;outline:none;transition:.25s}
+ .f input:focus{border-color:rgba(203,204,16,.6);box-shadow:0 0 0 3px rgba(203,204,16,.12)}
+ .f .row2{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+ .otpwrap{display:flex;gap:10px;margin-top:8px}.otpwrap input{text-align:center;letter-spacing:6px;font-size:18px}
+ .msg{margin-top:12px;font-family:'Roboto Mono',monospace;font-size:12px;text-align:center}
+ .msg.err{color:#ff8a8a}.msg.ok{color:var(--lime)}
+ .priv{margin-top:12px;font-size:11.5px;line-height:1.6;color:rgba(240,235,227,.45);text-align:center}
+ .verified{display:inline-flex;align-items:center;gap:6px;font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--lime)}
+ /* success */
+ .done{text-align:center;padding:14px 0}
+ .done .ic{font-size:40px;color:var(--lime)}
+ .done h2{margin-top:14px}.done p{margin-top:12px;font-family:'Roboto Mono',monospace;font-size:13.5px;line-height:1.7;color:rgba(240,235,227,.75);max-width:480px;margin-left:auto;margin-right:auto}
+ .disc{position:relative;z-index:2;max-width:760px;margin:0 auto 40px;padding:0 40px;text-align:center;font-family:'Roboto Mono',monospace;font-size:11px;line-height:1.6;color:rgba(240,235,227,.4)}
+ footer{position:relative;z-index:2;text-align:center;padding:46px 40px 38px;border-top:1px solid var(--line)}
+ footer .wm{font-family:'Anton',sans-serif;font-size:22px;letter-spacing:2px;border-bottom:4px solid var(--lime);padding-bottom:7px;display:inline-block}footer .lic{font-family:'Roboto Mono',monospace;font-size:12px;color:var(--lime);margin-top:11px}
+ @media(max-width:760px){nav.top .links{display:none}.card{margin:16px 16px 50px;padding:24px 22px 28px}.head{padding:40px 22px 6px}.f .row2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav class="top">
+  <a href="index.html" class="brand">OAK PARK <span class="lime">CONSTRUCTION</span></a>
+  <div class="links"><a href="index.html">Home</a><a href="gallery-showcase.html">Our Work</a><a href="how-it-works.html">How We Work</a><a href="contact.html">Contact</a></div>
+</nav>
+
+<header class="head">
+  <div class="label">AI Kitchen Vision · Free</div>
+  <h1>See your <span class="serif">new kitchen.</span></h1>
+  <p>Upload a photo of your kitchen, tell us what you'd change, and our AI shows you a redesign concept — then we send the full version with your free estimate.</p>
+  <div class="tags"><span>Takes 60 seconds</span><span>No obligation</span><span>Licensed FL GC · CBC1263425</span></div>
+</header>
+
+<div class="prog"><div class="dot on" data-d="1"></div><div class="dot" data-d="2"></div><div class="dot" data-d="3"></div><div class="dot" data-d="4"></div></div>
+
+<main class="card">
+
+  <!-- STEP 1 — upload + questions -->
+  <section class="step on" id="s1">
+    <h2>Your kitchen, <span class="serif">reimagined.</span></h2>
+    <div class="sub">Upload a photo and answer a few quick questions.</div>
+
+    <div class="drop" id="drop" tabindex="0" role="button" aria-label="Upload a kitchen photo">
+      <div class="ic">⬆</div><div class="t">Drop a kitchen photo, or click to upload</div><div class="s">JPG / PNG · up to 10MB</div>
+      <input type="file" id="file" accept="image/*" hidden>
+    </div>
+
+    <div class="q"><div class="qt">1 · Layout</div><div class="chips" data-q="layout" data-single="1">
+      <div class="chip" data-v="keep">Keep my layout</div><div class="chip" data-v="redesign">Open to a new layout</div></div></div>
+
+    <div class="q"><div class="qt">2 · What don't you like? (pick any)</div><div class="chips" data-q="dislikes">
+      <div class="chip" data-v="island">Island</div><div class="chip" data-v="cabinets">Cabinets</div><div class="chip" data-v="lighting">Lighting</div>
+      <div class="chip" data-v="backsplash">Backsplash</div><div class="chip" data-v="counters">Counters</div><div class="chip" data-v="flooring">Flooring</div>
+      <div class="chip" data-v="storage">Storage</div><div class="chip" data-v="appliances">Appliance placement</div></div></div>
+
+    <div class="q"><div class="qt">3 · Style</div><div class="chips" data-q="style" data-single="1">
+      <div class="chip" data-v="modern">Modern</div><div class="chip" data-v="warm-organic">Warm Organic</div><div class="chip" data-v="coastal">Coastal</div>
+      <div class="chip" data-v="luxury-dark">Luxury Dark</div><div class="chip" data-v="transitional">Transitional</div><div class="chip" data-v="farmhouse">Farmhouse</div></div></div>
+
+    <div class="q"><div class="qt">4 · Materials (pick any)</div><div class="chips" data-q="materials">
+      <div class="chip" data-v="quartz">Quartz</div><div class="chip" data-v="marble">Marble-look</div><div class="chip" data-v="wood">Natural wood</div>
+      <div class="chip" data-v="slab">Slab cabinets</div><div class="chip" data-v="shaker">Shaker</div><div class="chip" data-v="fluted">Fluted island</div>
+      <div class="chip" data-v="brass">Brass fixtures</div><div class="chip" data-v="black">Black fixtures</div></div></div>
+
+    <div class="q"><div class="qt">5 · Color direction</div><div class="chips" data-q="color" data-single="1">
+      <div class="chip" data-v="light-cream">Light / Cream</div><div class="chip" data-v="walnut">Walnut</div><div class="chip" data-v="black-accents">Black accents</div>
+      <div class="chip" data-v="green">Green</div><div class="chip" data-v="neutral">Neutral</div></div></div>
+
+    <div class="q"><div class="qt">6 · Timeline</div><div class="chips" data-q="timeline" data-single="1">
+      <div class="chip" data-v="asap">Ready now</div><div class="chip" data-v="3-6mo">3–6 months</div><div class="chip" data-v="planning">Just planning</div></div></div>
+
+    <button class="btn" id="go" disabled>See my redesign →</button>
+    <div class="priv">We never share your photo or details. This is a concept — not a construction plan.</div>
+  </section>
+
+  <!-- STEP 2 — generating -->
+  <section class="step" id="s2">
+    <div class="loading"><div class="spin"></div>
+      <div class="lt" id="loadt">Reimagining your kitchen…</div>
+      <div class="ls">Our AI is applying your style, materials and colors — about 20 seconds.</div></div>
+  </section>
+
+  <!-- STEP 3 — preview + unlock -->
+  <section class="step" id="s3">
+    <h2>Here's your <span class="serif">concept.</span></h2>
+    <div class="sub">A preview based on your answers. Unlock the full-resolution version below.</div>
+    <div class="preview"><img id="prevImg" src="assets/img/mike/kitchens/IMG_2837.jpeg" alt="AI kitchen redesign concept preview">
+      <div class="badge">Concept · Preview</div>
+      <div class="wm"><span>Oak Park Construction<br>Concept Preview</span></div></div>
+    <div class="unlock">
+      <div class="ut">Get the full version free</div>
+      <div class="us">We'll email you the full-resolution redesign and a free estimate. Verify your email and add a phone so we can reach you.</div>
+      <button class="btn" id="toVerify">Unlock my full redesign →</button>
+    </div>
+    <button class="btn ghost" id="restart" style="margin-top:12px">↺ Try different options</button>
+  </section>
+
+  <!-- STEP 4 — verify + quote -->
+  <section class="step" id="s4">
+    <h2>Almost <span class="serif">there.</span></h2>
+    <div class="sub">Verify your email, then add your phone — we'll send the full design + estimate.</div>
+    <div class="f">
+      <label>Email — where we send your design</label>
+      <input type="email" id="email" placeholder="you@email.com" autocomplete="email">
+      <div id="emailVerified" class="verified" style="display:none;margin-top:8px">✓ Email verified</div>
+      <button class="btn" id="sendCode">Send verification code</button>
+      <div id="otpBlock" style="display:none">
+        <label>Enter the 6-digit code we emailed you</label>
+        <div class="otpwrap"><input type="text" id="otp" maxlength="6" inputmode="numeric" placeholder="••••••"></div>
+        <button class="btn ghost" id="confirmCode" style="margin-top:12px">Confirm code</button>
+      </div>
+      <div id="emsg" class="msg"></div>
+
+      <div id="quoteBlock" style="display:none;border-top:1px solid var(--line);margin-top:22px;padding-top:8px">
+        <div class="row2">
+          <div><label>Full name</label><input type="text" id="name" placeholder="Your name" autocomplete="name"></div>
+          <div><label>Phone — so we can reach you</label><input type="tel" id="phone" placeholder="(954) 000-0000" autocomplete="tel"></div>
+        </div>
+        <button class="btn" id="submit">Send me the full design + estimate</button>
+        <div id="smsg" class="msg"></div>
+        <div class="priv">By submitting you agree to be contacted about your project. We only use your details to respond — no spam, never sold.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 5 — done -->
+  <section class="step" id="s5">
+    <div class="done"><div class="ic">✓</div>
+      <h2>On its <span class="serif">way.</span></h2>
+      <p>Check your inbox — your full-resolution redesign is landing now. Michael or Matthew will reach out within one business day to talk through making it real.</p>
+      <a class="btn ghost" href="gallery-showcase.html" style="max-width:280px;margin:22px auto 0">See real OPC kitchens →</a>
+    </div>
+  </section>
+
+</main>
+
+<div class="disc">AI Kitchen Vision generates a styling concept for inspiration only. It is not a construction document, measurement, or guarantee of cost or feasibility. Your free estimate is based on an in-person assessment.</div>
+
+<footer><div class="wm">OAK PARK CONSTRUCTION</div><div class="lic">FL CBC1263425 · INSURED · BROWARD · PALM BEACH · MIAMI-DADE · (954) 258-6769</div></footer>
+
+<script>
+/* ===== CONFIG — set API_BASE to Codex's deployed backend to go live. Empty = demo/mock mode. ===== */
+const API_BASE = ""; // e.g. "https://opc-kitchen.vercel.app"
+const MOCK = !API_BASE;
+
+const state={photo:null, answers:{layout:"",dislikes:[],style:"",materials:[],color:"",timeline:""}, jobId:null, emailVerified:false, source_page:location.pathname, referrer:document.referrer||"direct"};
+const $=s=>document.querySelector(s), steps=[...document.querySelectorAll('.step')], dots=[...document.querySelectorAll('.prog .dot')];
+function show(n){steps.forEach(s=>s.classList.remove('on'));$('#s'+n).classList.add('on');const map={1:1,2:2,3:2,4:3,5:4};dots.forEach(d=>d.classList.toggle('on', +d.dataset.d<=map[n]));window.scrollTo({top:0,behavior:'smooth'});}
+
+/* chips */
+document.querySelectorAll('.chips').forEach(g=>{const q=g.dataset.q, single=g.dataset.single;
+ g.addEventListener('click',e=>{const c=e.target.closest('.chip');if(!c)return;
+  if(single){g.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));c.classList.add('on');state.answers[q]=c.dataset.v;}
+  else{c.classList.toggle('on');state.answers[q]=[...g.querySelectorAll('.chip.on')].map(x=>x.dataset.v);}
+  validate();});});
+
+/* upload */
+const drop=$('#drop'), file=$('#file');
+drop.addEventListener('click',()=>file.click());
+drop.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')file.click();});
+drop.addEventListener('dragover',e=>{e.preventDefault();drop.classList.add('drag');});
+drop.addEventListener('dragleave',()=>drop.classList.remove('drag'));
+drop.addEventListener('drop',e=>{e.preventDefault();drop.classList.remove('drag');if(e.dataTransfer.files[0])setPhoto(e.dataTransfer.files[0]);});
+file.addEventListener('change',()=>{if(file.files[0])setPhoto(file.files[0]);});
+function setPhoto(f){if(!f.type.startsWith('image/')){alert('Please upload an image.');return;}if(f.size>10*1024*1024){alert('Max 10MB.');return;}
+ state.photo=f;const url=URL.createObjectURL(f);drop.classList.add('has');
+ drop.textContent='';const im=document.createElement('img');im.src=url;im.alt='your kitchen';
+ const ph=document.createElement('div');ph.className='ph';ph.textContent='✓ '+f.name.slice(0,28)+' — click to change';
+ drop.append(im,ph);validate();}
+
+function validate(){const a=state.answers;const ok=state.photo&&a.layout&&a.style&&a.color;$('#go').disabled=!ok;}
+
+/* ---- API helpers (contract). MOCK simulates Codex's backend so the flow demos now. ---- */
+async function apiPreview(){
+ if(MOCK){await wait(2200);return{jobId:'demo-'+Date.now(),previewUrl:'assets/img/mike/kitchens/IMG_2837.jpeg',engine:'gemini-2.5-flash-image (demo)'};}
+ const fd=new FormData();fd.append('photo',state.photo);fd.append('answers',JSON.stringify(state.answers));fd.append('source_page',state.source_page);fd.append('referrer',state.referrer);
+ const r=await fetch(API_BASE+'/kitchen/preview',{method:'POST',body:fd});if(!r.ok)throw await r.json();return r.json();}
+async function apiEmailStart(email){if(MOCK){await wait(700);return{sent:true};}const r=await fetch(API_BASE+'/kitchen/verify-email/start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jobId:state.jobId,email})});if(!r.ok)throw await r.json();return r.json();}
+async function apiEmailConfirm(code){if(MOCK){await wait(600);return{verified:code==='123456'||code.length===6};}const r=await fetch(API_BASE+'/kitchen/verify-email/confirm',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jobId:state.jobId,code})});if(!r.ok)throw await r.json();return r.json();}
+async function apiSubmit(name,phone,email){if(MOCK){await wait(1100);return{ok:true};}const r=await fetch(API_BASE+'/kitchen/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jobId:state.jobId,name,phone,email,answers:state.answers})});if(!r.ok)throw await r.json();return r.json();}
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+
+/* flow */
+$('#go').addEventListener('click',async()=>{show(2);
+ const msgs=['Reading your kitchen…','Applying your style…','Swapping materials & color…','Rendering your concept…'];let i=0;const t=setInterval(()=>{$('#loadt').textContent=msgs[i=(i+1)%msgs.length];},2600);
+ try{const r=await apiPreview();clearInterval(t);state.jobId=r.jobId;if(r.previewUrl)$('#prevImg').src=r.previewUrl;show(3);}
+ catch(e){clearInterval(t);alert((e&&e.error)||'Something went wrong generating your preview. Please try again.');show(1);}});
+$('#toVerify').addEventListener('click',()=>show(4));
+$('#restart').addEventListener('click',()=>show(1));
+
+$('#sendCode').addEventListener('click',async()=>{const email=$('#email').value.trim();const emsg=$('#emsg');
+ if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){emsg.className='msg err';emsg.textContent='Please enter a valid email.';return;}
+ $('#sendCode').disabled=true;emsg.className='msg';emsg.textContent='Sending code…';
+ try{await apiEmailStart(email);$('#otpBlock').style.display='block';emsg.className='msg ok';emsg.textContent='Code sent — check your inbox.'+(MOCK?' (demo: use 123456)':'');}
+ catch(e){emsg.className='msg err';emsg.textContent=(e&&e.error)||'Could not send code.';$('#sendCode').disabled=false;}});
+$('#confirmCode').addEventListener('click',async()=>{const code=$('#otp').value.trim();const emsg=$('#emsg');
+ try{const r=await apiEmailConfirm(code);if(r.verified){state.emailVerified=true;$('#emailVerified').style.display='inline-flex';$('#sendCode').style.display='none';$('#otpBlock').style.display='none';$('#email').readOnly=true;$('#quoteBlock').style.display='block';emsg.textContent='';}
+  else{emsg.className='msg err';emsg.textContent='That code is not right. Try again.';}}
+ catch(e){emsg.className='msg err';emsg.textContent=(e&&e.error)||'Verification failed.';}});
+$('#submit').addEventListener('click',async()=>{const name=$('#name').value.trim(),phone=$('#phone').value.trim(),email=$('#email').value.trim();const smsg=$('#smsg');
+ if(!name){smsg.className='msg err';smsg.textContent='Please add your name.';return;}
+ if(phone.replace(/\D/g,'').length<10){smsg.className='msg err';smsg.textContent='Please add a valid phone number.';return;}
+ if(!state.emailVerified){smsg.className='msg err';smsg.textContent='Please verify your email first.';return;}
+ $('#submit').disabled=true;smsg.className='msg';smsg.textContent='Sending…';
+ try{await apiSubmit(name,phone,email);show(5);}catch(e){smsg.className='msg err';smsg.textContent=(e&&e.error)||'Could not submit. Please try again.';$('#submit').disabled=false;}});
+</script>
+</body>
+</html>
