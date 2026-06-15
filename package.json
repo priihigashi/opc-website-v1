@@ -1,0 +1,16 @@
+{
+  "name": "opc-website-v1",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Oak Park Construction static site plus Kitchen AI Vision serverless API.",
+  "scripts": {
+    "dev:api": "npx vercel@latest dev --listen 3100",
+    "test:kitchen-api": "bash scripts/test-kitchen-api.sh"
+  },
+  "dependencies": {
+    "@google/genai": "^2.8.0",
+    "formidable": "^3.5.4",
+    "nodemailer": "^9.0.0",
+    "sharp": "^0.35.1"
+  }
+}

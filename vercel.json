@@ -1,0 +1,29 @@
+{
+  "functions": {
+    "api/kitchen/**/*.js": {
+      "maxDuration": 60
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/kitchen/preview",
+      "destination": "/api/kitchen/preview"
+    },
+    {
+      "source": "/kitchen/verify-email/start",
+      "destination": "/api/kitchen/verify-email/start"
+    },
+    {
+      "source": "/kitchen/verify-email/confirm",
+      "destination": "/api/kitchen/verify-email/confirm"
+    },
+    {
+      "source": "/kitchen/submit",
+      "destination": "/api/kitchen/submit"
+    },
+    {
+      "source": "/kitchen/preview-image/:job",
+      "destination": "/api/kitchen/preview-image/:job"
+    }
+  ]
+}
