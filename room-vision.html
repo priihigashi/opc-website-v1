@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Design Vision — See Your Remodel · Oak Park Construction</title>
+<meta name="description" content="Upload a photo of any room — kitchen, bathroom, your home's exterior, or backyard — and get an AI redesign concept from Oak Park Construction, then your free estimate. Licensed FL GC CBC1263425.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://priihigashi.github.io/opc-website-v1/room-vision.html">
+<meta property="og:title" content="AI Design Vision — Oak Park Construction">
+<meta property="og:description" content="Upload any room, choose a style, see an AI redesign concept — then get a free estimate.">
+<meta property="og:url" content="https://priihigashi.github.io/opc-website-v1/room-vision.html">
+<meta property="og:image" content="https://priihigashi.github.io/opc-website-v1/assets/img/mike/kitchens/IMG_2837.jpeg">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@1,500&family=Inter:wght@200;300;400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="/opc-website-v1/favicon.svg" type="image/svg+xml">
+<script src="assets/js/lab-banner.js?v=16" defer></script>
+<style>
+ :root{--black:#1b1a13;--obsidian:#141309;--cream:#F0EBE3;--lime:#CBCC10;--line:rgba(240,235,227,.16)}
+ *{margin:0;padding:0;box-sizing:border-box}
+ html{scroll-behavior:smooth}html,body{background:var(--black);color:var(--cream);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+ a{color:inherit;text-decoration:none}
+ h1,h2,h3{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.5px;line-height:1}
+ .serif{font-family:'Cormorant Garamond',serif;font-style:italic;text-transform:none;color:var(--lime)}
+ .label{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--lime)}
+ body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(circle at 60% 16%,rgba(203,204,16,.06),transparent 55%)}
+ nav.top{position:sticky;top:0;z-index:90;display:flex;justify-content:space-between;align-items:center;padding:20px 40px;background:linear-gradient(180deg,rgba(20,19,9,.85),transparent);backdrop-filter:blur(10px)}
+ nav.top .brand{font-family:'Anton',sans-serif;font-size:15px;letter-spacing:3px}nav.top .brand .lime{color:var(--lime)}
+ nav.top .links{display:flex;gap:24px}nav.top .links a{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:2px;text-transform:uppercase;opacity:.8}nav.top .links a:hover{opacity:1;color:var(--lime)}
+ .head{position:relative;z-index:2;text-align:center;padding:54px 24px 6px;max-width:820px;margin:0 auto}
+ .head h1{font-size:clamp(40px,6.4vw,92px)}.head h1 .serif{font-size:1.12em}
+ .head p{margin:18px auto 0;font-family:'Roboto Mono',monospace;font-size:14.5px;line-height:1.7;color:rgba(240,235,227,.72);max-width:580px}
+ .head .tags{margin-top:18px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+ .head .tags span{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(240,235,227,.6);border:1px solid var(--line);border-radius:999px;padding:6px 13px}
+ .prog{position:relative;z-index:2;max-width:820px;margin:30px auto 0;padding:0 40px;display:flex;gap:8px}
+ .prog .dot{flex:1;height:3px;border-radius:3px;background:rgba(240,235,227,.14);transition:.4s}
+ .prog .dot.on{background:var(--lime)}
+ .card{position:relative;z-index:2;max-width:820px;margin:20px auto 70px;padding:34px 34px 38px;background:rgba(240,235,227,.05);border:1px solid var(--line);border-radius:22px;backdrop-filter:blur(22px) saturate(140%);box-shadow:0 36px 80px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.1)}
+ .step{display:none;animation:fade .5s ease}.step.on{display:block}
+ @keyframes fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+ .step h2{font-size:clamp(22px,3vw,32px)}.step .sub{margin-top:6px;font-family:'Roboto Mono',monospace;font-size:12.5px;color:rgba(240,235,227,.6)}
+ /* room picker */
+ .rooms{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:22px}
+ .room{position:relative;border:1px solid var(--line);border-radius:16px;overflow:hidden;cursor:pointer;aspect-ratio:5/3.4;transition:.28s;background:#000}
+ .room img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 62%;opacity:.66;transition:.4s}
+ .room:hover img{opacity:.82;transform:scale(1.04)}
+ .room .ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,8,.05),rgba(10,10,8,.78))}
+ .room .txt{position:absolute;left:16px;bottom:14px;right:14px}
+ .room .rn{font-family:'Anton',sans-serif;font-size:21px;text-transform:uppercase;letter-spacing:.5px}
+ .room .rs{font-family:'Roboto Mono',monospace;font-size:11px;color:rgba(240,235,227,.72);margin-top:3px;line-height:1.5}
+ .room .pick{position:absolute;top:12px;right:12px;width:26px;height:26px;border-radius:50%;border:1.5px solid rgba(240,235,227,.5);display:grid;place-items:center;font-size:13px;color:transparent;transition:.25s}
+ .room.on{border-color:var(--lime);box-shadow:0 0 0 1px var(--lime),0 22px 50px rgba(0,0,0,.5)}
+ .room.on img{opacity:.9}.room.on .pick{background:var(--lime);border-color:var(--lime);color:var(--obsidian)}
+ /* example/angle guide */
+ .example{margin-top:22px;display:grid;grid-template-columns:128px 1fr;gap:16px;align-items:center;border:1px solid rgba(203,204,16,.3);background:rgba(203,204,16,.05);border-radius:14px;padding:14px}
+ .example .ex-img{width:128px;height:96px;border-radius:10px;overflow:hidden;position:relative;border:1px solid var(--line)}
+ .example .ex-img img{width:100%;height:100%;object-fit:cover}
+ .example .ex-img .fr{position:absolute;inset:8px;border:1.5px dashed rgba(203,204,16,.8);border-radius:6px}
+ .example .ex-t .et{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--lime)}
+ .example .ex-t .ed{font-family:'Roboto Mono',monospace;font-size:12px;line-height:1.6;color:rgba(240,235,227,.78);margin-top:5px}
+ /* dropzone */
+ .drop{margin-top:18px;border:1.5px dashed rgba(240,235,227,.3);border-radius:16px;padding:30px 20px;text-align:center;cursor:pointer;transition:.25s;position:relative;overflow:hidden}
+ .drop:hover,.drop.drag{border-color:var(--lime);background:rgba(203,204,16,.05)}
+ .drop .ic{font-size:28px}.drop .t{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:1px;margin-top:8px}.drop .s{font-family:'Roboto Mono',monospace;font-size:11px;color:rgba(240,235,227,.5);margin-top:6px}
+ .drop img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5}
+ .drop.has .ph{position:relative;z-index:2;background:rgba(10,10,8,.55);display:inline-block;padding:8px 14px;border-radius:999px;font-family:'Roboto Mono',monospace;font-size:12px}
+ .q{margin-top:22px}.q>.qt{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--lime);margin-bottom:10px}
+ .chips{display:flex;flex-wrap:wrap;gap:8px}
+ .chip{font-family:'Roboto Mono',monospace;font-size:12.5px;letter-spacing:.5px;color:var(--cream);border:1px solid var(--line);background:rgba(240,235,227,.04);border-radius:999px;padding:9px 16px;cursor:pointer;transition:.2s;user-select:none}
+ .chip:hover{border-color:rgba(203,204,16,.5)}
+ .chip.on{background:var(--lime);color:var(--obsidian);border-color:var(--lime);font-weight:600}
+ .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;margin-top:26px;background:var(--lime);color:var(--obsidian);border:none;border-radius:999px;padding:16px;font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:2px;text-transform:uppercase;font-weight:600;cursor:pointer;transition:.3s}
+ .btn:hover{background:#fff;box-shadow:0 0 34px rgba(203,204,16,.45);transform:translateY(-1px)}
+ .btn[disabled]{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+ .ghost{background:transparent;border:1px solid var(--line);color:var(--cream)}.ghost:hover{background:rgba(240,235,227,.06);box-shadow:none;color:var(--lime);border-color:var(--lime)}
+ .loading{text-align:center;padding:30px 0}
+ .spin{width:54px;height:54px;border-radius:50%;border:3px solid rgba(240,235,227,.15);border-top-color:var(--lime);margin:0 auto;animation:spin 1s linear infinite}
+ @keyframes spin{to{transform:rotate(360deg)}}
+ .loading .lt{margin-top:18px;font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:1px}
+ .loading .ls{margin-top:6px;font-family:'Roboto Mono',monospace;font-size:11.5px;color:rgba(240,235,227,.5)}
+ .preview{position:relative;margin-top:18px;border-radius:14px;overflow:hidden;border:1px solid var(--line);aspect-ratio:4/3}
+ .preview img{width:100%;height:100%;object-fit:cover;filter:blur(2px) brightness(.92)}
+ .preview .wm{position:absolute;inset:0;display:grid;place-items:center;background:repeating-linear-gradient(-30deg,rgba(10,10,8,0),rgba(10,10,8,0) 60px,rgba(10,10,8,.14) 60px,rgba(10,10,8,.14) 120px)}
+ .preview .wm span{font-family:'Anton',sans-serif;font-size:clamp(18px,3vw,28px);letter-spacing:2px;color:rgba(255,255,255,.6);text-transform:uppercase;transform:rotate(-8deg);text-align:center;text-shadow:0 2px 14px rgba(0,0,0,.6)}
+ .preview .badge{position:absolute;top:12px;left:12px;font-family:'Roboto Mono',monospace;font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--lime);background:rgba(10,10,8,.6);padding:6px 11px;border-radius:999px;backdrop-filter:blur(6px)}
+ .unlock{margin-top:20px;padding:18px;border:1px solid rgba(203,204,16,.35);border-radius:14px;background:rgba(203,204,16,.05);text-align:center}
+ .unlock .ut{font-family:'Anton',sans-serif;font-size:20px;text-transform:uppercase}.unlock .us{font-family:'Roboto Mono',monospace;font-size:12px;color:rgba(240,235,227,.7);margin-top:6px;line-height:1.6}
+ .f label{display:block;font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,235,227,.6);margin:16px 0 6px}
+ .f input{width:100%;background:rgba(240,235,227,.06);border:1px solid var(--line);border-radius:12px;color:var(--cream);font-family:'Roboto Mono',monospace;font-size:14px;padding:13px 15px;outline:none;transition:.25s}
+ .f input:focus{border-color:rgba(203,204,16,.6);box-shadow:0 0 0 3px rgba(203,204,16,.12)}
+ .f .row2{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+ .otpwrap{display:flex;gap:10px;margin-top:8px}.otpwrap input{text-align:center;letter-spacing:6px;font-size:18px}
+ .msg{margin-top:12px;font-family:'Roboto Mono',monospace;font-size:12px;text-align:center}
+ .msg.err{color:#ff8a8a}.msg.ok{color:var(--lime)}
+ .priv{margin-top:12px;font-size:11.5px;line-height:1.6;color:rgba(240,235,227,.45);text-align:center}
+ .verified{display:inline-flex;align-items:center;gap:6px;font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--lime)}
+ .done{text-align:center;padding:14px 0}.done .ic{font-size:40px;color:var(--lime)}
+ .done h2{margin-top:14px}.done p{margin-top:12px;font-family:'Roboto Mono',monospace;font-size:13.5px;line-height:1.7;color:rgba(240,235,227,.75);max-width:480px;margin:12px auto 0}
+ .disc{position:relative;z-index:2;max-width:820px;margin:0 auto 40px;padding:0 40px;text-align:center;font-family:'Roboto Mono',monospace;font-size:11px;line-height:1.6;color:rgba(240,235,227,.4)}
+ footer{position:relative;z-index:2;text-align:center;padding:46px 40px 38px;border-top:1px solid var(--line)}
+ footer .wm{font-family:'Anton',sans-serif;font-size:22px;letter-spacing:2px;border-bottom:4px solid var(--lime);padding-bottom:7px;display:inline-block}footer .lic{font-family:'Roboto Mono',monospace;font-size:12px;color:var(--lime);margin-top:11px}
+ @media(max-width:760px){nav.top .links{display:none}.card{margin:16px 16px 50px;padding:24px 22px 28px}.head{padding:40px 22px 6px}.f .row2{grid-template-columns:1fr}.example{grid-template-columns:96px 1fr}.example .ex-img{width:96px;height:74px}}
+</style>
+</head>
+<body>
+<nav class="top">
+  <a href="index.html" class="brand">OAK PARK <span class="lime">CONSTRUCTION</span></a>
+  <div class="links"><a href="index.html">Home</a><a href="gallery-showcase.html">Our Work</a><a href="how-it-works.html">How We Work</a><a href="contact.html">Contact</a></div>
+</nav>
+
+<header class="head">
+  <div class="label">AI Design Vision · Free</div>
+  <h1>See your space <span class="serif">reimagined.</span></h1>
+  <p>Pick a room, upload a photo, tell us what you'd change — our AI shows you a redesign concept, then we send the full version with your free estimate.</p>
+  <div class="tags"><span>Kitchen · Bath · Exterior · Backyard</span><span>Takes 60 seconds</span><span>FL GC · CBC1263425</span></div>
+</header>
+
+<div class="prog"><div class="dot on" data-d="1"></div><div class="dot" data-d="2"></div><div class="dot" data-d="3"></div><div class="dot" data-d="4"></div><div class="dot" data-d="5"></div></div>
+
+<main class="card">
+
+  <!-- STEP 0 — room picker -->
+  <section class="step on" id="s0">
+    <h2>What do you want to <span class="serif">transform?</span></h2>
+    <div class="sub">Pick a space to get started — the questions adapt to what you choose.</div>
+    <div class="rooms" id="rooms"></div>
+  </section>
+
+  <!-- STEP 1 — example + upload + adaptive questions -->
+  <section class="step" id="s1">
+    <h2 id="s1title">Your space, <span class="serif">reimagined.</span></h2>
+    <div class="sub" id="s1sub">Upload a photo and answer a few quick questions.</div>
+
+    <div class="example" id="example">
+      <div class="ex-img"><img id="exImg" src="" alt="Example angle"><div class="fr"></div></div>
+      <div class="ex-t"><div class="et">📸 How to shoot it</div><div class="ed" id="exDesc"></div></div>
+    </div>
+
+    <div class="drop" id="drop" tabindex="0" role="button" aria-label="Upload a photo">
+      <div class="ic">⬆</div><div class="t">Drop your photo, or click to upload</div><div class="s">JPG / PNG · up to 10MB</div>
+      <input type="file" id="file" accept="image/*" hidden>
+    </div>
+
+    <div id="questions"></div>
+
+    <button class="btn" id="go" disabled>See my redesign →</button>
+    <button class="btn ghost" id="back0" style="margin-top:12px">← Pick a different room</button>
+    <div class="priv">We never share your photo or details. This is a concept — not a construction plan.</div>
+  </section>
+
+  <!-- STEP 2 — generating -->
+  <section class="step" id="s2">
+    <div class="loading"><div class="spin"></div>
+      <div class="lt" id="loadt">Reimagining your space…</div>
+      <div class="ls">Our AI is applying your style, materials and colors — about 20 seconds.</div></div>
+  </section>
+
+  <!-- STEP 3 — preview + unlock -->
+  <section class="step" id="s3">
+    <h2>Here's your <span class="serif">concept.</span></h2>
+    <div class="sub">A preview based on your answers. Unlock the full-resolution version below.</div>
+    <div class="preview"><img id="prevImg" src="assets/img/mike/kitchens/IMG_2837.jpeg" alt="AI redesign concept preview">
+      <div class="badge">Concept · Preview</div>
+      <div class="wm"><span>Oak Park Construction<br>Concept Preview</span></div></div>
+    <div class="unlock">
+      <div class="ut">Get the full version free</div>
+      <div class="us">We'll email you the full-resolution redesign and a free estimate. Verify your email and add a phone so we can reach you.</div>
+      <button class="btn" id="toVerify">Unlock my full redesign →</button>
+    </div>
+    <button class="btn ghost" id="restart" style="margin-top:12px">↺ Try different options</button>
+  </section>
+
+  <!-- STEP 4 — verify + quote -->
+  <section class="step" id="s4">
+    <h2>Almost <span class="serif">there.</span></h2>
+    <div class="sub">Verify your email, then add your phone — we'll send the full design + estimate.</div>
+    <div class="f">
+      <label>Email — where we send your design</label>
+      <input type="email" id="email" placeholder="you@email.com" autocomplete="email">
+      <div id="emailVerified" class="verified" style="display:none;margin-top:8px">✓ Email verified</div>
+      <button class="btn" id="sendCode">Send verification code</button>
+      <div id="otpBlock" style="display:none">
+        <label>Enter the 6-digit code we emailed you</label>
+        <div class="otpwrap"><input type="text" id="otp" maxlength="6" inputmode="numeric" placeholder="••••••"></div>
+        <button class="btn ghost" id="confirmCode" style="margin-top:12px">Confirm code</button>
+      </div>
+      <div id="emsg" class="msg"></div>
+      <div id="quoteBlock" style="display:none;border-top:1px solid var(--line);margin-top:22px;padding-top:8px">
+        <div class="row2">
+          <div><label>Full name</label><input type="text" id="name" placeholder="Your name" autocomplete="name"></div>
+          <div><label>Phone — so we can reach you</label><input type="tel" id="phone" placeholder="(954) 000-0000" autocomplete="tel"></div>
+        </div>
+        <button class="btn" id="submit">Send me the full design + estimate</button>
+        <div id="smsg" class="msg"></div>
+        <div class="priv">By submitting you agree to be contacted about your project. We only use your details to respond — no spam, never sold.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 5 — done -->
+  <section class="step" id="s5">
+    <div class="done"><div class="ic">✓</div>
+      <h2>On its <span class="serif">way.</span></h2>
+      <p>Check your inbox — your full-resolution redesign is landing now. Michael or Matthew will reach out within one business day to talk through making it real.</p>
+      <a class="btn ghost" href="gallery-showcase.html" style="max-width:280px;margin:22px auto 0">See real OPC projects →</a>
+    </div>
+  </section>
+
+</main>
+
+<div class="disc">AI Design Vision generates a styling concept for inspiration only. It is not a construction document, measurement, or guarantee of cost or feasibility. Your free estimate is based on an in-person assessment.</div>
+
+<footer><div class="wm">OAK PARK CONSTRUCTION</div><div class="lic">FL CBC1263425 · INSURED · BROWARD · PALM BEACH · MIAMI-DADE · (954) 258-6769</div></footer>
+
+<script>
+/* ===== CONFIG — set API_BASE to Codex's deployed backend to go live. Empty = demo/mock mode. ===== */
+const API_BASE = ""; const MOCK = !API_BASE;
+
+/* ===== ROOM CONFIGS — each room adapts the example photo + questions ===== */
+const ROOMS = {
+ kitchen:{name:"Kitchen", tag:"Cabinets, island, finishes",
+   img:"assets/img/mike/kitchens/IMG_2837.jpeg",
+   angle:"Stand in the doorway and capture the whole kitchen corner-to-corner — include the island and the main cabinet run.",
+   q:[
+    {id:"layout",label:"1 · Layout",single:1,opts:[["keep","Keep my layout"],["redesign","Open to a new layout"]]},
+    {id:"dislikes",label:"2 · What don't you like? (pick any)",opts:[["island","Island"],["cabinets","Cabinets"],["lighting","Lighting"],["backsplash","Backsplash"],["counters","Counters"],["flooring","Flooring"],["storage","Storage"],["appliances","Appliance placement"]]},
+    {id:"style",label:"3 · Style",single:1,opts:[["modern","Modern"],["warm-organic","Warm Organic"],["coastal","Coastal"],["luxury-dark","Luxury Dark"],["transitional","Transitional"],["farmhouse","Farmhouse"]]},
+    {id:"materials",label:"4 · Materials (pick any)",opts:[["quartz","Quartz"],["marble","Marble-look"],["wood","Natural wood"],["slab","Slab cabinets"],["shaker","Shaker"],["fluted","Fluted island"],["brass","Brass fixtures"],["black","Black fixtures"]]},
+    {id:"color",label:"5 · Color direction",single:1,opts:[["light-cream","Light / Cream"],["walnut","Walnut"],["black-accents","Black accents"],["green","Green"],["neutral","Neutral"]]},
+    {id:"timeline",label:"6 · Timeline",single:1,opts:[["asap","Ready now"],["3-6mo","3–6 months"],["planning","Just planning"]]}]},
+
+ exterior:{name:"Exterior", tag:"Front yard, facade, driveway",
+   img:"assets/img/mike/new-construction/122-dockside-cir-IMG_6701.jpeg",
+   angle:"Stand at the curb or across the street and capture the full front — house, driveway and front yard together in one wide shot.",
+   q:[
+    {id:"focus",label:"1 · What should we transform? (pick any)",opts:[["driveway","Driveway"],["frontyard","Front yard / landscaping"],["facade","Facade / siding"],["frontdoor","Front door"],["garage","Garage doors"],["walkway","Walkway"],["lighting","Exterior lighting"],["fence","Fence / gate"]]},
+    {id:"style",label:"2 · Style",single:1,opts:[["modern","Modern"],["coastal","Coastal"],["mediterranean","Mediterranean"],["transitional","Transitional"],["farmhouse","Farmhouse"],["luxury-dark","Luxury Dark"]]},
+    {id:"materials",label:"3 · Materials (pick any)",opts:[["pavers","Pavers"],["stone","Natural stone"],["stucco","Stucco"],["brick","Brick"],["wood","Wood accents"],["metal","Metal"],["black","Black fixtures"]]},
+    {id:"color",label:"4 · Color direction",single:1,opts:[["white-cream","White / Cream"],["warm-sand","Warm Sand"],["grey","Grey"],["black-accents","Black accents"],["earth","Earth tones"]]},
+    {id:"timeline",label:"5 · Timeline",single:1,opts:[["asap","Ready now"],["3-6mo","3–6 months"],["planning","Just planning"]]}]},
+
+ backyard:{name:"Backyard & Patio", tag:"Patio, pergola, pool, yard",
+   img:"assets/img/mike/exterior-patio-builds/clark-pergola-IMG_0020.jpeg",
+   angle:"Stand at the back of the house looking out — capture the patio, the yard and any existing structures together in one wide shot.",
+   q:[
+    {id:"features",label:"1 · What should we add or upgrade? (pick any)",opts:[["patio","Patio / deck"],["pergola","Pergola / shade"],["outdoorkitchen","Outdoor kitchen"],["pool","Pool / spa area"],["firepit","Fire pit"],["landscaping","Landscaping"],["fencing","Fencing / privacy"],["lighting","Lighting"]]},
+    {id:"style",label:"2 · Style",single:1,opts:[["modern","Modern"],["coastal","Coastal"],["tropical","Tropical / Resort"],["mediterranean","Mediterranean"],["transitional","Transitional"],["luxury-dark","Luxury Dark"]]},
+    {id:"materials",label:"3 · Materials (pick any)",opts:[["pavers","Pavers"],["travertine","Travertine"],["deck","Wood / composite deck"],["stone","Natural stone"],["concrete","Concrete"],["metal","Metal"],["black","Black fixtures"]]},
+    {id:"color",label:"4 · Color direction",single:1,opts:[["light-cream","Light / Cream"],["warm-sand","Warm Sand"],["grey","Grey"],["black-accents","Black accents"],["green","Green / natural"]]},
+    {id:"timeline",label:"5 · Timeline",single:1,opts:[["asap","Ready now"],["3-6mo","3–6 months"],["planning","Just planning"]]}]},
+
+ bathroom:{name:"Bathroom", tag:"Vanity, shower, tile",
+   img:"assets/img/mike/bathrooms/IMG_2873.jpeg",
+   angle:"Stand in the doorway and capture the full bathroom — vanity, shower or tub, and the floor together in one shot.",
+   q:[
+    {id:"layout",label:"1 · Layout",single:1,opts:[["keep","Keep my layout"],["redesign","Open to a new layout"]]},
+    {id:"dislikes",label:"2 · What don't you like? (pick any)",opts:[["vanity","Vanity"],["shower","Shower"],["tub","Tub"],["tile","Tile"],["lighting","Lighting"],["storage","Storage"],["fixtures","Fixtures"],["flooring","Flooring"]]},
+    {id:"style",label:"3 · Style",single:1,opts:[["modern","Modern"],["spa","Spa / Organic"],["coastal","Coastal"],["luxury-dark","Luxury Dark"],["transitional","Transitional"],["classic","Classic"]]},
+    {id:"materials",label:"4 · Materials (pick any)",opts:[["quartz","Quartz"],["marble","Marble-look"],["porcelain","Porcelain tile"],["wood","Natural wood"],["matteblack","Matte black"],["brass","Brass fixtures"],["glass","Glass"]]},
+    {id:"color",label:"5 · Color direction",single:1,opts:[["light-cream","Light / Cream"],["walnut","Walnut"],["black-accents","Black accents"],["green","Green"],["neutral","Neutral"]]},
+    {id:"timeline",label:"6 · Timeline",single:1,opts:[["asap","Ready now"],["3-6mo","3–6 months"],["planning","Just planning"]]}]}
+};
+
+const state={room:null, photo:null, answers:{}, jobId:null, emailVerified:false, source_page:location.pathname, referrer:document.referrer||"direct"};
+const $=s=>document.querySelector(s), steps=[...document.querySelectorAll('.step')], dots=[...document.querySelectorAll('.prog .dot')];
+function show(n){steps.forEach(s=>s.classList.remove('on'));$('#s'+n).classList.add('on');const map={0:1,1:2,2:3,3:3,4:4,5:5};dots.forEach(d=>d.classList.toggle('on',+d.dataset.d<=map[n]));window.scrollTo({top:0,behavior:'smooth'});}
+
+/* build room picker */
+const roomsEl=$('#rooms');
+Object.entries(ROOMS).forEach(([key,r])=>{
+ const c=document.createElement('div');c.className='room';c.dataset.k=key;
+ const im=document.createElement('img');im.src=r.img;im.alt=r.name;im.loading='lazy';
+ const ov=document.createElement('div');ov.className='ov';
+ const pk=document.createElement('div');pk.className='pick';pk.textContent='✓';
+ const tx=document.createElement('div');tx.className='txt';
+ const rn=document.createElement('div');rn.className='rn';rn.textContent=r.name;
+ const rs=document.createElement('div');rs.className='rs';rs.textContent=r.tag;
+ tx.append(rn,rs);c.append(im,ov,pk,tx);roomsEl.append(c);
+ c.addEventListener('click',()=>pickRoom(key));
+});
+
+function pickRoom(key){
+ state.room=key;state.answers={room:key};state.photo=null;
+ const r=ROOMS[key];
+ document.querySelectorAll('.room').forEach(x=>x.classList.toggle('on',x.dataset.k===key));
+ // example
+ $('#exImg').src=r.img;$('#exImg').alt=r.name+' example';$('#exDesc').textContent=r.angle;
+ $('#s1title').innerHTML='Your '+r.name.toLowerCase()+', <span class="serif">reimagined.</span>';
+ // reset dropzone
+ const drop=$('#drop');drop.className='drop';drop.textContent='';
+ const ic=document.createElement('div');ic.className='ic';ic.textContent='⬆';
+ const t=document.createElement('div');t.className='t';t.textContent='Drop your photo, or click to upload';
+ const s=document.createElement('div');s.className='s';s.textContent='JPG / PNG · up to 10MB';
+ const inp=document.createElement('input');inp.type='file';inp.id='file';inp.accept='image/*';inp.hidden=true;
+ drop.append(ic,t,s,inp);wireDrop();
+ // questions
+ renderQuestions(r.q);
+ show(1);
+}
+
+function renderQuestions(qs){
+ const box=$('#questions');box.textContent='';
+ qs.forEach(q=>{
+  state.answers[q.id]=q.single?'':[];
+  const wrap=document.createElement('div');wrap.className='q';
+  const qt=document.createElement('div');qt.className='qt';qt.textContent=q.label;
+  const chips=document.createElement('div');chips.className='chips';chips.dataset.q=q.id;if(q.single)chips.dataset.single='1';
+  q.opts.forEach(([v,lab])=>{const ch=document.createElement('div');ch.className='chip';ch.dataset.v=v;ch.textContent=lab;chips.append(ch);});
+  chips.addEventListener('click',e=>{const c=e.target.closest('.chip');if(!c)return;
+   if(q.single){chips.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));c.classList.add('on');state.answers[q.id]=c.dataset.v;}
+   else{c.classList.toggle('on');state.answers[q.id]=[...chips.querySelectorAll('.chip.on')].map(x=>x.dataset.v);}
+   validate();});
+  wrap.append(qt,chips);box.append(wrap);
+ });
+}
+
+/* upload */
+function wireDrop(){
+ const drop=$('#drop'), file=$('#file');
+ drop.addEventListener('click',()=>file.click());
+ drop.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')file.click();});
+ drop.addEventListener('dragover',e=>{e.preventDefault();drop.classList.add('drag');});
+ drop.addEventListener('dragleave',()=>drop.classList.remove('drag'));
+ drop.addEventListener('drop',e=>{e.preventDefault();drop.classList.remove('drag');if(e.dataTransfer.files[0])setPhoto(e.dataTransfer.files[0]);});
+ file.addEventListener('change',()=>{if(file.files[0])setPhoto(file.files[0]);});
+}
+function setPhoto(f){if(!f.type.startsWith('image/')){alert('Please upload an image.');return;}if(f.size>10*1024*1024){alert('Max 10MB.');return;}
+ const drop=$('#drop');state.photo=f;const url=URL.createObjectURL(f);drop.classList.add('has');
+ drop.textContent='';const im=document.createElement('img');im.src=url;im.alt='your photo';
+ const ph=document.createElement('div');ph.className='ph';ph.textContent='✓ '+f.name.slice(0,28)+' — click to change';
+ drop.append(im,ph);drop.addEventListener('click',()=>$('#file').click());validate();}
+
+/* require photo + style + color answered (both exist in every room) */
+function validate(){const a=state.answers;const ok=state.photo&&a.style&&a.color;$('#go').disabled=!ok;}
+
+/* ---- API helpers (same contract; answers now carries room) ---- */
+async function apiPreview(){
+ if(MOCK){await wait(2200);return{jobId:'demo-'+Date.now(),previewUrl:ROOMS[state.room].img,engine:'gemini-2.5-flash-image (demo)'};}
+ const fd=new FormData();fd.append('photo',state.photo);fd.append('answers',JSON.stringify(state.answers));fd.append('source_page',state.source_page);fd.append('referrer',state.referrer);
+ const r=await fetch(API_BASE+'/kitchen/preview',{method:'POST',body:fd});if(!r.ok)throw await r.json();return r.json();}
+async function apiEmailStart(email){if(MOCK){await wait(700);return{sent:true};}const r=await fetch(API_BASE+'/kitchen/verify-email/start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jobId:state.jobId,email})});if(!r.ok)throw await r.json();return r.json();}
+async function apiEmailConfirm(code){if(MOCK){await wait(600);return{verified:code.length===6};}const r=await fetch(API_BASE+'/kitchen/verify-email/confirm',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jobId:state.jobId,code})});if(!r.ok)throw await r.json();return r.json();}
+async function apiSubmit(name,phone,email){if(MOCK){await wait(1100);return{ok:true};}const r=await fetch(API_BASE+'/kitchen/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jobId:state.jobId,name,phone,email,answers:state.answers})});if(!r.ok)throw await r.json();return r.json();}
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+
+/* flow */
+$('#back0').addEventListener('click',()=>show(0));
+$('#go').addEventListener('click',async()=>{show(2);
+ const msgs=['Reading your space…','Applying your style…','Swapping materials & color…','Rendering your concept…'];let i=0;const t=setInterval(()=>{$('#loadt').textContent=msgs[i=(i+1)%msgs.length];},2600);
+ try{const r=await apiPreview();clearInterval(t);state.jobId=r.jobId;if(r.previewUrl)$('#prevImg').src=r.previewUrl;show(3);}
+ catch(e){clearInterval(t);alert((e&&e.error)||'Something went wrong generating your preview. Please try again.');show(1);}});
+$('#toVerify').addEventListener('click',()=>show(4));
+$('#restart').addEventListener('click',()=>show(1));
+
+$('#sendCode').addEventListener('click',async()=>{const email=$('#email').value.trim();const emsg=$('#emsg');
+ if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){emsg.className='msg err';emsg.textContent='Please enter a valid email.';return;}
+ $('#sendCode').disabled=true;emsg.className='msg';emsg.textContent='Sending code…';
+ try{await apiEmailStart(email);$('#otpBlock').style.display='block';emsg.className='msg ok';emsg.textContent='Code sent — check your inbox.'+(MOCK?' (demo: any 6 digits)':'');}
+ catch(e){emsg.className='msg err';emsg.textContent=(e&&e.error)||'Could not send code.';$('#sendCode').disabled=false;}});
+$('#confirmCode').addEventListener('click',async()=>{const code=$('#otp').value.trim();const emsg=$('#emsg');
+ try{const r=await apiEmailConfirm(code);if(r.verified){state.emailVerified=true;$('#emailVerified').style.display='inline-flex';$('#sendCode').style.display='none';$('#otpBlock').style.display='none';$('#email').readOnly=true;$('#quoteBlock').style.display='block';emsg.textContent='';}
+  else{emsg.className='msg err';emsg.textContent='That code is not right. Try again.';}}
+ catch(e){emsg.className='msg err';emsg.textContent=(e&&e.error)||'Verification failed.';}});
+$('#submit').addEventListener('click',async()=>{const name=$('#name').value.trim(),phone=$('#phone').value.trim(),email=$('#email').value.trim();const smsg=$('#smsg');
+ if(!name){smsg.className='msg err';smsg.textContent='Please add your name.';return;}
+ if(phone.replace(/\D/g,'').length<10){smsg.className='msg err';smsg.textContent='Please add a valid phone number.';return;}
+ if(!state.emailVerified){smsg.className='msg err';smsg.textContent='Please verify your email first.';return;}
+ $('#submit').disabled=true;smsg.className='msg';smsg.textContent='Sending…';
+ try{await apiSubmit(name,phone,email);show(5);}catch(e){smsg.className='msg err';smsg.textContent=(e&&e.error)||'Could not submit. Please try again.';$('#submit').disabled=false;}});
+</script>
+</body>
+</html>
