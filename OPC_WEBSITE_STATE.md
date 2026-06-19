@@ -165,6 +165,15 @@ Drive Inspiration folder: `1ae7n4VwSZbu0_nt6nUX5WeLINGqYJ-CZ`
 
 ---
 
+### 🔒 LOCKED DECISION — AI ROOM VISION UX (Priscila 2026-06-16)
+**Binding.** The AI design tool is NOT kitchen-only. Priscila explicitly rejected the kitchen-only version and requires:
+1. **Multiple room types — at least 3** (currently 4: Kitchen · Bathroom · Exterior · Backyard).
+2. **Single page — selecting a room must NOT open/navigate to a new page.** The container box updates *in place* (dynamic content swap) as you select.
+3. **Adaptive** — picking a room changes the title, example image, and the questions shown.
+- **Canonical page = `room-vision.html`** (multi-room). `kitchen-vision.html` (v1, kitchen-only) is RETIRED — do not wire it up. This resolves T-121.
+- Quote: *"I want it for a bunch of stuff... at least like three different options of rooms... you select and it doesn't open a new page, just change the container box, it's dynamic and changes as you select."*
+- ✅ Verified 2026-06-16: room-vision.html already implements all three (ROOMS object w/ 4 rooms, `show()` swaps `.step` divs in place, per-room adaptive questions). No rebuild needed — design polish + backend only.
+
 ## 🧭 WEBSITE BUILD BACKLOG + SEO/ADS RECOMMENDATIONS (audit 2026-06-09, Claude)
 Built from: live oakpark-construction.com audit + repo audit + what I know about OPC. Priority = impact on leads/ranking/ads.
 
@@ -218,6 +227,7 @@ Decision needed from Priscila on direction before build.
 
 ## 📝 ACTIVITY LOG (auto-appended by `/opc-website` skill after every report-back)
 
+- **2026-06-19** — ROOM VISION BUILD (Plan v3, post-audit). Implemented + locally verified: **T-117** contract repair (`validation.js` `sanitizeAnswers` now preserves room/focus/features + room-specific answers, malformed room safe-falls-back to kitchen) and **T-125** per-room behavior (`image.js` room-aware `buildPrompt` + room-aware `moderateUpload` so exterior/backyard photos aren't rejected; `submit.js` room-aware lead+customer email subjects/headers/filenames + `room` added to lead). **T-130** retired `kitchen-vision.html` non-destructively (robots→noindex,nofollow, canonical→room-vision.html, lab-banner labeled ARCHIVED; no production page routed to it; not in sitemap). **T-132** local Gemini test: moderation (gemini-2.5-flash) PASS on free tier; **image generation (gemini-2.5-flash-image) returned 429 free-tier quota=0 → image gen needs BILLING enabled (blocker under free-tier-only rule).** BLOCKERS remaining: (1) Gemini image billing, (2) Gmail app password (physical login), (3) Upstash+Blob provisioning. NOT done blind (would break working mock demo + untestable): T-114 storage, T-129 preflight, T-126/127/116/128 OTP/quota hardening, T-118/122/123/133/124 deploy chain. Canonical page = room-vision.html (T-121 closed).
 - **2026-06-15** — Built the OPC Kitchen AI Vision backend scaffold with Vercel serverless endpoints, OTP email flow, AI engine routing, watermarking, smoke tests, and security/audit notes; production deploy waits on Vercel env vars + durable storage.
 - **2026-06-15** — Audited canonical tracker sheet `1q0_v9qYDXKURo59xoS-WISFdHbZWIdc9ukdCDbdDaUQ` against repo: confirmed it lives in Marketing › Website Projects, updated Service Pages rows to current live URLs/status, refreshed the fonts design decision, appended 11 missing prototype rows, added recent Done rows, and added Backlog task `T-900` for stale backlog cleanup.
 - **2026-06-12** — Alignment audit verified and tightened: 44 non-prototype pages now have canonical brand fonts, `opc-shared.css` as the final style layer, zero Roboto Condensed references, zero missing local refs, and standard `.wm`/`.lic` footer hooks; fixed leftover drift in `index-legacy.html`, `about.html`, `contact.html`, `privacy.html`, and `404.html`.

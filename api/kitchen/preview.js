@@ -38,14 +38,14 @@ async function handler(req, res) {
 
     const { fields, files } = await parseMultipart(req);
     const uploaded = first(files.photo);
-    if (!uploaded?.filepath) return sendError(res, 400, "Upload a kitchen photo.", "PHOTO_REQUIRED");
+    if (!uploaded?.filepath) return sendError(res, 400, "Upload a room photo.", "PHOTO_REQUIRED");
 
     const buffer = await fs.readFile(uploaded.filepath);
     const mimeType = uploaded.mimetype || "application/octet-stream";
     const answersRaw = first(fields.answers);
     const answers = sanitizeAnswers(answersRaw ? JSON.parse(answersRaw) : {});
 
-    const moderation = await moderateUpload(buffer, mimeType);
+    const moderation = await moderateUpload(buffer, mimeType, answers);
     if (!moderation.ok) return sendError(res, 400, moderation.error || "Upload rejected.", moderation.code || "UPLOAD_REJECTED");
 
     const concept = await generateConcept(buffer, mimeType, answers, "preview");

@@ -81,22 +81,44 @@ async function validatePhone(phone) {
   return { ok: true, phone: normalized, lookup: { provider: "structural_only" } };
 }
 
+// Canonical room types accepted from room-vision.html. Anything else falls back
+// to "kitchen" so a malformed/missing room never crashes generation.
+const ROOM_TYPES = ["kitchen", "bathroom", "exterior", "backyard"];
+
 function sanitizeAnswers(answers) {
   const value = typeof answers === "object" && answers ? answers : {};
-  const list = (item) => Array.isArray(item) ? item.map((x) => String(x).slice(0, 80)).slice(0, 10) : [];
-  return {
-    layout: String(value.layout || "preserve").slice(0, 60),
-    dislikes: list(value.dislikes),
-    style: String(value.style || "modern warm").slice(0, 80),
+  const str = (v, def, max) => String(v == null || v === "" ? def : v).slice(0, max);
+  const list = (item) => Array.isArray(item) ? item.map((x) => String(x).slice(0, 80)).slice(0, 12) : [];
+
+  const room = ROOM_TYPES.includes(value.room) ? value.room : "kitchen";
+
+  // Fields shared by every room.
+  const clean = {
+    room,
+    style: str(value.style, "modern warm", 80),
     materials: list(value.materials),
-    color: String(value.color || "warm neutral").slice(0, 80),
-    budget: String(value.budget || "not specified").slice(0, 80),
-    timeline: String(value.timeline || "not specified").slice(0, 80)
+    color: str(value.color, "warm neutral", 80),
+    timeline: str(value.timeline, "not specified", 80),
+    budget: str(value.budget, "not specified", 80)
   };
+
+  // Room-specific answer keys (previously stripped — the cause of every room
+  // being treated as a kitchen). Preserve only the keys that room actually sends.
+  if (room === "kitchen" || room === "bathroom") {
+    clean.layout = str(value.layout, "keep", 60);
+    clean.dislikes = list(value.dislikes);
+  } else if (room === "exterior") {
+    clean.focus = list(value.focus);
+  } else if (room === "backyard") {
+    clean.features = list(value.features);
+  }
+
+  return clean;
 }
 
 module.exports = {
   validateEmail,
   validatePhone,
-  sanitizeAnswers
+  sanitizeAnswers,
+  ROOM_TYPES
 };

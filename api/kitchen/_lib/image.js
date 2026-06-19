@@ -3,18 +3,71 @@ const { GoogleGenAI, Modality } = require("@google/genai");
 const config = require("./config");
 const { makePreview, makeHighResConcept } = require("./watermark");
 
+// Per-room generation profiles. Each room has a different subject, default
+// material language, geometry to preserve, and failure modes to avoid — so a
+// bathroom is never prompted as a kitchen, an exterior is never prompted as an
+// interior, etc.
+const ROOM_PROFILES = {
+  kitchen: {
+    subject: "kitchen",
+    interior: true,
+    defaultMaterials: "durable premium kitchen materials",
+    keep: "walls, windows, perspective, camera angle, ceiling height, and major plumbing/electrical locations",
+    avoid: "no warped cabinets, no impossible island placement, no floating appliances"
+  },
+  bathroom: {
+    subject: "bathroom",
+    interior: true,
+    defaultMaterials: "durable premium bathroom tile and fixtures",
+    keep: "walls, windows, perspective, camera angle, ceiling height, and major plumbing locations",
+    avoid: "no warped vanities, no floating fixtures, realistic shower glass and grout lines"
+  },
+  exterior: {
+    subject: "home exterior and front yard",
+    interior: false,
+    defaultMaterials: "durable premium exterior materials (pavers, stone, stucco)",
+    keep: "house footprint, rooflines, window and door positions, driveway proportions, perspective, and camera angle",
+    avoid: "no added stories, no impossible landscaping, keep the sky and surroundings realistic"
+  },
+  backyard: {
+    subject: "backyard and patio",
+    interior: false,
+    defaultMaterials: "durable premium outdoor-living materials (pavers, travertine, composite deck)",
+    keep: "property lines, the rear house wall, existing grade, perspective, and camera angle",
+    avoid: "no impossible pool placement, realistic shade structures and plantings"
+  }
+};
+
+function roomProfile(answers) {
+  return ROOM_PROFILES[answers.room] || ROOM_PROFILES.kitchen;
+}
+
 function buildPrompt(answers, mode = "preview") {
-  const dislikes = answers.dislikes?.length ? answers.dislikes.join(", ") : "only the areas the visitor disliked";
-  const materials = answers.materials?.length ? answers.materials.join(", ") : "durable premium kitchen materials";
-  return [
-    "Edit the uploaded kitchen photo into a photoreal Oak Park Construction remodel concept.",
-    `Layout preference: ${answers.layout}. Preserve room geometry unless the visitor explicitly asked to redesign layout.`,
-    `Visitor dislikes: ${dislikes}. Change those areas only.`,
-    `Preferred style: ${answers.style}. Preferred materials: ${materials}. Preferred color direction: ${answers.color}.`,
-    `Budget signal: ${answers.budget}. Timeline: ${answers.timeline}.`,
-    "Negative instructions: keep walls, windows, perspective, camera angle, ceiling height, and major plumbing/electrical locations realistic. No text artifacts, no fake logos, no warped cabinets, no impossible island placement.",
-    mode === "preview" ? "Return one polished concept image." : "Return a clean high-resolution concept image suitable for emailing after verification."
-  ].join("\n");
+  const p = roomProfile(answers);
+  const materials = answers.materials?.length ? answers.materials.join(", ") : p.defaultMaterials;
+  const lines = [
+    `Edit the uploaded ${p.subject} photo into a photoreal Oak Park Construction remodel concept.`
+  ];
+
+  // Room-specific intent: kitchen/bath have layout + dislikes; exterior has
+  // focus areas; backyard has features to add/upgrade.
+  if (answers.room === "kitchen" || answers.room === "bathroom" || !answers.room) {
+    const dislikes = answers.dislikes?.length ? answers.dislikes.join(", ") : "only the areas the visitor disliked";
+    lines.push(`Layout preference: ${answers.layout || "keep"}. Preserve room geometry unless the visitor explicitly asked to redesign layout.`);
+    lines.push(`Visitor dislikes: ${dislikes}. Change those areas only.`);
+  } else if (answers.room === "exterior") {
+    const focus = answers.focus?.length ? answers.focus.join(", ") : "the most visible curb-appeal areas";
+    lines.push(`Transform these exterior areas: ${focus}. Leave everything else as-is.`);
+  } else if (answers.room === "backyard") {
+    const features = answers.features?.length ? answers.features.join(", ") : "the main usable patio area";
+    lines.push(`Add or upgrade these outdoor features: ${features}. Keep the rest of the yard realistic.`);
+  }
+
+  lines.push(`Preferred style: ${answers.style}. Preferred materials: ${materials}. Preferred color direction: ${answers.color}.`);
+  lines.push(`Budget signal: ${answers.budget}. Timeline: ${answers.timeline}.`);
+  lines.push(`Negative instructions: keep ${p.keep} realistic. No text artifacts, no fake logos, ${p.avoid}.`);
+  lines.push(mode === "preview" ? "Return one polished concept image." : "Return a clean high-resolution concept image suitable for emailing after verification.");
+  return lines.join("\n");
 }
 
 async function ensureImage(buffer, mimeType) {
@@ -28,27 +81,33 @@ async function ensureImage(buffer, mimeType) {
   return meta;
 }
 
-async function moderateUpload(buffer, mimeType) {
+async function moderateUpload(buffer, mimeType, answers = {}) {
   await ensureImage(buffer, mimeType);
   if (!config.geminiKey) {
     if (config.mockAi) return { ok: true, provider: "mock" };
     throw Object.assign(new Error("Gemini key is required for upload moderation."), { code: "MODERATION_NOT_CONFIGURED" });
   }
+  const p = roomProfile(answers);
+  // Interior rooms expect an inside photo; exterior/backyard expect an outdoor
+  // house/yard photo — so the moderator no longer rejects valid exterior shots.
+  const expected = p.interior
+    ? `an interior ${p.subject} (or similar room) photo`
+    : `an outdoor photo of a ${p.subject}`;
   const ai = new GoogleGenAI({ apiKey: config.geminiKey });
   const response = await ai.models.generateContent({
     model: "gemini-2.5-flash",
     contents: [{
       role: "user",
       parts: [
-        { text: "Classify this upload for a kitchen remodeling lead form. Reply JSON only: {\"room\":true|false,\"unsafe\":true|false,\"reason\":\"short\"}. Reject if it is not an interior room/kitchen/bath/living construction photo, contains people as the main subject, nudity, violence, documents, or spam." },
+        { text: `Classify this upload for a home remodeling lead form. The visitor selected: ${p.subject}. Reply JSON only: {"valid":true|false,"unsafe":true|false,"reason":"short"}. Set valid=true only if the image is ${expected} suitable for a remodel concept. Reject (valid=false) if it does not match, or set unsafe=true for people as the main subject, nudity, violence, documents, or spam.` },
         { inlineData: { mimeType, data: buffer.toString("base64") } }
       ]
     }]
   });
   const text = response.text || "{}";
   const json = JSON.parse(text.replace(/^```json|```$/g, "").trim());
-  if (!json.room || json.unsafe) {
-    return { ok: false, code: "UPLOAD_REJECTED", error: json.reason || "Upload a real room photo." };
+  if (!json.valid || json.unsafe) {
+    return { ok: false, code: "UPLOAD_REJECTED", error: json.reason || `Upload a clear ${p.subject} photo.` };
   }
   return { ok: true, provider: "gemini", reason: json.reason || "" };
 }
