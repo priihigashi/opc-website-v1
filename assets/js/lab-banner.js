@@ -93,26 +93,31 @@
   const style = document.createElement('style');
   style.textContent = `
     .opc-lab-banner {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 99999;
-      background: rgba(10,10,10,0.94);
+      position: fixed; top: 0; left: 0; right: 0; z-index: 2147483647;
+      background: rgba(10,10,10,0.96);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid #CBCC10;
-      padding: 8px 16px;
+      padding: 8px 14px;
       display: flex; align-items: center; justify-content: flex-start;
-      gap: 12px; flex-wrap: nowrap;
+      gap: 10px; flex-wrap: nowrap;
       font-family: 'Courier New', monospace;
       font-size: 11px; letter-spacing: 2px;
       color: #F0EBE3;
-      overflow-x: auto; scrollbar-width: none; white-space: nowrap;
+      overflow: hidden; white-space: nowrap;
     }
-    .opc-lab-banner::-webkit-scrollbar{display:none}
     .opc-lab-banner .opc-tag { color: #CBCC10; font-weight: 700; flex:0 0 auto; }
     .opc-lab-banner a.opc-all {
       color: #CBCC10; text-decoration: none; border: 1px solid #CBCC10;
-      padding: 5px 14px; border-radius: 999px; transition: all 0.2s; flex:0 0 auto;
+      padding: 5px 12px; border-radius: 999px; transition: all 0.2s; flex:0 0 auto;
     }
     .opc-lab-banner a.opc-all:hover { background: #CBCC10; color: #0A0A0A; }
+    /* only the GROUP STRIP scrolls horizontally; LAB / ALL / ✕ stay pinned + reachable */
+    .opc-scroll { flex: 1 1 auto; min-width: 0; overflow-x: auto; overflow-y: hidden;
+      display: flex; gap: 10px; align-items: center; white-space: nowrap;
+      scrollbar-width: thin; scrollbar-color: rgba(203,204,16,.5) transparent; }
+    .opc-scroll::-webkit-scrollbar{height:5px}
+    .opc-scroll::-webkit-scrollbar-thumb{background:rgba(203,204,16,.5);border-radius:3px}
     .opc-groups { display: flex; gap: 10px; flex-wrap: nowrap; align-items: center; }
     .opc-grp { display: flex; gap: 6px; align-items: center; flex:0 0 auto;
       padding-left: 10px; border-left: 1px solid rgba(240,235,227,0.14); }
@@ -129,13 +134,13 @@
     }
     .opc-grp a:hover { background: var(--c); color: #0A0A0A; opacity: 1; }
     .opc-lab-banner .opc-close {
-      cursor: pointer; opacity: 0.5; font-size: 14px; padding: 0 8px;
-      user-select: none; flex:0 0 auto; margin-left:auto;
+      cursor: pointer; opacity: 0.85; font-size: 13px; padding: 5px 9px;
+      user-select: none; flex:0 0 auto; color:#0A0A0A; background:#CBCC10;
+      border-radius:999px; font-weight:700; letter-spacing:1px;
     }
-    .opc-lab-banner .opc-close:hover { opacity: 1; color: #CBCC10; }
-    body.opc-lab-active { padding-top: 44px; }
+    .opc-lab-banner .opc-close:hover { opacity: 1; background:#dddd30; }
     @media (max-width: 768px) {
-      .opc-lab-banner { font-size: 10px; padding: 8px 12px; }
+      .opc-lab-banner { font-size: 10px; padding: 8px 10px; }
     }
   `;
   document.head.appendChild(style);
@@ -152,8 +157,8 @@
   banner.innerHTML = `
     <span class="opc-tag">🧪 LAB</span>
     <a class="opc-all" href="${base}prototypes/">ALL →</a>
-    <div class="opc-groups">${groupsHtml}</div>
-    <span class="opc-close" id="opc-close-btn">✕</span>
+    <div class="opc-scroll"><div class="opc-groups">${groupsHtml}</div></div>
+    <span class="opc-close" id="opc-close-btn" title="Hide the lab bar (this page only)">✕ HIDE</span>
   `;
 
   function ready(fn) {
@@ -161,12 +166,48 @@
     else document.addEventListener('DOMContentLoaded', fn);
   }
 
-  ready(() => {
+  // Find each page's OWN fixed top nav/header so we can drop it below the lab bar
+  // (so the site menu stays visible on every page instead of hiding behind the bar).
+  function pushedNavs() {
+    const out = [];
+    document.querySelectorAll('nav, header').forEach(el => {
+      if (el.closest('.opc-lab-banner')) return;
+      const cs = getComputedStyle(el);
+      const topNum = parseFloat(cs.top);
+      if (cs.position === 'fixed' && !isNaN(topNum) && topNum < 10) out.push(el);
+    });
+    return out;
+  }
+
+  function applyOffset() {
+    const h = Math.round(banner.getBoundingClientRect().height) || 44;
     document.body.classList.add('opc-lab-active');
+    document.body.style.paddingTop = h + 'px';
+    pushedNavs().forEach(el => {
+      if (!el.dataset.opcPrevTop) el.dataset.opcPrevTop = el.style.top || '0px';
+      el.style.top = h + 'px';
+      el.dataset.opcPushed = '1';
+    });
+  }
+
+  function clearOffset() {
+    document.body.classList.remove('opc-lab-active');
+    document.body.style.paddingTop = '';
+    document.querySelectorAll('[data-opc-pushed="1"]').forEach(el => {
+      el.style.top = el.dataset.opcPrevTop === '0px' ? '' : el.dataset.opcPrevTop;
+      delete el.dataset.opcPushed;
+    });
+  }
+
+  ready(() => {
     document.body.insertBefore(banner, document.body.firstChild);
+    applyOffset();
+    // Re-align once fonts/layout settle (banner height can change after fonts load).
+    setTimeout(applyOffset, 350);
+    window.addEventListener('resize', applyOffset, { passive: true });
     document.getElementById('opc-close-btn').addEventListener('click', () => {
+      clearOffset();
       banner.remove();
-      document.body.classList.remove('opc-lab-active');
       sessionStorage.setItem('opcLabHidden', '1');
     });
   });
