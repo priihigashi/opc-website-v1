@@ -9,7 +9,7 @@
 - **Drive mirror of this doc:** https://docs.google.com/document/d/1j2Y1z6rYRBS9fwE1Uk4seMvUNk9jFMZA-SZDAuCSZ2E/edit (ID `1j2Y1z6rYRBS9fwE1Uk4seMvUNk9jFMZA-SZDAuCSZ2E`)
 - **Skill:** `/opc-website` (loader skill — reads this file on activation)
 
-Last updated: **2026-06-15**
+Last updated: **2026-06-24**
 
 ---
 
@@ -179,7 +179,7 @@ Drive Inspiration folder: `1ae7n4VwSZbu0_nt6nUX5WeLINGqYJ-CZ`
 - **Skill = `website-reference-rebuild`** (a tool under the `/opc-website` hub). Framing: **reference capture + ethical OPC rebuild** — study the design pattern, rebuild ORIGINAL in OPC brand. NEVER a 1:1 clone, NEVER ships the source site's assets.
 - **Skill ≠ Agent.** Tools are skills; `/opc-website` is the hub that pulls them in. Agents reserved for LATER + large research/comparison sweeps only ("compare 25 contractor sites, rank best hero/gallery/contact").
 - Codex-tightened rules baked into the skill: no "clones every site" promise; curl/HTTrack (NOT wget — macOS has curl, not wget); only write to STATE.md once a rebuild actually ships to the live site.
-- Tracker tasks: see Backlog T-137..T-140. Skill file: `~/.claude/skills/website-reference-rebuild/SKILL.md`.
+- Tracker tasks: see Backlog T-137..T-141. Canonical skill file: `~/.agents/skills/website-reference-rebuild/SKILL.md` (symlinked into Codex; Claude copy exists for Claude Code compatibility).
 
 ## 🧭 WEBSITE BUILD BACKLOG + SEO/ADS RECOMMENDATIONS (audit 2026-06-09, Claude)
 Built from: live oakpark-construction.com audit + repo audit + what I know about OPC. Priority = impact on leads/ranking/ads.
@@ -234,7 +234,8 @@ Decision needed from Priscila on direction before build.
 
 ## 📝 ACTIVITY LOG (auto-appended by `/opc-website` skill after every report-back)
 
-- **2026-06-23** — NEW SKILL BUILT: `website-reference-rebuild` (reference capture + ethical OPC rebuild). Decision locked w/ Codex audit (rejected paid Gumroad "NT Site Mirror" — engine free via HTTrack/SingleFile/curl). Skill file `~/.claude/skills/website-reference-rebuild/SKILL.md`, registered under `/opc-website` hub, logged to master plan (this file) + Backlog T-137..T-140 + Design Decisions tab + Skills & Agents registry. Framing: study patterns → rebuild ORIGINAL in OPC brand, never clone/ship source assets. Agents reserved for later large research sweeps.
+- **2026-06-24** — REGISTRY FIX: reconciled `website-reference-rebuild` from Claude-only into shared skills (`~/.agents/skills/website-reference-rebuild/SKILL.md`) and Codex (`~/.codex/skills/website-reference-rebuild` symlink); updated `/opc-website` loader cheat sheet to point at the helper skill; tracker audit row T-141 closed with evidence.
+- **2026-06-23** — NEW SKILL BUILT: `website-reference-rebuild` (reference capture + ethical OPC rebuild). Decision locked w/ Codex audit (rejected paid Gumroad "NT Site Mirror" — engine free via HTTrack/SingleFile/curl). Skill is now canonical at `~/.agents/skills/website-reference-rebuild/SKILL.md`, registered under `/opc-website` hub, logged to master plan (this file) + Backlog T-137..T-140 + Design Decisions tab + Skills & Agents registry. Framing: study patterns → rebuild ORIGINAL in OPC brand, never clone/ship source assets. Agents reserved for later large research sweeps.
 - **2026-06-19** — ROOM VISION BUILD (Plan v3, post-audit). Implemented + locally verified: **T-117** contract repair (`validation.js` `sanitizeAnswers` now preserves room/focus/features + room-specific answers, malformed room safe-falls-back to kitchen) and **T-125** per-room behavior (`image.js` room-aware `buildPrompt` + room-aware `moderateUpload` so exterior/backyard photos aren't rejected; `submit.js` room-aware lead+customer email subjects/headers/filenames + `room` added to lead). **T-130** retired `kitchen-vision.html` non-destructively (robots→noindex,nofollow, canonical→room-vision.html, lab-banner labeled ARCHIVED; no production page routed to it; not in sitemap). **T-132** local Gemini test: moderation (gemini-2.5-flash) PASS on free tier; **image generation (gemini-2.5-flash-image) returned 429 free-tier quota=0 → image gen needs BILLING enabled (blocker under free-tier-only rule).** BLOCKERS remaining: (1) Gemini image billing, (2) Gmail app password (physical login), (3) Upstash+Blob provisioning. NOT done blind (would break working mock demo + untestable): T-114 storage, T-129 preflight, T-126/127/116/128 OTP/quota hardening, T-118/122/123/133/124 deploy chain. Canonical page = room-vision.html (T-121 closed).
 - **2026-06-15** — Built the OPC Kitchen AI Vision backend scaffold with Vercel serverless endpoints, OTP email flow, AI engine routing, watermarking, smoke tests, and security/audit notes; production deploy waits on Vercel env vars + durable storage.
 - **2026-06-15** — Audited canonical tracker sheet `1q0_v9qYDXKURo59xoS-WISFdHbZWIdc9ukdCDbdDaUQ` against repo: confirmed it lives in Marketing › Website Projects, updated Service Pages rows to current live URLs/status, refreshed the fonts design decision, appended 11 missing prototype rows, added recent Done rows, and added Backlog task `T-900` for stale backlog cleanup.
