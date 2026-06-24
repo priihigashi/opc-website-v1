@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HKSQ4R7FC6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-HKSQ4R7FC6');
+</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
@@ -24,18 +33,26 @@
   nav.top .brand{font-family:'Anton',sans-serif;font-size:16px;letter-spacing:3px;color:var(--cream);} nav.top .brand .lime{color:var(--lime);}
   nav.top .links{display:flex;gap:30px;} nav.top .links a{font-family:'Roboto Mono',monospace;font-size:14px;letter-spacing:2px;text-transform:uppercase;opacity:.78;} nav.top .links a:hover{opacity:1;color:var(--lime);}
 
-  /* ===== HERO (one screen) — subject photo parallax-shifts on scroll, bg holds ===== */
-  .hero{position:relative;min-height:100vh;display:grid;grid-template-columns:1.02fr .98fr;align-items:center;gap:40px;padding:0 64px;overflow:hidden;}
-  .hero::before{content:"";position:absolute;inset:0;z-index:0;background:radial-gradient(120% 90% at 78% 26%, rgba(203,204,16,.10), transparent 52%),linear-gradient(180deg,#15140d 0%,#100f08 100%);}
-  .hero-copy{position:relative;z-index:3;max-width:620px;will-change:transform;}
+  /* ===== HERO — PINNED scroll-scene: background holds STATIC, the house photo MOVES + FOLDS (inception) as you scroll ===== */
+  .hero{position:relative;height:175vh;}                         /* scroll runway for the pinned motion */
+  .hero-sticky{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;padding:0 64px;}
+  .hero-bg{position:absolute;inset:0;z-index:0;}                 /* the STATIC background — never moves */
+  .hero-bg .bgimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 55%;filter:brightness(.44) saturate(.74) contrast(.9);}
+  .hero-bg::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 90% at 74% 30%, rgba(203,204,16,.12), transparent 52%),linear-gradient(180deg,rgba(8,8,5,.55),rgba(8,8,5,.35) 50%,rgba(8,8,5,.78));}
+  .hero-copy{position:relative;z-index:4;max-width:560px;will-change:transform,opacity;}
   .hero-copy .eyebrow{margin-bottom:18px;}
-  .hero-copy h1{font-size:clamp(50px,7vw,104px);color:var(--cream);} .hero-copy h1 .serif{font-size:1.16em;}
-  .hero-copy .sub{font-family:'Roboto Mono',monospace;font-size:16px;line-height:1.7;max-width:440px;color:rgba(240,235,227,.82);margin:28px 0 26px;}
+  .hero-copy h1{font-size:clamp(50px,7vw,104px);color:var(--cream);text-shadow:0 4px 40px rgba(0,0,0,.5);} .hero-copy h1 .serif{font-size:1.16em;}
+  .hero-copy .sub{font-family:'Roboto Mono',monospace;font-size:16px;line-height:1.7;max-width:440px;color:rgba(240,235,227,.86);margin:28px 0 26px;}
   .hero-cta{display:flex;gap:12px;flex-wrap:wrap;}
-  .hero-media{position:relative;z-index:2;height:74vh;border-radius:14px;overflow:hidden;border:1px solid var(--line);box-shadow:0 40px 90px rgba(0,0,0,.55);}
-  .hero-media img{position:absolute;left:0;top:-12%;width:100%;height:124%;object-fit:cover;object-position:center 60%;filter:brightness(.82) saturate(.78) contrast(.85);will-change:transform;}
-  .hero-media .mtag{position:absolute;left:16px;bottom:16px;z-index:2;font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;background:rgba(5,5,5,.55);backdrop-filter:blur(4px);padding:6px 12px;border-radius:6px;color:var(--cream);}
-  .scroll-cue{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:4;font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,235,227,.5);text-align:center;}
+  /* the MOVING SUBJECT — a house photo that travels + folds in 3D over the static bg */
+  .hero-stage{position:absolute;right:3vw;top:0;bottom:0;width:54%;display:flex;align-items:center;justify-content:center;perspective:1500px;z-index:2;pointer-events:none;}
+  .hero-photo{position:relative;width:100%;max-width:660px;aspect-ratio:4/3;border-radius:16px;overflow:hidden;border:1px solid rgba(240,235,227,.2);box-shadow:0 50px 110px rgba(0,0,0,.6);transform-style:preserve-3d;will-change:transform;}
+  .hero-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 60%;filter:brightness(.9) saturate(.82) contrast(.88);}
+  .hero-photo .ptag{position:absolute;left:14px;bottom:14px;z-index:2;font-family:'Roboto Mono',monospace;font-size:11.5px;letter-spacing:1.5px;text-transform:uppercase;background:rgba(5,5,5,.6);backdrop-filter:blur(4px);padding:6px 11px;border-radius:6px;color:var(--cream);}
+  /* ghost copy behind for inception depth */
+  .hero-ghost{position:absolute;width:100%;max-width:660px;aspect-ratio:4/3;border-radius:16px;overflow:hidden;border:1px solid rgba(203,204,16,.25);opacity:.22;transform-style:preserve-3d;will-change:transform;}
+  .hero-ghost img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 60%;filter:brightness(.8) saturate(.6) grayscale(.3);}
+  .scroll-cue{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:5;font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,235,227,.55);text-align:center;}
   .scroll-cue .arw{display:block;margin-top:6px;font-size:18px;color:var(--lime);animation:bob 1.6s ease-in-out infinite;}
   @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
 
@@ -110,22 +127,31 @@
   <div class="links"><a href="index.html">Home</a><a href="gallery-showcase.html">Our Work</a><a href="about.html">About</a><a href="how-it-works.html">How We Work</a><a href="contact.html">Contact</a></div>
 </nav>
 
-<!-- HERO -->
-<header class="hero">
-  <div class="hero-copy" id="heroCopy">
-    <div class="label eyebrow">South Florida · Design-Build</div>
-    <h1>Custom homes,<br>built <span class="serif">Whole.</span></h1>
-    <div class="sub">One accountable crew, from slab to keys — across Broward, Palm Beach &amp; Miami-Dade. Scroll to see the work.</div>
-    <div class="hero-cta">
-      <a href="contact.html" class="pill solid">Start a project</a>
-      <a href="gallery-showcase.html" class="pill">View work →</a>
+<!-- HERO — pinned scroll-scene: static bg, the house photo moves + folds as you scroll -->
+<header class="hero" id="hero">
+  <div class="hero-sticky">
+    <div class="hero-bg"><img class="bgimg" src="assets/img/mike/new-construction/122-dockside-cir-IMG_6718.jpeg" alt=""></div>
+
+    <div class="hero-copy" id="heroCopy">
+      <div class="label eyebrow">South Florida · Design-Build</div>
+      <h1>Custom homes,<br>built <span class="serif">Whole.</span></h1>
+      <div class="sub">One accountable crew, from slab to keys — across Broward, Palm Beach &amp; Miami-Dade. Keep scrolling.</div>
+      <div class="hero-cta">
+        <a href="contact.html" class="pill solid">Start a project</a>
+        <a href="gallery-showcase.html" class="pill">View work →</a>
+      </div>
     </div>
+
+    <div class="hero-stage">
+      <div class="hero-ghost" id="heroGhost"><img src="assets/img/gallery/newbuild-b.jpg" alt=""></div>
+      <div class="hero-photo" id="heroPhoto">
+        <img src="assets/img/gallery/newbuild-b.jpg" alt="Custom waterfront home built by Oak Park Construction">
+        <span class="ptag">122 Dockside Cir · New Construction · Broward</span>
+      </div>
+    </div>
+
+    <div class="scroll-cue">Scroll<span class="arw">↓</span></div>
   </div>
-  <div class="hero-media">
-    <img id="heroImg" src="assets/img/gallery/newbuild-b.jpg" alt="Custom waterfront home built by Oak Park Construction">
-    <span class="mtag">122 Dockside Cir · New Construction · Broward</span>
-  </div>
-  <div class="scroll-cue">Scroll<span class="arw">↓</span></div>
 </header>
 
 <!-- PINNED PROJECTS -->
@@ -209,22 +235,38 @@ document.querySelectorAll('.ba').forEach(ba => {
   ba.addEventListener('pointercancel',()=>on=false);
 });
 
-/* hero parallax — image + copy drift on scroll (subject moves, bg holds). Light + reduced-motion safe. */
+/* HERO pinned scene — the house photo MOVES around + FOLDS in 3D (inception) as you scroll,
+   over a STATIC background. Continuous motion across the whole pin = no empty/dead frames. */
 (function(){
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   if (matchMedia('(max-width:900px)').matches) return;
-  const img=document.getElementById('heroImg');
+  const hero=document.getElementById('hero');
+  const photo=document.getElementById('heroPhoto');
+  const ghost=document.getElementById('heroGhost');
   const copy=document.getElementById('heroCopy');
   let ticking=false;
   function frame(){
     ticking=false;
-    const y=window.scrollY;
-    if(y>window.innerHeight*1.2)return;            // only animate within the hero
-    img.style.transform='translateY('+(y*0.12)+'px) scale('+(1+y*0.00006)+')';
-    copy.style.transform='translateY('+(y*-0.06)+'px)';
-    copy.style.opacity=Math.max(0,1-y/(window.innerHeight*0.85)).toFixed(3);
+    const rect=hero.getBoundingClientRect();
+    const total=hero.offsetHeight-window.innerHeight;
+    const p=Math.min(1,Math.max(0,(-rect.top)/total));     // 0..1 through the pinned hero
+    // subject travels in an arc + folds: rotateY/X grow, it drifts left + up, scales down a touch
+    const tx = -p*16;                                        // moves left across the frame (vw)
+    const ty = Math.sin(p*Math.PI)*-7;                       // gentle up-arc then back (vh)
+    const ry = p*34;                                         // fold open (deg)
+    const rx = -p*12;                                        // tip back (deg)
+    const sc = 1 - p*0.12;                                   // stay substantial (no shrink-to-nothing)
+    photo.style.transform='translate('+tx+'vw,'+ty+'vh) rotateY('+ry+'deg) rotateX('+rx+'deg) scale('+sc+')';
+    photo.style.opacity = (1 - Math.max(0,(p-0.85))/0.15*0.4).toFixed(3); // only soften at the very end
+    // ghost folds harder + offsets the other way = inception depth
+    ghost.style.transform='translate('+(tx+5)+'vw,'+(ty-3)+'vh) rotateY('+(ry+18)+'deg) rotateX('+(rx-6)+'deg) scale('+(sc*1.04)+')';
+    ghost.style.opacity=(0.22 - p*0.12).toFixed(3);
+    // copy drifts up + fades as the scene hands off to the projects section
+    copy.style.transform='translateY('+(-p*70)+'px)';
+    copy.style.opacity=Math.max(0,1-p*1.25).toFixed(3);
   }
   window.addEventListener('scroll',()=>{if(!ticking){requestAnimationFrame(frame);ticking=true;}},{passive:true});
+  window.addEventListener('resize',frame,{passive:true});
   frame();
 })();
 
