@@ -93,6 +93,7 @@
       <a href="${base}prototypes/bathroom-waterproofing-section.html">15 Bath Wall</a>
       <a href="${base}prototypes/floor-plan-3d-reveal.html">16 Plan→3D</a>
       <a href="${base}prototypes/stucco-layer-section.html">17 Stucco</a>
+      <a href="${base}prototypes/novobudowa-light-panel.html">18 Light Panel</a>
       <a href="${base}areas/broward.html">📍 Broward</a>
       <a href="${base}areas/palm-beach.html">📍 Palm Beach</a>
       <a href="${base}areas/miami-dade.html">📍 Miami-Dade</a>

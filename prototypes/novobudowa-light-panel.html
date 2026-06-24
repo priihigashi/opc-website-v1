@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>OPC Lab - Light Panel Reference Rebuild</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@1,500&family=Inter:wght@300;400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<script src="../assets/js/lab-banner.js?v=17" defer></script>
+<style>
+:root{
+  --black:#050505;
+  --obsidian:#0A0A0A;
+  --cream:#F0EBE3;
+  --muted:rgba(240,235,227,.62);
+  --line:rgba(240,235,227,.16);
+  --lime:#CBCC10;
+  --walnut:#8B5A2B;
+  --warm:#E7C99A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--cream);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.page{min-height:100vh;position:relative;isolation:isolate;background:
+  radial-gradient(circle at 72% 35%,rgba(203,204,16,.045),transparent 34vw),
+  linear-gradient(180deg,#020202 0%,#080805 55%,#0b0a06 100%)}
+.nav{position:fixed;top:44px;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:28px clamp(20px,4vw,58px);pointer-events:none}
+.brand,.nav-right{pointer-events:auto}
+.brand{font-family:Anton,sans-serif;letter-spacing:2px;font-size:18px;text-transform:uppercase}
+.brand span{display:inline-block;width:25px;height:25px;margin-right:11px;vertical-align:-6px;background:linear-gradient(90deg,var(--cream),rgba(240,235,227,.08));clip-path:polygon(0 0,100% 14%,100% 86%,0 100%)}
+.nav-right{display:flex;align-items:center;gap:18px;font-family:Roboto Mono,monospace;font-size:11px;letter-spacing:4px;text-transform:uppercase}
+.pill{display:inline-flex;align-items:center;gap:14px;border:1px solid rgba(240,235,227,.38);border-radius:999px;padding:11px 16px 11px 18px;letter-spacing:.5px;font-size:13px;text-transform:none;background:rgba(240,235,227,.035);backdrop-filter:blur(12px)}
+.pill i{font-style:normal;color:var(--lime);font-size:18px;line-height:0}
+.toggle{width:42px;height:24px;border:1px solid rgba(240,235,227,.24);border-radius:999px;position:relative;background:rgba(240,235,227,.04);cursor:pointer}
+.toggle:after{content:"";position:absolute;width:16px;height:16px;left:4px;top:3px;border-radius:50%;background:var(--lime);box-shadow:0 0 18px rgba(203,204,16,.45);transition:.25s}
+body.light .toggle:after{left:20px;background:var(--cream)}
+body.light{background:#ede7dc;color:#0a0a0a}
+body.light .page{background:linear-gradient(180deg,#f6f1e8 0%,#ece4d7 100%)}
+body.light .hero-copy p,body.light .micro,body.light .metric span,body.light .phase p{color:rgba(10,10,10,.62)}
+body.light .phase{background:rgba(10,10,10,.045);border-color:rgba(10,10,10,.14)}
+body.light .nav .pill,body.light .toggle{border-color:rgba(10,10,10,.24);background:rgba(10,10,10,.04)}
+.hero{min-height:112vh;display:grid;grid-template-columns:minmax(18px,1fr) minmax(0,1320px) minmax(18px,1fr);align-items:center;padding-top:70px}
+.hero-inner{grid-column:2;display:grid;grid-template-rows:1fr auto auto;min-height:96vh;padding-top:120px}
+.hero-copy{align-self:center;justify-self:end;text-align:right;max-width:880px;margin-top:8vh}
+.micro{font-family:Roboto Mono,monospace;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:20px}
+h1{font-family:Anton,sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:0;font-size:clamp(48px,8.2vw,132px);line-height:.94}
+.grad{display:inline-block;background:linear-gradient(92deg,var(--lime),var(--cream) 50%,var(--warm));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-copy p{margin:24px 0 0 auto;max-width:560px;color:var(--muted);font-size:15px;line-height:1.75}
+.light-panel{align-self:end;margin:10vh clamp(0px,2vw,34px) 0;height:clamp(190px,24vh,300px);border-radius:0;position:relative;overflow:hidden;background:
+  linear-gradient(90deg,rgba(203,204,16,.78),rgba(240,235,227,.92) 40%,rgba(231,201,154,.95) 70%,rgba(139,90,43,.84)),
+  repeating-linear-gradient(90deg,rgba(255,255,255,.1) 0 58px,rgba(255,255,255,0) 58px 116px);
+box-shadow:0 -40px 90px rgba(203,204,16,.06),0 20px 90px rgba(0,0,0,.56)}
+.light-panel:before{content:"";position:absolute;inset:-30%;background:radial-gradient(circle at var(--x,55%) 50%,rgba(255,255,255,.78),transparent 28%);mix-blend-mode:screen;filter:blur(12px);transition:.12s}
+.light-panel:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,0) 45%,rgba(0,0,0,.22));}
+.panel-label{position:absolute;left:clamp(18px,3vw,42px);bottom:clamp(18px,3vw,38px);z-index:2;font-family:Roboto Mono,monospace;font-size:11px;letter-spacing:2.4px;text-transform:uppercase;color:#0A0A0A;background:rgba(240,235,227,.68);border-radius:999px;padding:10px 15px}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:clamp(24px,5vh,62px)}
+.metric{padding:26px clamp(18px,3vw,40px);background:rgba(240,235,227,.035)}
+.metric strong{font-family:Anton,sans-serif;font-size:clamp(28px,4vw,62px);font-weight:400}
+.metric span{display:block;margin-top:8px;font-family:Roboto Mono,monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.phase-wrap{max-width:1320px;margin:0 auto;padding:120px clamp(18px,4vw,58px) 150px;display:grid;gap:18px}
+.phase{min-height:58vh;border:1px solid var(--line);background:rgba(240,235,227,.04);display:grid;grid-template-columns:1fr 1.1fr;align-items:end;overflow:hidden;position:relative}
+.phase:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,5,5,.84),rgba(5,5,5,.18));z-index:1}
+.phase img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.62) saturate(.82);transform:scale(1.04);transition:transform .9s ease,filter .6s ease}
+.phase:hover img{transform:scale(1.09);filter:brightness(.78) saturate(.95)}
+.phase-copy{position:relative;z-index:2;padding:clamp(24px,5vw,70px);max-width:600px}
+.phase small{font-family:Roboto Mono,monospace;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--lime)}
+.phase h2{font-family:Anton,sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:0;font-size:clamp(42px,6vw,96px);line-height:.94;margin-top:18px}
+.phase p{margin-top:18px;color:rgba(240,235,227,.72);font-size:15.5px;line-height:1.7;max-width:480px}
+.footer-cta{min-height:70vh;display:grid;place-items:center;text-align:center;padding:80px 22px;border-top:1px solid var(--line)}
+.footer-cta h2{font-family:Anton,sans-serif;font-size:clamp(44px,8vw,126px);line-height:.95;text-transform:uppercase;font-weight:400}
+.footer-cta p{max-width:560px;margin:24px auto 0;color:var(--muted);line-height:1.7}
+.footer-cta .pill{margin-top:30px}
+@media(max-width:760px){
+  .nav{top:40px;padding:18px 18px}.brand{font-size:14px}.brand span{width:18px;height:18px;margin-right:8px}.pill{display:none}.nav-right{gap:12px;letter-spacing:3px}
+  .hero-inner{padding-top:96px;min-height:92vh}.hero-copy{text-align:right;margin-top:18vh}.micro{font-size:10px;margin-bottom:16px}
+  h1{font-size:clamp(44px,16vw,72px)}.hero-copy p{font-size:13.5px;max-width:340px}
+  .light-panel{height:210px;margin-top:70px}.metrics{grid-template-columns:1fr}.metric{padding:22px}
+  .phase-wrap{padding:70px 16px 90px}.phase{min-height:70vh;grid-template-columns:1fr}.phase:before{background:linear-gradient(180deg,rgba(5,5,5,.18),rgba(5,5,5,.9))}.phase-copy{align-self:end;padding:24px}.phase h2{font-size:46px}
+}
+</style>
+</head>
+<body>
+<main class="page">
+  <nav class="nav" aria-label="Prototype navigation">
+    <a class="brand" href="../index.html"><span></span>Oak Park</a>
+    <div class="nav-right">
+      <a class="pill" href="../contact.html">consult project <i>-></i></a>
+      <button class="toggle" type="button" aria-label="Toggle light mode"></button>
+      <a href="../prototypes/">Menu</a>
+    </div>
+  </nav>
+
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <div class="micro">Reference rebuild / OPC original</div>
+        <h1 id="hero-title"><span class="grad">Impossible</span> builds,<br>made buildable.</h1>
+        <p>South Florida construction has heat, water, code, logistics, and real people waiting on real timelines. OPC turns the complicated parts into a clear build path.</p>
+      </div>
+      <div class="light-panel" id="lightPanel">
+        <div class="panel-label">new build / remodel / exterior / concrete</div>
+      </div>
+      <div class="metrics" aria-label="Oak Park Construction trust points">
+        <div class="metric"><strong>CBC</strong><span>Florida licensed GC</span></div>
+        <div class="metric"><strong>3</strong><span>South Florida counties</span></div>
+        <div class="metric"><strong>1</strong><span>owner-led build team</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="phase-wrap" aria-label="Build phases">
+    <article class="phase">
+      <img src="../assets/img/mike/drive/nc-528-ne-8th-victoria-park/IMG_4606.jpg" alt="Oak Park Construction new home build in progress">
+      <div class="phase-copy">
+        <small>01 / Shell</small>
+        <h2>Structure first.</h2>
+        <p>Before finishes, the bones have to be right: slab, shell, framing, waterproofing, and inspections lined up with the actual build sequence.</p>
+      </div>
+    </article>
+    <article class="phase">
+      <img src="../assets/img/mike/kitchens/IMG_2837.jpeg" alt="Finished kitchen remodel by Oak Park Construction">
+      <div class="phase-copy">
+        <small>02 / Finish</small>
+        <h2>Details that read.</h2>
+        <p>Cabinet lines, stone, lighting, and trim are treated as one system, so the room feels designed instead of assembled from disconnected choices.</p>
+      </div>
+    </article>
+    <article class="phase">
+      <img src="../assets/img/mike/drive/concrete-9720-sw-92nd-ter/IMG_7873.jpg" alt="Concrete project by Oak Park Construction">
+      <div class="phase-copy">
+        <small>03 / Site</small>
+        <h2>Built for Florida.</h2>
+        <p>Exterior work has to survive sun, rain, salt air, and everyday use. The visual polish only matters when the substrate is handled correctly.</p>
+      </div>
+    </article>
+  </section>
+
+  <section class="footer-cta">
+    <div>
+      <h2>Bring the hard project<br><span class="grad">into focus.</span></h2>
+      <p>Prototype inspired by Novobudowa's dark field and light-panel rhythm. Rebuilt from scratch for OPC using OPC content and brand language.</p>
+      <a class="pill" href="../contact.html">start a project <i>-></i></a>
+    </div>
+  </section>
+</main>
+<script>
+const panel=document.getElementById('lightPanel');
+window.addEventListener('pointermove',event=>{
+  if(!panel)return;
+  const rect=panel.getBoundingClientRect();
+  const x=((event.clientX-rect.left)/rect.width*100).toFixed(1);
+  panel.style.setProperty('--x',`${Math.max(0,Math.min(100,x))}%`);
+});
+document.querySelector('.toggle').addEventListener('click',()=>document.body.classList.toggle('light'));
+</script>
+</body>
+</html>
