@@ -8,6 +8,19 @@ This doc is written so **Codex can audit each line**: every task has a **STATUS*
 
 ---
 
+## 2026-06-24 audit overlay — canonical execution rows
+
+The live execution plan is now the tracker's merged five-phase backlog, rows **T-142..T-157**, mirrored in `OPC_WEBSITE_STATE.md`. Treat older phase numbers below as historical context unless they agree with those tracker rows.
+
+**Current gate:** **T-154 — LOCK HOME HERO DIRECTION** is Priscila-only. There are multiple viable hero directions in the project history (`Version-B` light/live index, dark-lime-glass, Novobudowa dark-luxury, Arc hero-video). Do not add more parallel hero experiments until this is decided.
+
+**Recommended next build:** conversion plumbing first, not another prototype:
+- **T-142** real server-side form backend is blocked on a Web3Forms/Formspree/Basin/serverless key.
+- **T-143** legacy `mailto:` cleanup is **done 2026-06-24**: `about.html`, `privacy.html`, `index-legacy.html`, and lab `prototypes/contact-atmosphere.html` now route to `contact.html`; `rg "mailto:" --glob "*.html"` returns zero.
+- **T-144** source/referrer/UTM fields and **T-146** GA4/call/form conversions are the next non-visual lead leaks to close once IDs/keys exist.
+
+---
+
 ## PART A — AUDIT OF THE PROPOSED PHASE PLAN (the one pasted 2026-06-10)
 
 The proposed plan's **strategy is correct**: stop building new prototypes, finish the commercial MVP, then SEO → analytics → gallery. Adopt that. But several **specifics are stale** — they describe a snapshot from *before* the 2026-06-09 work. Corrections:
@@ -77,7 +90,7 @@ The proposed plan's **strategy is correct**: stop building new prototypes, finis
 - **2.5** Renovation, Additions, Outdoor, Concrete, Decks — content DONE; add the same before/after + form. **Audit:** each has form + at least one proof element.
 
 ### PHASE 3 — Conversion infrastructure (do early; without it ads can't optimize)
-- **3.1** Real **lead form** backend (Formspree / Web3Forms / serverless) replacing every `mailto:`. **Audit:** submitting the form delivers an email to OPC + shows a success state; works on a machine with no mail client.
+- **3.1** Real **lead form** backend (Formspree / Web3Forms / serverless). **Status 2026-06-24:** backend still needs a key/provider; the separate legacy `mailto:` cleanup is done. **Audit:** submitting the form delivers an email to OPC + shows a success state; works on a machine with no mail client.
 - **3.2** Two-stage progressive email capture (capture email on first field, save even on abandon) + **source-page** field. **Audit:** payload/notification includes which page it came from.
 - **3.3** **Dedicated dark Contact page** (form + map + phone) replacing the `#contact` anchor. **Audit:** `/contact.html` exists, dark, with source tracking; backend endpoint still needs Formspree/Web3Forms/Basin key.
 - **3.4** **GA4** + **Google Search Console** + **GTM**. **Audit:** `gtag`/GTM container present sitewide; GSC property verified; sitemap submitted.
