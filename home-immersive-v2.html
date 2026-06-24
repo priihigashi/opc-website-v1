@@ -34,7 +34,7 @@
   nav.top .links{display:flex;gap:30px;} nav.top .links a{font-family:'Roboto Mono',monospace;font-size:14px;letter-spacing:2px;text-transform:uppercase;opacity:.78;} nav.top .links a:hover{opacity:1;color:var(--lime);}
 
   /* ===== HERO — PINNED scroll-scene: background holds STATIC, the house photo MOVES + FOLDS (inception) as you scroll ===== */
-  .hero{position:relative;height:175vh;}                         /* scroll runway for the pinned motion */
+  .hero{position:relative;height:130vh;}                         /* short scroll runway for the pinned motion — no dark gap */
   .hero-sticky{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;padding:0 64px;}
   .hero-bg{position:absolute;inset:0;z-index:0;}                 /* the STATIC background — never moves */
   .hero-bg .bgimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 55%;filter:brightness(.44) saturate(.74) contrast(.9);}
@@ -110,8 +110,12 @@
 
   @media(max-width:900px){
     nav.top{padding:16px 20px;} nav.top .links{display:none;}
-    .hero{grid-template-columns:1fr;padding:110px 22px 70px;gap:26px;min-height:auto;}
-    .hero-media{height:48vh;} .scroll-cue{display:none;}
+    /* no pin on mobile (JS motion is off) — stack the hero normally so there's no empty runway */
+    .hero{height:auto;}
+    .hero-sticky{position:relative;top:auto;height:auto;min-height:auto;flex-direction:column;align-items:flex-start;justify-content:center;padding:120px 22px 50px;gap:24px;}
+    .hero-stage{position:relative;right:auto;top:auto;bottom:auto;width:100%;height:54vh;}
+    .hero-photo,.hero-ghost{max-width:none;}
+    .hero-ghost{display:none;} .scroll-cue{display:none;}
     .proj-bg h2{font-size:clamp(36px,11vw,72px);} .stage{height:auto;padding:30px 18px;} .proj-cards{padding-top:60vh;}
     .svc-teaser{padding:70px 22px;} .svc{grid-template-columns:40px 1fr auto;gap:14px;} .svc .sc{display:none;}
     .cta{padding:90px 22px;} footer .grid{grid-template-columns:1fr;}
@@ -253,11 +257,11 @@ document.querySelectorAll('.ba').forEach(ba => {
     // subject travels in an arc + folds: rotateY/X grow, it drifts left + up, scales down a touch
     const tx = -p*16;                                        // moves left across the frame (vw)
     const ty = Math.sin(p*Math.PI)*-7;                       // gentle up-arc then back (vh)
-    const ry = p*34;                                         // fold open (deg)
-    const rx = -p*12;                                        // tip back (deg)
-    const sc = 1 - p*0.12;                                   // stay substantial (no shrink-to-nothing)
+    const ry = p*30;                                         // fold open (deg)
+    const rx = -p*10;                                        // tip back (deg)
+    const sc = 1 - p*0.08;                                   // barely shrink — subject stays large the whole time
     photo.style.transform='translate('+tx+'vw,'+ty+'vh) rotateY('+ry+'deg) rotateX('+rx+'deg) scale('+sc+')';
-    photo.style.opacity = (1 - Math.max(0,(p-0.85))/0.15*0.4).toFixed(3); // only soften at the very end
+    photo.style.opacity = 1;                                 // never fade out — no dark gap before the next strip
     // ghost folds harder + offsets the other way = inception depth
     ghost.style.transform='translate('+(tx+5)+'vw,'+(ty-3)+'vh) rotateY('+(ry+18)+'deg) rotateX('+(rx-6)+'deg) scale('+(sc*1.04)+')';
     ghost.style.opacity=(0.22 - p*0.12).toFixed(3);
