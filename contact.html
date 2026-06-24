@@ -70,8 +70,11 @@
       <h2 id="contact-title">Get my free estimate</h2>
       <div class="mini">Owner-led reply · 1 business day</div>
     </div>
-    <div class="todo">TODO before ads: replace <code>action="#"</code> with the selected Formspree/Web3Forms/Basin endpoint. Hidden source, referrer, and UTM fields are already populated by JavaScript.</div>
-    <form id="leadForm" action="#" method="post">
+    <form id="leadForm" action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value="4aa4496d-221f-4262-a1d5-2b7d85d86092">
+      <input type="hidden" name="subject" value="New OPC Lead — Contact Page">
+      <input type="hidden" name="from_name" value="Oak Park Construction Website">
+      <input type="checkbox" name="botcheck" style="display:none !important" tabindex="-1" autocomplete="off">
       <input type="hidden" name="source_page" id="sourcePage">
       <input type="hidden" name="referrer" id="referrer">
       <input type="hidden" name="utm_source" id="utmSource">
@@ -129,10 +132,22 @@
   document.getElementById('utmTerm').value = params.get('utm_term') || '';
   document.getElementById('utmContent').value = params.get('utm_content') || '';
 
-  document.getElementById('leadForm').addEventListener('submit', (event) => {
-    if (event.currentTarget.getAttribute('action') === '#') {
-      event.preventDefault();
+  document.getElementById('leadForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const btn = form.querySelector('button[type="submit"]');
+    const original = btn.textContent;
+    btn.textContent = 'Sending…'; btn.disabled = true;
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: new FormData(form) });
+      const data = await res.json();
+      if (!data.success) throw new Error(data.message || 'failed');
       document.getElementById('successMsg').classList.add('show');
+      form.reset();
+      btn.textContent = 'Sent ✓';
+    } catch (err) {
+      btn.textContent = original; btn.disabled = false;
+      alert('Sorry — something went wrong sending your message. Please call (954) 258-6769 or email priscila@oakpark-construction.com.');
     }
   });
 </script>

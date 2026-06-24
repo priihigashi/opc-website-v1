@@ -163,8 +163,11 @@
     <h1>Custom homes,<br>built <span class="serif">Whole.</span></h1>
     <div class="h-line"><a href="gallery-showcase.html" class="circle-btn">View<br>Work</a></div>
     <div class="h-sub">Custom homes and full renovations across Broward, Palm Beach &amp; Miami-Dade — one accountable crew from slab to keys.</div>
-    <!-- TODO: wire to real backend (Formspree/Web3Forms) for live email capture — FORM-1/2 in IMPLEMENTATION_PLAN -->
-    <form class="hero-form" id="heroLead">
+    <form class="hero-form" id="heroLead" action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value="4aa4496d-221f-4262-a1d5-2b7d85d86092">
+      <input type="hidden" name="subject" value="New OPC Hero Email Lead — Homepage">
+      <input type="hidden" name="from_name" value="Oak Park Construction Website">
+      <input type="checkbox" name="botcheck" style="display:none !important" tabindex="-1" autocomplete="off">
       <input type="hidden" name="source_page">
       <input type="hidden" name="referrer">
       <input type="hidden" name="utm_source">
@@ -291,7 +294,7 @@
       utm_content:params.get('utm_content')||''
     };
     Object.keys(fields).forEach(function(name){var input=hl.querySelector('[name="'+name+'"]');if(input)input.value=fields[name];});
-    hl.addEventListener('submit',function(e){e.preventDefault();document.getElementById('heroLeadMsg').textContent="Thanks \u2014 we'll reply within 24 hours.";hl.reset();});
+    hl.addEventListener('submit',function(e){e.preventDefault();var msg=document.getElementById('heroLeadMsg');var btn=hl.querySelector('button[type="submit"]');btn.disabled=true;fetch('https://api.web3forms.com/submit',{method:'POST',body:new FormData(hl)}).then(function(r){return r.json();}).then(function(j){if(!j.success)throw new Error();msg.textContent="Thanks \u2014 we'll reply within 24 hours.";hl.reset();}).catch(function(){btn.disabled=false;msg.textContent="Couldn't send \u2014 please call (954) 258-6769.";});});
   })();
 </script>
 <script>
