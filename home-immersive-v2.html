@@ -33,26 +33,24 @@
   nav.top .brand{font-family:'Anton',sans-serif;font-size:16px;letter-spacing:3px;color:var(--cream);} nav.top .brand .lime{color:var(--lime);}
   nav.top .links{display:flex;gap:30px;} nav.top .links a{font-family:'Roboto Mono',monospace;font-size:14px;letter-spacing:2px;text-transform:uppercase;opacity:.78;} nav.top .links a:hover{opacity:1;color:var(--lime);}
 
-  /* ===== HERO — PINNED scroll-scene: background holds STATIC, the house photo MOVES + FOLDS (inception) as you scroll ===== */
-  .hero{position:relative;height:130vh;}                         /* short scroll runway for the pinned motion — no dark gap */
-  .hero-sticky{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;padding:0 64px;}
-  .hero-bg{position:absolute;inset:0;z-index:0;}                 /* the STATIC background — never moves */
-  .hero-bg .bgimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 55%;filter:brightness(.44) saturate(.74) contrast(.9);}
-  .hero-bg::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 90% at 74% 30%, rgba(203,204,16,.12), transparent 52%),linear-gradient(180deg,rgba(8,8,5,.55),rgba(8,8,5,.35) 50%,rgba(8,8,5,.78));}
-  .hero-copy{position:relative;z-index:4;max-width:560px;will-change:transform,opacity;}
-  .hero-copy .eyebrow{margin-bottom:18px;}
-  .hero-copy h1{font-size:clamp(50px,7vw,104px);color:var(--cream);text-shadow:0 4px 40px rgba(0,0,0,.5);} .hero-copy h1 .serif{font-size:1.16em;}
-  .hero-copy .sub{font-family:'Roboto Mono',monospace;font-size:16px;line-height:1.7;max-width:440px;color:rgba(240,235,227,.86);margin:28px 0 26px;}
+  /* ===== HERO — FULL-BLEED scroll-scene (like digitalists): the house subject pushes toward you
+     over a held-back background as you scroll; small headline overlaid; hands to the big count ===== */
+  .hero{position:relative;height:180vh;}                          /* scroll runway for the push-in */
+  .hero-sticky{position:sticky;top:0;height:100vh;overflow:hidden;}
+  /* FAR layer = background, holds back (slow, blurred, dark) */
+  .hero-far{position:absolute;inset:0;z-index:0;will-change:transform;}
+  .hero-far img{width:100%;height:100%;object-fit:cover;object-position:center 52%;filter:brightness(.4) saturate(.7) blur(2px);transform:scale(1.08);}
+  /* NEAR layer = the SUBJECT (the home), sharp, pushes toward you faster */
+  .hero-near{position:absolute;inset:0;z-index:1;will-change:transform;}
+  .hero-near img{width:100%;height:100%;object-fit:cover;object-position:center 58%;filter:brightness(.86) saturate(.84) contrast(.9);}
+  .hero-scrim{position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(110% 80% at 60% 38%, rgba(203,204,16,.10), transparent 55%),linear-gradient(180deg,rgba(8,8,5,.42),rgba(8,8,5,.05) 38%,rgba(8,8,5,.82));}
+  /* headline overlaid (small, bottom-left) like the reference */
+  .hero-copy{position:absolute;left:64px;right:64px;bottom:13vh;z-index:3;max-width:880px;will-change:transform,opacity;}
+  .hero-copy .eyebrow{margin-bottom:16px;}
+  .hero-copy h1{font-size:clamp(48px,7.4vw,116px);color:var(--cream);text-shadow:0 6px 50px rgba(0,0,0,.6);} .hero-copy h1 .serif{font-size:1.16em;}
+  .hero-copy .sub{font-family:'Roboto Mono',monospace;font-size:16px;line-height:1.7;max-width:460px;color:rgba(240,235,227,.9);margin:24px 0 24px;}
   .hero-cta{display:flex;gap:12px;flex-wrap:wrap;}
-  /* the MOVING SUBJECT — a house photo that travels + folds in 3D over the static bg */
-  .hero-stage{position:absolute;right:3vw;top:0;bottom:0;width:54%;display:flex;align-items:center;justify-content:center;perspective:1500px;z-index:2;pointer-events:none;}
-  .hero-photo{position:relative;width:100%;max-width:660px;aspect-ratio:4/3;border-radius:16px;overflow:hidden;border:1px solid rgba(240,235,227,.2);box-shadow:0 50px 110px rgba(0,0,0,.6);transform-style:preserve-3d;will-change:transform;}
-  .hero-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 60%;filter:brightness(.9) saturate(.82) contrast(.88);}
-  .hero-photo .ptag{position:absolute;left:14px;bottom:14px;z-index:2;font-family:'Roboto Mono',monospace;font-size:11.5px;letter-spacing:1.5px;text-transform:uppercase;background:rgba(5,5,5,.6);backdrop-filter:blur(4px);padding:6px 11px;border-radius:6px;color:var(--cream);}
-  /* ghost copy behind for inception depth */
-  .hero-ghost{position:absolute;width:100%;max-width:660px;aspect-ratio:4/3;border-radius:16px;overflow:hidden;border:1px solid rgba(203,204,16,.25);opacity:.22;transform-style:preserve-3d;will-change:transform;}
-  .hero-ghost img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 60%;filter:brightness(.8) saturate(.6) grayscale(.3);}
-  .scroll-cue{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:5;font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,235,227,.55);text-align:center;}
+  .scroll-cue{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:5;font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,235,227,.6);text-align:center;}
   .scroll-cue .arw{display:block;margin-top:6px;font-size:18px;color:var(--lime);animation:bob 1.6s ease-in-out infinite;}
   @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
 
@@ -110,12 +108,12 @@
 
   @media(max-width:900px){
     nav.top{padding:16px 20px;} nav.top .links{display:none;}
-    /* no pin on mobile (JS motion is off) — stack the hero normally so there's no empty runway */
-    .hero{height:auto;}
-    .hero-sticky{position:relative;top:auto;height:auto;min-height:auto;flex-direction:column;align-items:flex-start;justify-content:center;padding:120px 22px 50px;gap:24px;}
-    .hero-stage{position:relative;right:auto;top:auto;bottom:auto;width:100%;height:54vh;}
-    .hero-photo,.hero-ghost{max-width:none;}
-    .hero-ghost{display:none;} .scroll-cue{display:none;}
+    /* no pin on mobile (JS motion is off) — hero is a normal full-bleed screen */
+    .hero{height:100vh;}
+    .hero-sticky{position:relative;height:100vh;}
+    .hero-far img{filter:brightness(.4) saturate(.7) blur(2px);transform:scale(1.1);}
+    .hero-near img{transform:scale(1.05);}
+    .hero-copy{left:22px;right:22px;bottom:14vh;} .scroll-cue{display:none;}
     .proj-bg h2{font-size:clamp(36px,11vw,72px);} .stage{height:auto;padding:30px 18px;} .proj-cards{padding-top:60vh;}
     .svc-teaser{padding:70px 22px;} .svc{grid-template-columns:40px 1fr auto;gap:14px;} .svc .sc{display:none;}
     .cta{padding:90px 22px;} footer .grid{grid-template-columns:1fr;}
@@ -131,26 +129,20 @@
   <div class="links"><a href="index.html">Home</a><a href="gallery-showcase.html">Our Work</a><a href="about.html">About</a><a href="how-it-works.html">How We Work</a><a href="contact.html">Contact</a></div>
 </nav>
 
-<!-- HERO — pinned scroll-scene: static bg, the house photo moves + folds as you scroll -->
+<!-- HERO — full-bleed scroll-scene: the home subject pushes toward you over a held-back background -->
 <header class="hero" id="hero">
   <div class="hero-sticky">
-    <div class="hero-bg"><img class="bgimg" src="assets/img/mike/new-construction/122-dockside-cir-IMG_6718.jpeg" alt=""></div>
+    <div class="hero-far" id="heroFar"><img src="assets/img/mike/new-construction/122-dockside-cir-IMG_6718.jpeg" alt=""></div>
+    <div class="hero-near" id="heroNear"><img src="assets/img/mike/new-construction/122-dockside-cir-IMG_6718.jpeg" alt="Custom waterfront home built by Oak Park Construction"></div>
+    <div class="hero-scrim"></div>
 
     <div class="hero-copy" id="heroCopy">
       <div class="label eyebrow">South Florida · Design-Build</div>
       <h1>Custom homes,<br>built <span class="serif">Whole.</span></h1>
-      <div class="sub">One accountable crew, from slab to keys — across Broward, Palm Beach &amp; Miami-Dade. Keep scrolling.</div>
+      <div class="sub">One accountable crew, from slab to keys — across Broward, Palm Beach &amp; Miami-Dade.</div>
       <div class="hero-cta">
         <a href="contact.html" class="pill solid">Start a project</a>
         <a href="gallery-showcase.html" class="pill">View work →</a>
-      </div>
-    </div>
-
-    <div class="hero-stage">
-      <div class="hero-ghost" id="heroGhost"><img src="assets/img/gallery/newbuild-b.jpg" alt=""></div>
-      <div class="hero-photo" id="heroPhoto">
-        <img src="assets/img/gallery/newbuild-b.jpg" alt="Custom waterfront home built by Oak Park Construction">
-        <span class="ptag">122 Dockside Cir · New Construction · Broward</span>
       </div>
     </div>
 
@@ -239,35 +231,28 @@ document.querySelectorAll('.ba').forEach(ba => {
   ba.addEventListener('pointercancel',()=>on=false);
 });
 
-/* HERO pinned scene — the house photo MOVES around + FOLDS in 3D (inception) as you scroll,
-   over a STATIC background. Continuous motion across the whole pin = no empty/dead frames. */
+/* HERO full-bleed scene (like digitalists) — the home SUBJECT (near layer) pushes toward you
+   faster than the held-back background (far layer) as you scroll. Continuous = no dead frames. */
 (function(){
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   if (matchMedia('(max-width:900px)').matches) return;
   const hero=document.getElementById('hero');
-  const photo=document.getElementById('heroPhoto');
-  const ghost=document.getElementById('heroGhost');
+  const far=document.getElementById('heroFar');
+  const near=document.getElementById('heroNear');
   const copy=document.getElementById('heroCopy');
   let ticking=false;
   function frame(){
     ticking=false;
     const rect=hero.getBoundingClientRect();
     const total=hero.offsetHeight-window.innerHeight;
-    const p=Math.min(1,Math.max(0,(-rect.top)/total));     // 0..1 through the pinned hero
-    // subject travels in an arc + folds: rotateY/X grow, it drifts left + up, scales down a touch
-    const tx = -p*16;                                        // moves left across the frame (vw)
-    const ty = Math.sin(p*Math.PI)*-7;                       // gentle up-arc then back (vh)
-    const ry = p*30;                                         // fold open (deg)
-    const rx = -p*10;                                        // tip back (deg)
-    const sc = 1 - p*0.08;                                   // barely shrink — subject stays large the whole time
-    photo.style.transform='translate('+tx+'vw,'+ty+'vh) rotateY('+ry+'deg) rotateX('+rx+'deg) scale('+sc+')';
-    photo.style.opacity = 1;                                 // never fade out — no dark gap before the next strip
-    // ghost folds harder + offsets the other way = inception depth
-    ghost.style.transform='translate('+(tx+5)+'vw,'+(ty-3)+'vh) rotateY('+(ry+18)+'deg) rotateX('+(rx-6)+'deg) scale('+(sc*1.04)+')';
-    ghost.style.opacity=(0.22 - p*0.12).toFixed(3);
-    // copy drifts up + fades as the scene hands off to the projects section
-    copy.style.transform='translateY('+(-p*70)+'px)';
-    copy.style.opacity=Math.max(0,1-p*1.25).toFixed(3);
+    const p=Math.min(1,Math.max(0,(-rect.top)/total));     // 0..1 through the hero
+    // far background drifts up slowly + barely zooms (holds back)
+    far.style.transform='translateY('+(-p*4)+'vh) scale('+(1.08+p*0.05)+')';
+    // near SUBJECT pushes toward you (zoom in) + drifts up = "moves toward you" like the reference
+    near.style.transform='translateY('+(-p*9)+'vh) scale('+(1+p*0.32)+')';
+    // headline rises + fades as it hands off to the projects count
+    copy.style.transform='translateY('+(-p*60)+'px)';
+    copy.style.opacity=Math.max(0,1-p*1.3).toFixed(3);
   }
   window.addEventListener('scroll',()=>{if(!ticking){requestAnimationFrame(frame);ticking=true;}},{passive:true});
   window.addEventListener('resize',frame,{passive:true});
