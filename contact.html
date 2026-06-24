@@ -70,10 +70,15 @@
       <h2 id="contact-title">Get my free estimate</h2>
       <div class="mini">Owner-led reply · 1 business day</div>
     </div>
-    <div class="todo">TODO before ads: replace <code>action="#"</code> with the selected Formspree/Web3Forms/Basin endpoint. The hidden <code>source_page</code> field is already populated by JavaScript.</div>
+    <div class="todo">TODO before ads: replace <code>action="#"</code> with the selected Formspree/Web3Forms/Basin endpoint. Hidden source, referrer, and UTM fields are already populated by JavaScript.</div>
     <form id="leadForm" action="#" method="post">
       <input type="hidden" name="source_page" id="sourcePage">
       <input type="hidden" name="referrer" id="referrer">
+      <input type="hidden" name="utm_source" id="utmSource">
+      <input type="hidden" name="utm_medium" id="utmMedium">
+      <input type="hidden" name="utm_campaign" id="utmCampaign">
+      <input type="hidden" name="utm_term" id="utmTerm">
+      <input type="hidden" name="utm_content" id="utmContent">
       <div class="row">
         <label>Full name <input name="name" autocomplete="name" required></label>
         <label>Phone <input name="phone" autocomplete="tel" inputmode="tel" required></label>
@@ -115,8 +120,14 @@
 <script>
   const sourcePage = document.getElementById('sourcePage');
   const referrer = document.getElementById('referrer');
+  const params = new URLSearchParams(window.location.search);
   sourcePage.value = window.location.href;
   referrer.value = document.referrer || 'direct';
+  document.getElementById('utmSource').value = params.get('utm_source') || '';
+  document.getElementById('utmMedium').value = params.get('utm_medium') || '';
+  document.getElementById('utmCampaign').value = params.get('utm_campaign') || '';
+  document.getElementById('utmTerm').value = params.get('utm_term') || '';
+  document.getElementById('utmContent').value = params.get('utm_content') || '';
 
   document.getElementById('leadForm').addEventListener('submit', (event) => {
     if (event.currentTarget.getAttribute('action') === '#') {

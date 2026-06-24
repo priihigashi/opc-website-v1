@@ -17,7 +17,7 @@ The live execution plan is now the tracker's merged five-phase backlog, rows **T
 **Recommended next build:** conversion plumbing first, not another prototype:
 - **T-142** real server-side form backend is blocked on a Web3Forms/Formspree/Basin/serverless key.
 - **T-143** legacy `mailto:` cleanup is **done 2026-06-24**: `about.html`, `privacy.html`, `index-legacy.html`, and lab `prototypes/contact-atmosphere.html` now route to `contact.html`; `rg "mailto:" --glob "*.html"` returns zero.
-- **T-144** source/referrer/UTM fields and **T-146** GA4/call/form conversions are the next non-visual lead leaks to close once IDs/keys exist.
+- **T-144** source/referrer/UTM fields are **done 2026-06-24** across all current non-prototype lead forms. **T-146** GA4/call/form conversions are the next non-visual lead leak once the measurement ID exists.
 
 ---
 
@@ -91,7 +91,7 @@ The proposed plan's **strategy is correct**: stop building new prototypes, finis
 
 ### PHASE 3 — Conversion infrastructure (do early; without it ads can't optimize)
 - **3.1** Real **lead form** backend (Formspree / Web3Forms / serverless). **Status 2026-06-24:** backend still needs a key/provider; the separate legacy `mailto:` cleanup is done. **Audit:** submitting the form delivers an email to OPC + shows a success state; works on a machine with no mail client.
-- **3.2** Two-stage progressive email capture (capture email on first field, save even on abandon) + **source-page** field. **Audit:** payload/notification includes which page it came from.
+- **3.2** Two-stage progressive email capture (capture email on first field, save even on abandon) + source/referrer/UTM fields. **Status 2026-06-24:** source/referrer/UTM fields are present; progressive partial-lead backend still depends on FORM-1. **Audit:** payload/notification includes which page and campaign it came from.
 - **3.3** **Dedicated dark Contact page** (form + map + phone) replacing the `#contact` anchor. **Audit:** `/contact.html` exists, dark, with source tracking; backend endpoint still needs Formspree/Web3Forms/Basin key.
 - **3.4** **GA4** + **Google Search Console** + **GTM**. **Audit:** `gtag`/GTM container present sitewide; GSC property verified; sitemap submitted.
 - **3.5** **Call tracking** (`tel:` click → GA event) + **form-submit** conversion event. **Audit:** clicking the phone fires a GA event; form submit fires a conversion.

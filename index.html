@@ -165,7 +165,14 @@
     <div class="h-sub">Custom homes and full renovations across Broward, Palm Beach &amp; Miami-Dade — one accountable crew from slab to keys.</div>
     <!-- TODO: wire to real backend (Formspree/Web3Forms) for live email capture — FORM-1/2 in IMPLEMENTATION_PLAN -->
     <form class="hero-form" id="heroLead">
-      <input type="email" placeholder="Your email — start your quote…" required aria-label="Your email">
+      <input type="hidden" name="source_page">
+      <input type="hidden" name="referrer">
+      <input type="hidden" name="utm_source">
+      <input type="hidden" name="utm_medium">
+      <input type="hidden" name="utm_campaign">
+      <input type="hidden" name="utm_term">
+      <input type="hidden" name="utm_content">
+      <input type="email" name="email" placeholder="Your email — start your quote…" required aria-label="Your email">
       <button type="submit">Request Quote</button>
     </form>
     <div class="hero-sub2" id="heroLeadMsg">Reply within 24 hours · No obligation</div>
@@ -270,7 +277,22 @@
   });
 </script>
 <script>
-  (function(){var hl=document.getElementById('heroLead');if(hl)hl.addEventListener('submit',function(e){e.preventDefault();document.getElementById('heroLeadMsg').textContent="Thanks \u2014 we'll reply within 24 hours.";hl.reset();});})();
+  (function(){
+    var hl=document.getElementById('heroLead');
+    if(!hl)return;
+    var params=new URLSearchParams(window.location.search);
+    var fields={
+      source_page:window.location.href,
+      referrer:document.referrer||'direct',
+      utm_source:params.get('utm_source')||'',
+      utm_medium:params.get('utm_medium')||'',
+      utm_campaign:params.get('utm_campaign')||'',
+      utm_term:params.get('utm_term')||'',
+      utm_content:params.get('utm_content')||''
+    };
+    Object.keys(fields).forEach(function(name){var input=hl.querySelector('[name="'+name+'"]');if(input)input.value=fields[name];});
+    hl.addEventListener('submit',function(e){e.preventDefault();document.getElementById('heroLeadMsg').textContent="Thanks \u2014 we'll reply within 24 hours.";hl.reset();});
+  })();
 </script>
 <script>
 (function(){
