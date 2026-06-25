@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HKSQ4R7FC6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-HKSQ4R7FC6');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>OPC — Immersive Home v3 (pinned strip · Archivo + Palette A)</title>
+<!-- Archivo (variable incl. Expanded width) + brand accents -->
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Inter:wght@300;400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="/opc-website-v1/favicon.svg" type="image/svg+xml">
+<script src="assets/js/lab-banner.js?v=21" defer></script>
+<style>
+  /* ===== PALETTE A — Light Architectural (locked Version-B base) + Archivo Expanded display ===== */
+  :root{
+    --bg:#F4F1EA; --bg2:#EAE5DB; --ink:#0A0A0A; --ink-soft:#3A382F;
+    --muted:rgba(10,10,10,.55); --line:rgba(10,10,10,.14);
+    --accent:#CBCC10; --accent-deep:#A9A613; --walnut:#8B5A2B; --cream:#F0EBE3;
+    --line-d:rgba(240,235,227,.16);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+  html.lenis,html.lenis body{height:auto;}
+  .lenis.lenis-smooth{scroll-behavior:auto!important;}
+  .lenis.lenis-stopped{overflow:hidden;}
+  a{color:inherit;text-decoration:none;}
+  /* Archivo EXPANDED for display — wide, architectural, readable */
+  h1,h2,h3,.disp{font-family:'Archivo',sans-serif;font-weight:800;font-stretch:125%;font-variation-settings:'wght' 800,'wdth' 125;text-transform:uppercase;letter-spacing:-.5px;line-height:.98;}
+  .serif{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;text-transform:none;letter-spacing:0;color:var(--walnut);}
+  .label{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--accent-deep);}
+  .pill{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border:1px solid var(--ink);border-radius:999px;color:var(--ink);font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;transition:.25s;}
+  .pill:hover{background:var(--ink);color:var(--bg);}
+  .pill.solid{background:var(--accent);border-color:var(--accent);color:var(--ink);} .pill.solid:hover{background:var(--accent-deep);box-shadow:0 0 24px rgba(203,204,16,.35);}
+  .pill.light{border-color:rgba(240,235,227,.6);color:var(--cream);} .pill.light:hover{background:var(--cream);color:var(--ink);border-color:var(--cream);}
+
+  /* nav */
+  nav.top{position:fixed;top:0;left:0;right:0;z-index:90;display:flex;justify-content:space-between;align-items:center;padding:20px 40px;background:linear-gradient(180deg,rgba(10,10,10,.55),transparent);backdrop-filter:blur(8px);transition:background .3s;}
+  nav.top.solid{background:rgba(244,241,234,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+  nav.top .brand{font-family:'Archivo',sans-serif;font-weight:800;font-stretch:125%;font-size:15px;letter-spacing:1px;color:var(--cream);transition:color .3s;} nav.top.solid .brand{color:var(--ink);} nav.top .brand .lime{color:var(--accent);}
+  nav.top .links{display:flex;gap:28px;align-items:center;} nav.top .links a,nav.top .links .nav-drop-t{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--cream);opacity:.82;cursor:pointer;transition:.2s;} nav.top.solid .links a,nav.top.solid .links .nav-drop-t{color:var(--ink);} nav.top .links a:hover{opacity:1;color:var(--accent-deep);}
+
+  /* ===== HERO — full-bleed cinematic exterior, slow push-in, headline low (Arc hero-video bones) ===== */
+  .hero{position:relative;height:100vh;min-height:640px;overflow:hidden;background:#14130c;}
+  .hero-far{position:absolute;inset:-12vh 0;z-index:0;will-change:transform;}
+  .hero-far img{width:100%;height:100%;object-fit:cover;object-position:center 52%;filter:brightness(.5) saturate(.72) blur(2px);transform:scale(1.05);}
+  .hero-near{position:absolute;inset:-12vh 0;z-index:1;will-change:transform;}
+  .hero-near img{width:100%;height:100%;object-fit:cover;object-position:center 58%;filter:brightness(.82) saturate(.8) contrast(.92);}
+  .hero-scrim{position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(120% 80% at 60% 30%,rgba(203,204,16,.10),transparent 56%),linear-gradient(180deg,rgba(8,8,5,.30),rgba(8,8,5,.05) 40%,rgba(8,8,5,.78));}
+  .hero-copy{position:absolute;left:clamp(24px,5vw,80px);right:clamp(24px,5vw,80px);bottom:9vh;z-index:3;max-width:900px;will-change:transform,opacity;}
+  .hero-copy .eyebrow{color:var(--accent);margin-bottom:22px;}
+  .hero-copy h1{font-size:clamp(46px,7.2vw,118px);color:var(--cream);text-shadow:0 6px 50px rgba(0,0,0,.55);}
+  .hero-copy h1 .serif{font-size:1.1em;color:var(--accent);}
+  .hero-copy .sub{font-family:'Roboto Mono',monospace;font-size:15px;line-height:1.75;max-width:500px;color:rgba(240,235,227,.9);margin:28px 0 30px;}
+  .hero-cta{display:flex;gap:12px;flex-wrap:wrap;}
+  .scroll-cue{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);z-index:5;font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,235,227,.6);text-align:center;}
+  .scroll-cue .arw{display:block;margin-top:6px;font-size:18px;color:var(--accent);animation:bob 1.7s ease-in-out infinite;}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
+
+  /* ===== PINNED PROJECT STRIP =====
+     [data-pin-strip] = tall scroll spacer · [data-pin-bg] = FIXED layer (count holds still)
+     [data-pin-rect] = staggered L/C/R rectangles that scroll OVER it, releasing after the last clears. */
+  .pin-strip{position:relative;height:440vh;background:var(--bg);}              /* tall runway */
+  .pin-stage{position:fixed;inset:0;z-index:6;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .45s ease;}
+  .pin-stage.active{opacity:1;visibility:visible;}
+  /* FIXED background/content layer — this is what must NOT move while rectangles fly over it */
+  .pin-bg{position:absolute;inset:0;z-index:1;display:flex;align-items:center;
+    background:radial-gradient(70% 60% at 72% 36%,rgba(203,204,16,.16),transparent 64%),linear-gradient(180deg,#F6F2EA,#E7DFD1);overflow:hidden;}
+  .pin-bg .inner{position:relative;z-index:2;width:min(1240px,calc(100% - 48px));margin:0 auto;padding:0 24px;}
+  .pin-bg .label{margin-bottom:14px;}
+  .pin-bg h2{font-size:clamp(52px,8.4vw,124px);color:var(--ink);max-width:820px;}
+  .pin-bg h2 .serif{font-size:1.18em;}
+  .pin-bg .count{display:inline-flex;align-items:baseline;gap:14px;margin-top:22px;}
+  .pin-bg .count .n{font-family:'Archivo',sans-serif;font-weight:700;font-stretch:125%;font-variation-settings:'wght' 700,'wdth' 125;font-size:clamp(72px,11vw,150px);line-height:1;letter-spacing:-3px;color:var(--accent-deep);}
+  .pin-bg .count .t{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);max-width:180px;}
+  .pin-bg .cue{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-align:center;}
+  .pin-bg .cue .arw{display:block;margin-top:6px;font-size:18px;color:var(--accent-deep);animation:bob 1.7s ease-in-out infinite;}
+
+  /* the staggered rectangles (before/after cards) that scroll OVER the fixed layer */
+  .pin-rect{position:absolute;left:50%;top:50%;z-index:2;width:min(42vw,520px);
+    transform:translate(-50%,-50%) translate(var(--tx,0), var(--ty,100vh));
+    will-change:transform;}
+  .pin-stage.active .pin-rect{pointer-events:auto;}
+  .ba-card{background:rgba(250,247,240,.9);backdrop-filter:blur(14px);border:1px solid rgba(10,10,10,.12);border-radius:12px;padding:16px;box-shadow:0 38px 100px rgba(10,10,10,.22);}
+  .ba-card .cap{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:13px;gap:12px;}
+  .ba-card .cap .nm{font-family:'Archivo',sans-serif;font-weight:800;font-stretch:125%;font-variation-settings:'wght' 800,'wdth' 125;font-size:clamp(18px,2.4vw,28px);text-transform:uppercase;color:var(--ink);letter-spacing:-.3px;}
+  .ba-card .cap .loc{font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--walnut);white-space:nowrap;}
+  .ba-card .hint{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:1px;color:rgba(10,10,10,.42);margin-top:11px;text-align:center;}
+  .ba{position:relative;aspect-ratio:16/10;overflow:hidden;border-radius:10px;border:1px solid var(--line);user-select:none;touch-action:none;cursor:ew-resize;}
+  .ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 70%;pointer-events:none;filter:contrast(.98) saturate(.92);}
+  .ba .ba-after{clip-path:inset(0 0 0 var(--pos,50%));}
+  .ba .ba-handle{position:absolute;top:0;bottom:0;left:var(--pos,50%);width:2px;background:rgba(255,255,255,.95);transform:translateX(-50%);}
+  .ba .ba-handle::after{content:"\2039 \203A";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:46px;height:46px;border-radius:50%;background:rgba(15,15,15,.3);backdrop-filter:blur(2px);border:1.5px solid rgba(255,255,255,.95);color:#fff;display:grid;place-items:center;font-size:14px;letter-spacing:2px;}
+  .ba .ba-tag{position:absolute;bottom:10px;font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;background:rgba(10,10,10,.6);backdrop-filter:blur(4px);padding:4px 9px;border-radius:4px;color:var(--cream);}
+  .ba .ba-l{left:10px;} .ba .ba-r{right:10px;}
+
+  /* ===== services teaser + CTA + footer ===== */
+  .svc-teaser{max-width:1300px;margin:0 auto;padding:160px 64px 150px;}
+  .svc-teaser .label{margin-bottom:18px;} .svc-teaser h2{font-size:clamp(32px,4.6vw,62px);max-width:880px;margin-bottom:40px;color:var(--ink);}
+  .svc-list{display:grid;gap:0;}
+  .svc{display:grid;grid-template-columns:60px 1fr auto auto;align-items:center;gap:24px;padding:28px 0;border-top:1px solid var(--line);transition:.3s;}
+  .svc:last-child{border-bottom:1px solid var(--line);}
+  .svc .idx{font-family:'Roboto Mono',monospace;font-size:14px;color:var(--accent-deep);}
+  .svc .nm{font-family:'Archivo',sans-serif;font-weight:800;font-stretch:125%;font-variation-settings:'wght' 800,'wdth' 125;font-size:clamp(22px,3.4vw,42px);text-transform:uppercase;color:var(--ink);letter-spacing:-.5px;transition:.3s;}
+  .svc .sc{font-family:'Roboto Mono',monospace;font-size:14px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);text-align:right;}
+  .svc .arw{font-family:'Roboto Mono',monospace;color:var(--accent-deep);opacity:.35;transition:.3s;}
+  .svc:hover{padding-left:14px;} .svc:hover .nm{color:var(--accent-deep);} .svc:hover .arw{opacity:1;}
+  .cta{position:relative;padding:170px 64px;text-align:center;overflow:hidden;background:#14130c;}
+  .cta img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.34);}
+  .cta .in{position:relative;z-index:3;}
+  .cta .label{color:var(--accent);margin-bottom:18px;}
+  .cta h2{font-size:clamp(42px,6.2vw,96px);margin-bottom:20px;color:var(--cream);} .cta h2 .serif{font-size:1.16em;color:var(--accent);}
+  .cta p{font-family:'Roboto Mono',monospace;font-size:15px;letter-spacing:1px;color:rgba(240,235,227,.8);margin-bottom:30px;}
+  .cta .pill{margin:5px;}
+  footer{padding:60px 64px 40px;border-top:1px solid var(--line-d);position:relative;z-index:3;background:#14130c;color:var(--cream);}
+  footer .grid{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;align-items:start;}
+  footer .wm{font-family:'Archivo',sans-serif;font-weight:800;font-stretch:125%;font-size:26px;letter-spacing:1px;border-bottom:4px solid var(--accent);padding-bottom:8px;display:inline-block;text-transform:uppercase;}
+  footer .lic{font-family:'Roboto Mono',monospace;font-size:13px;color:var(--accent);margin-top:14px;letter-spacing:1px;}
+  footer .col a{display:block;color:rgba(240,235,227,.8);font-size:15px;padding:5px 0;} footer .col a:hover{color:var(--accent);}
+  footer .col h4{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:2px;color:var(--accent);margin-bottom:14px;}
+  footer .copy{text-align:center;margin-top:44px;font-family:'Roboto Mono',monospace;font-size:13px;color:rgba(240,235,227,.42);}
+
+  /* ===== MOBILE — pin OFF, strip becomes a normal stacked section ===== */
+  @media(max-width:900px){
+    nav.top{padding:16px 20px;} nav.top .links{display:none;}
+    .hero-copy{left:22px;right:22px;bottom:13vh;} .scroll-cue{display:none;}
+    .pin-strip{height:auto;background:var(--bg);}
+    .pin-stage{position:static;opacity:1;visibility:visible;pointer-events:auto;}
+    .pin-bg{position:relative;inset:auto;padding:72px 22px 30px;min-height:auto;display:block;}
+    .pin-bg h2{font-size:clamp(40px,13vw,76px);} .pin-bg .count .n{font-size:76px;} .pin-bg .cue{display:none;}
+    .pin-rect{position:relative;left:auto;top:auto;width:auto;transform:none!important;margin:0 22px 22px;}
+    .pin-rect:first-of-type{margin-top:8px;}
+    .svc-teaser{padding:70px 22px;} .svc{grid-template-columns:40px 1fr auto;gap:14px;} .svc .sc{display:none;}
+    .cta{padding:90px 22px;} footer .grid{grid-template-columns:1fr;}
+  }
+  @media (prefers-reduced-motion: reduce){ .scroll-cue .arw,.pin-bg .cue .arw{animation:none;} }
+</style>
+<link rel="stylesheet" href="assets/css/opc-shared.css">
+<script src="https://unpkg.com/@studio-freight/lenis@1.0.42/bundled/lenis.min.js"></script>
+<script src="/opc-website-v1/assets/js/analytics.js" defer></script>
+</head>
+<body>
+<nav class="top" id="nav">
+  <a href="index.html" class="brand">OAK PARK <span class="lime">CONSTRUCTION</span></a>
+  <div class="links"><a href="/opc-website-v1/">Home</a><a href="/opc-website-v1/gallery-showcase.html">Our Work</a><div class="nav-drop"><span class="nav-drop-t">Services ▾</span><div class="nav-menu"><a href="/opc-website-v1/services/new-construction.html">New Construction</a><a href="/opc-website-v1/services/renovation.html">Full Renovation</a><a href="/opc-website-v1/services/kitchen.html">Kitchen</a><a href="/opc-website-v1/services/bath.html">Bathroom</a><a href="/opc-website-v1/services/additions.html">Additions</a><a href="/opc-website-v1/services/outdoor.html">Outdoor Living</a><a href="/opc-website-v1/services/decks.html">Decks & Patios</a><a href="/opc-website-v1/services/concrete.html">Concrete</a><a href="/opc-website-v1/services/stucco.html">Stucco</a></div></div><div class="nav-drop"><span class="nav-drop-t">Areas ▾</span><div class="nav-menu"><a href="/opc-website-v1/areas/broward.html">Broward County</a><a href="/opc-website-v1/areas/palm-beach.html">Palm Beach County</a><a href="/opc-website-v1/areas/miami-dade.html">Miami-Dade County</a></div></div><a href="/opc-website-v1/about.html">About</a><a href="/opc-website-v1/how-it-works.html">How We Work</a><a href="/opc-website-v1/contact.html">Contact</a></div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="hero">
+  <div class="hero-far" id="heroFar"><img src="assets/img/mike/new-construction/122-dockside-cir-IMG_6718.jpeg" alt=""></div>
+  <div class="hero-near" id="heroNear"><img src="assets/img/mike/new-construction/122-dockside-cir-IMG_6718.jpeg" alt="Custom waterfront home built by Oak Park Construction"></div>
+  <div class="hero-scrim"></div>
+  <div class="hero-copy" id="heroCopy">
+    <div class="label eyebrow">South Florida · Design-Build</div>
+    <h1>Custom homes,<br>built <span class="serif">Whole.</span></h1>
+    <div class="sub">One accountable crew, from slab to keys — across Broward, Palm Beach &amp; Miami-Dade.</div>
+    <div class="hero-cta">
+      <a href="contact.html" class="pill solid">Start a project</a>
+      <a href="gallery-showcase.html" class="pill light">View work →</a>
+    </div>
+  </div>
+  <div class="scroll-cue">Scroll<span class="arw">↓</span></div>
+</header>
+
+<!-- PINNED PROJECT STRIP -->
+<section class="pin-strip" data-pin-strip id="pinStrip">
+  <div class="pin-stage" id="pinStage">
+    <!-- FIXED layer: count holds still while rectangles fly over -->
+    <div class="pin-bg" data-pin-bg>
+      <div class="inner">
+        <div class="label">Recent work · 2017–2026</div>
+        <h2>Before &amp; <span class="serif">After.</span></h2>
+        <div class="count"><span class="n" id="projCount" data-count="120">0</span><span class="t">Homes & remodels delivered across South Florida</span></div>
+      </div>
+      <div class="cue">Keep scrolling<span class="arw">↓</span></div>
+    </div>
+
+    <!-- staggered rectangles — L / C / R / L — scroll OVER the fixed layer, last clears before release -->
+    <div class="pin-rect" data-pin-rect style="--tx:-32vw" data-start="0.02">
+      <div class="ba-card">
+        <div class="cap"><span class="nm">New Build &amp; Additions</span><span class="loc">Broward</span></div>
+        <div class="ba"><img class="ba-before" src="assets/img/gallery/newbuild-a.jpg" alt="Before"><img class="ba-after" src="assets/img/gallery/newbuild-b.jpg" alt="After"><div class="ba-tag ba-l">Before</div><div class="ba-tag ba-r">After</div><div class="ba-handle"></div></div>
+        <div class="hint">Drag to compare ←→</div>
+      </div>
+    </div>
+    <div class="pin-rect" data-pin-rect style="--tx:2vw" data-start="0.16">
+      <div class="ba-card">
+        <div class="cap"><span class="nm">Full Home Remodel</span><span class="loc">Palm Beach</span></div>
+        <div class="ba"><img class="ba-before" src="assets/img/gallery/remodel-a.jpg" alt="Before"><img class="ba-after" src="assets/img/gallery/remodel-b.jpg" alt="After"><div class="ba-tag ba-l">Before</div><div class="ba-tag ba-r">After</div><div class="ba-handle"></div></div>
+        <div class="hint">Drag to compare ←→</div>
+      </div>
+    </div>
+    <div class="pin-rect" data-pin-rect style="--tx:32vw" data-start="0.30">
+      <div class="ba-card">
+        <div class="cap"><span class="nm">Kitchen &amp; Bath</span><span class="loc">Miami-Dade</span></div>
+        <div class="ba"><img class="ba-before" src="assets/img/gallery/kitchenbath-a.jpg" alt="Before"><img class="ba-after" src="assets/img/gallery/kitchenbath-b.jpg" alt="After"><div class="ba-tag ba-l">Before</div><div class="ba-tag ba-r">After</div><div class="ba-handle"></div></div>
+        <div class="hint">Drag to compare ←→</div>
+      </div>
+    </div>
+    <div class="pin-rect" data-pin-rect style="--tx:-18vw" data-start="0.44">
+      <div class="ba-card">
+        <div class="cap"><span class="nm">New Construction</span><span class="loc">Dockside Cir</span></div>
+        <div class="ba"><img class="ba-before" src="assets/img/gallery/newbuild-a.jpg" alt="Before"><img class="ba-after" src="assets/img/gallery/newbuild-b.jpg" alt="After"><div class="ba-tag ba-l">Before</div><div class="ba-tag ba-r">After</div><div class="ba-handle"></div></div>
+        <div class="hint">Drag to compare ←→</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES TEASER -->
+<section class="svc-teaser">
+  <div class="label">What we build</div>
+  <h2>Nine services. One accountable builder.</h2>
+  <div class="svc-list">
+    <a class="svc" href="services/new-construction.html"><span class="idx">01</span><span class="nm">New Construction</span><span class="sc">Custom homes · Design-build</span><span class="arw">→</span></a>
+    <a class="svc" href="services/renovation.html"><span class="idx">02</span><span class="nm">Full Renovation</span><span class="sc">Down-to-studs · Whole home</span><span class="arw">→</span></a>
+    <a class="svc" href="services/kitchen.html"><span class="idx">03</span><span class="nm">Kitchens</span><span class="sc">Refresh to gut · Custom cabinetry</span><span class="arw">→</span></a>
+    <a class="svc" href="services/bath.html"><span class="idx">04</span><span class="nm">Bathrooms</span><span class="sc">Tub-to-shower · Full remodel</span><span class="arw">→</span></a>
+    <a class="svc" href="services/additions.html"><span class="idx">05</span><span class="nm">Additions</span><span class="sc">Second-story · In-law suites</span><span class="arw">→</span></a>
+    <a class="svc" href="services/outdoor.html"><span class="idx">06</span><span class="nm">Outdoor Living</span><span class="sc">Pergolas · Outdoor kitchens</span><span class="arw">→</span></a>
+    <a class="svc" href="services/concrete.html"><span class="idx">07</span><span class="nm">Concrete</span><span class="sc">Foundations · Slabs · Driveways</span><span class="arw">→</span></a>
+    <a class="svc" href="services/stucco.html"><span class="idx">08</span><span class="nm">Stucco</span><span class="sc">Repair · recoat · restucco</span><span class="arw">→</span></a>
+    <a class="svc" href="services/decks.html"><span class="idx">09</span><span class="nm">Decks &amp; Patios</span><span class="sc">Decks · patios · pavers</span><span class="arw">→</span></a>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <img class="bg" src="assets/img/mike/new-construction/122-dockside-cir-IMG_6718.jpeg" alt="Oak Park Construction custom home">
+  <div class="in">
+    <div class="label">Ready when you are</div>
+    <h2>Let's <span class="serif">Build It.</span></h2>
+    <p>Tell us about your project — we reply within one business day.</p>
+    <a class="pill solid" href="contact.html">Start a project</a>
+    <a class="pill light" href="tel:9542586769">Call (954) 258-6769</a>
+  </div>
+</section>
+
+<footer>
+  <div class="grid">
+    <div><div class="wm">OAK PARK CONSTRUCTION</div><div class="lic">FL CBC1263425 · INSURED · BROWARD · PALM BEACH · MIAMI-DADE</div></div>
+    <div class="col"><h4>SERVICES</h4><a href="services/new-construction.html">New Construction</a><a href="services/renovation.html">Renovation</a><a href="services/kitchen.html">Kitchen</a><a href="services/bath.html">Bathroom</a></div>
+    <div class="col"><h4>NEXT</h4><a href="gallery-showcase.html">Projects</a><a href="how-it-works.html">How We Work</a><a href="contact.html">Contact</a></div>
+  </div>
+  <div class="copy">© 2026 Oak Park Construction · Immersive Home v3 (pinned strip · Archivo + Palette A) · (954) 258-6769</div>
+</footer>
+
+<script>
+/* Lenis smooth scroll — the premium eased feel (the #1 fix per the brief). */
+(function(){
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  function init(){
+    if(!window.Lenis)return;
+    const lenis=new Lenis({duration:1.3,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)),smoothWheel:true,wheelMultiplier:.92,touchMultiplier:1.08});
+    window.__opcLenis=lenis;
+    function raf(time){lenis.raf(time);requestAnimationFrame(raf);}
+    requestAnimationFrame(raf);
+  }
+  if(window.Lenis)init(); else window.addEventListener('load',init,{once:true});
+})();
+
+/* nav goes solid once past the hero */
+(function(){
+  const nav=document.getElementById('nav'), hero=document.getElementById('hero');
+  const io=new IntersectionObserver(es=>es.forEach(e=>nav.classList.toggle('solid',!e.isIntersecting)),{rootMargin:'-70% 0px 0px 0px'});
+  io.observe(hero);
+})();
+
+/* before/after drag */
+document.querySelectorAll('.ba').forEach(ba => {
+  ba.style.setProperty('--pos','50%');
+  let on=false;
+  const set=x=>{const r=ba.getBoundingClientRect();let p=((x-r.left)/r.width)*100;p=Math.max(2,Math.min(98,p));ba.style.setProperty('--pos',p+'%');};
+  ba.addEventListener('pointerdown',e=>{on=true;ba.setPointerCapture(e.pointerId);set(e.clientX);});
+  ba.addEventListener('pointermove',e=>{if(on)set(e.clientX);});
+  ba.addEventListener('pointerup',()=>on=false);
+  ba.addEventListener('pointercancel',()=>on=false);
+});
+
+/* HERO push-in: near subject moves toward you over the held-back far bg. */
+(function(){
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (matchMedia('(max-width:900px)').matches) return;
+  const hero=document.getElementById('hero'),far=document.getElementById('heroFar'),near=document.getElementById('heroNear'),copy=document.getElementById('heroCopy');
+  let ticking=false;
+  function frame(){
+    ticking=false;
+    const rect=hero.getBoundingClientRect();
+    const p=Math.min(1,Math.max(0,(-rect.top)/hero.offsetHeight));
+    const e=1-Math.pow(1-p,3);
+    far.style.transform='translateY('+(-e*3)+'vh) scale('+(1.05+e*0.03)+')';
+    near.style.transform='translateY('+(-e*6.5)+'vh) scale('+(1+e*0.17)+')';
+    copy.style.transform='translateY('+(-e*40)+'px)';
+    copy.style.opacity=Math.max(0,1-e*1.35).toFixed(3);
+  }
+  window.addEventListener('scroll',()=>{if(!ticking){requestAnimationFrame(frame);ticking=true;}},{passive:true});
+  window.addEventListener('resize',frame,{passive:true});
+  frame();
+})();
+
+/* ===== PINNED STRIP ENGINE =====
+   The fixed [data-pin-bg] layer holds still; each [data-pin-rect] flies from below to above
+   on its own staggered window; all clear before the strip releases. Continuous => no dead frames. */
+(function(){
+  const strip=document.getElementById('pinStrip');
+  const stage=document.getElementById('pinStage');
+  const rects=[...strip.querySelectorAll('[data-pin-rect]')];
+  const countEl=document.getElementById('projCount');
+  const target=+countEl.getAttribute('data-count');
+  const mobile=()=>matchMedia('(max-width:900px)').matches;
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const SPAN=0.50;                 // each rect's active travel window (in progress units)
+  const ENTER=100, EXIT=-128;      // vh: start below viewport, end above it (clears before release)
+  const smooth=t=>t*t*(3-2*t);
+
+  // toggle the fixed stage only while the strip is in view (so it doesn't cover other sections)
+  const io=new IntersectionObserver(es=>es.forEach(e=>stage.classList.toggle('active',e.isIntersecting)),{threshold:0});
+  io.observe(strip);
+
+  let ticking=false;
+  function frame(){
+    ticking=false;
+    if(mobile()){ rects.forEach(r=>r.style.removeProperty('--ty')); countEl.textContent=target+'+'; return; }
+    const r=strip.getBoundingClientRect();
+    const denom=(strip.offsetHeight-window.innerHeight)||1;
+    const progress=Math.min(1,Math.max(0,(-r.top)/denom));
+    rects.forEach(rc=>{
+      const start=parseFloat(rc.dataset.start)||0;
+      const local=Math.min(1,Math.max(0,(progress-start)/SPAN));
+      const ty=ENTER+(EXIT-ENTER)*smooth(local);
+      rc.style.setProperty('--ty',ty+'vh');
+    });
+    // count counts up across the first part of the strip, then holds at 120+
+    const cp=Math.min(1,progress/0.42);
+    countEl.textContent=Math.round(target*(1-Math.pow(1-cp,3)))+(cp>=1?'+':'');
+  }
+  if(reduce){ rects.forEach(r=>r.style.setProperty('--ty','-128vh')); countEl.textContent=target+'+'; }
+  else{
+    window.addEventListener('scroll',()=>{if(!ticking){requestAnimationFrame(frame);ticking=true;}},{passive:true});
+    window.addEventListener('resize',frame,{passive:true});
+    frame();
+  }
+})();
+</script>
+</body>
+</html>
