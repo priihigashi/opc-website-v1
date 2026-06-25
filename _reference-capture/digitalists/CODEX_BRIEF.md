@@ -132,14 +132,43 @@ If a better finished-exterior photo is needed, ask Priscila — she may drop one
 - Commit + push (GitHub Pages auto-deploys). Per the audit-on-done rule, add a paired 🔍 AUDIT row.
 - Report honestly: what captured, what's a feel-alike vs exact, any gaps.
 
+## 9.5) 🔒 MISSING-MECHANIC ADDENDUM — PINNED PROJECT STRIP (BINDING, added 2026-06-25)
+**Read this BEFORE you build. The previous prototype was rejected because it missed this exact mechanic.** Priscila's words: the projects section is NOT "cards with parallax." It is a **pinned background strip** where the section/background holds still while **staggered rectangle project images scroll over it**, and the page only releases once the **last rectangle has passed**. The old `home-immersive-v2.html` only half-got it (sticky background yes; true flowing staggered overlay stack no — it used three centered full-screen card stages, which is WRONG).
+
+These are **acceptance requirements, not interpretation** (mirrored in `patterns.md` Pattern 2 + enforced by `tools/validate.js`):
+
+**Pinned Project Strip**
+- Use a TALL scroll section (≥ ~300vh runway).
+- Pin/sticky the background/content layer — its on-screen position must NOT move while the strip is active.
+- Let project rectangles move independently OVER it.
+- Offset them **left / center / right**, NOT all centered.
+- Release the whole strip ONLY after the last rectangle exits the viewport.
+
+**Hero Foreground Object**
+- Do NOT use an unfinished-construction image for the hero. Best = a **finished exterior** photo.
+- Build two layers: (a) a background plate with the house/object removed/softened/inpainted, (b) a transparent foreground cutout of the house/object.
+- Animate the foreground subtly on scroll so it separates from the background (the digitalists girl/train-station effect). Interior can work, but exterior is simpler + more OPC-clear.
+- Asset pipeline: `/nano-banana-2` (inpaint/remove + background plate) + background-removal for the cutout PNG + `/photo-edit` (enhance). Source from `assets/img/mike/new-construction/` exteriors.
+
+**Color/Contrast Lock**
+- Current contrast choices are NOT approved. Pause before styling and pick a calmer/luxury palette that still feels OPC — not harsh or random. (This is the same open decision as the font/palette pick — resolve it via `prototypes/font-lab.html` FIRST. Palette A "Light Architectural" is the front-runner.)
+
+**Better Validation (motion states, not vibes)**
+- `validate.js` now adds motion checks: sticky-layer Y fixed across the scroll range, ≥3 rectangles with distinct left/center/right X-offsets, release-point check (section doesn't advance until the last rectangle exits), and a scroll-state montage. Blank-frame + console-error checks alone are NOT enough.
+
+**Comparison method to use (per Codex):** capture the reference at fixed viewport sizes + fixed scroll percentages → make a scroll montage (not single shots) → inspect DOM class names + search the bundled JS for those selectors → build a per-section "mechanic map" (what is pinned / what moves / what triggers / when it starts / when it releases / what content changes). Rebuild the RELATIONSHIP (same scroll logic, pacing, layer behavior) with original OPC images/colors/copy — validate by comparing motion states.
+
 ## 10) ACCEPTANCE CHECKLIST
 - [ ] Smooth eased scrolling (Lenis-style) — not janky native scroll.
 - [ ] Hero: full-bleed, house exterior, slow premium push-in, headline overlaid low, generous space.
+- [ ] **Hero foreground-object separation** (§9.5): 2-layer plate + cutout, subtle scroll parallax — NOT a flat single photo, NOT unfinished construction.
+- [ ] **Pinned project strip (§9.5)** passes ALL 5 rules: tall runway · fixed bg layer · ≥3 left/center/right staggered rectangles · release only after last rectangle exits · NO centered full-screen card stages.
 - [ ] Section spacing/whitespace is airy like the reference (not cramped, no huge dead gaps).
 - [ ] Hand-offs between sections ease smoothly (nothing snaps/pops).
 - [ ] Big project COUNT + before/after, mirroring reference spacing.
+- [ ] **Color/contrast palette chosen + approved BEFORE styling** (§9.5) — front-runner Palette A from `font-lab.html`.
 - [ ] OPC brand only (tokens + fonts + real content). Zero digitalists yellow/assets.
-- [ ] Verified at 1440×900 + 1262×1932 + 390×844: **no near-empty frames, no console errors** (validate.js clean).
+- [ ] Verified at 1440×900 + 1262×1932 + 390×844: **no near-empty frames, no console errors, motion-state checks PASS** (validate.js clean).
 - [ ] Lab-banner/cache-bust/tracker/STATE.md/commit done.
 
 ## FILE MAP

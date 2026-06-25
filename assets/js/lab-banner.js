@@ -32,6 +32,7 @@
       ['📍 Miami-Dade', 'areas/miami-dade.html'],
     ]},
     { label: 'HOME DIRECTIONS', color: '#E5B53B', links: [
+      ['🔤 Font + Palette Lab', 'prototypes/font-lab.html'],
       ['⭐ Home Immersive v2', 'home-immersive-v2.html'],
       ['✨ Home B', 'home-b.html'],
       ['18 Light Panel', 'prototypes/novobudowa-light-panel.html'],
