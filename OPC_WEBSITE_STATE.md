@@ -9,7 +9,7 @@
 - **Drive mirror of this doc:** https://docs.google.com/document/d/1j2Y1z6rYRBS9fwE1Uk4seMvUNk9jFMZA-SZDAuCSZ2E/edit (ID `1j2Y1z6rYRBS9fwE1Uk4seMvUNk9jFMZA-SZDAuCSZ2E`)
 - **Skill:** `/opc-website` (loader skill — reads this file on activation)
 
-Last updated: **2026-06-24**
+Last updated: **2026-06-25**
 
 ---
 
@@ -247,6 +247,8 @@ Decision needed from Priscila on direction before build.
 ---
 
 ## 📝 ACTIVITY LOG (auto-appended by `/opc-website` skill after every report-back)
+
+- **2026-06-25** — CODEX DIGITALISTS REBUILD PASS: read `_reference-capture/digitalists/CODEX_BRIEF.md`, ran provided `capture-ref.js` (reference confirmed desktop 10.9 screens / portrait 5.8 / mobile 10.8) and `validate.js` baseline, then rebuilt `home-immersive-v2.html` toward the measured feel: added Lenis smooth-scroll, changed hero to a true one-screen full-bleed exterior push-in, fixed the sticky-release dark gap, rebuilt the projects handoff as an airy cream count section with floating before/after cards, and expanded the service list to all 9 services. Tracker `🧪 Prototypes!D46:H46` updated. Final `validate.js`: desktop 7.8 screens, portrait 6.3, mobile 5.6; near-empty frames none; only expected local favicon `ERR_FILE_NOT_FOUND`; montage checked against reference.
 
 - **2026-06-24** — CODEX HANDOFF for the digitalists mirror. After 4 Claude attempts at `home-immersive-v2.html` that Priscila rejected ("you did not get space and transition mirrored — yours is ugly and different"), wrote a full brief + runnable tools for Codex. Rendered the REAL digitalists.at with Playwright + measured it: stack = **GSAP + Lenis (smooth-scroll) + Three.js**; hero ≈ 100vh full-bleed (not a long runway); ~11 screens, very airy; big calm type. KEY MISS = no smooth scroll (Lenis) + spacing too tight + abrupt transitions. Deliverables in `_reference-capture/digitalists/`: `CODEX_BRIEF.md` (measured facts, exact diagnosis, brand lock, step-by-step, acceptance), `tools/capture-ref.js` + `tools/validate.js` (runnable, smoke-tested), `screens/` (real reference shots + `mine-sheet.png` = the wrong attempt). Goal: mirror SPACE+TRANSITIONS in OPC brand. Codex to iterate v2 or build v3. Reminder: brief/tools live in gitignored `_reference-capture/` (local-only; Codex reads local fine).
 
