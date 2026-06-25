@@ -24,6 +24,10 @@ The site has moved out of prototype-chasing and into commercial MVP work. The lo
 
 **Commercial MVP focus now:** conversion plumbing (real form backend + analytics), production service proof (before/after, testimonials, 3D hero promotion), local SEO/city pages, image performance, and tracker/backlog cleanup against the now-live site.
 
+**🎬 VIDEO SOURCE NOTE (Priscila 2026-06-25, LOCKED):** any template/version with a HERO VIDEO uses **the intro video from the OG site** — `oakpark-construction.com` plays **`1intro.mov`** (local: `~/Downloads/Videos/Marketing/1intro.mov`) + `mgc-compress-1.mp4` (= `Timeline-Intro-MGC.mp4`). Use `1intro.mov` as the intro. ⚠️ It's only 480×266 (low-res) — re-export higher-res or use the MGC source (1280×720) and compress for web before shipping. Also logged in Tracker → 🎨 Design Decisions. Ties to Arc Projects hero-video inspo (row 40).
+
+**📂 IMAGE/COPY/MIRROR SPACE (2026-06-25):** Tracker now has 3 new tabs — 🪞 Mirror Queue (incoming template URLs to analyze+mirror), 🖼 Image Provenance (which photo used where + phase), ✍️ Copy Bank (reusable sentences). Image rule: pick photos from the **📸 Photo Catalog** tab in Ideas & Inbox (`1IrFrCNGVIF7cvAr9cIuAXvCtUR_-eQN1mdCpHXpfbcU`) by the **Phase** column — showcase = AFTER/finished, never before/during/land. Memory: `feedback_image_selection_after_photos.md`.
+
 ---
 
 ## 🎯 CURRENT FOCUS
