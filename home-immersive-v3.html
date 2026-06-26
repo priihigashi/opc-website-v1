@@ -44,7 +44,9 @@
   .pill{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border:1px solid var(--ink);border-radius:999px;color:var(--ink);font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:transform .2s ease,box-shadow .2s ease,background .2s ease,color .2s ease,border-color .2s ease;}
   .pill:hover{background:var(--ink);color:var(--bg);transform:translateY(-2px);box-shadow:0 10px 24px rgba(10,10,10,.22);}
   .pill.solid{background:var(--accent);border-color:var(--accent);color:var(--ink);} .pill.solid:hover{background:var(--accent-deep);color:var(--ink);transform:translateY(-2px);box-shadow:0 12px 28px rgba(203,204,16,.45);}
-  .pill.light{border-color:rgba(240,235,227,.6);color:var(--cream);} .pill.light:hover{background:var(--cream);color:var(--ink);border-color:var(--cream);transform:translateY(-2px);box-shadow:0 12px 28px rgba(0,0,0,.3);}
+  /* frosted GLASS secondary button (per saved Margarita glassmorphism ref) — fills to cream on hover */
+  .pill.light{background:rgba(240,235,227,.1);backdrop-filter:blur(14px) saturate(160%);-webkit-backdrop-filter:blur(14px) saturate(160%);border-color:rgba(240,235,227,.45);color:var(--cream);}
+  .pill.light:hover{background:rgba(240,235,227,.95);color:var(--ink);border-color:var(--cream);transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,.34),0 0 0 1px rgba(255,255,255,.25) inset;}
 
   /* nav — ADAPTIVE: text flips dark over light sections / light over dark sections (per-section, all links).
      [data-navtheme] rules use !important + an attribute selector so they beat opc-shared.css's
@@ -68,9 +70,10 @@
   .hero-vid{position:absolute;inset:-6vh 0;z-index:0;will-change:transform;}
   .hero-vid video{width:100%;height:100%;object-fit:cover;object-position:center 55%;filter:brightness(.52) saturate(.85) contrast(.96);}
   .hero-scrim{position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(120% 80% at 60% 30%,rgba(203,204,16,.10),transparent 56%),linear-gradient(180deg,rgba(8,8,5,.30),rgba(8,8,5,.05) 40%,rgba(8,8,5,.78));}
-  .hero-copy{position:absolute;left:clamp(24px,5vw,80px);right:clamp(24px,5vw,80px);bottom:9vh;z-index:3;max-width:900px;will-change:transform,opacity;}
-  .hero-copy .eyebrow{color:var(--accent);margin-bottom:22px;}
-  .hero-copy h1{font-size:clamp(46px,7.2vw,118px);color:var(--cream);text-shadow:0 6px 50px rgba(0,0,0,.55);}
+  /* title sits in the UPPER-MIDDLE (not bottom) — clear of the busy middle/bottom of the video, not crowding the menu */
+  .hero-copy{position:absolute;left:clamp(24px,5vw,80px);right:clamp(24px,5vw,80px);top:30%;z-index:3;max-width:880px;will-change:transform,opacity;}
+  .hero-copy .eyebrow{color:var(--accent);margin-bottom:20px;}
+  .hero-copy h1{font-size:clamp(42px,6.4vw,104px);color:var(--cream);text-shadow:0 6px 50px rgba(0,0,0,.55);}
   .hero-copy h1 .serif{font-size:1.1em;color:var(--accent);}
   .hero-copy .sub{font-family:'Roboto Mono',monospace;font-size:15px;line-height:1.75;max-width:500px;color:rgba(240,235,227,.9);margin:28px 0 30px;}
   .hero-cta{display:flex;gap:12px;flex-wrap:wrap;}
