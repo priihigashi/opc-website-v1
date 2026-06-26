@@ -180,8 +180,13 @@ These are **acceptance requirements, not interpretation** (mirrored in `patterns
 - Playwright: repo `node_modules` (`NODE_PATH="$PWD/node_modules"`)
 
 ---
-## 🔴 LIVE FEEDBACK FROM PRISCILA — apply to `home-immersive-v3.html` (2026-06-26)
-Two fixes on the live v3. v3 section order = hero(dark) → pin-strip/projects(light) → svc-teaser(light) → cta(dark) → footer(dark).
+## ✅ RESOLVED FEEDBACK FROM PRISCILA — applied to `home-immersive-v3.html` (2026-06-26)
+Two fixes on the live v3 — **both DONE** (commit folds into the v3 line). v3 section order is now hero(dark) → pin-strip/projects(light) → svc-teaser(**DARK**) → cta(dark) → footer(dark). Resolution notes are inline below each item.
+
+**FB-1 ✅ DONE — 3rd strip (SERVICES teaser) is now DARK.** `.svc-teaser` → `background:#14130c`, cream text, lime accents, full-bleed via a `.svc-inner` max-width wrapper.
+**FB-2 ✅ DONE — nav now adapts per-section for ALL links.** Sections tagged `data-nav="dark|light"`; a scroll detector sets `nav[data-navtheme]`; CSS uses `[data-navtheme] ... !important` (higher specificity than opc-shared's `nav.top .links a{...!important}`) so brand + every plain link + both dropdown toggles flip. Verified: "About" renders `rgb(10,10,10)` over the light strip, `rgb(240,235,227)` over dark sections.
+
+<details><summary>original feedback (kept for context)</summary>
 
 **FB-1 — 3rd strip (SERVICES teaser) must be DARK, not light.**
 The `.svc-teaser` section (the "Nine services… New Construction / Renovation / Kitchens…" job-type list) is currently on the light `--bg` (cream). Make it DARK like the hero/CTA (dark bg, `--cream` text, lime accents). Priscila: *"the third strip, the one that has the job type, should be dark not light."* Keep the projects pin-strip as-is unless it reads better dark too — but the explicit ask is the services strip.
@@ -191,3 +196,5 @@ Bug: over the light strips, only `Services ▾` and `Areas ▾` (`.nav-drop-t`) 
 Required: nav text adapts PER SECTION — **dark (`--ink`) over light sections, light (`--cream`) over dark sections** — applied uniformly to brand + every link + both dropdown toggles. Recommended robust approach: tag each section `data-nav="dark|light"` and an IntersectionObserver sets `nav` theme from whichever section is under the bar (not just hero). Priscila: *"black when on top of white/light, white when on top of dark… only Services and Areas are changing color, the others stay white."*
 
 Validate with `tools/validate.js` + eyeball at desktop/portrait/mobile: nav legible over EVERY section; 3rd strip dark.
+
+</details>

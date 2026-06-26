@@ -42,11 +42,21 @@
   .pill.solid{background:var(--accent);border-color:var(--accent);color:var(--ink);} .pill.solid:hover{background:var(--accent-deep);box-shadow:0 0 24px rgba(203,204,16,.35);}
   .pill.light{border-color:rgba(240,235,227,.6);color:var(--cream);} .pill.light:hover{background:var(--cream);color:var(--ink);border-color:var(--cream);}
 
-  /* nav */
-  nav.top{position:fixed;top:0;left:0;right:0;z-index:90;display:flex;justify-content:space-between;align-items:center;padding:20px 40px;background:linear-gradient(180deg,rgba(10,10,10,.55),transparent);backdrop-filter:blur(8px);transition:background .3s;}
-  nav.top.solid{background:rgba(244,241,234,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
-  nav.top .brand{font-family:'Archivo',sans-serif;font-weight:800;font-stretch:125%;font-size:15px;letter-spacing:1px;color:var(--cream);transition:color .3s;} nav.top.solid .brand{color:var(--ink);} nav.top .brand .lime{color:var(--accent);}
-  nav.top .links{display:flex;gap:28px;align-items:center;} nav.top .links a,nav.top .links .nav-drop-t{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--cream);opacity:.82;cursor:pointer;transition:.2s;} nav.top.solid .links a,nav.top.solid .links .nav-drop-t{color:var(--ink);} nav.top .links a:hover{opacity:1;color:var(--accent-deep);}
+  /* nav — ADAPTIVE: text flips dark over light sections / light over dark sections (per-section, all links).
+     [data-navtheme] rules use !important + an attribute selector so they beat opc-shared.css's
+     `nav.top .links a{...!important}` (which otherwise keeps every plain link white over cream). */
+  nav.top{position:fixed;top:0;left:0;right:0;z-index:90;display:flex;justify-content:space-between;align-items:center;padding:20px 40px;backdrop-filter:blur(8px);transition:background .3s,color .3s;}
+  nav.top .brand{font-family:'Archivo',sans-serif;font-weight:800;font-stretch:125%;font-size:15px;letter-spacing:1px;transition:color .3s;}
+  nav.top .links{display:flex;gap:28px;align-items:center;} nav.top .links a,nav.top .links .nav-drop-t{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:2px;text-transform:uppercase;opacity:.84;cursor:pointer;transition:.2s;}
+  /* DARK section under the bar → light text */
+  nav.top[data-navtheme="dark"]{background:linear-gradient(180deg,rgba(10,10,10,.55),transparent);}
+  nav.top[data-navtheme="dark"] .brand{color:var(--cream)!important;} nav.top[data-navtheme="dark"] .brand .lime{color:var(--accent)!important;}
+  nav.top[data-navtheme="dark"] .links a,nav.top[data-navtheme="dark"] .links .nav-drop-t{color:var(--cream)!important;}
+  /* LIGHT section under the bar → dark text + a soft cream bar so it reads */
+  nav.top[data-navtheme="light"]{background:rgba(244,241,234,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+  nav.top[data-navtheme="light"] .brand{color:var(--ink)!important;} nav.top[data-navtheme="light"] .brand .lime{color:var(--accent-deep)!important;}
+  nav.top[data-navtheme="light"] .links a,nav.top[data-navtheme="light"] .links .nav-drop-t{color:var(--ink)!important;}
+  nav.top .links a:hover,nav.top .links .nav-drop-t:hover{opacity:1;color:var(--accent-deep)!important;}
 
   /* ===== HERO — full-bleed cinematic exterior, slow push-in, headline low (Arc hero-video bones) ===== */
   .hero{position:relative;height:100vh;min-height:640px;overflow:hidden;background:#14130c;}
@@ -102,17 +112,18 @@
   .ba .ba-tag{position:absolute;bottom:10px;font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;background:rgba(10,10,10,.6);backdrop-filter:blur(4px);padding:4px 9px;border-radius:4px;color:var(--cream);}
   .ba .ba-l{left:10px;} .ba .ba-r{right:10px;}
 
-  /* ===== services teaser + CTA + footer ===== */
-  .svc-teaser{max-width:1300px;margin:0 auto;padding:160px 64px 150px;}
-  .svc-teaser .label{margin-bottom:18px;} .svc-teaser h2{font-size:clamp(32px,4.6vw,62px);max-width:880px;margin-bottom:40px;color:var(--ink);}
+  /* ===== services teaser (DARK strip, full-bleed) + CTA + footer ===== */
+  .svc-teaser{background:#14130c;padding:150px 0 140px;}
+  .svc-teaser .svc-inner{max-width:1300px;margin:0 auto;padding:0 64px;}
+  .svc-teaser .label{margin-bottom:18px;color:var(--accent);} .svc-teaser h2{font-size:clamp(32px,4.6vw,62px);max-width:880px;margin-bottom:40px;color:var(--cream);}
   .svc-list{display:grid;gap:0;}
-  .svc{display:grid;grid-template-columns:60px 1fr auto auto;align-items:center;gap:24px;padding:28px 0;border-top:1px solid var(--line);transition:.3s;}
-  .svc:last-child{border-bottom:1px solid var(--line);}
-  .svc .idx{font-family:'Roboto Mono',monospace;font-size:14px;color:var(--accent-deep);}
-  .svc .nm{font-family:'Archivo',sans-serif;font-weight:800;font-stretch:125%;font-variation-settings:'wght' 800,'wdth' 125;font-size:clamp(22px,3.4vw,42px);text-transform:uppercase;color:var(--ink);letter-spacing:-.5px;transition:.3s;}
-  .svc .sc{font-family:'Roboto Mono',monospace;font-size:14px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);text-align:right;}
-  .svc .arw{font-family:'Roboto Mono',monospace;color:var(--accent-deep);opacity:.35;transition:.3s;}
-  .svc:hover{padding-left:14px;} .svc:hover .nm{color:var(--accent-deep);} .svc:hover .arw{opacity:1;}
+  .svc{display:grid;grid-template-columns:60px 1fr auto auto;align-items:center;gap:24px;padding:28px 0;border-top:1px solid var(--line-d);transition:.3s;}
+  .svc:last-child{border-bottom:1px solid var(--line-d);}
+  .svc .idx{font-family:'Roboto Mono',monospace;font-size:14px;color:var(--accent);}
+  .svc .nm{font-family:'Archivo',sans-serif;font-weight:800;font-stretch:125%;font-variation-settings:'wght' 800,'wdth' 125;font-size:clamp(22px,3.4vw,42px);text-transform:uppercase;color:var(--cream);letter-spacing:-.5px;transition:.3s;}
+  .svc .sc{font-family:'Roboto Mono',monospace;font-size:14px;letter-spacing:1px;text-transform:uppercase;color:rgba(240,235,227,.5);text-align:right;}
+  .svc .arw{font-family:'Roboto Mono',monospace;color:var(--accent);opacity:.35;transition:.3s;}
+  .svc:hover{padding-left:14px;} .svc:hover .nm{color:var(--accent);} .svc:hover .arw{opacity:1;}
   .cta{position:relative;padding:170px 64px;text-align:center;overflow:hidden;background:#14130c;}
   .cta img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.34);}
   .cta .in{position:relative;z-index:3;}
@@ -138,7 +149,7 @@
     .pin-bg h2{font-size:clamp(40px,13vw,76px);} .pin-bg .count .n{font-size:76px;} .pin-bg .cue{display:none;}
     .pin-rect{position:relative;left:auto;top:auto;width:auto;transform:none!important;margin:0 22px 22px;}
     .pin-rect:first-of-type{margin-top:8px;}
-    .svc-teaser{padding:70px 22px;} .svc{grid-template-columns:40px 1fr auto;gap:14px;} .svc .sc{display:none;}
+    .svc-teaser{padding:70px 0;} .svc-teaser .svc-inner{padding:0 22px;} .svc{grid-template-columns:40px 1fr auto;gap:14px;} .svc .sc{display:none;}
     .cta{padding:90px 22px;} footer .grid{grid-template-columns:1fr;}
   }
   @media (prefers-reduced-motion: reduce){ .scroll-cue .arw,.pin-bg .cue .arw{animation:none;} }
@@ -154,7 +165,7 @@
 </nav>
 
 <!-- HERO -->
-<header class="hero" id="hero">
+<header class="hero" id="hero" data-nav="dark">
   <div class="hero-far" id="heroFar"><img src="assets/img/mike/new-construction/122-dockside-cir-IMG_6718.jpeg" alt=""></div>
   <div class="hero-near" id="heroNear"><img src="assets/img/mike/new-construction/122-dockside-cir-IMG_6718.jpeg" alt="Custom waterfront home built by Oak Park Construction"></div>
   <div class="hero-scrim"></div>
@@ -170,8 +181,8 @@
   <div class="scroll-cue">Scroll<span class="arw">↓</span></div>
 </header>
 
-<!-- PINNED PROJECT STRIP -->
-<section class="pin-strip" data-pin-strip id="pinStrip">
+<!-- PINNED PROJECT STRIP (light bg → nav goes dark over it) -->
+<section class="pin-strip" data-pin-strip data-nav="light" id="pinStrip">
   <div class="pin-stage" id="pinStage">
     <!-- FIXED layer: count holds still while rectangles fly over -->
     <div class="pin-bg" data-pin-bg>
@@ -217,8 +228,9 @@
   </div>
 </section>
 
-<!-- SERVICES TEASER -->
-<section class="svc-teaser">
+<!-- SERVICES TEASER (DARK strip) -->
+<section class="svc-teaser" data-nav="dark">
+  <div class="svc-inner">
   <div class="label">What we build</div>
   <h2>Nine services. One accountable builder.</h2>
   <div class="svc-list">
@@ -232,10 +244,11 @@
     <a class="svc" href="services/stucco.html"><span class="idx">08</span><span class="nm">Stucco</span><span class="sc">Repair · recoat · restucco</span><span class="arw">→</span></a>
     <a class="svc" href="services/decks.html"><span class="idx">09</span><span class="nm">Decks &amp; Patios</span><span class="sc">Decks · patios · pavers</span><span class="arw">→</span></a>
   </div>
+  </div>
 </section>
 
 <!-- CTA -->
-<section class="cta">
+<section class="cta" data-nav="dark">
   <img class="bg" src="assets/img/mike/new-construction/122-dockside-cir-IMG_6718.jpeg" alt="Oak Park Construction custom home">
   <div class="in">
     <div class="label">Ready when you are</div>
@@ -246,7 +259,7 @@
   </div>
 </section>
 
-<footer>
+<footer data-nav="dark">
   <div class="grid">
     <div><div class="wm">OAK PARK CONSTRUCTION</div><div class="lic">FL CBC1263425 · INSURED · BROWARD · PALM BEACH · MIAMI-DADE</div></div>
     <div class="col"><h4>SERVICES</h4><a href="services/new-construction.html">New Construction</a><a href="services/renovation.html">Renovation</a><a href="services/kitchen.html">Kitchen</a><a href="services/bath.html">Bathroom</a></div>
@@ -269,11 +282,26 @@
   if(window.Lenis)init(); else window.addEventListener('load',init,{once:true});
 })();
 
-/* nav goes solid once past the hero */
+/* ADAPTIVE NAV — text color follows whichever [data-nav] section is under the bar
+   (dark text over light sections, light text over dark sections; all links + brand + dropdowns). */
 (function(){
-  const nav=document.getElementById('nav'), hero=document.getElementById('hero');
-  const io=new IntersectionObserver(es=>es.forEach(e=>nav.classList.toggle('solid',!e.isIntersecting)),{rootMargin:'-70% 0px 0px 0px'});
-  io.observe(hero);
+  const nav=document.getElementById('nav');
+  const sections=[...document.querySelectorAll('[data-nav]')];
+  const LINE=42;                 // y just under the nav bar
+  let ticking=false;
+  function pick(){
+    ticking=false;
+    let theme='dark';
+    for(const s of sections){
+      const r=s.getBoundingClientRect();
+      if(r.top<=LINE && r.bottom>LINE){ theme=s.dataset.nav; break; }
+    }
+    nav.setAttribute('data-navtheme',theme);
+  }
+  nav.setAttribute('data-navtheme','dark');
+  window.addEventListener('scroll',()=>{if(!ticking){requestAnimationFrame(pick);ticking=true;}},{passive:true});
+  window.addEventListener('resize',pick,{passive:true});
+  pick();
 })();
 
 /* before/after drag */
