@@ -30,6 +30,38 @@ The site has moved out of prototype-chasing and into commercial MVP work. The lo
 
 ---
 
+## 🏠 HOMEPAGE MASTER PLAN — "3D HOUSE PORTAL" (LOCKED 2026-06-26)
+
+**Direction (do NOT re-litigate): a homepage built around a realistic 3D OPC house that ROTATES/OPENS as you scroll; its windows + doors are PORTALS into services; clicking one drops into that service's real before/after gallery. Cinematic dark + intro video on top, smooth (GSAP+Lenis).** Sources Priscila circled ≥4×: tinyvilla (house turns), keukenkastenfabriek (elements slide/reveal), thevertmenthe (Mike walking, windows/doors=services, hub→galleries), zecchinon (dark vignette video hero), digitalists (pinned projects), architecture.film (click-to-play film).
+
+**Audit merges ADOPTED:**
+1. **NEW lab file — do NOT overwrite production `index.html`, and do NOT touch Codex's `home-immersive-v3` (different direction).** New: `home-3d-portal.html` with a cream↔dark/light-lime color toggle. (Versioning + no-clobber.)
+2. **Build BOTH color versions first** (cream architectural vs dark/light-lime cinematic) — compare visually, don't guess.
+3. **Ownership split:** Claude builds the 3D-portal homepage; Codex keeps finishing v3 (digitalists spacing/transitions). No collision.
+
+**The look (scroll journey):** dark full-bleed **intro-video hero** (MGC loop) + vignette + wordmark/headline/lime → video recedes, **realistic OPC house** centers → scroll: house **rotates/opens**, **windows/doors = portals** (window→backyard/landscape, window→concrete/exterior, door→kitchen remodel, door→bathroom; each tagged service + "View projects →") → click portal → **service before/after gallery** → **pinned projects strip** (bg holds, before/after rectangles scroll + expand to full-width, "120+" count, release) → **dark services strip** → areas → **CTA w/ 2-min click-to-play film** → footer.
+
+**Tool plan (cost-aware — see 🧰 Tools & Resources tab):** video hero + scroll + pinned strip + services + galleries + CTA = **our free skill (Claude)**. **The 3D rotating/opening house = the ONE paid part → Spline** (build + scroll-rotate + clickable window/door hotspots), or **Meshy** (photo→3D model) → Spline. Exact-copy a reference layout only if needed = v0. → ~85% free.
+
+**GAPS added (merge/find-gaps):**
+- **Mobile + performance (non-negotiable):** 3D (Spline/GLTF) + video are heavy → **poster image + static house render on mobile / reduced-motion**, lazy-load the 3D. Same discipline as the hero video.
+- **SEO:** homepage keeps content depth + GeneralContractor/Service/FAQ schema (from nycrenovation/infinitybuilt research, T-165) — rank, not just wow.
+- **"Mike walking" = optional Phase 2** (advanced); v1 = house rotates/opens, no walking character yet.
+- **Photos:** galleries use real AFTER photos from 📸 Photo Catalog (Phase=after).
+- **Intro video:** MGC master loop (Timeline-Intro-MGC.mp4), not 1intro.mov.
+
+**STEPS (do-this-then-that; Priscila fixes at 1/3/4 only):**
+1. **Claude (fast):** build the FREE lab skeleton `home-3d-portal.html` — dark video hero + pinned projects + dark services + CTA + smooth scroll, OPC brand, BOTH colors (toggle), with a clear **3D-house placeholder box**. → Priscila reviews.
+2. **Priscila (Claude preps):** create the 3D house in **Spline/Meshy** — Claude hands exact photo + prompt + settings; Priscila uploads/clicks → sends export.
+3. **Claude:** embed the house in the hero + wire **scroll-rotation + clickable window/door portals**. → Priscila reviews.
+4. **Claude:** build the **per-service before/after galleries** the portals open into (real AFTER photos). → Priscila reviews.
+5. **Claude (later/optional):** the 2-min click-to-play film.
+6. **Claude:** polish + validate (3 viewports, no dead frames, perf) + ship as a lab version. → Priscila approves before any production promotion.
+
+**NOT part of this plan (separate project):** the `oak-park-ai-hub` content-automation cron pause / blog JSON-guard fix / 4AM auto-retry guard — lives in the content-automation chat; immediate next there = patch the 4AM retry/dispatch of content_creator.yml. Do not merge into the website plan.
+
+---
+
 ## 🎯 CURRENT FOCUS
 
 - Production site is live on GitHub Pages with `home-b` promoted to `index.html`, gallery/category viewers built from real OPC photos, service pages live, and shared nav/font/footer/readability layers applied.
