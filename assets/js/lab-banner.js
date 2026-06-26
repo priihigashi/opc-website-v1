@@ -32,6 +32,7 @@
       ['📍 Miami-Dade', 'areas/miami-dade.html'],
     ]},
     { label: 'HOME DIRECTIONS', color: '#E5B53B', links: [
+      ['🏠 3D House Portal (Step 1)', 'home-3d-portal.html'],
       ['🔤 Font + Palette Lab', 'prototypes/font-lab.html'],
       ['⭐ Home Immersive v3 (pinned)', 'home-immersive-v3.html'],
       ['Home Immersive v2', 'home-immersive-v2.html'],
