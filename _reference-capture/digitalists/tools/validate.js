@@ -99,12 +99,15 @@ const OUT = '/tmp/valshots';
         return {
           bgTop: bg ? +(bg.getBoundingClientRect().top).toFixed(1) : null,
           cols, rectN: rects.length, detail,
+          stripTop: strip ? +(strip.getBoundingClientRect().top).toFixed(1) : null,
           stripBottom: strip ? +(strip.getBoundingClientRect().bottom).toFixed(1) : null,
           vh
         };
       });
 
-      if (frame.bgTop !== null) bgTops.push(frame.bgTop);
+      // bg must be fixed during the PINNED (covering) phase; it may move while entering/exiting (sticky).
+      const coveringNow = frame.stripTop !== null && frame.stripTop <= 1 && frame.stripBottom >= frame.vh - 1;
+      if (frame.bgTop !== null && coveringNow) bgTops.push(frame.bgTop);
       frame.cols.forEach(c => colsSeen.add(c));
       rectCount = Math.max(rectCount, frame.rectN);
       // capture the rect layout at the release point (first sample where the strip is about to unpin)

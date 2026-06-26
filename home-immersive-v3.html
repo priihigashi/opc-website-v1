@@ -28,7 +28,9 @@
     --line-d:rgba(240,235,227,.16);
   }
   *{margin:0;padding:0;box-sizing:border-box;}
-  html,body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+  /* overflow-x:clip (NOT hidden) — clips horizontal overflow WITHOUT making html a scroll container,
+     which would break position:sticky on the pinned project strip. */
+  html,body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;overflow-x:clip;-webkit-font-smoothing:antialiased;}
   html.lenis,html.lenis body{height:auto;}
   .lenis.lenis-smooth{scroll-behavior:auto!important;}
   .lenis.lenis-stopped{overflow:hidden;}
@@ -78,14 +80,15 @@
   /* ===== PINNED PROJECT STRIP =====
      [data-pin-strip] = tall scroll spacer · [data-pin-bg] = FIXED layer (count holds still)
      [data-pin-rect] = staggered L/C/R rectangles that scroll OVER it, releasing after the last clears. */
-  .pin-strip{position:relative;height:440vh;background:var(--bg);}              /* tall runway */
-  .pin-stage{position:fixed;inset:0;z-index:6;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .45s ease;}
-  .pin-stage.active{opacity:1;visibility:visible;}
-  /* FIXED background/content layer — this is what must NOT move while rectangles fly over it */
+  .pin-strip{position:relative;height:380vh;background:var(--bg);}              /* tall runway (trimmed) */
+  /* STICKY stage — scrolls IN with the content (title/count visible as you enter — no blank snap),
+     pins while the cards fly over, then releases and scrolls away with the page. Can't cover the hero. */
+  .pin-stage{position:sticky;top:0;height:100vh;overflow:hidden;z-index:2;}
+  /* pinned background/content layer — held still (top:0) while rectangles fly over it */
   .pin-bg{position:absolute;inset:0;z-index:1;display:flex;align-items:center;
     background:radial-gradient(70% 60% at 72% 36%,rgba(203,204,16,.16),transparent 64%),linear-gradient(180deg,#F6F2EA,#E7DFD1);overflow:hidden;}
   .pin-bg .inner{position:relative;z-index:2;width:min(1240px,calc(100% - 48px));margin:0 auto;padding:0 24px;}
-  .pin-bg .label{margin-bottom:14px;}
+  .pin-bg .label{margin-bottom:14px;color:var(--muted);}   /* muted, matching the count subtitle (not lime) */
   .pin-bg h2{font-size:clamp(52px,8.4vw,124px);color:var(--ink);max-width:820px;}
   .pin-bg h2 .serif{font-size:1.18em;}
   .pin-bg .count{display:inline-flex;align-items:baseline;gap:14px;margin-top:22px;}
@@ -96,9 +99,8 @@
 
   /* the staggered rectangles (before/after cards) that scroll OVER the fixed layer */
   .pin-rect{position:absolute;left:50%;top:50%;z-index:2;width:min(42vw,520px);
-    transform:translate(-50%,-50%) translate(var(--tx,0), var(--ty,100vh));
-    will-change:transform;}
-  .pin-stage.active .pin-rect{pointer-events:auto;}
+    transform:translate(-50%,-50%) translate(var(--tx,0), var(--ty,110vh));
+    will-change:transform;pointer-events:auto;}
   .ba-card{background:rgba(250,247,240,.9);backdrop-filter:blur(14px);border:1px solid rgba(10,10,10,.12);border-radius:12px;padding:16px;box-shadow:0 38px 100px rgba(10,10,10,.22);}
   .ba-card .cap{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:13px;gap:12px;}
   .ba-card .cap .nm{font-family:'Archivo',sans-serif;font-weight:800;font-stretch:125%;font-variation-settings:'wght' 800,'wdth' 125;font-size:clamp(18px,2.4vw,28px);text-transform:uppercase;color:var(--ink);letter-spacing:-.3px;}
@@ -144,7 +146,7 @@
     nav.top{padding:16px 20px;} nav.top .links{display:none;}
     .hero-copy{left:22px;right:22px;bottom:13vh;} .scroll-cue{display:none;}
     .pin-strip{height:auto;background:var(--bg);}
-    .pin-stage{position:static;opacity:1;visibility:visible;pointer-events:auto;}
+    .pin-stage{position:static;height:auto;overflow:visible;}
     .pin-bg{position:relative;inset:auto;padding:72px 22px 30px;min-height:auto;display:block;}
     .pin-bg h2{font-size:clamp(40px,13vw,76px);} .pin-bg .count .n{font-size:76px;} .pin-bg .cue{display:none;}
     .pin-rect{position:relative;left:auto;top:auto;width:auto;transform:none!important;margin:0 22px 22px;}
@@ -188,8 +190,8 @@
     <div class="pin-bg" data-pin-bg>
       <div class="inner">
         <div class="label">Recent work · 2017–2026</div>
-        <h2>Before &amp; <span class="serif">After.</span></h2>
-        <div class="count"><span class="n" id="projCount" data-count="120">0</span><span class="t">Homes & remodels delivered across South Florida</span></div>
+        <h2>Before<br>&amp; <span class="serif">After.</span></h2>
+        <div class="count"><span class="n" id="projCount" data-count="120">0</span><span class="t">Homes &amp; remodels delivered across South Florida</span></div>
       </div>
       <div class="cue">Keep scrolling<span class="arw">↓</span></div>
     </div>
@@ -369,12 +371,12 @@ document.querySelectorAll('.ba').forEach(ba => {
   let ticking=false;
   function frame(){
     ticking=false;
-    if(mobile()){ stage.classList.add('active'); rects.forEach(r=>r.style.removeProperty('--ty')); runCount(); return; }
+    if(mobile()){ rects.forEach(r=>r.style.removeProperty('--ty')); runCount(); return; }
     const r=strip.getBoundingClientRect();
     const vh=window.innerHeight;
-    // active ONLY while the strip fully covers the viewport → the fixed stage can never cover the hero
+    // the sticky stage is already visible as it scrolls in (no blank); the COUNT starts rolling
+    // once the strip is centered/pinned (fully covering the viewport).
     const covering=r.top<=1 && r.bottom>=vh-1;
-    stage.classList.toggle('active',covering);
     if(covering) runCount();
     const denom=(strip.offsetHeight-vh)||1;
     const progress=Math.min(1,Math.max(0,(-r.top)/denom));
@@ -386,7 +388,7 @@ document.querySelectorAll('.ba').forEach(ba => {
       rc.style.setProperty('--ty',ty+'vh');
     });
   }
-  if(reduce){ stage.classList.add('active'); rects.forEach((rc,i)=>rc.style.setProperty('--ty',(-30+i*18)+'vh')); runCount(); }
+  if(reduce){ rects.forEach((rc,i)=>rc.style.setProperty('--ty',(-30+i*18)+'vh')); runCount(); }
   else{
     window.addEventListener('scroll',()=>{if(!ticking){requestAnimationFrame(frame);ticking=true;}},{passive:true});
     window.addEventListener('resize',frame,{passive:true});
