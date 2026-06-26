@@ -178,3 +178,16 @@ These are **acceptance requirements, not interpretation** (mirrored in `patterns
 - Skill: `~/.codex/skills/website-reference-rebuild/SKILL.md`
 - State/rules: `~/ClaudeWorkspace/opc-website/OPC_WEBSITE_STATE.md`
 - Playwright: repo `node_modules` (`NODE_PATH="$PWD/node_modules"`)
+
+---
+## 🔴 LIVE FEEDBACK FROM PRISCILA — apply to `home-immersive-v3.html` (2026-06-26)
+Two fixes on the live v3. v3 section order = hero(dark) → pin-strip/projects(light) → svc-teaser(light) → cta(dark) → footer(dark).
+
+**FB-1 — 3rd strip (SERVICES teaser) must be DARK, not light.**
+The `.svc-teaser` section (the "Nine services… New Construction / Renovation / Kitchens…" job-type list) is currently on the light `--bg` (cream). Make it DARK like the hero/CTA (dark bg, `--cream` text, lime accents). Priscila: *"the third strip, the one that has the job type, should be dark not light."* Keep the projects pin-strip as-is unless it reads better dark too — but the explicit ask is the services strip.
+
+**FB-2 — Nav link colors must adapt to the section underneath (ALL links, not just the dropdowns).**
+Bug: over the light strips, only `Services ▾` and `Areas ▾` (`.nav-drop-t`) turn dark; the plain `<a>` links (Home, Our Work, About, How We Work, Contact) stay `--cream`/white → invisible on cream. The current logic only toggles `nav.solid` past the hero (IntersectionObserver on hero only) and something is overriding the `nav.top.solid .links a` color for the anchors. 
+Required: nav text adapts PER SECTION — **dark (`--ink`) over light sections, light (`--cream`) over dark sections** — applied uniformly to brand + every link + both dropdown toggles. Recommended robust approach: tag each section `data-nav="dark|light"` and an IntersectionObserver sets `nav` theme from whichever section is under the bar (not just hero). Priscila: *"black when on top of white/light, white when on top of dark… only Services and Areas are changing color, the others stay white."*
+
+Validate with `tools/validate.js` + eyeball at desktop/portrait/mobile: nav legible over EVERY section; 3rd strip dark.
