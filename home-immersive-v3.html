@@ -183,29 +183,31 @@
       <div class="cue">Keep scrolling<span class="arw">↓</span></div>
     </div>
 
-    <!-- staggered rectangles — L / C / R / L — scroll OVER the fixed layer, last clears before release -->
-    <div class="pin-rect" data-pin-rect style="--tx:-32vw" data-start="0.02">
+    <!-- staggered rectangles — kept CENTER→RIGHT so they never sit over the left "Before & After" text.
+         Cards 1-3 fly through (enter bottom → exit top); the LAST one settles fully visible (data-rest)
+         beside the text and HOLDS until the strip releases. -->
+    <div class="pin-rect" data-pin-rect style="--tx:30vw" data-start="0.00" data-span="0.30">   <!-- RIGHT -->
       <div class="ba-card">
         <div class="cap"><span class="nm">New Build &amp; Additions</span><span class="loc">Broward</span></div>
         <div class="ba"><img class="ba-before" src="assets/img/gallery/newbuild-a.jpg" alt="Before"><img class="ba-after" src="assets/img/gallery/newbuild-b.jpg" alt="After"><div class="ba-tag ba-l">Before</div><div class="ba-tag ba-r">After</div><div class="ba-handle"></div></div>
         <div class="hint">Drag to compare ←→</div>
       </div>
     </div>
-    <div class="pin-rect" data-pin-rect style="--tx:2vw" data-start="0.16">
+    <div class="pin-rect" data-pin-rect style="--tx:6vw" data-start="0.16" data-span="0.30">    <!-- CENTER-right -->
       <div class="ba-card">
         <div class="cap"><span class="nm">Full Home Remodel</span><span class="loc">Palm Beach</span></div>
         <div class="ba"><img class="ba-before" src="assets/img/gallery/remodel-a.jpg" alt="Before"><img class="ba-after" src="assets/img/gallery/remodel-b.jpg" alt="After"><div class="ba-tag ba-l">Before</div><div class="ba-tag ba-r">After</div><div class="ba-handle"></div></div>
         <div class="hint">Drag to compare ←→</div>
       </div>
     </div>
-    <div class="pin-rect" data-pin-rect style="--tx:32vw" data-start="0.30">
+    <div class="pin-rect" data-pin-rect style="--tx:26vw" data-start="0.32" data-span="0.30">   <!-- RIGHT -->
       <div class="ba-card">
         <div class="cap"><span class="nm">Kitchen &amp; Bath</span><span class="loc">Miami-Dade</span></div>
         <div class="ba"><img class="ba-before" src="assets/img/gallery/kitchenbath-a.jpg" alt="Before"><img class="ba-after" src="assets/img/gallery/kitchenbath-b.jpg" alt="After"><div class="ba-tag ba-l">Before</div><div class="ba-tag ba-r">After</div><div class="ba-handle"></div></div>
         <div class="hint">Drag to compare ←→</div>
       </div>
     </div>
-    <div class="pin-rect" data-pin-rect style="--tx:-18vw" data-start="0.44">
+    <div class="pin-rect" data-pin-rect style="--tx:20vw" data-start="0.48" data-span="0.26" data-rest="-4">  <!-- RIGHT — LAST, settles fully visible beside the text -->
       <div class="ba-card">
         <div class="cap"><span class="nm">New Construction</span><span class="loc">Dockside Cir</span></div>
         <div class="ba"><img class="ba-before" src="assets/img/gallery/newbuild-a.jpg" alt="Before"><img class="ba-after" src="assets/img/gallery/newbuild-b.jpg" alt="After"><div class="ba-tag ba-l">Before</div><div class="ba-tag ba-r">After</div><div class="ba-handle"></div></div>
@@ -307,8 +309,12 @@ document.querySelectorAll('.ba').forEach(ba => {
 })();
 
 /* ===== PINNED STRIP ENGINE =====
-   The fixed [data-pin-bg] layer holds still; each [data-pin-rect] flies from below to above
-   on its own staggered window; all clear before the strip releases. Continuous => no dead frames. */
+   The fixed [data-pin-bg] layer holds still while [data-pin-rect] cards scroll OVER it (staggered,
+   center→right so they never sit over the left text). Cards 1-3 fly through (enter bottom → exit top);
+   the LAST card (data-rest) settles fully visible beside the text and HOLDS until the strip releases.
+   The count animates AUTOMATICALLY (timed count-up) the first time the strip is revealed — NOT scrubbed
+   by scroll. The fixed stage is only active while the strip FULLY covers the viewport, so it can never
+   overlay the hero / other sections (fixes the lab-banner hide bug). */
 (function(){
   const strip=document.getElementById('pinStrip');
   const stage=document.getElementById('pinStage');
@@ -317,32 +323,42 @@ document.querySelectorAll('.ba').forEach(ba => {
   const target=+countEl.getAttribute('data-count');
   const mobile=()=>matchMedia('(max-width:900px)').matches;
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const SPAN=0.50;                 // each rect's active travel window (in progress units)
-  const ENTER=100, EXIT=-128;      // vh: start below viewport, end above it (clears before release)
+  const ENTER=110;                 // vh: cards start this far below the viewport
+  const EXIT=-130;                 // vh: default end (flown off the top)
   const smooth=t=>t*t*(3-2*t);
+  const endOf=rc=>rc.dataset.rest!==undefined?parseFloat(rc.dataset.rest):EXIT;
 
-  // toggle the fixed stage only while the strip is in view (so it doesn't cover other sections)
-  const io=new IntersectionObserver(es=>es.forEach(e=>stage.classList.toggle('active',e.isIntersecting)),{threshold:0});
-  io.observe(strip);
+  // AUTOMATIC count-up — runs on a timer once, when the strip first fills the viewport (not scroll-linked)
+  let counted=false;
+  function runCount(){
+    if(counted)return; counted=true;
+    if(reduce){countEl.textContent=target+'+';return;}
+    let t0=null;
+    (function step(ts){ if(!t0)t0=ts; const p=Math.min(1,(ts-t0)/1500); const e=1-Math.pow(1-p,3);
+      countEl.textContent=Math.round(target*e)+(p>=1?'+':''); if(p<1)requestAnimationFrame(step); })(performance.now());
+  }
 
   let ticking=false;
   function frame(){
     ticking=false;
-    if(mobile()){ rects.forEach(r=>r.style.removeProperty('--ty')); countEl.textContent=target+'+'; return; }
+    if(mobile()){ stage.classList.add('active'); rects.forEach(r=>r.style.removeProperty('--ty')); runCount(); return; }
     const r=strip.getBoundingClientRect();
-    const denom=(strip.offsetHeight-window.innerHeight)||1;
+    const vh=window.innerHeight;
+    // active ONLY while the strip fully covers the viewport → the fixed stage can never cover the hero
+    const covering=r.top<=1 && r.bottom>=vh-1;
+    stage.classList.toggle('active',covering);
+    if(covering) runCount();
+    const denom=(strip.offsetHeight-vh)||1;
     const progress=Math.min(1,Math.max(0,(-r.top)/denom));
     rects.forEach(rc=>{
       const start=parseFloat(rc.dataset.start)||0;
-      const local=Math.min(1,Math.max(0,(progress-start)/SPAN));
-      const ty=ENTER+(EXIT-ENTER)*smooth(local);
+      const span=parseFloat(rc.dataset.span)||0.30;
+      const local=Math.min(1,Math.max(0,(progress-start)/span));
+      const ty=ENTER+(endOf(rc)-ENTER)*smooth(local);
       rc.style.setProperty('--ty',ty+'vh');
     });
-    // count counts up across the first part of the strip, then holds at 120+
-    const cp=Math.min(1,progress/0.42);
-    countEl.textContent=Math.round(target*(1-Math.pow(1-cp,3)))+(cp>=1?'+':'');
   }
-  if(reduce){ rects.forEach(r=>r.style.setProperty('--ty','-128vh')); countEl.textContent=target+'+'; }
+  if(reduce){ stage.classList.add('active'); rects.forEach((rc,i)=>rc.style.setProperty('--ty',(-30+i*18)+'vh')); runCount(); }
   else{
     window.addEventListener('scroll',()=>{if(!ticking){requestAnimationFrame(frame);ticking=true;}},{passive:true});
     window.addEventListener('resize',frame,{passive:true});

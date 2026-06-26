@@ -137,12 +137,12 @@ If a better finished-exterior photo is needed, ask Priscila — she may drop one
 
 These are **acceptance requirements, not interpretation** (mirrored in `patterns.md` Pattern 2 + enforced by `tools/validate.js`):
 
-**Pinned Project Strip**
+**Pinned Project Strip** (rules 4–6 refined 2026-06-26 per Priscila's review of v3)
 - Use a TALL scroll section (≥ ~300vh runway).
-- Pin/sticky the background/content layer — its on-screen position must NOT move while the strip is active.
-- Let project rectangles move independently OVER it.
-- Offset them **left / center / right**, NOT all centered.
-- Release the whole strip ONLY after the last rectangle exits the viewport.
+- Pin the background/content layer — its on-screen position must NOT move while the strip is active. **Activate a `position:fixed` pin layer ONLY while the strip fully covers the viewport (`strip.top<=0 && strip.bottom>=vh`), never the instant it peeks in** — otherwise it overlays the hero and breaks when the lab banner is hidden (real bug we hit).
+- Let project rectangles move independently OVER it, kept in the **CENTER→RIGHT band** (first card on the right). The far-LEFT is the fixed "Before & After" headline + count — cards must NOT rest over it (transit pass-over is fine).
+- **The LAST card does NOT fly off — it SETTLES fully visible (resting, with space, beside the text) and HOLDS** while the count finishes; the strip releases only after it's fully revealed, then hands off to the next section. Earlier cards exit upward.
+- **The count animates AUTOMATICALLY** (timed ~1.5s count-up the first time the strip is revealed) — NOT scrubbed by scroll.
 
 **Hero Foreground Object**
 - Do NOT use an unfinished-construction image for the hero. Best = a **finished exterior** photo.

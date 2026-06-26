@@ -69,7 +69,7 @@ const OUT = '/tmp/valshots';
     const bgTops = [];           // viewport-Y of the pinned layer at each sample (should be ~constant)
     const colsSeen = new Set();  // 'L' | 'C' | 'R' columns occupied by rectangles across the run
     let rectCount = 0;
-    let lastRectExitedBeforeRelease = null;
+    let releaseRects = null, releaseVh = 900;
     require('fs').mkdirSync(OUT, { recursive: true });
 
     for (let s=0; s<samples; s++){
@@ -88,18 +88,17 @@ const OUT = '/tmp/valshots';
         let rects = strip ? [...strip.querySelectorAll('[data-pin-rect]')] : [];
         if (!rects.length && strip) rects = [...strip.querySelectorAll('.pin-rect, .ba, .animated-img, .project-card')];
         const vw = innerWidth, vh = innerHeight;
-        const cols = []; let maxBottom = -1e9;
+        const cols = []; const detail = [];
         rects.forEach(el => {
           const r = el.getBoundingClientRect();
           if (r.width < 2 || r.height < 2) return;
           const cx = r.left + r.width/2;
           cols.push(cx < vw/3 ? 'L' : cx < 2*vw/3 ? 'C' : 'R');
-          maxBottom = Math.max(maxBottom, r.bottom);
+          detail.push({ start: parseFloat(el.dataset.start)||0, top:+r.top.toFixed(1), bottom:+r.bottom.toFixed(1), cx:+cx.toFixed(1) });
         });
         return {
           bgTop: bg ? +(bg.getBoundingClientRect().top).toFixed(1) : null,
-          cols, rectN: rects.length,
-          lastRectBottom: maxBottom,        // <0 means all rectangles have exited above viewport
+          cols, rectN: rects.length, detail,
           stripBottom: strip ? +(strip.getBoundingClientRect().bottom).toFixed(1) : null,
           vh
         };
@@ -108,28 +107,37 @@ const OUT = '/tmp/valshots';
       if (frame.bgTop !== null) bgTops.push(frame.bgTop);
       frame.cols.forEach(c => colsSeen.add(c));
       rectCount = Math.max(rectCount, frame.rectN);
-      // release-point heuristic: when the strip's bottom reaches viewport bottom (about to release),
-      // the last rectangle should already have exited the viewport (bottom < small threshold)
-      if (frame.stripBottom !== null && frame.stripBottom <= frame.vh + 4 && frame.lastRectBottom !== -1e9) {
-        if (lastRectExitedBeforeRelease === null)
-          lastRectExitedBeforeRelease = frame.lastRectBottom < frame.vh*0.5;
+      // capture the rect layout at the release point (first sample where the strip is about to unpin)
+      if (frame.stripBottom !== null && frame.stripBottom <= frame.vh + 4 && releaseRects === null && frame.detail.length) {
+        releaseRects = frame.detail; releaseVh = frame.vh;
       }
     }
 
     // RULE 2: bg layer fixed → spread of bgTop across samples should be tiny
     const bgSpread = bgTops.length ? (Math.max(...bgTops) - Math.min(...bgTops)) : null;
     const r2 = bgSpread !== null && bgSpread <= 24;
-    // RULE 1+3: ≥3 rectangles AND they occupy left/center/right (>=2 distinct columns, ideally 3)
+    // RULE 1: ≥3 rectangles
     const r1 = rectCount >= 3;
-    const r3 = colsSeen.size >= 2; // L/C/R staggering (2+ columns = staggered, 3 = ideal)
-    // RULE 4: release only after last rectangle exits
-    const r4 = lastRectExitedBeforeRelease !== false; // null (couldn't sample) = inconclusive, treat as pass-with-warning
+    // RULE 3: staggered across ≥2 columns. NOTE: far-LEFT is intentionally avoided (the fixed
+    // "Before & After" text/count lives there) — center→right staggering is correct, so 2 columns passes.
+    const r3 = colsSeen.size >= 2;
+    // RULE 4 (refined 2026-06-26): the LAST card must SETTLE fully visible (resting) at release —
+    // NOT fly off-screen — while the earlier cards have exited upward.
+    let r4=null, r4msg='inconclusive (no release sample)';
+    if (releaseRects){
+      const last = releaseRects.reduce((a,b)=>b.start>a.start?b:a);
+      const lastVisible = last.top >= -24 && last.bottom <= releaseVh + 24;   // fully in viewport, resting
+      const others = releaseRects.filter(x=>x!==last);
+      const othersExited = others.every(x=> x.bottom < releaseVh*0.5 );        // flown up & off
+      r4 = lastVisible && othersExited;
+      r4msg = `last rests visible=${lastVisible} (top ${last.top}, bot ${last.bottom}/${releaseVh}); others exited=${othersExited}`;
+    }
     const tag = b => b ? 'PASS' : 'FAIL';
-    console.log(`  RULE 1  ≥3 rectangles ............. ${tag(r1)}  (found ${rectCount})`);
-    console.log(`  RULE 2  bg layer stays fixed ...... ${tag(r2)}  (bgTop spread ${bgSpread===null?'n/a':bgSpread.toFixed(1)+'px'}, ≤24px ok)`);
-    console.log(`  RULE 3  staggered L/C/R ........... ${tag(r3)}  (columns seen: ${[...colsSeen].join('/')||'none'}; want L/C/R)`);
-    console.log(`  RULE 4  release after last exits .. ${lastRectExitedBeforeRelease===null?'WARN (inconclusive)':tag(r4)}`);
-    const allPass = r1 && r2 && r3 && r4;
+    console.log(`  RULE 1  ≥3 rectangles ................. ${tag(r1)}  (found ${rectCount})`);
+    console.log(`  RULE 2  bg layer stays fixed .......... ${tag(r2)}  (bgTop spread ${bgSpread===null?'n/a':bgSpread.toFixed(1)+'px'}, ≤24px ok)`);
+    console.log(`  RULE 3  staggered (≥2 cols, left=text) . ${tag(r3)}  (columns seen: ${[...colsSeen].join('/')||'none'})`);
+    console.log(`  RULE 4  last card RESTS visible ....... ${r4===null?'WARN (inconclusive)':tag(r4)}  (${r4msg})`);
+    const allPass = r1 && r2 && r3 && r4===true;
     console.log(`  >>> PINNED-STRIP MECHANIC: ${allPass ? 'PASS ✅' : 'FAIL ❌ — fix before reporting done'}`);
     console.log(`  motion shots: ${OUT}/motion-*.png`);
 
