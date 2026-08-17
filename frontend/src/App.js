@@ -1,4 +1,5 @@
-import { useEffect, useRef } from "react";
+import { Suspense, lazy, useEffect, useRef, useState } from "react";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Lenis from "lenis";
 import "@/App.css";
 import { Toaster } from "@/components/ui/sonner";
@@ -12,11 +13,17 @@ import Gallery from "@/components/Gallery";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import Services from "@/pages/Services";
+import ServicesScene from "@/pages/ServicesScene";
+
+const ServiceDetail = lazy(() => import("@/pages/ServiceDetail"));
+const Portfolio = lazy(() => import("@/pages/Portfolio"));
 
 const clamp01 = (v) => Math.min(1, Math.max(0, v));
 
-export default function App() {
+function Landing() {
   const storyRef = useRef(null);
+  const location = useLocation();
 
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -64,11 +71,24 @@ export default function App() {
     };
   }, []);
 
+  useEffect(() => {
+    if (location.state?.scrollTo) {
+      const target = location.state.scrollTo;
+      const timer = setTimeout(() => {
+        const el = document.querySelector(target);
+        if (el) {
+          if (scrollStore.lenis) scrollStore.lenis.scrollTo(el, { offset: 0 });
+          else el.scrollIntoView();
+        }
+      }, 400);
+      return () => clearTimeout(timer);
+    }
+  }, [location.state]);
+
   return (
     <div className="bg-[#09090B] font-body text-[#FAFAFA] antialiased">
       <div className="noise-overlay" aria-hidden />
       <HouseScene />
-      <Nav />
       <main className="relative z-10">
         <Story storyRef={storyRef} />
         <div className="relative border-t border-white/10 bg-[#09090B]">
@@ -80,7 +100,52 @@ export default function App() {
           <Footer />
         </div>
       </main>
-      <Toaster position="bottom-right" theme="dark" />
     </div>
+  );
+}
+
+function ServicesStageGate() {
+  const { pathname } = useLocation();
+  const active = pathname.startsWith("/services");
+  const [show, setShow] = useState(active);
+  useEffect(() => {
+    if (active) {
+      setShow(true);
+      return;
+    }
+    const id = setTimeout(() => setShow(false), 800);
+    return () => clearTimeout(id);
+  }, [active]);
+  if (!show) return null;
+  return <ServicesScene />;
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Nav />
+      <ServicesStageGate />
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/services" element={<Services />} />
+        <Route
+          path="/services/:slug"
+          element={
+            <Suspense fallback={<div className="min-h-screen bg-[#09090B]" />}>
+              <ServiceDetail />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/portfolio"
+          element={
+            <Suspense fallback={<div className="min-h-screen bg-[#09090B]" />}>
+              <Portfolio />
+            </Suspense>
+          }
+        />
+      </Routes>
+      <Toaster position="bottom-right" theme="dark" />
+    </BrowserRouter>
   );
 }

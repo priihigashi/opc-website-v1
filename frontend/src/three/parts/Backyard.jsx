@@ -25,7 +25,7 @@ export default function Backyard({ mats, reg }) {
           </mesh>
         ))}
       </group>
-      <group ref={reg("bbqGroup")} position={[6.15, 0.62, -4.4]}>
+      <group ref={reg("bbqGroup")} position={[6.15, 0.62, -4.4]} rotation={[0, Math.PI / 2, 0]}>
         <mesh position={[0, 0.44, 0]} material={mats.bbqSteel}>
           <boxGeometry args={[2.0, 0.85, 0.65]} />
         </mesh>

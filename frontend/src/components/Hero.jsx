@@ -31,7 +31,7 @@ export default function Hero() {
         <h1 className="mt-6 font-head font-bold leading-[0.95] tracking-tighter text-[#FAFAFA]">
           {["One house.", "Every craft."].map((line, i) => (
             <span key={i} className="block overflow-hidden pb-1">
-              <motion.span variants={lineUp} className="block text-5xl sm:text-7xl lg:text-8xl" data-testid={`hero-title-line-${i}`}>
+              <motion.span variants={lineUp} className="block text-5xl [text-shadow:0_2px_28px_rgba(9,9,11,0.85)] sm:text-7xl lg:text-8xl" data-testid={`hero-title-line-${i}`}>
                 {line}
               </motion.span>
             </span>

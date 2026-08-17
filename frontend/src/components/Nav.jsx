@@ -1,20 +1,39 @@
+import { useLocation, useNavigate } from "react-router-dom";
 import { scrollStore } from "../lib/scrollStore";
 
-const links = [
-  { label: "Services", href: "#ch-01" },
+const pageLinks = [
+  { label: "Services", to: "/services" },
+  { label: "Portfolio", to: "/portfolio" },
+];
+const anchors = [
   { label: "About", href: "#about" },
   { label: "Work", href: "#work" },
   { label: "Contact", href: "#contact" },
 ];
 
 export default function Nav() {
-  const go = (e, href) => {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  const goAnchor = (e, href) => {
     e.preventDefault();
+    if (pathname !== "/") {
+      navigate("/", { state: { scrollTo: href } });
+      return;
+    }
     const el = document.querySelector(href);
     if (!el) return;
     if (scrollStore.lenis) scrollStore.lenis.scrollTo(el, { offset: 0 });
     else el.scrollIntoView({ behavior: "smooth" });
   };
+
+  const goHome = (e) => {
+    e.preventDefault();
+    if (pathname !== "/") navigate("/");
+    else if (scrollStore.lenis) scrollStore.lenis.scrollTo(0);
+    else window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <header
       data-testid="site-nav"
@@ -22,20 +41,36 @@ export default function Nav() {
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 md:px-10">
         <a
-          href="#top"
+          href="/"
           data-testid="nav-logo"
-          onClick={(e) => go(e, "#top")}
+          onClick={goHome}
           className="font-mono text-sm font-bold uppercase tracking-[0.25em] text-[#FAFAFA]"
         >
           Oak Park<span className="text-[#CBCC10]">&nbsp;Co.</span>
         </a>
         <nav className="hidden items-center gap-8 md:flex">
-          {links.map((l) => (
+          {pageLinks.map((l) => (
+            <a
+              key={l.to}
+              href={l.to}
+              data-testid={`nav-link-${l.label.toLowerCase()}`}
+              onClick={(e) => {
+                e.preventDefault();
+                navigate(l.to);
+              }}
+              className={`font-mono text-xs uppercase tracking-[0.2em] transition-colors duration-300 ${
+                pathname.startsWith(l.to) ? "text-[#CBCC10]" : "text-[#A1A1AA] hover:text-[#FAFAFA]"
+              }`}
+            >
+              {l.label}
+            </a>
+          ))}
+          {anchors.map((l) => (
             <a
               key={l.href}
               href={l.href}
               data-testid={`nav-link-${l.label.toLowerCase()}`}
-              onClick={(e) => go(e, l.href)}
+              onClick={(e) => goAnchor(e, l.href)}
               className="font-mono text-xs uppercase tracking-[0.2em] text-[#A1A1AA] transition-colors duration-300 hover:text-[#FAFAFA]"
             >
               {l.label}
@@ -45,7 +80,7 @@ export default function Nav() {
         <a
           href="#contact"
           data-testid="nav-cta"
-          onClick={(e) => go(e, "#contact")}
+          onClick={(e) => goAnchor(e, "#contact")}
           className="border border-[#CBCC10] px-4 py-2 font-mono text-xs uppercase tracking-[0.2em] text-[#CBCC10] transition-colors duration-300 hover:bg-[#CBCC10] hover:text-[#09090B]"
         >
           Start a project

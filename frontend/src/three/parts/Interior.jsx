@@ -69,7 +69,7 @@ export default function Interior({ mats, reg }) {
         <mesh position={[4.7, 1.15, -1.68]} material={mats.fabric}>
           <boxGeometry args={[2.0, 0.55, 0.25]} />
         </mesh>
-        <mesh position={[3.4, 0.68, -1.3]} material={mats.cabWood}>
+        <mesh position={[3.9, 0.68, -0.35]} material={mats.cabWood}>
           <boxGeometry args={[1.0, 0.3, 0.5]} />
         </mesh>
       </group>
@@ -109,30 +109,30 @@ export default function Interior({ mats, reg }) {
         <mesh position={[-3.5, 3.6, 0]} material={mats.floorOak}>
           <boxGeometry args={[4.9, 0.1, 5.9]} />
         </mesh>
-        <mesh position={[-4.0, 3.67, 1.7]} material={mats.fabric}>
+        <mesh position={[-4.0, 3.67, -1.6]} material={mats.fabric}>
           <boxGeometry args={[2.6, 0.03, 1.9]} />
         </mesh>
-        <mesh position={[-4.4, 3.82, 1.7]} material={mats.cabWood}>
+        <mesh position={[-4.4, 3.82, -1.6]} material={mats.cabWood}>
           <boxGeometry args={[1.9, 0.32, 2.2]} />
         </mesh>
-        <mesh position={[-4.4, 4.12, 1.7]} material={mats.fabric}>
+        <mesh position={[-4.4, 4.12, -1.6]} material={mats.fabric}>
           <boxGeometry args={[1.8, 0.28, 2.05]} />
         </mesh>
-        <mesh position={[-4.4, 4.1, 0.55]} material={mats.cabWood}>
+        <mesh position={[-4.4, 4.1, -2.82]} material={mats.cabWood}>
           <boxGeometry args={[1.9, 0.95, 0.12]} />
         </mesh>
         {[-4.85, -3.95].map((x, i) => (
-          <mesh key={`pillow-${i}`} position={[x, 4.33, 0.95]} material={mats.tubWhite}>
+          <mesh key={`pillow-${i}`} position={[x, 4.33, -2.35]} material={mats.tubWhite}>
             <boxGeometry args={[0.7, 0.16, 0.45]} />
           </mesh>
         ))}
-        <mesh position={[-5.55, 3.9, 0.8]} material={mats.cabWood}>
+        <mesh position={[-5.55, 3.9, -2.5]} material={mats.cabWood}>
           <boxGeometry args={[0.5, 0.5, 0.45]} />
         </mesh>
-        <mesh position={[-5.55, 4.22, 0.8]} material={mats.pendant}>
+        <mesh position={[-5.55, 4.22, -2.5]} material={mats.pendant}>
           <cylinderGeometry args={[0.03, 0.05, 0.14, 10]} />
         </mesh>
-        <mesh position={[-5.55, 4.34, 0.8]} material={mats.can}>
+        <mesh position={[-5.55, 4.34, -2.5]} material={mats.can}>
           <sphereGeometry args={[0.05, 10, 10]} />
         </mesh>
       </group>

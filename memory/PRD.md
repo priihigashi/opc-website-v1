@@ -45,6 +45,8 @@ The same 3D house is the main character of almost the entire upper website and n
 
 ## Backlog
 - P0: Replace OWNER_EMAIL (delivered@resend.dev test placeholder) with the owner's real inbox
-- P1: Real project photography (current gallery = curated Unsplash), real phone/address/license copy
+- P1: Real project photography (current gallery + portfolio = curated Unsplash placeholders), real phone/address/license copy
 - DONE: Mobile/iPad staging (house scales 0.56/0.82, shifts damped, raised above compact glass chapter cards); hero now rests almost-front (0.18 rad); Ch.02 upstairs furnished (bedroom) + walls drop deeper; Ch.03 addition starts at p=0.43 with casita window, angle -1.38; gallery heading in OPC lime
-- P2: Admin page for viewing enquiries in-app; chapter progress indicator; SEO/meta + OG image
+- DONE (2026-08-17, v3): /services cinematic selector — modular GLB residence (scripts/export-residence.mjs → public/models/residence.glb, factory src/three/residenceFactory.js, named groups preserved), 8 annotation labels, hover zone glow, 1.3–1.8s click-previews (cutaway/peel/addition trace+build/pergola build/driveway pour/full-reno dip/new-construction rebuild) then SPA navigate to /services/:slug; scene persists across route via ServicesStageGate (App.js) so return restores the house; fixed GLTFLoader node/material name collision (shell → shellMat) and R3F unmount race
+- DONE (v3): /portfolio photography-first page — 7 project chapters, per-project grow-to-center horizontal swiper, 8 filters, lime accents
+- P2: Admin page for viewing enquiries in-app; chapter progress indicator; SEO/meta + OG image; mid-preview frame capture unreliable under sandbox software-GL (verified working via state probes + before/after shots)
