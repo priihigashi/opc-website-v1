@@ -43,6 +43,13 @@ The site has moved out of prototype-chasing and into commercial MVP work. The lo
 
 **Tool plan (cost-aware — see 🧰 Tools & Resources tab):** video hero + scroll + pinned strip + services + galleries + CTA = **our free skill (Claude)**. **The 3D rotating/opening house = the ONE paid part → Spline** (build + scroll-rotate + clickable window/door hotspots), or **Meshy** (photo→3D model) → Spline. Exact-copy a reference layout only if needed = v0. → ~85% free.
 
+**🌀 SCROLL RHYTHM — SPEED RAMP (captured 2026-08-16, ⚠️ AWAITING PRISCILA'S CONFIRMATION — do NOT build until confirmed):**
+Priscila's **original** hero idea, said out loud 2026-08-16 and found to be recorded NOWHERE in this file or the repo (verified: "speed"/"ramp"/"scrub" absent). Her words, verbatim: *"my idea was some type of like speed ramp every time it's crowded and I also it would trigger a new transition until it was over while the house was doing some rotation — that was like the initial idea but I think you forgot."*
+- **The mechanic as understood:** the house rotation must NOT turn at a constant rate. It **speed-ramps** — accelerates as you scroll, then eases — and **each ramp burst lands you into the next section transition**, chaining section to section until the sequence completes, with the house rotating continuously underneath the whole time. The ramp *drives* the transitions; it does not decorate them.
+- **⚠️ ONE WORD UNRESOLVED:** *"every time it's crowded"* — read as **"every time it's scrolled"** (dictation artifact). Unconfirmed. That word carries the ramp's TRIGGER CONDITION, so confirm before building.
+- **🔴 CURRENT CODE IS THE OPPOSITE.** `home-3d-portal.html:254` does `rotateY(p * 900deg)` where `p` is raw page-scroll progress — a flat, perfectly linear 900° spin, no easing, no acceleration, and no coupling to the section transitions. The mechanic is not partially present and needing tuning; **it is absent.**
+- **Next action when confirmed:** replace the linear map with an eased/velocity-driven ramp and bind transition triggers to ramp completion, not to raw scroll offset. Then re-run the motion checks.
+
 **GAPS added (merge/find-gaps):**
 - **Mobile + performance (non-negotiable):** 3D (Spline/GLTF) + video are heavy → **poster image + static house render on mobile / reduced-motion**, lazy-load the 3D. Same discipline as the hero video.
 - **SEO:** homepage keeps content depth + GeneralContractor/Service/FAQ schema (from nycrenovation/infinitybuilt research, T-165) — rank, not just wow.
@@ -287,6 +294,13 @@ Decision needed from Priscila on direction before build.
 ---
 
 ## 📝 ACTIVITY LOG (auto-appended by `/opc-website` skill after every report-back)
+
+- **2026-08-16 — 🛠 SKILL LAYER REPAIRED + 🌀 SPEED-RAMP IDEA CAPTURED.** Two things, both closing real gaps:
+  1. **`/opc-website` did not exist.** This file said *"Skill: `/opc-website` (loader skill)"* and `/website-reference-rebuild` said *"Registered under /opc-website"* — but the skill existed on no disk and in no repo, so **all 6 ACTIVE AUTO-RULES above were unenforced.** Built it as a loader (reads this file first; does NOT restate current focus/prototypes so it can't drift): `~/.agents/skills/opc-website/SKILL.md`, mirrored to `priscila-workspace/.agents/skills/opc-website/`, registry row `🤖 Skills & Agents!A102:N103`.
+  2. **`/website-reference-rebuild` was never installed** — existed only in `oak-park-ai-hub/skills/shared/`, so it was never invocable as a slash command. Now installed + symlinked (.claude + .codex) + mirrored.
+  - **Repo cloned to `~/ClaudeWorkspace/opc-website/`** — the local path this file promises previously did not exist on this Mac.
+  - **CLAUDE.md corrected:** it said "Vercel for OPC deploy monitoring." Vercel is `opc-pm-tool` only; **this site is GitHub Pages.**
+  - **🌀 SPEED RAMP captured** — see the new section in `🏠 HOMEPAGE MASTER PLAN` above. Her original hero mechanic, never written down until now, and **the current linear `rotateY(p*900deg)` at `home-3d-portal.html:254` is its opposite.** ⚠️ Awaiting her confirmation (incl. the word "crowded" → "scrolled") before any build.
 
 - **2026-06-26 — 📌 NEW PLAN (Homepage "3D House Portal") — APPEND-ONLY RECORD.** Finalized + locked with Priscila (full detail in the `🏠 HOMEPAGE MASTER PLAN` section above). Self-contained record:
   - **Page we're creating:** `home-3d-portal.html` — a NEW lab file, BOTH color versions (cream architectural ↔ dark/light-lime cinematic). Does NOT overwrite live `index.html`; does NOT touch Codex's `home-immersive-v3`.
