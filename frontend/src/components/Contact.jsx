@@ -54,7 +54,7 @@ export default function Contact() {
           </p>
           <div className="mt-10 space-y-3 font-mono text-sm text-[#A1A1AA]">
             <p data-testid="contact-phone">(555) 013-4477</p>
-            <p data-testid="contact-email">build@oakparkconstruction.com</p>
+            <p data-testid="contact-email">contact@oakpark-construction.com</p>
             <p data-testid="contact-address">214 Oak Park Ave — Licensed &amp; Insured</p>
           </div>
         </motion.div>

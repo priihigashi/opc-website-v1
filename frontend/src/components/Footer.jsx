@@ -26,7 +26,7 @@ export default function Footer() {
             <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#A1A1AA]">Contact</p>
             <ul className="mt-4 space-y-2 text-sm text-[#FAFAFA]">
               <li>(555) 013-4477</li>
-              <li>build@oakparkconstruction.com</li>
+              <li>contact@oakpark-construction.com</li>
               <li>214 Oak Park Ave</li>
             </ul>
           </div>

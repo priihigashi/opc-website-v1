@@ -26,7 +26,7 @@ const works = [
 
 export default function Gallery() {
   return (
-    <section id="work" data-testid="work" className="relative border-b border-white/10">
+    <section id="work" data-testid="work" className="relative border-b border-black/15 bg-[#CBCC10]">
       <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36">
         <motion.div
           initial={{ opacity: 0, y: 32 }}
@@ -36,12 +36,12 @@ export default function Gallery() {
           className="flex flex-wrap items-end justify-between gap-6"
         >
           <div>
-            <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#CBCC10]">Selected Work</p>
-            <h2 className="mt-5 font-head text-4xl font-bold tracking-tight text-[#CBCC10] sm:text-5xl">
+            <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#09090B]">Selected Work</p>
+            <h2 className="mt-5 font-head text-4xl font-bold tracking-tight text-[#09090B] sm:text-5xl">
               Proof, not promises.
             </h2>
           </div>
-          <p className="max-w-sm text-sm leading-relaxed text-[#A1A1AA]">
+          <p className="max-w-sm text-sm leading-relaxed text-[#09090B]/75">
             Every project below started as the same blueprint you just scrolled through.
           </p>
         </motion.div>
@@ -55,7 +55,7 @@ export default function Gallery() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-10%" }}
               transition={{ duration: 0.9, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
-              className={`group relative overflow-hidden border border-white/10 ${w.span}`}
+              className={`group relative overflow-hidden border border-black/25 ${w.span}`}
             >
               <div className={`overflow-hidden ${w.ratio}`}>
                 <img

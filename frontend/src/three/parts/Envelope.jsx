@@ -15,17 +15,17 @@ export default function Envelope({ mats, reg }) {
             { x: 1.85, w: 1.3, y0: 0, y1: 2.5 },
             { x: -0.7, w: 1.0, y0: 0.5, y1: 2.9 },
             { x: -0.7, w: 1.0, y0: 3.9, y1: 5.1 },
-            { x: 0.9, w: 1.3, y0: 3.9, y1: 5.1 },
+            { x: 0.5, w: 1.1, y0: 3.9, y1: 5.1 },
           ]}
         />
         <group name="windows">
           <WindowUnit w={1.0} h={2.4} position={[-0.7, 0.5, 0]} glass={mats.glassFront} frame={mats.frameFront} mullions={1} />
           <WindowUnit w={1.0} h={1.2} position={[-0.7, 3.9, 0]} glass={mats.glassFront} frame={mats.frameFront} />
-          <WindowUnit w={1.3} h={1.2} position={[0.9, 3.9, 0]} glass={mats.glassFront} frame={mats.frameFront} mullions={1} />
+          <WindowUnit w={1.1} h={1.2} position={[0.5, 3.9, 0]} glass={mats.glassFront} frame={mats.frameFront} mullions={1} />
         </group>
         {/* wood-slat screen accent */}
         <mesh position={[1.85, 4.5, 0.19]} material={mats.woodScreenFront}>
-          <boxGeometry args={[1.5, 2.6, 0.1]} />
+          <boxGeometry args={[1.35, 2.6, 0.1]} />
         </mesh>
         {/* recessed entry: pivot door, canopy, sconce */}
         <mesh position={[1.85, 1.21, -0.02]} material={mats.doorWood}>
