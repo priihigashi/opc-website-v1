@@ -23,7 +23,7 @@ const works = [
     title: "Built for the evening",
     alt: "Finished illuminated outdoor kitchen and pergola by Oak Park Construction",
     span: "md:col-span-12",
-    ratio: "aspect-[21/9]",
+    ratio: "aspect-[4/3] md:aspect-[21/9]",
   },
 ];
 
@@ -74,6 +74,9 @@ export default function Gallery() {
                 />
               </div>
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#09090B]/88 via-[#09090B]/5 to-transparent opacity-90 transition-opacity duration-700 group-hover:opacity-100" />
+              {i === 2 && (
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#09090B]/85 via-[#09090B]/20 to-transparent md:hidden" />
+              )}
               <span className="absolute right-5 top-5 font-editorial text-3xl text-white/65">0{i + 1}</span>
               <figcaption className="absolute bottom-0 left-0 p-6 md:p-8">
                 <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#CBCC10]">{w.tag}</p>
