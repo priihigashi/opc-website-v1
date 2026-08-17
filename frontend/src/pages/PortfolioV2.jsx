@@ -48,7 +48,7 @@ const PROJECTS = [
     cat: "OUTDOOR LIVING",
     title: "Outdoor Kitchen at Twilight",
     phase: "Finished",
-    image: "/images/opc/outdoor-kitchen-twilight.jpg",
+    image: "/images/opc/outdoor-kitchen-twilight-wide-v2.jpg",
     alt: "Finished illuminated outdoor kitchen and bar at twilight",
     detail: "Illuminated stone · wood soffit · integrated bar",
     featured: true,

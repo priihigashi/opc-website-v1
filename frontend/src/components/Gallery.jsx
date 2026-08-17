@@ -18,7 +18,7 @@ const works = [
     ratio: "aspect-[4/5] md:aspect-auto md:h-full",
   },
   {
-    src: "/images/opc/outdoor-kitchen-twilight.jpg",
+    src: "/images/opc/outdoor-kitchen-twilight-wide-v2.jpg",
     tag: "Outdoor Living",
     title: "Built for the evening",
     alt: "Finished illuminated outdoor kitchen and pergola by Oak Park Construction",
