@@ -1,0 +1,46 @@
+name: OPC Realism Preview Build
+
+on:
+  push:
+    branches:
+      - agent/opc-realism-pass-1
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - name: Checkout realism branch
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: yarn
+          cache-dependency-path: frontend/yarn.lock
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build preview
+        run: yarn build
+        env:
+          CI: 'false'
+
+      - name: Upload compiled preview
+        uses: actions/upload-artifact@v4
+        with:
+          name: opc-realism-preview-build
+          path: frontend/build
+          if-no-files-found: error
+          retention-days: 3
