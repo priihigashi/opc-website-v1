@@ -26,7 +26,7 @@ const works = [
 
 export default function Gallery() {
   return (
-    <section id="work" data-testid="work" className="relative border-b border-black/15 bg-[#CBCC10]">
+    <section id="work" data-testid="work" className="relative border-b border-black/10 bg-[#FAFAFA]">
       <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36">
         <motion.div
           initial={{ opacity: 0, y: 32 }}
