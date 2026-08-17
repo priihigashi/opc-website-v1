@@ -1,8 +1,7 @@
-import { useMemo } from "react";
 import { wallSegments } from "../wallMath";
 
 export function Wall({ len, h, t = 0.25, openings = [], material, name }) {
-  const segs = useMemo(() => wallSegments(len, h, openings), [len, h, JSON.stringify(openings)]);
+  const segs = wallSegments(len, h, openings);
   return (
     <group name={name}>
       {segs.map((s, i) => (

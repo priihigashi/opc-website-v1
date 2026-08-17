@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { toast } from "sonner";
 import { ArrowRight, Loader2 } from "lucide-react";
 
-const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+const API = process.env.REACT_APP_BACKEND_URL ? `${process.env.REACT_APP_BACKEND_URL}/api` : null;
 const services = ["Shell Construction", "Kitchen + Bath Remodel", "Addition", "Outdoor Living", "Concrete + Pavers", "Something else"];
 
 const inputCls =
@@ -17,6 +17,12 @@ export default function Contact() {
 
   const submit = async (e) => {
     e.preventDefault();
+    if (!API) {
+      const subject = encodeURIComponent(`Website project enquiry — ${form.service}`);
+      const body = encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone || "—"}\nService: ${form.service}\n\n${form.message}`);
+      window.location.href = `mailto:priscila@oakpark-construction.com?subject=${subject}&body=${body}`;
+      return;
+    }
     setSending(true);
     try {
       const res = await fetch(`${API}/enquiries`, {
@@ -53,9 +59,9 @@ export default function Contact() {
             backyard. One call, one crew, one plan.
           </p>
           <div className="mt-10 space-y-3 font-mono text-sm text-[#A1A1AA]">
-            <p data-testid="contact-phone">(555) 013-4477</p>
-            <p data-testid="contact-email">contact@oakpark-construction.com</p>
-            <p data-testid="contact-address">214 Oak Park Ave — Licensed &amp; Insured</p>
+            <p data-testid="contact-phone"><a className="text-[#FAFAFA] transition-colors hover:text-[#CBCC10]" href="tel:+19542586769">(954) 258-6769</a></p>
+            <p data-testid="contact-email"><a className="text-[#FAFAFA] transition-colors hover:text-[#CBCC10]" href="mailto:priscila@oakpark-construction.com">priscila@oakpark-construction.com</a></p>
+            <p data-testid="contact-address">Broward · Palm Beach · Miami-Dade</p>
           </div>
         </motion.div>
 

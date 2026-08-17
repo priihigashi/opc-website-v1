@@ -44,9 +44,15 @@ export default function Nav() {
           href="/"
           data-testid="nav-logo"
           onClick={goHome}
-          className="font-mono text-sm font-bold uppercase tracking-[0.25em] text-[#FAFAFA]"
+          className="flex items-center"
         >
-          Oak Park<span className="text-[#CBCC10]">&nbsp;Co.</span>
+          <img
+            src="/images/opc/logo-white.png"
+            alt="Oak Park Construction"
+            width="124"
+            height="74"
+            className="h-10 w-auto opacity-95"
+          />
         </a>
         <nav className="hidden items-center gap-8 md:flex">
           {pageLinks.map((l) => (
@@ -81,7 +87,7 @@ export default function Nav() {
           href="#contact"
           data-testid="nav-cta"
           onClick={(e) => goAnchor(e, "#contact")}
-          className="border border-[#CBCC10] px-4 py-2 font-mono text-xs uppercase tracking-[0.2em] text-[#CBCC10] transition-colors duration-300 hover:bg-[#CBCC10] hover:text-[#09090B]"
+          className="border border-[#CBCC10] px-3 py-2 font-mono text-[10px] uppercase tracking-[0.16em] text-[#CBCC10] transition-colors duration-300 hover:bg-[#CBCC10] hover:text-[#09090B] sm:px-4 sm:text-xs sm:tracking-[0.2em]"
         >
           Start a project
         </a>

@@ -4,9 +4,14 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-6 pt-24 md:px-10">
         <div className="grid grid-cols-12 gap-y-10 border-b border-white/10 pb-16">
           <div className="col-span-12 md:col-span-5">
-            <p className="font-mono text-sm font-bold uppercase tracking-[0.25em] text-[#FAFAFA]">
-              Oak Park<span className="text-[#CBCC10]">&nbsp;Co.</span>
-            </p>
+            <img
+              src="/images/opc/logo-white.png"
+              alt="Oak Park Construction"
+              width="210"
+              height="126"
+              loading="lazy"
+              className="h-24 w-auto opacity-90"
+            />
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-[#A1A1AA]">
               General contractors for the whole life of a home — shell construction,
               remodels, additions, outdoor living, concrete and pavers.
@@ -25,15 +30,15 @@ export default function Footer() {
           <div className="col-span-6 md:col-span-3">
             <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#A1A1AA]">Contact</p>
             <ul className="mt-4 space-y-2 text-sm text-[#FAFAFA]">
-              <li>(555) 013-4477</li>
-              <li>contact@oakpark-construction.com</li>
-              <li>214 Oak Park Ave</li>
+              <li><a className="transition-colors hover:text-[#CBCC10]" href="tel:+19542586769">(954) 258-6769</a></li>
+              <li><a className="transition-colors hover:text-[#CBCC10]" href="mailto:priscila@oakpark-construction.com">priscila@oakpark-construction.com</a></li>
+              <li>Broward · Palm Beach · Miami-Dade</li>
             </ul>
           </div>
         </div>
         <div className="flex flex-wrap items-center justify-between gap-4 py-8 font-mono text-[11px] uppercase tracking-[0.2em] text-[#A1A1AA]">
           <p>© {new Date().getFullYear()} Oak Park Construction</p>
-          <p>Licensed · Bonded · Insured</p>
+          <p>Florida GC · CBC1263425 · Insured</p>
         </div>
       </div>
       <p

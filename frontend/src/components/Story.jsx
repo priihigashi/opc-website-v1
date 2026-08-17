@@ -66,7 +66,7 @@ export default function Story({ storyRef }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-30%" }}
           transition={{ duration: 0.9, ease: "easeOut" }}
-          className="pointer-events-auto px-6 text-center"
+          className="story-copy-panel pointer-events-auto mx-6 px-8 py-10 text-center sm:px-12"
         >
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#CBCC10]">One model. One crew.</p>
           <p className="mt-4 font-head text-4xl font-bold tracking-tight text-[#FAFAFA] sm:text-5xl">

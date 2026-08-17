@@ -70,7 +70,11 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
-    "test": "craco test"
+    "test": "craco test",
+    "quality:js": "eslint src --ext .js,.jsx"
+  },
+  "engines": {
+    "node": ">=24"
   },
   "browserslist": {
     "production": [

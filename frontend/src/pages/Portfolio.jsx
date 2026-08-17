@@ -2,56 +2,21 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const img = (id) => `https://images.unsplash.com/photo-${id}?q=80&w=1400&auto=format&fit=crop`;
-
-const FILTERS = ["ALL", "FULL RENOVATION", "KITCHEN + BATH", "NEW CONSTRUCTION", "ADDITIONS", "OUTDOOR", "SHELL + CONCRETE", "COMMERCIAL"];
+const FILTERS = ["ALL", "KITCHEN + BATH", "OUTDOOR LIVING"];
 
 // Each project owns one or more gallery rows (e.g. Before / After / Progress).
 const PROJECTS = [
   {
-    num: "01", cat: "FULL RENOVATION", title: "Maple Street Residence",
+    num: "01", cat: "KITCHEN + BATH", title: "Kitchen & Bath Craftsmanship",
     rows: [
-      { label: "Before", imgs: ["1504307651254-35680f356dfd", "1503387762-592deb58ef4e", "1429497419816-9ca5cfb4571a"] },
-      { label: "After", imgs: ["1600585154340-be6161a56a0c", "1600607687939-ce8a6c25118c", "1600210492486-724fe5c67fb0", "1616486338812-3dadae4b4ace", "1600566753086-00f18fb6b3ea"] },
+      { label: "Finished kitchens", imgs: ["/images/opc/kitchen-wide.jpg", "/images/opc/kitchen-walnut.jpg"] },
+      { label: "Finished bathrooms", imgs: ["/images/opc/bathroom-wide.jpg", "/images/opc/bathroom-alt.jpg"] },
     ],
   },
   {
-    num: "02", cat: "KITCHEN + BATH", title: "The Galley, Reopened",
+    num: "02", cat: "OUTDOOR LIVING", title: "Outdoor Kitchen & Pergola",
     rows: [
-      { label: "Before", imgs: ["1484154218962-a197022b5858", "1522708323590-d24dbb6b0267"] },
-      { label: "After", imgs: ["1556912173-3bb406ef7e77", "1583608205776-bfd35f0d9f83", "1620626011761-996317b8d101", "1584622650111-993a426fbf0a", "1556909114-f6e7ad7d3136"] },
-    ],
-  },
-  {
-    num: "03", cat: "NEW CONSTRUCTION", title: "Coral Ridge New Build",
-    rows: [
-      { label: "Progress", imgs: ["1541888946425-d81bb19240f5", "1503387762-592deb58ef4e", "1581094794329-c8112a89af12"] },
-      { label: "Completed", imgs: ["1512917774080-9991f1c4c750", "1613490493576-7fde63acd811", "1600047509807-ba8f99d2cdde", "1605146769289-440113cc3d00", "1600573472592-401b489a3cdc"] },
-    ],
-  },
-  {
-    num: "04", cat: "ADDITIONS", title: "Sunrise Casita Wing",
-    rows: [
-      { label: null, imgs: ["1600596542815-ffad4c1539a9", "1600585152220-90363fe7e115", "1615873968403-89e068629265", "1600607687920-4e2a09cf159d"] },
-    ],
-  },
-  {
-    num: "05", cat: "OUTDOOR", title: "Cedar Pergola Court",
-    rows: [
-      { label: null, imgs: ["1604014237800-1c9102c219da", "1595428774223-ef52624120d2", "1572331165267-854da2b10ccc", "1416331108676-a22ccb276e35"] },
-    ],
-  },
-  {
-    num: "06", cat: "SHELL + CONCRETE", title: "Bayview Shell & Hardscape",
-    rows: [
-      { label: "Shell", imgs: ["1541888946425-d81bb19240f5", "1503387762-592deb58ef4e"] },
-      { label: "Hardscape", imgs: ["1590725175785-5f3a4a3b0b8f", "1581094794329-c8112a89af12"] },
-    ],
-  },
-  {
-    num: "07", cat: "COMMERCIAL", title: "Flagler Office Lobby",
-    rows: [
-      { label: null, imgs: ["1497366216548-37526070297c", "1497366811353-6870744d04b2", "1497366754035-f200968a6e72"] },
+      { label: "Finished work", imgs: ["/images/opc/outdoor-kitchen-dusk.jpg"] },
     ],
   },
 ];
@@ -110,10 +75,13 @@ function GalleryRow({ p, row, rowIdx }) {
               key={j}
               data-slide
               data-testid={`project-${p.num}-row-${rowIdx}-img-${j}`}
-              src={img(id)}
-              alt={`${p.title}${row.label ? ` — ${row.label}` : ""} — photo ${j + 1}`}
+              src={id}
+              alt={`Oak Park Construction ${p.cat.toLowerCase()} work${row.label ? ` — ${row.label.toLowerCase()}` : ""} — view ${j + 1}`}
               loading="lazy"
-              className="h-[48vh] flex-none snap-center border border-white/10 object-cover transition-[transform,opacity] duration-150 ease-out md:h-[58vh]"
+              decoding="async"
+              width="1800"
+              height="1350"
+              className="h-[48vh] w-[78vw] flex-none snap-center border border-white/10 object-cover transition-[transform,opacity] duration-150 ease-out md:h-[58vh] md:w-[58vw] xl:w-[48vw]"
             />
           ))}
         </div>
@@ -163,8 +131,8 @@ export default function Portfolio() {
       <div className="mx-auto max-w-7xl px-6 pb-6 pt-16 text-center md:px-10">
         <p className="font-mono text-[11px] uppercase tracking-[0.35em] text-[#CBCC10]">Portfolio</p>
         <h1 className="mt-4 font-head text-5xl font-bold tracking-tight sm:text-6xl">Built, not promised.</h1>
-        <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-[#A1A1AA]">
-          Every project its own chapter — before, progress, after. Scroll down; drift sideways through the photographs.
+        <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-[#D4D4D8]">
+          A first curated set of verified Oak Park Construction photographs. Scroll down; drift sideways through the work.
         </p>
       </div>
 
@@ -195,7 +163,7 @@ export default function Portfolio() {
       ))}
 
       <div className="border-t border-white/10 px-6 py-24 text-center">
-        <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-[#A1A1AA]">Your project could be chapter {String(PROJECTS.length + 1).padStart(2, "0")}</p>
+        <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-[#A1A1AA]">Your project could be the next chapter</p>
         <a
           href="/#contact"
           data-testid="portfolio-cta"

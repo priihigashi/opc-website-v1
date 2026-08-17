@@ -264,7 +264,7 @@ export default function ServicesScene() {
     <div className="fixed inset-0 z-0" data-testid="services-scene" aria-hidden>
       {mounted && (
         <Canvas
-          shadows
+          shadows="basic"
           dpr={[1, 1.75]}
           camera={{ fov: 36, position: [8.8, 4.8, 11] }}
           gl={{ antialias: true }}

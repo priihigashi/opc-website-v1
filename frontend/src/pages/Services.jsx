@@ -21,7 +21,7 @@ function Label({ svc, side, disabled, onHover, onLeave, onPick }) {
       onMouseEnter={() => onHover(svc)}
       onMouseLeave={onLeave}
       onClick={() => onPick(svc)}
-      className={`group pointer-events-auto flex items-center gap-3 ${side === "right" ? "flex-row-reverse text-right" : ""}`}
+      className={`group pointer-events-auto flex items-center gap-3 border border-white/10 bg-[#09090B]/78 px-3 py-2.5 shadow-[0_14px_40px_rgba(0,0,0,0.22)] backdrop-blur-md transition-colors hover:border-[#CBCC10]/50 ${side === "right" ? "flex-row-reverse text-right" : ""}`}
     >
       <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#A1A1AA] transition-colors duration-300 group-hover:text-[#FAFAFA] md:text-xs">
         {svc.label}
@@ -62,11 +62,13 @@ export default function Services() {
 
   return (
     <div data-testid="services-page" className="pointer-events-none relative z-10 flex min-h-screen flex-col">
-      <div className="mx-auto w-full max-w-7xl px-6 pt-24 text-center md:px-10">
-        <p className="font-mono text-[11px] uppercase tracking-[0.35em] text-[#CBCC10]">Oak Park Construction</p>
-        <h1 className="mt-3 font-head text-4xl font-bold tracking-tight text-[#FAFAFA] [text-shadow:0_2px_28px_rgba(9,9,11,0.9)] sm:text-5xl">
-          One house. Choose its next chapter.
-        </h1>
+      <div className="mx-auto w-full max-w-7xl px-6 pt-20 text-center md:px-10">
+        <div className="story-copy-panel pointer-events-auto mx-auto inline-block px-6 py-4 sm:px-8">
+          <p className="font-mono text-[11px] uppercase tracking-[0.35em] text-[#CBCC10]">Oak Park Construction</p>
+          <h1 className="mt-3 font-head text-3xl font-bold tracking-tight text-[#FAFAFA] [text-shadow:0_2px_28px_rgba(9,9,11,0.9)] sm:text-5xl">
+            One house. Choose its next chapter.
+          </h1>
+        </div>
       </div>
 
       {/* desktop annotation labels around the house */}

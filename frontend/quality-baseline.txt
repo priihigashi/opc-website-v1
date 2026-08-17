@@ -1,0 +1,15 @@
+OPC Emergent source — JavaScript complexity baseline
+Generated: 2026-08-17
+Threshold: 10
+
+32  src/pages/ServicesScene.jsx:70  ResidenceGLB useFrame callback
+21  src/three/HouseModel.jsx:186       HouseModel useFrame callback
+
+Total functions over threshold: 2
+
+The current ESLint 9.23 CLI in the exported project does not provide native
+bulk suppressions. The plain quality:js command intentionally reports these
+two inherited animation callbacks as existing debt. New work should not add a
+third violation. Refactoring the frame loops is deferred until branch fixtures
+cover every visual state; splitting them only to satisfy the metric could alter
+the house sequence.

@@ -28,7 +28,7 @@ export default function HouseScene() {
         }}
       />
       <Canvas
-        shadows
+        shadows="basic"
         dpr={[1, 1.75]}
         camera={{ fov: 38, position: [9.5, 5.6, 11.5] }}
         gl={{ antialias: true }}

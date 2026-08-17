@@ -181,7 +181,7 @@ export default function HouseModel() {
         if (m && !Array.isArray(m) && m.userData.noCast) o.castShadow = false;
       }
     });
-  }, []);
+  }, [r]);
 
   useFrame((state, dt) => {
     const p = clamp01(scrollStore.p);

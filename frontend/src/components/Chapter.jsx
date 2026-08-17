@@ -23,7 +23,7 @@ export function Chapter({ id, num, side = "left", overline, title, body, bullets
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-25%" }}
-          className={`pointer-events-auto col-span-12 bg-[#09090B]/60 p-4 backdrop-blur-md md:col-span-5 md:bg-transparent md:p-0 md:backdrop-blur-none ${
+          className={`story-copy-panel pointer-events-auto col-span-12 p-5 sm:p-7 md:col-span-5 md:p-8 ${
             side === "right" ? "md:col-start-8" : "md:col-start-1"
           }`}
         >
@@ -50,12 +50,12 @@ export function Chapter({ id, num, side = "left", overline, title, body, bullets
               </span>
             ))}
           </h2>
-          <motion.p variants={fade} data-testid={`${id}-body`} className="mt-4 max-w-md text-sm leading-relaxed text-[#A1A1AA] md:mt-6 md:text-base">
+          <motion.p variants={fade} data-testid={`${id}-body`} className="mt-4 max-w-md text-sm leading-relaxed text-[#E4E4E7] md:mt-6 md:text-base">
             {body}
           </motion.p>
           <motion.ul variants={fade} className="mt-5 space-y-2 border-t border-white/10 pt-4 md:mt-8 md:space-y-3 md:pt-6">
             {bullets.map((b, i) => (
-              <li key={i} data-testid={`${id}-bullet-${i}`} className="flex items-center gap-3 text-sm text-[#FAFAFA]">
+              <li key={i} data-testid={`${id}-bullet-${i}`} className="flex items-center gap-3 text-sm leading-snug text-[#FAFAFA]">
                 <span className="h-px w-6 bg-[#CBCC10]" />
                 {b}
               </li>
