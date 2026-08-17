@@ -1,5 +1,3 @@
-import { RoundedBox } from "@react-three/drei";
-
 // Interior: oak floors, ceilings with recessed cans, kitchen pavilion,
 // bathroom suite, furniture — revealed by the Ch.02 cutaway.
 export default function Interior({ mats, reg }) {
@@ -76,22 +74,32 @@ export default function Interior({ mats, reg }) {
 
       {/* ---- bathroom (volume A, ground floor front) ---- */}
       <group name="bathroom">
-        {/* tile accent partition */}
-        <mesh position={[-4.3, 2.15, 1.0]} material={mats.tileBath}>
-          <boxGeometry args={[3.4, 3.3, 0.12]} />
+        {/* tile accent partition — capped at the ceiling line, never through the floor above */}
+        <mesh position={[-4.3, 1.9, 1.0]} material={mats.tileBath}>
+          <boxGeometry args={[3.4, 2.8, 0.12]} />
         </mesh>
         {/* side partition with door opening */}
-        <mesh position={[-2.6, 2.15, 1.35]} material={mats.ceilWhite}>
-          <boxGeometry args={[0.12, 3.3, 0.7]} />
+        <mesh position={[-2.6, 1.9, 1.35]} material={mats.partWhite}>
+          <boxGeometry args={[0.12, 2.8, 0.7]} />
         </mesh>
-        <mesh position={[-2.6, 2.15, 2.7]} material={mats.ceilWhite}>
-          <boxGeometry args={[0.12, 3.3, 0.4]} />
+        <mesh position={[-2.6, 1.9, 2.7]} material={mats.partWhite}>
+          <boxGeometry args={[0.12, 2.8, 0.4]} />
         </mesh>
-        <mesh position={[-2.6, 3.25, 2.1]} material={mats.ceilWhite}>
-          <boxGeometry args={[0.12, 1.1, 0.8]} />
+        <mesh position={[-2.6, 3.0, 2.1]} material={mats.partWhite}>
+          <boxGeometry args={[0.12, 0.6, 0.8]} />
         </mesh>
-        {/* freestanding tub */}
-        <RoundedBox args={[1.7, 0.6, 0.82]} radius={0.16} smoothness={6} position={[-4.6, 0.86, 2.3]} material={mats.tubWhite} />
+        {/* powder room: toilet against the tile wall */}
+        <group position={[-4.6, 0.5, 1.45]}>
+          <mesh position={[0, 0.62, -0.28]} material={mats.tubWhite}>
+            <boxGeometry args={[0.42, 0.4, 0.16]} />
+          </mesh>
+          <mesh position={[0, 0.22, 0.05]} material={mats.tubWhite}>
+            <cylinderGeometry args={[0.17, 0.14, 0.44, 18]} />
+          </mesh>
+          <mesh position={[0, 0.46, 0.05]} material={mats.tubWhite}>
+            <cylinderGeometry args={[0.22, 0.22, 0.07, 18]} />
+          </mesh>
+        </group>
         {/* vanity + vessel + mirror */}
         <mesh position={[-5.5, 0.95, 1.6]} material={mats.vanityWood}>
           <boxGeometry args={[0.55, 0.8, 1.3]} />
@@ -134,6 +142,54 @@ export default function Interior({ mats, reg }) {
         </mesh>
         <mesh position={[-5.55, 4.34, -2.5]} material={mats.can}>
           <sphereGeometry args={[0.05, 10, 10]} />
+        </mesh>
+      </group>
+
+      {/* ---- upstairs bathroom (volume A, level 2 front; ceiling at 5.6) ---- */}
+      <group name="bathroom-upstairs">
+        <mesh position={[-3.6, 3.67, 1.8]} material={mats.counterStone}>
+          <boxGeometry args={[2.4, 0.03, 2.2]} />
+        </mesh>
+        <mesh position={[-4.6, 4.6, 0.6]} material={mats.partWhite}>
+          <boxGeometry args={[2.8, 1.9, 0.1]} />
+        </mesh>
+        <mesh position={[-4.4, 4.6, 2.84]} material={mats.tileBath}>
+          <boxGeometry args={[2.6, 1.9, 0.05]} />
+        </mesh>
+        <mesh position={[-5.5, 4.05, 2.0]} material={mats.vanityWood}>
+          <boxGeometry args={[0.5, 0.8, 1.2]} />
+        </mesh>
+        <mesh position={[-5.5, 4.51, 2.0]} material={mats.tubWhite}>
+          <cylinderGeometry args={[0.17, 0.15, 0.12, 18]} />
+        </mesh>
+        <mesh position={[-5.86, 4.9, 2.0]} rotation={[0, Math.PI / 2, 0]} material={mats.mirror}>
+          <boxGeometry args={[0.85, 0.65, 0.03]} />
+        </mesh>
+        {/* toilet */}
+        <mesh position={[-3.9, 4.27, 2.6]} material={mats.tubWhite}>
+          <boxGeometry args={[0.42, 0.4, 0.16]} />
+        </mesh>
+        <mesh position={[-3.9, 3.87, 2.3]} material={mats.tubWhite}>
+          <cylinderGeometry args={[0.17, 0.14, 0.44, 18]} />
+        </mesh>
+        <mesh position={[-3.9, 4.11, 2.3]} material={mats.tubWhite}>
+          <cylinderGeometry args={[0.22, 0.22, 0.07, 18]} />
+        </mesh>
+        {/* walk-in shower, NE corner */}
+        <mesh position={[-1.85, 3.69, 1.9]} material={mats.tubWhite}>
+          <boxGeometry args={[1.1, 0.07, 1.3]} />
+        </mesh>
+        <mesh position={[-1.85, 4.62, 1.25]} material={mats.showerGlass}>
+          <boxGeometry args={[1.1, 1.85, 0.04]} />
+        </mesh>
+        <mesh position={[-2.42, 4.62, 1.9]} material={mats.showerGlass}>
+          <boxGeometry args={[0.04, 1.85, 1.3]} />
+        </mesh>
+        <mesh position={[-1.45, 5.28, 1.9]} rotation={[0, 0, Math.PI / 2]} material={mats.pendant}>
+          <cylinderGeometry args={[0.02, 0.02, 0.4, 8]} />
+        </mesh>
+        <mesh position={[-1.62, 5.2, 1.9]} material={mats.pendant}>
+          <cylinderGeometry args={[0.09, 0.09, 0.02, 16]} />
         </mesh>
       </group>
 

@@ -23,9 +23,9 @@ export default function Envelope({ mats, reg }) {
           <WindowUnit w={1.0} h={1.2} position={[-0.7, 3.9, 0]} glass={mats.glassFront} frame={mats.frameFront} />
           <WindowUnit w={1.1} h={1.2} position={[0.5, 3.9, 0]} glass={mats.glassFront} frame={mats.frameFront} mullions={1} />
         </group>
-        {/* wood-slat screen accent — door width, from canopy top to roof edge */}
-        <mesh position={[1.85, 4.45, 0.19]} material={mats.woodScreenFront}>
-          <boxGeometry args={[1.2, 3.2, 0.1]} />
+        {/* wood-slat screen: door width; abs 3.36 (canopy top) -> 6.02 (just below coping) */}
+        <mesh position={[1.85, 4.19, 0.19]} material={mats.woodScreenFront}>
+          <boxGeometry args={[1.2, 2.66, 0.1]} />
         </mesh>
         {/* recessed entry: pivot door, canopy, sconce */}
         <mesh position={[1.85, 1.21, -0.02]} material={mats.doorWood}>
@@ -92,15 +92,15 @@ export default function Envelope({ mats, reg }) {
         <mesh position={[-0.9, 6.14, 0]} material={mats.fascia}>
           <boxGeometry args={[0.3, 0.08, 6.35]} />
         </mesh>
-        <mesh position={[-3.5, 5.9, 0]} material={mats.membrane}>
+        <mesh position={[-3.5, 6.12, 0]} material={mats.membrane}>
           <boxGeometry args={[4.7, 0.06, 5.7]} />
         </mesh>
       </group>
 
       {/* ---- Roof B: floating plane, bronze fascia, wood soffit ---- */}
       <group name="roof-b" ref={reg("finRoofB")}>
-        <mesh position={[2.85, 3.97, 0]} material={[mats.fascia, mats.fascia, mats.membrane, mats.soffit, mats.fascia, mats.fascia]}>
-          <boxGeometry args={[8.6, 0.16, 6.6]} />
+        <mesh position={[3.1, 3.97, 0]} material={[mats.fascia, mats.fascia, mats.membrane, mats.soffit, mats.fascia, mats.fascia]}>
+          <boxGeometry args={[8.1, 0.16, 6.6]} />
         </mesh>
       </group>
 

@@ -38,7 +38,7 @@ function ResidenceGLB({ model }) {
     });
     ["site", "shell", "finFrontA", "finFrontB", "finBackA", "finBackB", "finWestA", "finEastA", "finEastB",
       "roofA", "roofB", "interior", "kitchen", "bathroom", "bedroom", "addition", "patio",
-      "pergolaPosts", "pergolaRoof", "bbq", "driveway-pavers"].forEach((n) => {
+      "pergolaPosts", "pergolaRoof", "bbq", "driveway-pavers", "pool", "poolWaterMesh"].forEach((n) => {
       const node = model.getObjectByName(n);
       if (node) nodes.current[n] = node;
     });
@@ -163,6 +163,16 @@ function ResidenceGLB({ model }) {
     setOp("patioEdge", out);
     setOp("bbqSteel", out);
     setOp("bbqTop", out);
+    setOp("poolDeck", seg(out, 0, 0.4));
+    setOp("poolCoping", seg(out, 0.1, 0.5));
+    setOp("poolPlaster", seg(out, 0.1, 0.5));
+    setOp("poolWater", seg(out, 0.35, 0.95) * 0.8);
+    if (N.poolWaterMesh) N.poolWaterMesh.position.y = 0.26 + seg(out, 0.35, 0.95) * 0.3;
+
+    // bathroom partitions fade during the cutaway
+    setOp("tileBath", 1 - cut * 0.88);
+    setOp("partWhite", 1 - cut * 0.88);
+    setOp("showerGlass", 0.32);
 
     N["driveway-pavers"].visible = conc > 0.004;
     N["driveway-pavers"].scale.z = Math.max(0.001, seg(conc, 0, 0.7));
@@ -226,7 +236,7 @@ export default function ServicesScene() {
   useEffect(() => {
     let on = true;
     new GLTFLoader().load(
-      "/models/residence.glb?v=6",
+      "/models/residence.glb?v=11",
       (g) => on && setModel(g.scene),
       undefined,
       () => on && setModel(null)

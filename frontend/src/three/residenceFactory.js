@@ -52,6 +52,13 @@ function createMaterials() {
     stoolSeat: std("stoolSeat", "#4A4238", { roughness: 0.6 }),
     fabric: std("fabric", "#B8B2A6", { roughness: 0.95 }),
     tileBath: std("tileBath", "#40626E", { roughness: 0.22 }),
+    partWhite: std("partWhite", "#F4F2EC", { roughness: 0.95 }),
+    showerGlass: (() => {
+      const m = new THREE.MeshPhysicalMaterial({ color: "#B9D4E2", transparent: true, opacity: 0.32, roughness: 0.08, metalness: 0.4, depthWrite: false });
+      m.name = "showerGlass";
+      m.userData.noCast = true;
+      return m;
+    })(),
     tubWhite: std("tubWhite", "#F4F2EC", { roughness: 0.18 }),
     vanityWood: std("vanityWood", "#7A5A38", { roughness: 0.55 }),
     mirror: std("mirror", "#C8D4DA", { metalness: 1, roughness: 0.06 }),
@@ -63,6 +70,15 @@ function createMaterials() {
     addFrame: std("addFrame", "#1D1D20", { metalness: 0.75, roughness: 0.3 }),
     addGlass: glass("addGlass", 0.55),
     pergolaWood: std("pergolaWood", "#6E4F30", { roughness: 0.6 }),
+    poolDeck: std("poolDeck", "#54545C", { roughness: 0.9 }),
+    poolCoping: std("poolCoping", "#CFC9BE", { roughness: 0.55 }),
+    poolPlaster: std("poolPlaster", "#3E8E93", { roughness: 0.35 }),
+    poolWater: (() => {
+      const m = new THREE.MeshPhysicalMaterial({ color: "#2E93A8", transparent: true, opacity: 0, roughness: 0.05, metalness: 0.1, depthWrite: false });
+      m.name = "poolWater";
+      m.userData.noCast = true;
+      return m;
+    })(),
     patioPaver: std("patioPaver", "#7A7A80", { roughness: 0.9 }),
     patioEdge: std("patioEdge", "#54545C", { roughness: 0.9 }),
     bbqSteel: std("bbqSteel", "#2A2A2E", { metalness: 0.7, roughness: 0.35 }),
@@ -161,7 +177,7 @@ export function buildResidence() {
   windowUnit(winFrontA, mats.glassFront, mats.frameFront, 1.0, 1.2, -0.7, 3.9, 0);
   windowUnit(winFrontA, mats.glassFront, mats.frameFront, 1.1, 1.2, 0.5, 3.9, 0, 1);
   finFrontA.add(winFrontA);
-  box(finFrontA, mats.woodScreen, 1.2, 3.2, 0.1, 1.85, 4.45, 0.19);
+  box(finFrontA, mats.woodScreen, 1.2, 2.66, 0.1, 1.85, 4.19, 0.19);
   box(finFrontA, mats.doorWood, 1.2, 2.42, 0.1, 1.85, 1.21, -0.02);
   box(finFrontA, mats.frameFront, 0.045, 0.85, 0.045, 2.32, 1.25, 0.06);
   box(finFrontA, mats.frameFront, 2.4, 0.12, 1.3, 1.85, 2.78, 0.62);
@@ -231,15 +247,15 @@ export function buildResidence() {
   box(roofA, mats.fascia, 5.35, 0.08, 0.3, -3.5, 6.14, -3.0);
   box(roofA, mats.fascia, 0.3, 0.08, 6.35, -6.1, 6.14, 0);
   box(roofA, mats.fascia, 0.3, 0.08, 6.35, -0.9, 6.14, 0);
-  box(roofA, mats.membrane, 4.7, 0.06, 5.7, -3.5, 5.9, 0);
+  box(roofA, mats.membrane, 4.7, 0.06, 5.7, -3.5, 6.12, 0);
   roof.add(roofA);
   const roofB = new THREE.Group();
   roofB.name = "roofB";
   const roofSlabB = new THREE.Mesh(
-    new THREE.BoxGeometry(8.6, 0.16, 6.6),
+    new THREE.BoxGeometry(8.1, 0.16, 6.6),
     [mats.fascia, mats.fascia, mats.membrane, mats.soffit, mats.fascia, mats.fascia]
   );
-  roofSlabB.position.set(2.85, 3.97, 0);
+  roofSlabB.position.set(3.1, 3.97, 0);
   roofB.add(roofSlabB);
   roof.add(roofB);
   root.add(roof);
@@ -276,11 +292,14 @@ export function buildResidence() {
 
   const bathroom = new THREE.Group();
   bathroom.name = "bathroom";
-  box(bathroom, mats.tileBath, 3.4, 3.3, 0.12, -4.3, 2.15, 1.0);
-  box(bathroom, mats.ceilWhite, 0.12, 3.3, 0.7, -2.6, 2.15, 1.35);
-  box(bathroom, mats.ceilWhite, 0.12, 3.3, 0.4, -2.6, 2.15, 2.7);
-  box(bathroom, mats.ceilWhite, 0.12, 1.1, 0.8, -2.6, 3.25, 2.1);
-  box(bathroom, mats.tubWhite, 1.7, 0.6, 0.82, -4.6, 0.86, 2.3);
+  box(bathroom, mats.tileBath, 3.4, 2.8, 0.12, -4.3, 1.9, 1.0);
+  box(bathroom, mats.partWhite, 0.12, 2.8, 0.7, -2.6, 1.9, 1.35);
+  box(bathroom, mats.partWhite, 0.12, 2.8, 0.4, -2.6, 1.9, 2.7);
+  box(bathroom, mats.partWhite, 0.12, 0.6, 0.8, -2.6, 3.0, 2.1);
+  // powder-room toilet
+  box(bathroom, mats.tubWhite, 0.42, 0.4, 0.16, -4.6, 1.12, 1.17);
+  cyl(bathroom, mats.tubWhite, 0.17, 0.14, 0.44, -4.6, 0.72, 1.5, 18);
+  cyl(bathroom, mats.tubWhite, 0.22, 0.22, 0.07, -4.6, 0.96, 1.5, 18);
   box(bathroom, mats.vanityWood, 0.55, 0.8, 1.3, -5.5, 0.95, 1.6);
   cyl(bathroom, mats.tubWhite, 0.19, 0.16, 0.14, -5.5, 1.42, 1.6, 20);
   box(bathroom, mats.mirror, 0.95, 0.75, 0.03, -5.86, 2.0, 1.6, Math.PI / 2);
@@ -300,6 +319,26 @@ export function buildResidence() {
   lampGlow.position.set(-5.55, 4.34, -2.5);
   bedroom.add(lampGlow);
   interior.add(bedroom);
+
+  // upstairs bathroom (volume A level 2 front; ceiling at 5.6)
+  const bathUp = new THREE.Group();
+  bathUp.name = "bathroom-upstairs";
+  box(bathUp, mats.counterStone, 2.4, 0.03, 2.2, -3.6, 3.67, 1.8);
+  box(bathUp, mats.partWhite, 2.8, 1.9, 0.1, -4.6, 4.6, 0.6);
+  box(bathUp, mats.tileBath, 2.6, 1.9, 0.05, -4.4, 4.6, 2.84);
+  box(bathUp, mats.vanityWood, 0.5, 0.8, 1.2, -5.5, 4.05, 2.0);
+  cyl(bathUp, mats.tubWhite, 0.17, 0.15, 0.12, -5.5, 4.51, 2.0, 18);
+  box(bathUp, mats.mirror, 0.85, 0.65, 0.03, -5.86, 4.9, 2.0, Math.PI / 2);
+  box(bathUp, mats.tubWhite, 0.42, 0.4, 0.16, -3.9, 4.27, 2.6);
+  cyl(bathUp, mats.tubWhite, 0.17, 0.14, 0.44, -3.9, 3.87, 2.3, 18);
+  cyl(bathUp, mats.tubWhite, 0.22, 0.22, 0.07, -3.9, 4.11, 2.3, 18);
+  box(bathUp, mats.tubWhite, 1.1, 0.07, 1.3, -1.85, 3.69, 1.9);
+  box(bathUp, mats.showerGlass, 1.1, 1.85, 0.04, -1.85, 4.62, 1.25);
+  box(bathUp, mats.showerGlass, 0.04, 1.85, 1.3, -2.42, 4.62, 1.9);
+  const arm = cyl(bathUp, mats.pendant, 0.02, 0.02, 0.4, -1.45, 5.28, 1.9, 8);
+  arm.rotation.z = Math.PI / 2;
+  cyl(bathUp, mats.pendant, 0.09, 0.09, 0.02, -1.62, 5.2, 1.9, 16);
+  interior.add(bathUp);
   root.add(interior);
 
   // ---- addition ----
@@ -358,6 +397,24 @@ export function buildResidence() {
   box(bbq, mats.bbqTop, 2.1, 0.07, 0.72, 0, 0.9, 0);
   box(bbq, mats.bbqSteel, 0.72, 0.42, 0.56, -0.4, 1.14, 0);
   pergola.add(bbq);
+
+  // lap pool beside the pergola (water "poolWaterMesh" fills during Ch.04)
+  const pool = new THREE.Group();
+  pool.name = "pool";
+  pool.position.set(-3.6, 0, -4.4);
+  box(pool, mats.poolDeck, 5.2, 0.12, 2.6, 0, 0.56, 0);
+  box(pool, mats.poolPlaster, 4.5, 0.06, 1.8, 0, 0.2, 0);
+  box(pool, mats.poolPlaster, 4.5, 0.45, 0.08, 0, 0.42, 0.86);
+  box(pool, mats.poolPlaster, 4.5, 0.45, 0.08, 0, 0.42, -0.86);
+  box(pool, mats.poolPlaster, 0.08, 0.45, 1.64, 2.21, 0.42, 0);
+  box(pool, mats.poolPlaster, 0.08, 0.45, 1.64, -2.21, 0.42, 0);
+  box(pool, mats.poolCoping, 4.94, 0.07, 0.22, 0, 0.645, 1.02);
+  box(pool, mats.poolCoping, 4.94, 0.07, 0.22, 0, 0.645, -1.02);
+  box(pool, mats.poolCoping, 0.22, 0.07, 2.26, 2.36, 0.645, 0);
+  box(pool, mats.poolCoping, 0.22, 0.07, 2.26, -2.36, 0.645, 0);
+  const water = box(pool, mats.poolWater, 4.34, 0.05, 1.64, 0, 0.26, 0);
+  water.name = "poolWaterMesh";
+  pergola.add(pool);
   root.add(pergola);
 
   // ---- driveway + pavers ----

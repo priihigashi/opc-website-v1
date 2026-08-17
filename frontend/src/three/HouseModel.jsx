@@ -116,6 +116,12 @@ export default function HouseModel() {
       stoolSeat: std("#4A4238", { roughness: 0.6 }),
       fabric: std("#B8B2A6", { roughness: 0.95 }),
       tileBath: std("#40626E", { map: tex.tile, roughness: 0.25 }),
+      partWhite: std("#F4F2EC", { roughness: 0.95 }),
+      showerGlass: (() => {
+        const m = new THREE.MeshPhysicalMaterial({ color: "#B9D4E2", transparent: true, opacity: 0, roughness: 0.08, metalness: 0.4, depthWrite: false });
+        m.userData.noCast = true;
+        return m;
+      })(),
       tubWhite: std("#F4F2EC", { roughness: 0.2 }),
       vanityWood: std("#7A5A38", { map: tex.slatV, roughness: 0.6 }),
       mirror: std("#C8D4DA", { metalness: 1, roughness: 0.08 }),
@@ -127,6 +133,14 @@ export default function HouseModel() {
       addFrame: std("#1D1D20", { metalness: 0.7, roughness: 0.35 }),
       addGlass: glass(0.55),
       pergolaWood: std("#6E4F30", { roughness: 0.65 }),
+      poolDeck: std("#54545C", { roughness: 0.9 }),
+      poolCoping: std("#CFC9BE", { roughness: 0.55 }),
+      poolPlaster: std("#3E8E93", { roughness: 0.35 }),
+      poolWater: (() => {
+        const m = new THREE.MeshPhysicalMaterial({ color: "#2E93A8", transparent: true, opacity: 0, roughness: 0.05, metalness: 0.1, envMapIntensity: 1.8, depthWrite: false });
+        m.userData.noCast = true;
+        return m;
+      })(),
       patioPaver: std("#7A7A80", { map: tex.paver, roughness: 0.9 }),
       patioEdge: std("#54545C", { roughness: 0.9 }),
       bbqSteel: std("#2A2A2E", { metalness: 0.7, roughness: 0.35 }),
@@ -212,9 +226,13 @@ export default function HouseModel() {
     // interior
     const inMul = Math.max(cut, seg(solid, 0.7, 1));
     [mats.floorOak, mats.ceilWhite, mats.can, mats.tallDark, mats.cabWood, mats.counterStone, mats.pendant,
-     mats.stoolSeat, mats.fabric, mats.tileBath, mats.tubWhite, mats.vanityWood, mats.mirror].forEach((m) => {
+     mats.stoolSeat, mats.fabric, mats.tubWhite, mats.vanityWood, mats.mirror].forEach((m) => {
       m.opacity = inMul;
     });
+    // bathroom partitions fade away during the cutaway
+    mats.tileBath.opacity = inMul * (1 - cut * 0.88);
+    mats.partWhite.opacity = inMul * (1 - cut * 0.88);
+    mats.showerGlass.opacity = inMul * 0.32;
     if (r.interiorGroup) r.interiorGroup.visible = inMul > 0.004;
     if (r.interiorLight) r.interiorLight.intensity = cut * 30;
     if (r.bathLight) r.bathLight.intensity = cut * 12;
@@ -257,6 +275,12 @@ export default function HouseModel() {
     mats.patioEdge.opacity = out;
     mats.bbqSteel.opacity = out;
     mats.bbqTop.opacity = out;
+    // lap pool: deck and basin first, then the water fills
+    mats.poolDeck.opacity = seg(out, 0, 0.4);
+    mats.poolCoping.opacity = seg(out, 0.1, 0.5);
+    mats.poolPlaster.opacity = seg(out, 0.1, 0.5);
+    mats.poolWater.opacity = seg(out, 0.35, 0.95) * 0.8;
+    if (r.poolWater) r.poolWater.position.y = 0.26 + seg(out, 0.35, 0.95) * 0.3;
 
     // driveway
     const concOn = conc > 0.004;
