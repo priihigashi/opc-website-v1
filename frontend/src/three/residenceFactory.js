@@ -161,7 +161,7 @@ export function buildResidence() {
   windowUnit(winFrontA, mats.glassFront, mats.frameFront, 1.0, 1.2, -0.7, 3.9, 0);
   windowUnit(winFrontA, mats.glassFront, mats.frameFront, 1.1, 1.2, 0.5, 3.9, 0, 1);
   finFrontA.add(winFrontA);
-  box(finFrontA, mats.woodScreen, 1.35, 2.6, 0.1, 1.85, 4.15, 0.19);
+  box(finFrontA, mats.woodScreen, 1.2, 3.2, 0.1, 1.85, 4.45, 0.19);
   box(finFrontA, mats.doorWood, 1.2, 2.42, 0.1, 1.85, 1.21, -0.02);
   box(finFrontA, mats.frameFront, 0.045, 0.85, 0.045, 2.32, 1.25, 0.06);
   box(finFrontA, mats.frameFront, 2.4, 0.12, 1.3, 1.85, 2.78, 0.62);

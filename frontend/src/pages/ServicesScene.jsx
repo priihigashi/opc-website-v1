@@ -226,7 +226,7 @@ export default function ServicesScene() {
   useEffect(() => {
     let on = true;
     new GLTFLoader().load(
-      "/models/residence.glb?v=5",
+      "/models/residence.glb?v=6",
       (g) => on && setModel(g.scene),
       undefined,
       () => on && setModel(null)

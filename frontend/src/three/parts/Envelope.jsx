@@ -23,9 +23,9 @@ export default function Envelope({ mats, reg }) {
           <WindowUnit w={1.0} h={1.2} position={[-0.7, 3.9, 0]} glass={mats.glassFront} frame={mats.frameFront} />
           <WindowUnit w={1.1} h={1.2} position={[0.5, 3.9, 0]} glass={mats.glassFront} frame={mats.frameFront} mullions={1} />
         </group>
-        {/* wood-slat screen accent — starts right on top of the entry canopy */}
-        <mesh position={[1.85, 4.15, 0.19]} material={mats.woodScreenFront}>
-          <boxGeometry args={[1.35, 2.6, 0.1]} />
+        {/* wood-slat screen accent — door width, from canopy top to roof edge */}
+        <mesh position={[1.85, 4.45, 0.19]} material={mats.woodScreenFront}>
+          <boxGeometry args={[1.2, 3.2, 0.1]} />
         </mesh>
         {/* recessed entry: pivot door, canopy, sconce */}
         <mesh position={[1.85, 1.21, -0.02]} material={mats.doorWood}>
