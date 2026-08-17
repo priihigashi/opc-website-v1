@@ -5,7 +5,7 @@ import "@/App.css";
 import { Toaster } from "@/components/ui/sonner";
 import { scrollStore } from "@/lib/scrollStore";
 import HouseScene from "@/three/HouseScene";
-import Nav from "@/components/Nav";
+import Nav from "@/components/NavV2";
 import StoryV2 from "@/components/StoryV2";
 import Marquee from "@/components/Marquee";
 import AboutV2 from "@/components/AboutV2";
@@ -17,7 +17,7 @@ import Services from "@/pages/Services";
 import ServicesScene from "@/pages/ServicesScene";
 
 const ServiceDetail = lazy(() => import("@/pages/ServiceDetail"));
-const Portfolio = lazy(() => import("@/pages/Portfolio"));
+const Portfolio = lazy(() => import("@/pages/PortfolioV2"));
 
 const clamp01 = (v) => Math.min(1, Math.max(0, v));
 
