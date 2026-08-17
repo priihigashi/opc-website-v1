@@ -60,7 +60,7 @@ export default function Gallery() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-10%" }}
               transition={{ duration: 0.9, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
-              className={`group relative overflow-hidden bg-[#09090B] shadow-[0_30px_80px_rgba(9,9,11,0.14)] ${w.span}`}
+              className={`group relative overflow-hidden rounded-[10px] bg-[#09090B] shadow-[0_30px_80px_rgba(9,9,11,0.14)] ${w.span}`}
             >
               <div className={`overflow-hidden ${w.ratio}`}>
                 <img
@@ -80,7 +80,7 @@ export default function Gallery() {
               <span className="absolute right-5 top-5 font-editorial text-3xl text-white/65">0{i + 1}</span>
               <figcaption className="absolute bottom-0 left-0 p-6 md:p-8">
                 <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#CBCC10]">{w.tag}</p>
-                <p className="font-editorial mt-2 text-2xl text-[#F0EBE3] md:text-3xl">{w.title}</p>
+                <p className="font-editorial mt-2 text-2xl text-[#EEEDE9] md:text-3xl">{w.title}</p>
               </figcaption>
             </motion.figure>
           ))}

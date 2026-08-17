@@ -18,7 +18,7 @@ export default function About() {
           className="col-span-12 md:col-span-6"
         >
           <p className="luxury-kicker font-mono text-[10px] uppercase tracking-[0.28em]">The Manifesto</p>
-          <h2 className="mt-6 leading-[0.98] tracking-tight text-[#F0EBE3]">
+          <h2 className="mt-6 leading-[0.98] tracking-tight text-[#EEEDE9]">
             <span className="font-head block text-4xl uppercase sm:text-5xl">A home is not a project.</span>
             <span className="font-editorial mt-2 block text-4xl sm:text-5xl">It is a continuous act of care.</span>
           </h2>

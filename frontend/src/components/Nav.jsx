@@ -37,7 +37,7 @@ export default function Nav() {
   return (
     <header
       data-testid="site-nav"
-      className="fixed inset-x-0 top-0 z-40 border-b border-[#F0EBE3]/10 bg-[#09090B] shadow-[0_12px_40px_rgba(0,0,0,0.18)]"
+      className="fixed inset-x-0 top-0 z-40 border-b border-[#EEEDE9]/10 bg-[#09090B] shadow-[0_12px_40px_rgba(0,0,0,0.18)]"
     >
       <div className="mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between px-6 md:px-10">
         <a

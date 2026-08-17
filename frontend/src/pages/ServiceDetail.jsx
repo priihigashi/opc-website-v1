@@ -120,7 +120,7 @@ export default function ServiceDetail() {
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-          className="col-span-12 overflow-hidden border border-white/10 md:col-span-6 md:col-start-7"
+          className="col-span-12 overflow-hidden rounded-[10px] border border-white/10 md:col-span-6 md:col-start-7"
         >
           <div className="relative">
             <img src={s.image} alt={`${s.title} — ${s.phase}`} width="1800" height="1350" className="aspect-[4/3] w-full object-cover" loading="eager" />

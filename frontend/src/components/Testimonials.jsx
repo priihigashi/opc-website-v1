@@ -24,7 +24,7 @@ export default function Testimonials() {
     <section data-testid="testimonials" className="relative border-b border-white/10 bg-[#0C0C0E]">
       <div className="mx-auto max-w-7xl px-6 py-28 md:px-10">
         <p className="luxury-kicker font-mono text-[10px] uppercase tracking-[0.28em]">Built on Accountability</p>
-        <h2 className="mt-6 max-w-3xl leading-[0.96] tracking-tight text-[#F0EBE3]">
+        <h2 className="mt-6 max-w-3xl leading-[0.96] tracking-tight text-[#EEEDE9]">
           <span className="font-head block text-4xl uppercase sm:text-5xl">Luxury is clarity</span>
           <span className="font-editorial block text-4xl sm:text-5xl">at every step.</span>
         </h2>
@@ -44,7 +44,7 @@ export default function Testimonials() {
                 <span className="font-editorial text-2xl text-white/25">0{i + 1}</span>
               </div>
               <div className="mt-10 border-t border-white/10 pt-6">
-                <h3 className="font-head text-xl uppercase tracking-wide text-[#F0EBE3]">{title}</h3>
+                <h3 className="font-head text-xl uppercase tracking-wide text-[#EEEDE9]">{title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-[#D4D4D8]">{text}</p>
               </div>
             </motion.article>

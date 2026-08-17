@@ -15,7 +15,7 @@ export default function Hero() {
     <section id="top" data-testid="hero" className="pointer-events-none relative flex h-screen flex-col justify-between overflow-hidden">
       <div className="hero-halo absolute inset-0" aria-hidden />
       <div className="architectural-rule absolute left-6 right-6 top-24 h-px md:left-10 md:right-10" aria-hidden />
-      <p className="absolute right-6 top-[6.9rem] hidden font-mono text-[10px] uppercase tracking-[0.28em] text-[#F0EBE3]/45 md:block md:right-10">
+      <p className="absolute right-6 top-[6.9rem] hidden font-mono text-[10px] uppercase tracking-[0.28em] text-[#EEEDE9]/45 md:block md:right-10">
         Residential construction · 26.1° N
       </p>
       <motion.div
@@ -33,14 +33,14 @@ export default function Hero() {
             Oak Park Construction · South Florida
           </motion.p>
         </div>
-        <h1 className="mt-6 max-w-4xl leading-[0.86] text-[#F0EBE3]">
+        <h1 className="mt-6 max-w-4xl leading-[0.86] text-[#EEEDE9]">
           <span className="block overflow-hidden pb-2">
             <motion.span variants={lineUp} className="font-head block text-6xl uppercase tracking-[-0.025em] [text-shadow:0_4px_38px_rgba(0,0,0,0.96)] sm:text-8xl lg:text-[7.2rem]" data-testid="hero-title-line-0">
               One house.
             </motion.span>
           </span>
           <span className="block overflow-hidden pb-3">
-            <motion.span variants={lineUp} className="font-editorial block pl-[0.03em] text-6xl font-medium tracking-[-0.045em] text-[#F0EBE3] [text-shadow:0_4px_38px_rgba(0,0,0,0.96)] sm:text-8xl lg:text-[7.5rem]" data-testid="hero-title-line-1">
+            <motion.span variants={lineUp} className="font-editorial block pl-[0.03em] text-6xl font-medium tracking-[-0.045em] text-[#EEEDE9] [text-shadow:0_4px_38px_rgba(0,0,0,0.96)] sm:text-8xl lg:text-[7.5rem]" data-testid="hero-title-line-1">
               Every craft.
             </motion.span>
           </span>
@@ -54,7 +54,7 @@ export default function Hero() {
         className="relative mx-auto flex w-full max-w-7xl flex-col gap-5 px-6 pb-7 md:flex-row md:items-end md:justify-between md:px-10 md:pb-12"
       >
         <div className="hero-copy-panel max-w-[34rem]">
-          <p data-testid="hero-sub" className="max-w-lg text-sm leading-[1.75] text-[#F0EBE3]/90 md:text-[0.98rem]">
+          <p data-testid="hero-sub" className="max-w-lg text-sm leading-[1.75] text-[#EEEDE9]/90 md:text-[0.98rem]">
             One accountable team, from structure to final detail. Scroll through the
             same South Florida home as each discipline comes into view.
           </p>

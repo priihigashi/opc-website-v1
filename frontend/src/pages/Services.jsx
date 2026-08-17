@@ -21,7 +21,7 @@ function Label({ svc, side, disabled, onHover, onLeave, onPick }) {
       onMouseEnter={() => onHover(svc)}
       onMouseLeave={onLeave}
       onClick={() => onPick(svc)}
-      className={`group pointer-events-auto flex items-center gap-3 border border-white/10 bg-[#09090B]/78 px-3 py-2.5 shadow-[0_14px_40px_rgba(0,0,0,0.22)] backdrop-blur-md transition-colors hover:border-[#CBCC10]/50 ${side === "right" ? "flex-row-reverse text-right" : ""}`}
+      className={`service-glass-panel group pointer-events-auto flex items-center gap-3 px-3 py-2.5 transition-colors hover:border-[#CBCC10]/50 ${side === "right" ? "flex-row-reverse text-right" : ""}`}
     >
       <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#A1A1AA] transition-colors duration-300 group-hover:text-[#FAFAFA] md:text-xs">
         {svc.label}

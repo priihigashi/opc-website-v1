@@ -71,7 +71,7 @@ export default function Story({ storyRef }) {
           className="story-copy-panel pointer-events-auto mx-6 px-8 py-12 text-center sm:px-14"
         >
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#CBCC10]">One model. One crew.</p>
-          <p className="mt-4 text-[#F0EBE3]">
+          <p className="mt-4 text-[#EEEDE9]">
             <span className="font-head block text-4xl uppercase tracking-tight sm:text-5xl">Same house.</span>
             <span className="font-editorial mt-1 block text-4xl sm:text-5xl">Every trade.</span>
           </p>

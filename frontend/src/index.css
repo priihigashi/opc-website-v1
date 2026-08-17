@@ -6,6 +6,8 @@
 
 @layer base {
   :root {
+    --opc-ivory: #EEEDE9;
+    --opc-panel-radius: 10px;
     --background: 240 6% 4%;
     --foreground: 0 0% 98%;
     --card: 240 5% 7%;
@@ -96,12 +98,14 @@
 .story-copy-panel,
 .hero-copy-panel {
   position: relative;
-  border: 1px solid rgba(240, 235, 227, 0.16);
+  overflow: hidden;
+  border: 1px solid rgba(238, 237, 233, 0.2);
+  border-radius: var(--opc-panel-radius);
   background:
-    linear-gradient(135deg, rgba(12, 12, 12, 0.9), rgba(25, 23, 20, 0.72));
+    linear-gradient(135deg, rgba(12, 12, 12, 0.78), rgba(25, 24, 22, 0.58));
   box-shadow: 0 34px 100px rgba(0, 0, 0, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.04);
-  -webkit-backdrop-filter: blur(18px) saturate(115%);
-  backdrop-filter: blur(18px) saturate(115%);
+  -webkit-backdrop-filter: blur(20px) saturate(125%);
+  backdrop-filter: blur(20px) saturate(125%);
 }
 
 .story-copy-panel::before,
@@ -143,6 +147,25 @@
   box-shadow: 0 12px 42px rgba(203, 204, 16, 0.14);
 }
 
+.service-glass-panel {
+  border: 1px solid rgba(238, 237, 233, 0.18);
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(9, 9, 11, 0.62), rgba(22, 22, 24, 0.42));
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  -webkit-backdrop-filter: blur(16px) saturate(125%);
+  backdrop-filter: blur(16px) saturate(125%);
+}
+
+.light-glass-panel {
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: var(--opc-panel-radius);
+  background: linear-gradient(135deg, rgba(238, 237, 233, 0.64), rgba(229, 229, 224, 0.44));
+  box-shadow: 0 28px 80px rgba(39, 39, 36, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  -webkit-backdrop-filter: blur(24px) saturate(112%);
+  backdrop-filter: blur(24px) saturate(112%);
+}
+
 .hero-halo {
   background:
     radial-gradient(circle at 70% 48%, rgba(193, 145, 83, 0.17), transparent 24%),
@@ -152,7 +175,7 @@
 }
 
 .architectural-rule {
-  background: linear-gradient(90deg, rgba(240, 235, 227, 0.38), rgba(240, 235, 227, 0.04));
+  background: linear-gradient(90deg, rgba(238, 237, 233, 0.38), rgba(238, 237, 233, 0.04));
 }
 
 @media (max-width: 767px) {
@@ -165,7 +188,9 @@
 
 @media (prefers-reduced-motion: reduce) {
   .story-copy-panel,
-  .hero-copy-panel {
+  .hero-copy-panel,
+  .service-glass-panel,
+  .light-glass-panel {
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
   }

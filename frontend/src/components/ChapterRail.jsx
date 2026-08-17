@@ -28,13 +28,13 @@ export default function ChapterRail() {
 
   return (
     <aside className={`pointer-events-none fixed right-7 top-1/2 z-30 hidden -translate-y-1/2 transition-opacity duration-500 2xl:block ${active >= 0 ? "opacity-100" : "opacity-0"}`} aria-label="Build chapters">
-      <div className="border-r border-[#F0EBE3]/15 pr-4">
+      <div className="border-r border-[#EEEDE9]/15 pr-4">
         {items.map(([num, label], index) => (
           <div key={num} className={`flex h-12 items-center justify-end gap-3 transition-opacity duration-500 ${active === index ? "opacity-100" : "opacity-35"}`}>
-            <span className={`font-mono text-[9px] uppercase tracking-[0.18em] transition-transform duration-500 ${active === index ? "translate-x-0 text-[#F0EBE3]" : "translate-x-2 text-[#F0EBE3]/70"}`}>
+            <span className={`font-mono text-[9px] uppercase tracking-[0.18em] transition-transform duration-500 ${active === index ? "translate-x-0 text-[#EEEDE9]" : "translate-x-2 text-[#EEEDE9]/70"}`}>
               {label}
             </span>
-            <span className={`font-mono text-[9px] ${active === index ? "text-[#CBCC10]" : "text-[#F0EBE3]/60"}`}>{num}</span>
+            <span className={`font-mono text-[9px] ${active === index ? "text-[#CBCC10]" : "text-[#EEEDE9]/60"}`}>{num}</span>
           </div>
         ))}
       </div>

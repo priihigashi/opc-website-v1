@@ -41,8 +41,8 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" data-testid="contact" className="relative overflow-hidden border-b border-black/10 bg-[#F0EBE3] text-[#09090B]">
-      <div className="absolute inset-y-0 right-0 hidden w-[43%] bg-[#DCD4C7] md:block" aria-hidden />
+    <section id="contact" data-testid="contact" className="relative overflow-hidden border-b border-black/10 bg-[#EEEDE9] text-[#09090B]">
+      <div className="absolute inset-y-0 right-0 hidden w-[43%] bg-[#D8D8D2] md:block" aria-hidden />
       <div className="relative mx-auto grid max-w-7xl grid-cols-12 gap-y-14 px-6 py-28 md:px-10 md:py-36">
         <motion.div
           initial={{ opacity: 0, y: 32 }}
@@ -74,7 +74,7 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-15%" }}
           transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
-          className="col-span-12 grid grid-cols-2 gap-x-6 gap-y-3 bg-[#DCD4C7] p-6 md:col-span-6 md:col-start-7 md:p-10"
+          className="light-glass-panel col-span-12 grid grid-cols-2 gap-x-6 gap-y-3 p-6 md:col-span-6 md:col-start-7 md:p-10"
         >
           <input data-testid="contact-name" required minLength={2} placeholder="Full name" value={form.name} onChange={set("name")} className={`${inputCls} col-span-2 sm:col-span-1`} />
           <input data-testid="contact-email-input" required type="email" placeholder="Email" value={form.email} onChange={set("email")} className={`${inputCls} col-span-2 sm:col-span-1`} />
@@ -89,7 +89,7 @@ export default function Contact() {
             type="submit"
             data-testid="contact-submit"
             disabled={sending}
-            className="luxury-pill col-span-2 mt-5 flex items-center justify-center gap-3 bg-[#09090B] px-6 py-4 font-mono text-xs uppercase tracking-[0.25em] text-[#F0EBE3] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#202014] disabled:opacity-60"
+            className="luxury-pill col-span-2 mt-5 flex items-center justify-center gap-3 bg-[#09090B] px-6 py-4 font-mono text-xs uppercase tracking-[0.25em] text-[#EEEDE9] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#202014] disabled:opacity-60"
           >
             {sending ? <Loader2 className="h-4 w-4 animate-spin" /> : <ArrowRight className="h-4 w-4" />}
             {sending ? "Sending…" : "Send enquiry"}

@@ -31,7 +31,7 @@ export function Chapter({ id, num, side = "left", overline, title, body, bullets
             <motion.div variants={lineUp} className="flex items-center gap-4">
               <span
                 data-testid={`${id}-number`}
-                className="font-editorial text-6xl font-medium text-[#F0EBE3]/20 md:text-7xl"
+                className="font-editorial text-6xl font-medium text-[#EEEDE9]/20 md:text-7xl"
               >
                 {num}
               </span>
@@ -40,7 +40,7 @@ export function Chapter({ id, num, side = "left", overline, title, body, bullets
               </span>
             </motion.div>
           </div>
-          <h2 className="mt-5 leading-[0.98] tracking-tight text-[#F0EBE3]">
+          <h2 className="mt-5 leading-[0.98] tracking-tight text-[#EEEDE9]">
             {title.map((line, i) => (
               <span key={i} className="block overflow-hidden pb-1">
                 <motion.span variants={lineUp} className={`${i === title.length - 1 && title.length > 1 ? "font-editorial" : "font-head uppercase"} block text-3xl sm:text-5xl`} data-testid={`${id}-title-${i}`}>
