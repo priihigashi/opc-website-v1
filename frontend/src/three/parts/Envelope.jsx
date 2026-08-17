@@ -23,8 +23,8 @@ export default function Envelope({ mats, reg }) {
           <WindowUnit w={1.0} h={1.2} position={[-0.7, 3.9, 0]} glass={mats.glassFront} frame={mats.frameFront} />
           <WindowUnit w={1.1} h={1.2} position={[0.5, 3.9, 0]} glass={mats.glassFront} frame={mats.frameFront} mullions={1} />
         </group>
-        {/* wood-slat screen accent */}
-        <mesh position={[1.85, 4.5, 0.19]} material={mats.woodScreenFront}>
+        {/* wood-slat screen accent — starts right on top of the entry canopy */}
+        <mesh position={[1.85, 4.15, 0.19]} material={mats.woodScreenFront}>
           <boxGeometry args={[1.35, 2.6, 0.1]} />
         </mesh>
         {/* recessed entry: pivot door, canopy, sconce */}
@@ -39,6 +39,10 @@ export default function Envelope({ mats, reg }) {
         </mesh>
         <mesh position={[1.05, 2.2, 0.17]} material={mats.sconce}>
           <boxGeometry args={[0.09, 0.36, 0.09]} />
+        </mesh>
+        {/* return wall closing the reveal between volume A front (z=3) and pavilion glass (z=2.5) */}
+        <mesh position={[2.5, 1.65, -0.25]} material={mats.stuccoFront}>
+          <boxGeometry args={[0.25, 3.3, 0.5]} />
         </mesh>
       </group>
 
@@ -55,6 +59,10 @@ export default function Envelope({ mats, reg }) {
         />
         <WindowUnit w={1.8} h={2.4} position={[-0.5, 0, 0]} glass={mats.glassSide} frame={mats.frameSide} mullions={1} />
         <WindowUnit w={1.4} h={1.2} position={[1.7, 3.9, 0]} glass={mats.glassSide} frame={mats.frameSide} mullions={1} />
+        {/* return wall closing the rear reveal at the pavilion junction */}
+        <mesh position={[2.5, 1.65, 0.25]} material={mats.stuccoSide}>
+          <boxGeometry args={[0.25, 3.3, 0.5]} />
+        </mesh>
       </group>
 
       {/* ---- Volume A west facade (x = -6) ---- */}
@@ -91,7 +99,7 @@ export default function Envelope({ mats, reg }) {
 
       {/* ---- Roof B: floating plane, bronze fascia, wood soffit ---- */}
       <group name="roof-b" ref={reg("finRoofB")}>
-        <mesh position={[2.5, 3.97, 0]} material={[mats.fascia, mats.fascia, mats.membrane, mats.soffit, mats.fascia, mats.fascia]}>
+        <mesh position={[2.85, 3.97, 0]} material={[mats.fascia, mats.fascia, mats.membrane, mats.soffit, mats.fascia, mats.fascia]}>
           <boxGeometry args={[8.6, 0.16, 6.6]} />
         </mesh>
       </group>

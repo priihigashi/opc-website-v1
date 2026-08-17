@@ -138,7 +138,7 @@ export function buildResidence() {
   [[-0.8, -2.3], [-0.8, 2.3], [5.8, -2.3], [5.8, 2.3], [2.5, -2.3], [2.5, 2.3]].forEach(([x, z]) =>
     box(shell, mats.shell, 0.22, 3.4, 0.22, x, 2.2, z)
   );
-  box(shell, mats.shell, 7.4, 0.18, 5.4, 2.5, 3.9, 0);
+  box(shell, mats.shell, 7.4, 0.18, 5.4, 2.6, 3.9, 0);
   root.add(shell);
 
   // ---- exterior finishes ----
@@ -161,11 +161,12 @@ export function buildResidence() {
   windowUnit(winFrontA, mats.glassFront, mats.frameFront, 1.0, 1.2, -0.7, 3.9, 0);
   windowUnit(winFrontA, mats.glassFront, mats.frameFront, 1.1, 1.2, 0.5, 3.9, 0, 1);
   finFrontA.add(winFrontA);
-  box(finFrontA, mats.woodScreen, 1.35, 2.6, 0.1, 1.85, 4.5, 0.19);
+  box(finFrontA, mats.woodScreen, 1.35, 2.6, 0.1, 1.85, 4.15, 0.19);
   box(finFrontA, mats.doorWood, 1.2, 2.42, 0.1, 1.85, 1.21, -0.02);
   box(finFrontA, mats.frameFront, 0.045, 0.85, 0.045, 2.32, 1.25, 0.06);
   box(finFrontA, mats.frameFront, 2.4, 0.12, 1.3, 1.85, 2.78, 0.62);
   box(finFrontA, mats.sconce, 0.09, 0.36, 0.09, 1.05, 2.2, 0.17);
+  box(finFrontA, mats.stuccoFront, 0.25, 3.3, 0.5, 2.5, 1.65, -0.25);
   finishes.add(finFrontA);
 
   const finBackA = new THREE.Group();
@@ -177,6 +178,7 @@ export function buildResidence() {
   ]);
   windowUnit(finBackA, mats.glassSide, mats.frameSide, 1.8, 2.4, -0.5, 0, 0, 1);
   windowUnit(finBackA, mats.glassSide, mats.frameSide, 1.4, 1.2, 1.7, 3.9, 0, 1);
+  box(finBackA, mats.stuccoSide, 0.25, 3.3, 0.5, 2.5, 1.65, 0.25);
   finishes.add(finBackA);
 
   const finWestA = new THREE.Group();
@@ -237,7 +239,7 @@ export function buildResidence() {
     new THREE.BoxGeometry(8.6, 0.16, 6.6),
     [mats.fascia, mats.fascia, mats.membrane, mats.soffit, mats.fascia, mats.fascia]
   );
-  roofSlabB.position.set(2.5, 3.97, 0);
+  roofSlabB.position.set(2.85, 3.97, 0);
   roofB.add(roofSlabB);
   roof.add(roofB);
   root.add(roof);

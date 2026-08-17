@@ -32,7 +32,10 @@ export default function HouseScene() {
         dpr={[1, 1.75]}
         camera={{ fov: 38, position: [9.5, 5.6, 11.5] }}
         gl={{ antialias: true }}
-        onCreated={({ camera }) => camera.lookAt(0, 1.2, 0)}
+        onCreated={({ camera }) => {
+          camera.lookAt(0, 1.2, 0);
+          window.__cam = camera;
+        }}
       >
         <color attach="background" args={["#09090B"]} />
         <fog attach="fog" args={["#09090B", 18, 38]} />

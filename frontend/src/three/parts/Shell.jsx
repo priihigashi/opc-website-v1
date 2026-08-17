@@ -33,7 +33,7 @@ export default function Shell({ mats, reg }) {
         </mesh>
       ))}
       {/* pavilion roof slab */}
-      <mesh position={[2.5, 3.9, 0]} material={mats.shell}>
+      <mesh position={[2.6, 3.9, 0]} material={mats.shell}>
         <boxGeometry args={[7.4, 0.18, 5.4]} />
       </mesh>
     </group>

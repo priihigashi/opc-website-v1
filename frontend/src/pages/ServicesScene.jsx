@@ -226,7 +226,7 @@ export default function ServicesScene() {
   useEffect(() => {
     let on = true;
     new GLTFLoader().load(
-      "/models/residence.glb?v=4",
+      "/models/residence.glb?v=5",
       (g) => on && setModel(g.scene),
       undefined,
       () => on && setModel(null)
@@ -253,7 +253,10 @@ export default function ServicesScene() {
           dpr={[1, 1.75]}
           camera={{ fov: 36, position: [8.8, 4.8, 11] }}
           gl={{ antialias: true }}
-          onCreated={({ camera }) => camera.lookAt(0, 1.1, 0)}
+          onCreated={({ camera }) => {
+            camera.lookAt(0, 1.1, 0);
+            window.__cam = camera;
+          }}
         >
           <color attach="background" args={["#09090B"]} />
           <fog attach="fog" args={["#09090B", 18, 38]} />

@@ -50,9 +50,9 @@ export function Wall({ len, h, t = 0.25, openings = [], material, name }) {
 }
 
 // Window/slider unit: bottom-center origin, frame + glass + optional mullions.
-export function WindowUnit({ w, h, t = 0.3, glass, frame, mullions = 0, f = 0.07 }) {
+export function WindowUnit({ w, h, t = 0.3, glass, frame, mullions = 0, f = 0.07, position, rotation }) {
   return (
-    <group>
+    <group position={position} rotation={rotation}>
       <mesh position={[0, h - f / 2, 0]} material={frame}>
         <boxGeometry args={[w, f, t]} />
       </mesh>
