@@ -201,8 +201,8 @@ export default function Interior({ mats, reg }) {
         </mesh>
       </group>
 
-      <pointLight ref={reg("interiorLight")} position={[2.2, 2.9, 0.4]} color="#FFB85C" intensity={0} distance={11} />
-      <pointLight ref={reg("bathLight")} position={[-3.8, 4.8, 1.8]} color="#FFC98A" intensity={0} distance={7} />
+      <pointLight ref={reg("interiorLight")} position={[2.2, 2.9, 0.4]} color="#FFB85C" intensity={0} distance={9} />
+      <pointLight ref={reg("bathLight")} position={[-3.8, 4.8, 1.8]} color="#E9A96A" intensity={0} distance={5.5} />
     </group>
   );
 }

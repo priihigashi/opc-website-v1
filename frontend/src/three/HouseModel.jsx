@@ -260,8 +260,8 @@ export default function HouseModel() {
     mats.partWhite.opacity = inMul * (1 - cut * 0.88);
     mats.showerGlass.opacity = inMul * 0.5;
     if (r.interiorGroup) r.interiorGroup.visible = inMul > 0.004;
-    if (r.interiorLight) r.interiorLight.intensity = cut * 30;
-    if (r.bathLight) r.bathLight.intensity = cut * 12;
+    if (r.interiorLight) r.interiorLight.intensity = cut * 20;
+    if (r.bathLight) r.bathLight.intensity = cut * 5.5;
 
     // addition
     const addOn = add > 0.004;
