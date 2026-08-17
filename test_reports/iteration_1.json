@@ -1,0 +1,36 @@
+{
+  "summary": "Visual-only frontend verification for the OPC 3D residence (landing + /services). Captured screenshots at multiple scroll positions and inspected Envelope.jsx / Interior.jsx geometry. All items in /app/memory/visual_fix_checklist.md are satisfied on both the landing page and the /services GLB. No console/runtime errors on either page (only benign three.js deprecation warnings). Landing exposes window.__dbg (p, rotY, shellOp, addVis, addScale) for camera/scroll inspection.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "landing + /services (three.js)", "issues": ["Console shows benign THREE deprecation warnings: 'PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead.' and 'THREE.Clock has been deprecated. Please use THREE.Timer instead.' — not user-visible, but worth cleaning up on next pass."]}
+    ]
+  },
+  "verification_details": {
+    "front_elevation": "Two tall portrait first-floor windows (1.0 x 2.4) sit below the roof; two wider landscape (1.25 x 0.9) frosted+curtained upper windows are aligned above them — verified in Envelope.jsx L23-31 and in screenshots (services front, chapter-05 landing).",
+    "entry_stack": "Door 1.2 x 2.7 (tall pivot), canopy at y=2.88 attached without piercing wall, wood panel 1.2 x 2.66 centered at y=4.25 finishing just below Roof A at y=6.155. Screenshots show clean stack, no gap or z-fight.",
+    "roof_wall": "Roof A box at y=6.155 (h=0.14) overlaps the 5.6 wall top by ~15mm as intended; no flicker/bleaching visible in scroll sweeps (0->1 and reverse).",
+    "cutaway_ch02": "Chapter 02 (Kitchen + Bathroom Remodels) cutaway shows ground-floor living/kitchen (couch/TV/rug + island/stools), upstairs FRONT bathroom (vanity/toilet/framed glass shower), and larger REAR bedroom with bed pulled from exterior glass. Tile floor spans wall-to-wall in Interior.jsx L155.",
+    "west_left_elevation": "Two upper landscape windows at x=-1.55 and x=1.25 on the west wall (Envelope.jsx L86-93); front-adjacent one is frosted+curtain to match bathroom location.",
+    "rear_elevation": "Two centered upper landscape windows at x=-1.1 and x=1.1 on back facade of volume A (Envelope.jsx L64-70); confirmed in rear-sweep screenshots.",
+    "services_parity": "/services loads residence.glb (?v=14) and renders identical front elevation to the landing shared model (same window counts/proportions, wood panel, canopy, door). No runtime errors.",
+    "scroll_transitions": "Forward + reverse scroll sweeps (p 0->1->0) show no obvious roof/wall flashing; shell peels cleanly for the cutaway."
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Optional: swap deprecated THREE.PCFSoftShadowMap / THREE.Clock usage to current API to silence console warnings."
+  ],
+  "critical_code_review_comments": [
+    "Envelope.jsx and Interior.jsx are single-file modules ~150-200 LOC — within limits, no split needed yet.",
+    "Roof A intentionally overlaps parapet by 15mm to avoid coplanar flicker — kept as documented; no change needed.",
+    "West facade has only one frosted upper window (front-side); intentional per checklist (bathroom is front)."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a (skipped per request)", "frontend": "100%"},
+  "seed_data_creation": "none",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Landing page exposes window.__dbg = {p, rotY, shellOp, addVis, addScale}. Scroll positions: p~0 hero front, p~0.15-0.25 chapter 02 cutaway (kitchen + upstairs bath/bed), p~0.5-0.6 additions/rear rotation, p~0.85+ chapter 05 concrete+pavers front elevation. Use viewport 1920x1000 for clean elevation shots. /services page uses residence.glb?v=14. No API/backend calls involved on the landing 3D scene; enquiry POST /api/enquiries exists but is out of scope for this visual pass."
+}

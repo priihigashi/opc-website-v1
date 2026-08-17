@@ -22,6 +22,15 @@ function createMaterials() {
     m.userData.noCast = true;
     return m;
   };
+  const frosted = () => {
+    const m = new THREE.MeshPhysicalMaterial({
+      color: "#D4E2E6", transparent: true, opacity: 0.62, roughness: 0.78, metalness: 0.05, depthWrite: false,
+    });
+    m.name = "glassFrost";
+    m.userData.base = 0.62;
+    m.userData.noCast = true;
+    return m;
+  };
   return {
     shell: Object.assign(
       new THREE.MeshStandardMaterial({
@@ -40,6 +49,8 @@ function createMaterials() {
     frameSide: std("frameSide", "#1D1D20", { metalness: 0.75, roughness: 0.3 }),
     glassFront: glass("glassFront", 0.4),
     glassSide: glass("glassSide", 0.4),
+    glassFrost: frosted(),
+    curtain: std("curtain", "#E9E6DE", { roughness: 1 }),
     doorWood: std("doorWood", "#8A5A30", { roughness: 0.5 }),
     sconce: std("sconce", "#FFD9A0", { emissive: new THREE.Color("#FFB85C"), emissiveIntensity: 1.6 }),
     floorOak: std("floorOak", "#96754E", { roughness: 0.45 }),
@@ -138,7 +149,7 @@ export function buildResidence() {
   // ---- site plinth ----
   const site = new THREE.Group();
   site.name = "site";
-  box(site, mats.plinth, 14.5, 0.5, 8.5, 0.75, 0.25, 0);
+  box(site, mats.plinth, 16.7, 0.5, 8.5, 1.85, 0.25, 0);
   root.add(site);
 
   // ---- structural shell ----
@@ -166,22 +177,26 @@ export function buildResidence() {
   finFrontA.name = "finFrontA";
   finFrontA.position.set(-3.5, 0.5, 3);
   wall(finFrontA, mats.stuccoFront, 5, 5.6, 0.25, [
-    { x: 1.85, w: 1.3, y0: 0, y1: 2.5 },
-    { x: -0.7, w: 1.0, y0: 0.5, y1: 2.9 },
-    { x: -0.7, w: 1.0, y0: 3.9, y1: 5.1 },
-    { x: 0.5, w: 1.1, y0: 3.9, y1: 5.1 },
+    { x: 1.6, w: 1.3, y0: 0, y1: 2.78 },
+    { x: -1.45, w: 1.0, y0: 0.5, y1: 2.9 },
+    { x: -0.25, w: 1.0, y0: 0.5, y1: 2.9 },
+    { x: -1.5, w: 1.25, y0: 3.95, y1: 4.85 },
+    { x: -0.2, w: 1.25, y0: 3.95, y1: 4.85 },
   ]);
   const winFrontA = new THREE.Group();
   winFrontA.name = "windows";
-  windowUnit(winFrontA, mats.glassFront, mats.frameFront, 1.0, 2.4, -0.7, 0.5, 0, 1);
-  windowUnit(winFrontA, mats.glassFront, mats.frameFront, 1.0, 1.2, -0.7, 3.9, 0);
-  windowUnit(winFrontA, mats.glassFront, mats.frameFront, 1.1, 1.2, 0.5, 3.9, 0, 1);
+  windowUnit(winFrontA, mats.glassFront, mats.frameFront, 1.0, 2.4, -1.45, 0.5, 0, 1);
+  windowUnit(winFrontA, mats.glassFront, mats.frameFront, 1.0, 2.4, -0.25, 0.5, 0, 1);
+  windowUnit(winFrontA, mats.glassFrost, mats.frameFront, 1.25, 0.9, -1.5, 3.95, 0, 1);
+  windowUnit(winFrontA, mats.glassFrost, mats.frameFront, 1.25, 0.9, -0.2, 3.95, 0, 1);
+  box(winFrontA, mats.curtain, 1.08, 0.74, 0.02, -1.5, 4.4, -0.045);
+  box(winFrontA, mats.curtain, 1.08, 0.74, 0.02, -0.2, 4.4, -0.045);
   finFrontA.add(winFrontA);
-  box(finFrontA, mats.woodScreen, 1.2, 2.66, 0.1, 1.85, 4.19, 0.19);
-  box(finFrontA, mats.doorWood, 1.2, 2.42, 0.1, 1.85, 1.21, -0.02);
-  box(finFrontA, mats.frameFront, 0.045, 0.85, 0.045, 2.32, 1.25, 0.06);
-  box(finFrontA, mats.frameFront, 2.4, 0.12, 1.3, 1.85, 2.78, 0.62);
-  box(finFrontA, mats.sconce, 0.09, 0.36, 0.09, 1.05, 2.2, 0.17);
+  box(finFrontA, mats.woodScreen, 1.2, 2.66, 0.08, 1.6, 4.25, 0.18);
+  box(finFrontA, mats.doorWood, 1.2, 2.7, 0.1, 1.6, 1.35, -0.02);
+  box(finFrontA, mats.frameFront, 0.045, 0.9, 0.045, 2.07, 1.35, 0.06);
+  box(finFrontA, mats.frameFront, 1.8, 0.12, 1.3, 1.6, 2.88, 0.76);
+  box(finFrontA, mats.sconce, 0.09, 0.36, 0.09, 0.6, 2.2, 0.17);
   box(finFrontA, mats.stuccoFront, 0.25, 3.3, 0.5, 2.5, 1.65, -0.25);
   finishes.add(finFrontA);
 
@@ -190,10 +205,12 @@ export function buildResidence() {
   finBackA.position.set(-3.5, 0.5, -3);
   wall(finBackA, mats.stuccoSide, 5, 5.6, 0.25, [
     { x: -0.5, w: 1.8, y0: 0, y1: 2.4 },
-    { x: 1.7, w: 1.4, y0: 3.9, y1: 5.1 },
+    { x: -1.1, w: 1.25, y0: 3.95, y1: 4.85 },
+    { x: 1.1, w: 1.25, y0: 3.95, y1: 4.85 },
   ]);
   windowUnit(finBackA, mats.glassSide, mats.frameSide, 1.8, 2.4, -0.5, 0, 0, 1);
-  windowUnit(finBackA, mats.glassSide, mats.frameSide, 1.4, 1.2, 1.7, 3.9, 0, 1);
+  windowUnit(finBackA, mats.glassSide, mats.frameSide, 1.25, 0.9, -1.1, 3.95, 0, 1);
+  windowUnit(finBackA, mats.glassSide, mats.frameSide, 1.25, 0.9, 1.1, 3.95, 0, 1);
   box(finBackA, mats.stuccoSide, 0.25, 3.3, 0.5, 2.5, 1.65, 0.25);
   finishes.add(finBackA);
 
@@ -201,13 +218,22 @@ export function buildResidence() {
   finWestA.name = "finWestA";
   finWestA.position.set(-6, 0.5, 0);
   finWestA.rotation.y = Math.PI / 2;
-  wall(finWestA, mats.stuccoSide, 6, 5.6, 0.25, [{ x: 0.8, w: 1.2, y0: 3.9, y1: 5.1 }]);
-  windowUnit(finWestA, mats.glassSide, mats.frameSide, 1.2, 1.2, 0.8, 3.9, 0);
+  wall(finWestA, mats.stuccoSide, 6, 5.6, 0.25, [
+    { x: -1.6, w: 1.0, y0: 0.5, y1: 2.9 },
+    { x: 1.2, w: 1.0, y0: 0.5, y1: 2.9 },
+    { x: -1.55, w: 1.25, y0: 3.95, y1: 4.85 },
+    { x: 1.25, w: 1.25, y0: 3.95, y1: 4.85 },
+  ]);
+  windowUnit(finWestA, mats.glassSide, mats.frameSide, 1.0, 2.4, -1.6, 0.5, 0, 1);
+  windowUnit(finWestA, mats.glassSide, mats.frameSide, 1.0, 2.4, 1.2, 0.5, 0, 1);
+  windowUnit(finWestA, mats.glassFrost, mats.frameSide, 1.25, 0.9, -1.55, 3.95, 0, 1);
+  windowUnit(finWestA, mats.glassSide, mats.frameSide, 1.25, 0.9, 1.25, 3.95, 0, 1);
+  box(finWestA, mats.curtain, 1.08, 0.74, 0.02, -1.55, 4.4, -0.045);
   finishes.add(finWestA);
 
   const finEastA = new THREE.Group();
   finEastA.name = "finEastA";
-  box(finEastA, mats.stuccoSide, 0.25, 2.4, 6, -1.125, 4.8, 0);
+  box(finEastA, mats.stuccoSide, 0.25, 2.5, 6, -1.125, 4.85, 0);
   finishes.add(finEastA);
 
   const finFrontB = new THREE.Group();
@@ -243,19 +269,20 @@ export function buildResidence() {
   roof.name = "roof";
   const roofA = new THREE.Group();
   roofA.name = "roofA";
-  box(roofA, mats.fascia, 5.35, 0.08, 0.3, -3.5, 6.14, 3.0);
-  box(roofA, mats.fascia, 5.35, 0.08, 0.3, -3.5, 6.14, -3.0);
-  box(roofA, mats.fascia, 0.3, 0.08, 6.35, -6.1, 6.14, 0);
-  box(roofA, mats.fascia, 0.3, 0.08, 6.35, -0.9, 6.14, 0);
-  box(roofA, mats.membrane, 4.7, 0.06, 5.7, -3.5, 6.12, 0);
+  const roofSlabA = new THREE.Mesh(
+    new THREE.BoxGeometry(5.35, 0.14, 6.5),
+    [mats.fascia, mats.fascia, mats.membrane, mats.soffit, mats.fascia, mats.fascia]
+  );
+  roofSlabA.position.set(-3.5, 6.155, 0);
+  roofA.add(roofSlabA);
   roof.add(roofA);
   const roofB = new THREE.Group();
   roofB.name = "roofB";
   const roofSlabB = new THREE.Mesh(
-    new THREE.BoxGeometry(8.1, 0.16, 6.6),
+    new THREE.BoxGeometry(8.0, 0.16, 6.6),
     [mats.fascia, mats.fascia, mats.membrane, mats.soffit, mats.fascia, mats.fascia]
   );
-  roofSlabB.position.set(3.1, 3.97, 0);
+  roofSlabB.position.set(3.15, 3.97, 0);
   roofB.add(roofSlabB);
   roof.add(roofB);
   root.add(roof);
@@ -265,8 +292,12 @@ export function buildResidence() {
   interior.name = "interior";
   box(interior, mats.floorOak, 6.9, 0.06, 4.9, 2.5, 0.53, 0);
   box(interior, mats.floorOak, 4.9, 0.06, 5.9, -3.5, 0.53, 0);
-  box(interior, mats.ceilWhite, 6.9, 0.05, 4.9, 2.5, 3.78, 0);
-  box(interior, mats.ceilWhite, 4.9, 0.05, 5.9, -3.5, 3.33, 0);
+  const ceilPavilion = box(interior, mats.ceilWhite, 6.9, 0.05, 4.9, 2.5, 3.78, 0);
+  ceilPavilion.name = "ceilPavilion";
+  const ceilA = box(interior, mats.ceilWhite, 4.9, 0.05, 5.9, -3.5, 3.33, 0);
+  ceilA.name = "ceilA";
+  const ceilUpper = box(interior, mats.ceilWhite, 4.9, 0.05, 5.9, -3.5, 5.52, 0);
+  ceilUpper.name = "ceilUpper";
   [0.5, 2.5, 4.5].forEach((x) => [-1.2, 1.2].forEach((z) => cyl(interior, mats.can, 0.07, 0.07, 0.02, x, 3.755, z)));
 
   const kitchen = new THREE.Group();
@@ -290,54 +321,59 @@ export function buildResidence() {
   box(kitchen, mats.cabWood, 1.0, 0.3, 0.5, 3.9, 0.68, -0.35);
   interior.add(kitchen);
 
-  const bathroom = new THREE.Group();
-  bathroom.name = "bathroom";
-  box(bathroom, mats.tileBath, 3.4, 2.8, 0.12, -4.3, 1.9, 1.0);
-  box(bathroom, mats.partWhite, 0.12, 2.8, 0.7, -2.6, 1.9, 1.35);
-  box(bathroom, mats.partWhite, 0.12, 2.8, 0.4, -2.6, 1.9, 2.7);
-  box(bathroom, mats.partWhite, 0.12, 0.6, 0.8, -2.6, 3.0, 2.1);
-  // powder-room toilet
-  box(bathroom, mats.tubWhite, 0.42, 0.4, 0.16, -4.6, 1.12, 1.17);
-  cyl(bathroom, mats.tubWhite, 0.17, 0.14, 0.44, -4.6, 0.72, 1.5, 18);
-  cyl(bathroom, mats.tubWhite, 0.22, 0.22, 0.07, -4.6, 0.96, 1.5, 18);
-  box(bathroom, mats.vanityWood, 0.55, 0.8, 1.3, -5.5, 0.95, 1.6);
-  cyl(bathroom, mats.tubWhite, 0.19, 0.16, 0.14, -5.5, 1.42, 1.6, 20);
-  box(bathroom, mats.mirror, 0.95, 0.75, 0.03, -5.86, 2.0, 1.6, Math.PI / 2);
-  interior.add(bathroom);
+  // living room (volume A, ground floor front)
+  const living = new THREE.Group();
+  living.name = "living";
+  box(living, mats.fabric, 3.2, 0.03, 2.2, -3.8, 0.575, 1.2);
+  box(living, mats.fabric, 0.95, 0.45, 2.2, -2.3, 0.78, 1.5);
+  box(living, mats.fabric, 0.25, 0.55, 2.2, -1.85, 1.16, 1.5);
+  box(living, mats.cabWood, 0.55, 0.3, 1.1, -3.4, 0.72, 1.5);
+  box(living, mats.cabWood, 0.45, 0.5, 2.0, -5.55, 0.82, 1.5);
+  box(living, mats.tallDark, 0.06, 0.95, 1.7, -5.8, 1.75, 1.5);
+  cyl(living, mats.pendant, 0.02, 0.02, 1.5, -5.35, 1.31, -0.3, 8);
+  cyl(living, mats.pendant, 0.16, 0.22, 0.26, -5.35, 2.1, -0.3, 16);
+  const lampGlowL = new THREE.Mesh(new THREE.SphereGeometry(0.06, 10, 10), mats.can);
+  lampGlowL.position.set(-5.35, 1.95, -0.3);
+  living.add(lampGlowL);
+  interior.add(living);
 
   const bedroom = new THREE.Group();
   bedroom.name = "bedroom";
   box(bedroom, mats.floorOak, 4.9, 0.1, 5.9, -3.5, 3.6, 0);
-  box(bedroom, mats.fabric, 2.6, 0.03, 1.9, -4.0, 3.67, -1.6);
-  box(bedroom, mats.cabWood, 1.9, 0.32, 2.2, -4.4, 3.82, -1.6);
-  box(bedroom, mats.fabric, 1.8, 0.28, 2.05, -4.4, 4.12, -1.6);
-  box(bedroom, mats.cabWood, 1.9, 0.95, 0.12, -4.4, 4.1, -2.82);
-  [-4.85, -3.95].forEach((x) => box(bedroom, mats.tubWhite, 0.7, 0.16, 0.45, x, 4.33, -2.35));
-  box(bedroom, mats.cabWood, 0.5, 0.5, 0.45, -5.55, 3.9, -2.5);
-  cyl(bedroom, mats.pendant, 0.03, 0.05, 0.14, -5.55, 4.22, -2.5, 10);
+  box(bedroom, mats.fabric, 3.0, 0.03, 2.4, -3.9, 3.67, -1.25);
+  box(bedroom, mats.cabWood, 2.1, 0.32, 1.75, -4.15, 3.82, -1.45);
+  box(bedroom, mats.fabric, 1.95, 0.28, 1.6, -4.15, 4.12, -1.45);
+  box(bedroom, mats.cabWood, 0.12, 0.95, 1.85, -5.25, 4.1, -1.45);
+  [-1.85, -1.05].forEach((z) => box(bedroom, mats.tubWhite, 0.45, 0.16, 0.62, -4.88, 4.33, z));
+  box(bedroom, mats.cabWood, 0.5, 0.5, 0.45, -5.55, 3.9, -0.15);
+  cyl(bedroom, mats.pendant, 0.03, 0.05, 0.14, -5.55, 4.22, -0.15, 10);
   const lampGlow = new THREE.Mesh(new THREE.SphereGeometry(0.05, 10, 10), mats.can);
-  lampGlow.position.set(-5.55, 4.34, -2.5);
+  lampGlow.position.set(-5.55, 4.34, -0.15);
   bedroom.add(lampGlow);
   interior.add(bedroom);
 
-  // upstairs bathroom (volume A level 2 front; ceiling at 5.6)
+  // upstairs bathroom (front half; full tile floor under every fixture)
   const bathUp = new THREE.Group();
   bathUp.name = "bathroom-upstairs";
-  box(bathUp, mats.counterStone, 2.4, 0.03, 2.2, -3.6, 3.67, 1.8);
-  box(bathUp, mats.partWhite, 2.8, 1.9, 0.1, -4.6, 4.6, 0.6);
-  box(bathUp, mats.tileBath, 2.6, 1.9, 0.05, -4.4, 4.6, 2.84);
+  box(bathUp, mats.counterStone, 4.7, 0.03, 2.18, -3.5, 3.67, 1.82);
+  box(bathUp, mats.partWhite, 3.1, 1.9, 0.1, -4.35, 4.6, 0.78);
+  box(bathUp, mats.partWhite, 1.05, 1.9, 0.1, -1.63, 4.6, 0.78);
+  box(bathUp, mats.tileBath, 4.7, 1.9, 0.05, -3.5, 4.6, 2.84);
   box(bathUp, mats.vanityWood, 0.5, 0.8, 1.2, -5.5, 4.05, 2.0);
   cyl(bathUp, mats.tubWhite, 0.17, 0.15, 0.12, -5.5, 4.51, 2.0, 18);
   box(bathUp, mats.mirror, 0.85, 0.65, 0.03, -5.86, 4.9, 2.0, Math.PI / 2);
-  box(bathUp, mats.tubWhite, 0.42, 0.4, 0.16, -3.9, 4.27, 2.6);
-  cyl(bathUp, mats.tubWhite, 0.17, 0.14, 0.44, -3.9, 3.87, 2.3, 18);
-  cyl(bathUp, mats.tubWhite, 0.22, 0.22, 0.07, -3.9, 4.11, 2.3, 18);
-  box(bathUp, mats.tubWhite, 1.1, 0.07, 1.3, -1.85, 3.69, 1.9);
-  box(bathUp, mats.showerGlass, 1.1, 1.85, 0.04, -1.85, 4.62, 1.25);
-  box(bathUp, mats.showerGlass, 0.04, 1.85, 1.3, -2.42, 4.62, 1.9);
-  const arm = cyl(bathUp, mats.pendant, 0.02, 0.02, 0.4, -1.45, 5.28, 1.9, 8);
+  box(bathUp, mats.tubWhite, 0.42, 0.4, 0.16, -4.1, 4.27, 2.58);
+  cyl(bathUp, mats.tubWhite, 0.17, 0.14, 0.44, -4.1, 3.87, 2.28, 18);
+  cyl(bathUp, mats.tubWhite, 0.22, 0.22, 0.07, -4.1, 4.11, 2.28, 18);
+  box(bathUp, mats.tubWhite, 1.15, 0.07, 1.35, -1.85, 3.69, 1.88);
+  box(bathUp, mats.showerGlass, 1.15, 1.85, 0.04, -1.85, 4.62, 1.18);
+  box(bathUp, mats.showerGlass, 0.04, 1.85, 1.45, -2.45, 4.62, 1.88);
+  box(bathUp, mats.pendant, 1.22, 0.06, 0.07, -1.85, 5.53, 1.18);
+  box(bathUp, mats.pendant, 0.07, 0.06, 1.52, -2.45, 5.53, 1.88);
+  box(bathUp, mats.pendant, 0.07, 1.9, 0.07, -2.45, 4.62, 1.18);
+  const arm = cyl(bathUp, mats.pendant, 0.02, 0.02, 0.4, -1.42, 5.28, 1.88, 8);
   arm.rotation.z = Math.PI / 2;
-  cyl(bathUp, mats.pendant, 0.09, 0.09, 0.02, -1.62, 5.2, 1.9, 16);
+  cyl(bathUp, mats.pendant, 0.09, 0.09, 0.02, -1.6, 5.2, 1.88, 16);
   interior.add(bathUp);
   root.add(interior);
 
@@ -398,21 +434,21 @@ export function buildResidence() {
   box(bbq, mats.bbqSteel, 0.72, 0.42, 0.56, -0.4, 1.14, 0);
   pergola.add(bbq);
 
-  // lap pool beside the pergola (water "poolWaterMesh" fills during Ch.04)
+  // lap pool: in-ground at grade, starts at the plinth edge, clear of the slider door
   const pool = new THREE.Group();
   pool.name = "pool";
-  pool.position.set(-3.6, 0, -4.4);
-  box(pool, mats.poolDeck, 5.2, 0.12, 2.6, 0, 0.56, 0);
-  box(pool, mats.poolPlaster, 4.5, 0.06, 1.8, 0, 0.2, 0);
-  box(pool, mats.poolPlaster, 4.5, 0.45, 0.08, 0, 0.42, 0.86);
-  box(pool, mats.poolPlaster, 4.5, 0.45, 0.08, 0, 0.42, -0.86);
-  box(pool, mats.poolPlaster, 0.08, 0.45, 1.64, 2.21, 0.42, 0);
-  box(pool, mats.poolPlaster, 0.08, 0.45, 1.64, -2.21, 0.42, 0);
-  box(pool, mats.poolCoping, 4.94, 0.07, 0.22, 0, 0.645, 1.02);
-  box(pool, mats.poolCoping, 4.94, 0.07, 0.22, 0, 0.645, -1.02);
-  box(pool, mats.poolCoping, 0.22, 0.07, 2.26, 2.36, 0.645, 0);
-  box(pool, mats.poolCoping, 0.22, 0.07, 2.26, -2.36, 0.645, 0);
-  const water = box(pool, mats.poolWater, 4.34, 0.05, 1.64, 0, 0.26, 0);
+  pool.position.set(-4.6, 0, -5.75);
+  box(pool, mats.poolDeck, 5.1, 0.08, 2.45, 0, 0.04, 0);
+  box(pool, mats.poolPlaster, 4.5, 0.06, 1.8, 0, 0.06, 0);
+  box(pool, mats.poolPlaster, 4.5, 0.4, 0.08, 0, 0.26, 0.86);
+  box(pool, mats.poolPlaster, 4.5, 0.4, 0.08, 0, 0.26, -0.86);
+  box(pool, mats.poolPlaster, 0.08, 0.4, 1.64, 2.21, 0.26, 0);
+  box(pool, mats.poolPlaster, 0.08, 0.4, 1.64, -2.21, 0.26, 0);
+  box(pool, mats.poolCoping, 4.94, 0.07, 0.22, 0, 0.48, 1.02);
+  box(pool, mats.poolCoping, 4.94, 0.07, 0.22, 0, 0.48, -1.02);
+  box(pool, mats.poolCoping, 0.22, 0.07, 2.26, 2.36, 0.48, 0);
+  box(pool, mats.poolCoping, 0.22, 0.07, 2.26, -2.36, 0.48, 0);
+  const water = box(pool, mats.poolWater, 4.34, 0.05, 1.64, 0, 0.12, 0);
   water.name = "poolWaterMesh";
   pergola.add(pool);
   root.add(pergola);

@@ -1,0 +1,35 @@
+{
+  "summary": "Visual-only verification of the refinement pass for the OPC one-house scroll experience. Overrode window.__scrollStore.p via Object.defineProperty to deterministically drive the story progress p through all chapters at 1920x1000, then captured entry close-up, cutaway sweep (p=0.32,0.36,0.38,0.40,0.42,0.44), addition (0.55), backyard (0.72), concrete/pavers (0.90), and a reverse sweep. Also loaded /services (residence.glb?v=14). All three requested refinements are visually satisfied and prior regression items still hold. Only console noise is the benign THREE deprecation warnings previously recorded.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "landing + /services (three.js)", "issues": ["Console still shows benign THREE deprecation warnings (PCFSoftShadowMap, THREE.Clock) — carried over from iteration 1, not user-visible."]}
+    ]
+  },
+  "verification_details": {
+    "entry_panel_tuck": "At p~0.02 the wood-slat entry panel sits with its top flush under Roof A's slightly-extended front edge; the panel reads clearly thinner in depth than before. No visible gap between panel top and roof soffit, and no roof/panel z-fight during forward+reverse scroll through 0->0.1.",
+    "ceiling_lift_cutaway": "During Chapter 02 (p=0.32..0.44) the pavilion ceiling, ground-floor ceiling and upper ceiling all rise as three clearly separated horizontal layers well above the interior — none of them sit at window height or block the upstairs bathroom (vanity/toilet/shower) or rear bedroom or the kitchen island. Each ceiling stays just below its matching roof plane, matching HouseModel.jsx L244-246 (ceilPavilion 3.78+cut*2.62, ceilA 3.33+cut*5.62, ceilUpper 5.52+cut*3.66).",
+    "front_walls_drop_fade": "Front walls (finFrontA and finFrontB) drop farther below y=0 during the cutaway (setPos y = 0.5 - cut*5.35 and 0.5 - cut*5.0) and their front materials fade to near zero (frontMul * (1 - cut*0.985)). In captured screenshots, the pavilion glass and stucco front are effectively out of sight at p=0.36-0.42 and the interior (living room, kitchen island + stools, upstairs bath + bedroom) is fully readable and unobstructed.",
+    "regression_windows_layout": "At p=0.02 and p=0.90 the front elevation still shows the paired 1.25x0.9 frosted+curtained upper landscape windows above two 1.0x2.4 tall portrait lower windows; wood panel and taller pivot door still stacked correctly. Rear/west facades and second-floor plan (front bathroom, larger rear bedroom, wall-to-wall tile) unchanged from iteration 1 pass.",
+    "services_glb": "/services loaded residence.glb?v=14 and rendered the same front elevation as the landing model. No runtime/network errors beyond benign THREE deprecation warnings.",
+    "scroll_transitions": "Forward + reverse sweeps p 0 -> 0.9 -> 0 show clean transitions — no roof, ceiling, panel, or wall z-fighting/flashing. finRoofA rises on cut in sync with ceilings so no plane sits on top of another."
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Optional (carry-over from iteration 1): migrate deprecated THREE.PCFSoftShadowMap / THREE.Clock usage to current API to silence console warnings."
+  ],
+  "critical_code_review_comments": [
+    "HouseModel.jsx L244-246 lifts three separate ceiling refs (ceilPavilion/ceilA/ceilUpper) with the cutaway; keeps a small offset below each roof — clean separation, matches request.",
+    "Envelope.jsx L34-36 wood panel is now 1.2 x 2.66 x 0.08 (thinner in depth) and Roof A boxGeometry length is 6.5 in z, so the panel finishes visually tucked under the extended front edge without extra parametric scaling.",
+    "Front-wall drop uses cut*5.35 / cut*5.0 on Y in HouseModel.jsx L234-235 and front materials fade via frontMul * (1 - cut*0.985) — front is effectively hidden during Ch 02, matching the request.",
+    "No new files exceed 700 LOC. Envelope.jsx ~150 LOC, HouseModel.jsx ~340 LOC — still within limits but HouseModel.jsx is starting to accumulate track/opacity logic; could be split into a scroll-timeline module on a future pass."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a (skipped per request)", "frontend": "100%"},
+  "seed_data_creation": "none",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Landing exposes window.__scrollStore. To deterministically drive the scene without touching Lenis, redefine scrollStore.p via Object.defineProperty and set window.__forceP (see this iteration's playwright script). window.__dbg still exposes {p, rotY, shellOp, addVis, addScale}. Chapter 02 cutaway peaks around p=0.36-0.42; front walls drop and materials fade there. Ceilings are three separate refs: r.ceilPavilion / r.ceilA / r.ceilUpper (HouseModel.jsx L244-246). /services still uses residence.glb?v=14."
+}

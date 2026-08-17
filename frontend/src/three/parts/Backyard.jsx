@@ -36,39 +36,40 @@ export default function Backyard({ mats, reg }) {
           <boxGeometry args={[0.72, 0.42, 0.56]} />
         </mesh>
       </group>
-      {/* lap pool: deck, basin, coping, water fills with the chapter */}
-      <group name="pool" position={[-3.6, 0, -4.4]}>
-        <mesh position={[0, 0.56, 0]} material={mats.poolDeck}>
-          <boxGeometry args={[5.2, 0.12, 2.6]} />
+      {/* lap pool: in-ground at grade, starts at the plinth edge, clear of the slider door;
+          basin + coping first, water fills while the pergola rises */}
+      <group name="pool" position={[-4.6, 0, -5.75]}>
+        <mesh position={[0, 0.04, 0]} material={mats.poolDeck}>
+          <boxGeometry args={[5.1, 0.08, 2.45]} />
         </mesh>
-        <mesh position={[0, 0.2, 0]} material={mats.poolPlaster}>
+        <mesh position={[0, 0.06, 0]} material={mats.poolPlaster}>
           <boxGeometry args={[4.5, 0.06, 1.8]} />
         </mesh>
-        <mesh position={[0, 0.42, 0.86]} material={mats.poolPlaster}>
-          <boxGeometry args={[4.5, 0.45, 0.08]} />
+        <mesh position={[0, 0.26, 0.86]} material={mats.poolPlaster}>
+          <boxGeometry args={[4.5, 0.4, 0.08]} />
         </mesh>
-        <mesh position={[0, 0.42, -0.86]} material={mats.poolPlaster}>
-          <boxGeometry args={[4.5, 0.45, 0.08]} />
+        <mesh position={[0, 0.26, -0.86]} material={mats.poolPlaster}>
+          <boxGeometry args={[4.5, 0.4, 0.08]} />
         </mesh>
-        <mesh position={[2.21, 0.42, 0]} material={mats.poolPlaster}>
-          <boxGeometry args={[0.08, 0.45, 1.64]} />
+        <mesh position={[2.21, 0.26, 0]} material={mats.poolPlaster}>
+          <boxGeometry args={[0.08, 0.4, 1.64]} />
         </mesh>
-        <mesh position={[-2.21, 0.42, 0]} material={mats.poolPlaster}>
-          <boxGeometry args={[0.08, 0.45, 1.64]} />
+        <mesh position={[-2.21, 0.26, 0]} material={mats.poolPlaster}>
+          <boxGeometry args={[0.08, 0.4, 1.64]} />
         </mesh>
-        <mesh position={[0, 0.645, 1.02]} material={mats.poolCoping}>
+        <mesh position={[0, 0.48, 1.02]} material={mats.poolCoping}>
           <boxGeometry args={[4.94, 0.07, 0.22]} />
         </mesh>
-        <mesh position={[0, 0.645, -1.02]} material={mats.poolCoping}>
+        <mesh position={[0, 0.48, -1.02]} material={mats.poolCoping}>
           <boxGeometry args={[4.94, 0.07, 0.22]} />
         </mesh>
-        <mesh position={[2.36, 0.645, 0]} material={mats.poolCoping}>
+        <mesh position={[2.36, 0.48, 0]} material={mats.poolCoping}>
           <boxGeometry args={[0.22, 0.07, 2.26]} />
         </mesh>
-        <mesh position={[-2.36, 0.645, 0]} material={mats.poolCoping}>
+        <mesh position={[-2.36, 0.48, 0]} material={mats.poolCoping}>
           <boxGeometry args={[0.22, 0.07, 2.26]} />
         </mesh>
-        <mesh ref={reg("poolWater")} position={[0, 0.26, 0]} material={mats.poolWater}>
+        <mesh ref={reg("poolWater")} position={[0, 0.12, 0]} material={mats.poolWater}>
           <boxGeometry args={[4.34, 0.05, 1.64]} />
         </mesh>
       </group>

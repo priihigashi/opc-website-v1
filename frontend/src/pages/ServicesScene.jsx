@@ -37,7 +37,7 @@ function ResidenceGLB({ model }) {
       }
     });
     ["site", "shell", "finFrontA", "finFrontB", "finBackA", "finBackB", "finWestA", "finEastA", "finEastB",
-      "roofA", "roofB", "interior", "kitchen", "bathroom", "bedroom", "addition", "patio",
+      "roofA", "roofB", "interior", "ceilPavilion", "ceilA", "ceilUpper", "kitchen", "bathroom", "bathroom-upstairs", "bedroom", "addition", "patio",
       "pergolaPosts", "pergolaRoof", "bbq", "driveway-pavers", "pool", "poolWaterMesh"].forEach((n) => {
       const node = model.getObjectByName(n);
       if (node) nodes.current[n] = node;
@@ -91,7 +91,7 @@ function ResidenceGLB({ model }) {
     const rotTarget = (svc ? svc.rot : 0.3) + idle;
     root.current.rotation.y = THREE.MathUtils.damp(root.current.rotation.y, rotTarget, 3.2, dt);
 
-    const frontMul = Math.max(0, (1 - peel * 0.85) * (1 - cut * 0.94) * (1 - dip * 0.88) * finBuild);
+    const frontMul = Math.max(0, (1 - peel * 0.85) * (1 - cut * 0.985) * (1 - dip * 0.88) * finBuild);
     const sideMul = Math.max(0, (1 - peel * 0.85) * (1 - cut * 0.4) * (1 - dip * 0.88) * finBuild);
     const roofMul = Math.max(0, (1 - peel * 0.8) * (1 - cut * 0.85) * (1 - dip * 0.88) * finBuild);
     const setOp = (name, v) => {
@@ -104,6 +104,8 @@ function ResidenceGLB({ model }) {
     setOp("sconce", frontMul);
     setOp("frameFront", frontMul);
     setOp("glassFront", frontMul * 0.4);
+    setOp("glassFrost", frontMul * 0.62);
+    setOp("curtain", frontMul * 0.92);
     setOp("stuccoSide", sideMul);
     setOp("frameSide", sideMul);
     setOp("glassSide", sideMul * 0.4);
@@ -111,9 +113,9 @@ function ResidenceGLB({ model }) {
     setOp("membrane", roofMul);
     setOp("soffit", roofMul);
 
-    N.finFrontA.position.y = 0.5 - cut * 4.7;
+    N.finFrontA.position.y = 0.5 - cut * 5.35;
     N.finFrontA.position.z = 3 + peel * 1.2;
-    N.finFrontB.position.y = 0.5 - cut * 4.5;
+    N.finFrontB.position.y = 0.5 - cut * 5.0;
     N.finFrontB.position.z = 2.5 + peel * 1.2;
     N.finBackA.position.z = -3 - peel * 1.2;
     N.finBackB.position.z = -2.5 - peel * 1.2;
@@ -122,6 +124,9 @@ function ResidenceGLB({ model }) {
     N.finEastB.position.x = 6 + peel * 1.2;
     N.roofA.position.y = peel * 1.5 + cut * 3.1;
     N.roofB.position.y = peel * 1.2 + cut * 2.6;
+    if (N.ceilPavilion) N.ceilPavilion.position.y = 3.78 + cut * 2.62;
+    if (N.ceilA) N.ceilA.position.y = 3.33 + cut * 5.62;
+    if (N.ceilUpper) N.ceilUpper.position.y = 5.52 + cut * 3.66;
 
     const shellOp = Math.max(peel, dip * 0.9, shellBuild);
     N.shell.visible = shellOp > 0.004;
@@ -163,11 +168,11 @@ function ResidenceGLB({ model }) {
     setOp("patioEdge", out);
     setOp("bbqSteel", out);
     setOp("bbqTop", out);
-    setOp("poolDeck", seg(out, 0, 0.4));
-    setOp("poolCoping", seg(out, 0.1, 0.5));
-    setOp("poolPlaster", seg(out, 0.1, 0.5));
-    setOp("poolWater", seg(out, 0.35, 0.95) * 0.8);
-    if (N.poolWaterMesh) N.poolWaterMesh.position.y = 0.26 + seg(out, 0.35, 0.95) * 0.3;
+    setOp("poolDeck", seg(out, 0, 0.3));
+    setOp("poolCoping", seg(out, 0.05, 0.35));
+    setOp("poolPlaster", seg(out, 0, 0.3));
+    setOp("poolWater", seg(out, 0.25, 0.85) * 0.85);
+    if (N.poolWaterMesh) N.poolWaterMesh.position.y = 0.12 + seg(out, 0.25, 0.85) * 0.3;
 
     // bathroom partitions fade during the cutaway
     setOp("tileBath", 1 - cut * 0.88);
@@ -236,7 +241,7 @@ export default function ServicesScene() {
   useEffect(() => {
     let on = true;
     new GLTFLoader().load(
-      "/models/residence.glb?v=11",
+      "/models/residence.glb?v=14",
       (g) => on && setModel(g.scene),
       undefined,
       () => on && setModel(null)

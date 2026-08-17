@@ -82,6 +82,20 @@ export default function HouseModel() {
       m.userData.base = base;
       return m;
     };
+    const frosted = () => {
+      const m = new THREE.MeshPhysicalMaterial({
+        color: "#D4E2E6",
+        transparent: true,
+        opacity: 0,
+        roughness: 0.78,
+        metalness: 0.05,
+        envMapIntensity: 0.7,
+        depthWrite: false,
+      });
+      m.userData.noCast = true;
+      m.userData.base = 0.62;
+      return m;
+    };
     return {
       shell: new THREE.MeshStandardMaterial({
         color: "#5A8FD0",
@@ -104,6 +118,8 @@ export default function HouseModel() {
       frameSide: std("#1D1D20", { metalness: 0.7, roughness: 0.35 }),
       glassFront: glass(0.45),
       glassSide: glass(0.45),
+      glassFrost: frosted(),
+      curtain: std("#E9E6DE", { roughness: 1 }),
       doorWood: std("#8A5A30", { map: tex.slatV, roughness: 0.55 }),
       sconce: std("#FFD9A0", { emissive: new THREE.Color("#FFB85C"), emissiveIntensity: 1.6 }),
       floorOak: std("#9C7A52", { map: tex.oak, roughness: 0.5 }),
@@ -194,7 +210,7 @@ export default function HouseModel() {
     if (r.shellGroup) r.shellGroup.visible = shellOp > 0.004;
 
     // exterior finishes
-    const frontMul = solid * (1 - shell * 0.85) * (1 - cut * 0.94);
+    const frontMul = solid * (1 - shell * 0.85) * (1 - cut * 0.985);
     const sideMul = solid * (1 - shell * 0.85) * (1 - cut * 0.4);
     const roofMul = solid * (1 - shell * 0.8) * (1 - cut * 0.85);
     mats.stuccoFront.opacity = frontMul;
@@ -203,6 +219,8 @@ export default function HouseModel() {
     mats.sconce.opacity = frontMul;
     mats.frameFront.opacity = frontMul;
     mats.glassFront.opacity = frontMul * mats.glassFront.userData.base;
+    mats.glassFrost.opacity = frontMul * mats.glassFrost.userData.base;
+    mats.curtain.opacity = frontMul * 0.92;
     mats.stuccoSide.opacity = sideMul;
     mats.frameSide.opacity = sideMul;
     mats.glassSide.opacity = sideMul * mats.glassSide.userData.base;
@@ -213,8 +231,8 @@ export default function HouseModel() {
     const setPos = (k, x, y, z) => {
       if (r[k]) r[k].position.set(x, y, z);
     };
-    setPos("finFrontA", -3.5, 0.5 - cut * 4.7, 3 + shell * 1.2);
-    setPos("finFrontB", 0, 0.5 - cut * 4.5, 2.5 + shell * 1.2);
+    setPos("finFrontA", -3.5, 0.5 - cut * 5.35, 3 + shell * 1.2);
+    setPos("finFrontB", 0, 0.5 - cut * 5.0, 2.5 + shell * 1.2);
     setPos("finBackA", -3.5, 0.5, -3 - shell * 1.2);
     setPos("finBackB", 0, 0.5, -2.5 - shell * 1.2);
     setPos("finWestA", -6 - shell * 1.2, 0.5, 0);
@@ -222,6 +240,10 @@ export default function HouseModel() {
     setPos("finEastB", 6 + shell * 1.2, 0.5, 0);
     setPos("finRoofA", 0, shell * 1.6 + cut * 3.4, 0);
     setPos("finRoofB", 0, shell * 1.3 + cut * 2.8, 0);
+    // ceilings rise as separated layers during the cutaway, staying just below their roof planes
+    if (r.ceilPavilion) r.ceilPavilion.position.y = 3.78 + cut * 2.62;
+    if (r.ceilA) r.ceilA.position.y = 3.33 + cut * 5.62;
+    if (r.ceilUpper) r.ceilUpper.position.y = 5.52 + cut * 3.66;
 
     // interior
     const inMul = Math.max(cut, seg(solid, 0.7, 1));
@@ -232,7 +254,7 @@ export default function HouseModel() {
     // bathroom partitions fade away during the cutaway
     mats.tileBath.opacity = inMul * (1 - cut * 0.88);
     mats.partWhite.opacity = inMul * (1 - cut * 0.88);
-    mats.showerGlass.opacity = inMul * 0.32;
+    mats.showerGlass.opacity = inMul * 0.5;
     if (r.interiorGroup) r.interiorGroup.visible = inMul > 0.004;
     if (r.interiorLight) r.interiorLight.intensity = cut * 30;
     if (r.bathLight) r.bathLight.intensity = cut * 12;
@@ -275,12 +297,12 @@ export default function HouseModel() {
     mats.patioEdge.opacity = out;
     mats.bbqSteel.opacity = out;
     mats.bbqTop.opacity = out;
-    // lap pool: deck and basin first, then the water fills
-    mats.poolDeck.opacity = seg(out, 0, 0.4);
-    mats.poolCoping.opacity = seg(out, 0.1, 0.5);
-    mats.poolPlaster.opacity = seg(out, 0.1, 0.5);
-    mats.poolWater.opacity = seg(out, 0.35, 0.95) * 0.8;
-    if (r.poolWater) r.poolWater.position.y = 0.26 + seg(out, 0.35, 0.95) * 0.3;
+    // lap pool: basin + coping first, water fills while the pergola rises
+    mats.poolDeck.opacity = seg(out, 0, 0.3);
+    mats.poolCoping.opacity = seg(out, 0.05, 0.35);
+    mats.poolPlaster.opacity = seg(out, 0, 0.3);
+    mats.poolWater.opacity = seg(out, 0.25, 0.85) * 0.85;
+    if (r.poolWater) r.poolWater.position.y = 0.12 + seg(out, 0.25, 0.85) * 0.3;
 
     // driveway
     const concOn = conc > 0.004;
@@ -306,8 +328,8 @@ export default function HouseModel() {
       </mesh>
       <gridHelper args={[64, 64, "#26262B", "#141417"]} position={[0, -0.01, 0]} />
       <group scale={0.62}>
-        <mesh position={[0.75, 0.25, 0]} material={mats.plinth}>
-          <boxGeometry args={[14.5, 0.5, 8.5]} />
+        <mesh position={[1.85, 0.25, 0]} material={mats.plinth}>
+          <boxGeometry args={[16.7, 0.5, 8.5]} />
         </mesh>
         <Shell mats={mats} reg={reg} />
         <Envelope mats={mats} reg={reg} />
