@@ -151,6 +151,7 @@ export default function HouseModel() {
 
     const g = r.root;
     if (!g) return;
+    window.__dbg = { p, rotY: g.rotation.y, shellOp: mats.shell.opacity, addVis: !!r.additionGroup && r.additionGroup.visible, addScale: r.additionGroup ? r.additionGroup.scale.x : -1 };
     g.rotation.y = THREE.MathUtils.damp(g.rotation.y, track(p, ROT), 5, dt);
     g.position.x = THREE.MathUtils.damp(g.position.x, track(p, POSX), 5, dt);
     g.position.y = THREE.MathUtils.damp(g.position.y, track(p, POSY), 5, dt);
