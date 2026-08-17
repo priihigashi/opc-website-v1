@@ -5,7 +5,7 @@ export default function Footer() {
         <div className="grid grid-cols-12 gap-y-10 border-b border-white/10 pb-16">
           <div className="col-span-12 md:col-span-5">
             <p className="font-mono text-sm font-bold uppercase tracking-[0.25em] text-[#FAFAFA]">
-              Oak Park<span className="text-[#F5A623]">&nbsp;Co.</span>
+              Oak Park<span className="text-[#CBCC10]">&nbsp;Co.</span>
             </p>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-[#A1A1AA]">
               General contractors for the whole life of a home — shell construction,

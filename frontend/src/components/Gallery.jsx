@@ -36,7 +36,7 @@ export default function Gallery() {
           className="flex flex-wrap items-end justify-between gap-6"
         >
           <div>
-            <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#F5A623]">Selected Work</p>
+            <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#CBCC10]">Selected Work</p>
             <h2 className="mt-5 font-head text-4xl font-bold tracking-tight text-[#FAFAFA] sm:text-5xl">
               Proof, not promises.
             </h2>
@@ -67,7 +67,7 @@ export default function Gallery() {
               </div>
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#09090B]/85 via-transparent to-transparent" />
               <figcaption className="absolute bottom-0 left-0 p-6">
-                <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#F5A623]">{w.tag}</p>
+                <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#CBCC10]">{w.tag}</p>
                 <p className="mt-1 font-head text-xl font-bold text-[#FAFAFA]">{w.title}</p>
               </figcaption>
             </motion.figure>

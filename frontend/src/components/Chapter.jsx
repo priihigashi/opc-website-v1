@@ -32,11 +32,11 @@ export function Chapter({ id, num, side = "left", overline, title, body, bullets
               <span
                 data-testid={`${id}-number`}
                 className="font-mono text-6xl font-bold text-transparent md:text-7xl"
-                style={{ WebkitTextStroke: "1px rgba(245,166,35,0.7)" }}
+                style={{ WebkitTextStroke: "1px rgba(203,204,16,0.7)" }}
               >
                 {num}
               </span>
-              <span className="font-mono text-xs uppercase tracking-[0.3em] text-[#F5A623]">
+              <span className="font-mono text-xs uppercase tracking-[0.3em] text-[#CBCC10]">
                 {overline}
               </span>
             </motion.div>
@@ -56,7 +56,7 @@ export function Chapter({ id, num, side = "left", overline, title, body, bullets
           <motion.ul variants={fade} className="mt-8 space-y-3 border-t border-white/10 pt-6">
             {bullets.map((b, i) => (
               <li key={i} data-testid={`${id}-bullet-${i}`} className="flex items-center gap-3 text-sm text-[#FAFAFA]">
-                <span className="h-px w-6 bg-[#F5A623]" />
+                <span className="h-px w-6 bg-[#CBCC10]" />
                 {b}
               </li>
             ))}

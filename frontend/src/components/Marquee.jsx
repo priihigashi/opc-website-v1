@@ -12,7 +12,7 @@ export default function Marquee() {
                 <span className="font-head text-2xl font-bold uppercase tracking-tight text-[#FAFAFA]/80">
                   {t}
                 </span>
-                <span className="h-2 w-2 rotate-45 bg-[#F5A623]" />
+                <span className="h-2 w-2 rotate-45 bg-[#CBCC10]" />
               </span>
             ))}
           </div>

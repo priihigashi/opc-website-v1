@@ -27,7 +27,7 @@ export default function Nav() {
           onClick={(e) => go(e, "#top")}
           className="font-mono text-sm font-bold uppercase tracking-[0.25em] text-[#FAFAFA]"
         >
-          Oak Park<span className="text-[#F5A623]">&nbsp;Co.</span>
+          Oak Park<span className="text-[#CBCC10]">&nbsp;Co.</span>
         </a>
         <nav className="hidden items-center gap-8 md:flex">
           {links.map((l) => (
@@ -46,7 +46,7 @@ export default function Nav() {
           href="#contact"
           data-testid="nav-cta"
           onClick={(e) => go(e, "#contact")}
-          className="border border-[#F5A623] px-4 py-2 font-mono text-xs uppercase tracking-[0.2em] text-[#F5A623] transition-colors duration-300 hover:bg-[#F5A623] hover:text-[#09090B]"
+          className="border border-[#CBCC10] px-4 py-2 font-mono text-xs uppercase tracking-[0.2em] text-[#CBCC10] transition-colors duration-300 hover:bg-[#CBCC10] hover:text-[#09090B]"
         >
           Start a project
         </a>

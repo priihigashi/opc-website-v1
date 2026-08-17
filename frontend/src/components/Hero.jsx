@@ -23,7 +23,7 @@ export default function Hero() {
           <motion.p
             variants={lineUp}
             data-testid="hero-overline"
-            className="font-mono text-xs uppercase tracking-[0.3em] text-[#F5A623]"
+            className="font-mono text-xs uppercase tracking-[0.3em] text-[#CBCC10]"
           >
             Oak Park Construction — General Contractors, Est. 1998
           </motion.p>
@@ -54,7 +54,7 @@ export default function Hero() {
           <a
             href="#ch-01"
             data-testid="hero-cta-scroll"
-            className="bg-[#F5A623] px-6 py-3 font-mono text-xs uppercase tracking-[0.2em] text-[#09090B] transition-colors duration-300 hover:bg-[#E09313]"
+            className="bg-[#CBCC10] px-6 py-3 font-mono text-xs uppercase tracking-[0.2em] text-[#09090B] transition-colors duration-300 hover:bg-[#B5B60D]"
           >
             Watch it build
           </a>

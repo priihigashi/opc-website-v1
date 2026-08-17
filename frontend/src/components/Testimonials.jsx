@@ -23,7 +23,7 @@ export default function Testimonials() {
   return (
     <section data-testid="testimonials" className="relative border-b border-white/10 bg-[#0C0C0E]">
       <div className="mx-auto max-w-7xl px-6 py-28 md:px-10">
-        <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#F5A623]">Word on the Street</p>
+        <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#CBCC10]">Word on the Street</p>
         <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
           {quotes.map((q, i) => (
             <motion.blockquote
@@ -33,10 +33,10 @@ export default function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-10%" }}
               transition={{ duration: 0.8, delay: i * 0.12, ease: "easeOut" }}
-              className="flex flex-col justify-between border border-white/10 bg-[#121214] p-8 transition-colors duration-300 hover:border-[#F5A623]/40"
+              className="flex flex-col justify-between border border-white/10 bg-[#121214] p-8 transition-colors duration-300 hover:border-[#CBCC10]/40"
             >
               <div>
-                <Quote className="h-5 w-5 text-[#F5A623]" strokeWidth={1.5} />
+                <Quote className="h-5 w-5 text-[#CBCC10]" strokeWidth={1.5} />
                 <p className="mt-6 text-base leading-relaxed text-[#FAFAFA]">“{q.text}”</p>
               </div>
               <footer className="mt-8 border-t border-white/10 pt-5">

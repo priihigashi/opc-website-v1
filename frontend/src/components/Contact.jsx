@@ -7,7 +7,7 @@ const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 const services = ["Shell Construction", "Kitchen + Bath Remodel", "Addition", "Outdoor Living", "Concrete + Pavers", "Something else"];
 
 const inputCls =
-  "w-full border border-white/10 bg-[#121214] px-4 py-3 text-sm text-[#FAFAFA] placeholder-[#A1A1AA]/60 outline-none transition-colors duration-300 focus:border-[#F5A623]";
+  "w-full border border-white/10 bg-[#121214] px-4 py-3 text-sm text-[#FAFAFA] placeholder-[#A1A1AA]/60 outline-none transition-colors duration-300 focus:border-[#CBCC10]";
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", service: services[0], message: "" });
@@ -44,7 +44,7 @@ export default function Contact() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="col-span-12 md:col-span-5"
         >
-          <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#F5A623]">Start Your Project</p>
+          <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#CBCC10]">Start Your Project</p>
           <h2 className="mt-5 font-head text-4xl font-bold leading-[1.05] tracking-tight text-[#FAFAFA] sm:text-5xl">
             Your house is the next one on the screen.
           </h2>
@@ -81,7 +81,7 @@ export default function Contact() {
             type="submit"
             data-testid="contact-submit"
             disabled={sending}
-            className="col-span-2 flex items-center justify-center gap-3 bg-[#F5A623] px-6 py-4 font-mono text-xs uppercase tracking-[0.25em] text-[#09090B] transition-colors duration-300 hover:bg-[#E09313] disabled:opacity-60"
+            className="col-span-2 flex items-center justify-center gap-3 bg-[#CBCC10] px-6 py-4 font-mono text-xs uppercase tracking-[0.25em] text-[#09090B] transition-colors duration-300 hover:bg-[#B5B60D] disabled:opacity-60"
           >
             {sending ? <Loader2 className="h-4 w-4 animate-spin" /> : <ArrowRight className="h-4 w-4" />}
             {sending ? "Sending…" : "Send enquiry"}

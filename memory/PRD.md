@@ -30,6 +30,15 @@ The same 3D house is the main character of almost the entire upper website and n
 - Enquiry API + owner email notification (verified emailed: true) + admin list endpoint (401 without key)
 - prefers-reduced-motion fallback, noise overlay, spotlight radial behind model
 
+## v2 (2026-08-17) — production residence + OPC lime brand
+- REPLACED the primitive box proxy with a detailed contemporary South Florida residence: two-storey stucco block + glass pavilion massing, real window/door openings (wall segments around voids), recessed pivot entry with canopy + sconce, wood-slat screens, parapet + floating roof planes with bronze fascia/wood soffit/membrane, sliding glass walls, full interior (kitchen: tall units, island, pendants, stools, lounge; bathroom: tile accent, freestanding tub, vanity, mirror, partitions), oak floors, recessed cans, warm interior lights
+- Named groups for scroll choreography: shell, exterior-finishes, roof-a/roof-b, windows, kitchen, bathroom, addition, pergola, driveway-pavers (src/three/parts/*)
+- Rendering: PBR canvas textures (stucco/wood/oak/tile/pavers/concrete), PCF shadow-mapped key light, N8AO ambient occlusion, ContactShadows, local HDR environment (/public/hdr/city_1k.hdr) for glass reflections
+- Same driver: identical scroll tracks/pulses as v1; blueprint phase = shell wireframe, Ch.01 shell = lime structural frame with finishes peel, cutaway/addition/pergola/driveway states preserved
+- Brand accent changed from amber #F5A623 to OPC lime #CBCC10 (hover #B5B60D) across UI, email template, and 3D shell state
+- v1 primitive proxy backed up: /app/memory/backups/opc-v1-primitives-20260817.tgz + HouseModel.v1.primitives.jsx
+- Decision: no monolithic GLB import — the continuity choreography (peel/cutaway/grow/build) requires separately addressable groups, which a single GLB cannot provide
+
 ## Verified
 - curl: POST /api/enquiries (emailed: true, stored), GET /api/enquiries with/without admin key
 - Screenshots: hero, shell skeleton, kitchen cutaway, addition growth, backyard pergola, driveway pavers, gallery, contact; form submit -> success toast -> enquiry stored

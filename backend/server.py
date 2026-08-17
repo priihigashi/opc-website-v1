@@ -213,7 +213,7 @@ async def create_enquiry(input: EnquiryCreate, request: Request):
     html = (
         '<table role="presentation" width="100%" cellpadding="0" cellspacing="0">'
         '<tr><td style="padding:28px;font-family:Arial,sans-serif;background:#0b0b0d;color:#fafafa">'
-        f'<p style="font-size:12px;letter-spacing:2px;color:#F5A623;text-transform:uppercase">{escape(EMAIL_FROM_NAME)}</p>'
+        f'<p style="font-size:12px;letter-spacing:2px;color:#CBCC10;text-transform:uppercase">{escape(EMAIL_FROM_NAME)}</p>'
         f'<h1 style="font-size:20px;margin:8px 0 20px">New project enquiry</h1>'
         f'<p style="margin:4px 0"><strong>Name:</strong> {escape(enquiry.name)}</p>'
         f'<p style="margin:4px 0"><strong>Email:</strong> {escape(str(enquiry.email))}</p>'

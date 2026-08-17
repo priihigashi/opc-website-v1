@@ -17,7 +17,7 @@ export default function About() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="col-span-12 md:col-span-6"
         >
-          <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#F5A623]">The Manifesto</p>
+          <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#CBCC10]">The Manifesto</p>
           <h2 className="mt-5 font-head text-4xl font-bold leading-[1.05] tracking-tight text-[#FAFAFA] sm:text-5xl">
             A home is not a project. It is a continuous act of care.
           </h2>
@@ -39,7 +39,7 @@ export default function About() {
           <div className="mt-12 grid grid-cols-3 gap-6 border-t border-white/10 pt-8">
             {stats.map((s, i) => (
               <div key={i} data-testid={`about-stat-${i}`}>
-                <p className="font-head text-4xl font-bold text-[#F5A623] md:text-5xl">{s.value}</p>
+                <p className="font-head text-4xl font-bold text-[#CBCC10] md:text-5xl">{s.value}</p>
                 <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.18em] text-[#A1A1AA]">{s.label}</p>
               </div>
             ))}

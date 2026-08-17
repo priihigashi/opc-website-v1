@@ -68,7 +68,7 @@ export default function Story({ storyRef }) {
           transition={{ duration: 0.9, ease: "easeOut" }}
           className="pointer-events-auto px-6 text-center"
         >
-          <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#F5A623]">One model. One crew.</p>
+          <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#CBCC10]">One model. One crew.</p>
           <p className="mt-4 font-head text-4xl font-bold tracking-tight text-[#FAFAFA] sm:text-5xl">
             Same house. Every trade.
           </p>
