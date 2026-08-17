@@ -46,5 +46,5 @@ The same 3D house is the main character of almost the entire upper website and n
 ## Backlog
 - P0: Replace OWNER_EMAIL (delivered@resend.dev test placeholder) with the owner's real inbox
 - P1: Real project photography (current gallery = curated Unsplash), real phone/address/license copy
-- P1: Mobile-specific house staging (smaller shifts) — currently desktop-tuned
+- DONE: Mobile/iPad staging (house scales 0.56/0.82, shifts damped, raised above compact glass chapter cards); hero now rests almost-front (0.18 rad); Ch.02 upstairs furnished (bedroom) + walls drop deeper; Ch.03 addition starts at p=0.43 with casita window, angle -1.38; gallery heading in OPC lime
 - P2: Admin page for viewing enquiries in-app; chapter progress indicator; SEO/meta + OG image

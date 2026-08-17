@@ -13,10 +13,11 @@ export default function Addition({ mats, reg }) {
       <mesh position={[1.7, 2.05, -1.2]} material={mats.addStucco}>
         <boxGeometry args={[3.4, 3.1, 0.25]} />
       </mesh>
-      {/* east wall + wood screen */}
-      <mesh position={[3.275, 2.05, 0.7]} material={mats.addStucco}>
-        <boxGeometry args={[0.25, 3.1, 3.55]} />
-      </mesh>
+      {/* east wall with window + wood screen */}
+      <group position={[3.275, 0.5, 0.7]} rotation={[0, Math.PI / 2, 0]}>
+        <Wall len={3.55} h={3.1} material={mats.addStucco} openings={[{ x: 0.7, w: 1.1, y0: 0.7, y1: 2.6 }]} />
+        <WindowUnit w={1.1} h={1.9} position={[0.7, 0.7, 0]} glass={mats.addGlass} frame={mats.addFrame} />
+      </group>
       <mesh position={[3.43, 1.9, 1.6]} material={mats.addWood}>
         <boxGeometry args={[0.08, 2.2, 1.3]} />
       </mesh>

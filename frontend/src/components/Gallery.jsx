@@ -37,7 +37,7 @@ export default function Gallery() {
         >
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#CBCC10]">Selected Work</p>
-            <h2 className="mt-5 font-head text-4xl font-bold tracking-tight text-[#FAFAFA] sm:text-5xl">
+            <h2 className="mt-5 font-head text-4xl font-bold tracking-tight text-[#CBCC10] sm:text-5xl">
               Proof, not promises.
             </h2>
           </div>

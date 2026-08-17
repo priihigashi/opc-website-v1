@@ -104,6 +104,39 @@ export default function Interior({ mats, reg }) {
         </mesh>
       </group>
 
+      {/* ---- upstairs bedroom (volume A, level 2 — visible in the cutaway) ---- */}
+      <group name="bedroom">
+        <mesh position={[-3.5, 3.6, 0]} material={mats.floorOak}>
+          <boxGeometry args={[4.9, 0.1, 5.9]} />
+        </mesh>
+        <mesh position={[-4.0, 3.67, 1.7]} material={mats.fabric}>
+          <boxGeometry args={[2.6, 0.03, 1.9]} />
+        </mesh>
+        <mesh position={[-4.4, 3.82, 1.7]} material={mats.cabWood}>
+          <boxGeometry args={[1.9, 0.32, 2.2]} />
+        </mesh>
+        <mesh position={[-4.4, 4.12, 1.7]} material={mats.fabric}>
+          <boxGeometry args={[1.8, 0.28, 2.05]} />
+        </mesh>
+        <mesh position={[-4.4, 4.1, 0.55]} material={mats.cabWood}>
+          <boxGeometry args={[1.9, 0.95, 0.12]} />
+        </mesh>
+        {[-4.85, -3.95].map((x, i) => (
+          <mesh key={`pillow-${i}`} position={[x, 4.33, 0.95]} material={mats.tubWhite}>
+            <boxGeometry args={[0.7, 0.16, 0.45]} />
+          </mesh>
+        ))}
+        <mesh position={[-5.55, 3.9, 0.8]} material={mats.cabWood}>
+          <boxGeometry args={[0.5, 0.5, 0.45]} />
+        </mesh>
+        <mesh position={[-5.55, 4.22, 0.8]} material={mats.pendant}>
+          <cylinderGeometry args={[0.03, 0.05, 0.14, 10]} />
+        </mesh>
+        <mesh position={[-5.55, 4.34, 0.8]} material={mats.can}>
+          <sphereGeometry args={[0.05, 10, 10]} />
+        </mesh>
+      </group>
+
       <pointLight ref={reg("interiorLight")} position={[2.2, 2.9, 0.4]} color="#FFB85C" intensity={0} distance={11} />
       <pointLight ref={reg("bathLight")} position={[-4.3, 2.6, 2.0]} color="#FFC98A" intensity={0} distance={7} />
     </group>

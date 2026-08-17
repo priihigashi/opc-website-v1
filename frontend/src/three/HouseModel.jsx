@@ -29,7 +29,7 @@ const track = (p, keys) => {
   return keys[keys.length - 1][1];
 };
 
-const ROT = [[0, -0.5], [0.07, 0.35], [0.1, 0.35], [0.19, 0.85], [0.26, 0.85], [0.33, 0.02], [0.4, 0.02], [0.5, -1.15], [0.56, -1.15], [0.66, -3.05], [0.72, -3.05], [0.845, -5.9], [0.9, -5.9], [1, -5.93]];
+const ROT = [[0, -0.35], [0.07, 0.18], [0.1, 0.18], [0.19, 0.85], [0.26, 0.85], [0.33, 0.02], [0.4, 0.02], [0.5, -1.38], [0.56, -1.38], [0.66, -3.05], [0.72, -3.05], [0.845, -5.9], [0.9, -5.9], [1, -6.1]];
 const POSX = [[0, 0], [0.1, 0], [0.17, -2.3], [0.27, -2.3], [0.33, 2.3], [0.43, 2.3], [0.5, -2.3], [0.58, -2.3], [0.65, 2.3], [0.74, 2.3], [0.83, -2.0], [0.93, -2.0], [1, 0]];
 const POSY = [[0, 0], [0.15, 0], [0.25, -0.3], [0.92, -0.3], [1, 0]];
 const SCL = [[0, 1], [0.1, 1], [0.2, 0.92], [0.9, 0.92], [1, 1.05]];
@@ -42,6 +42,19 @@ export default function HouseModel() {
   const reg = (name) => (el) => {
     r[name] = el;
   };
+
+  // responsive staging: phones center the house, tablets soften the shifts
+  const view = useRef({ f: 1, s: 1, y: 0 });
+  useEffect(() => {
+    const upd = () => {
+      const w = window.innerWidth;
+      view.current =
+        w < 768 ? { f: 0.1, s: 0.56, y: 1.15 } : w < 1100 ? { f: 0.5, s: 0.82, y: 0.5 } : { f: 1, s: 1, y: 0 };
+    };
+    upd();
+    window.addEventListener("resize", upd);
+    return () => window.removeEventListener("resize", upd);
+  }, []);
 
   const mats = useMemo(() => {
     const std = (color, opts = {}) =>
@@ -145,7 +158,7 @@ export default function HouseModel() {
     const solid = Math.max(scrollStore.intro, seg(p, 0.005, 0.075));
     const shell = pulse(p, 0.125, 0.185, 0.25, 0.295);
     const cut = pulse(p, 0.3, 0.36, 0.415, 0.465);
-    const add = pulse(p, 0.475, 0.525, 0.575, 0.615);
+    const add = pulse(p, 0.43, 0.5, 0.575, 0.615);
     const out = pulse(p, 0.64, 0.69, 0.74, 0.78);
     const conc = pulse(p, 0.805, 0.855, 0.905, 0.945);
 
@@ -153,9 +166,9 @@ export default function HouseModel() {
     if (!g) return;
     window.__dbg = { p, rotY: g.rotation.y, shellOp: mats.shell.opacity, addVis: !!r.additionGroup && r.additionGroup.visible, addScale: r.additionGroup ? r.additionGroup.scale.x : -1 };
     g.rotation.y = THREE.MathUtils.damp(g.rotation.y, track(p, ROT), 5, dt);
-    g.position.x = THREE.MathUtils.damp(g.position.x, track(p, POSX), 5, dt);
-    g.position.y = THREE.MathUtils.damp(g.position.y, track(p, POSY), 5, dt);
-    const s = THREE.MathUtils.damp(g.scale.x || 1, track(p, SCL), 5, dt);
+    g.position.x = THREE.MathUtils.damp(g.position.x, track(p, POSX) * view.current.f, 5, dt);
+    g.position.y = THREE.MathUtils.damp(g.position.y, track(p, POSY) + view.current.y * seg(p, 0.06, 0.14), 5, dt);
+    const s = THREE.MathUtils.damp(g.scale.x || 1, track(p, SCL) * view.current.s, 5, dt);
     g.scale.setScalar(s);
 
     // shell: blueprint wireframe -> lime structural frame
@@ -186,8 +199,8 @@ export default function HouseModel() {
     const setPos = (k, x, y, z) => {
       if (r[k]) r[k].position.set(x, y, z);
     };
-    setPos("finFrontA", -3.5, 0.5 - cut * 3.7, 3 + shell * 1.2);
-    setPos("finFrontB", 0, 0.5 - cut * 3.6, 2.5 + shell * 1.2);
+    setPos("finFrontA", -3.5, 0.5 - cut * 4.7, 3 + shell * 1.2);
+    setPos("finFrontB", 0, 0.5 - cut * 4.5, 2.5 + shell * 1.2);
     setPos("finBackA", -3.5, 0.5, -3 - shell * 1.2);
     setPos("finBackB", 0, 0.5, -2.5 - shell * 1.2);
     setPos("finWestA", -6 - shell * 1.2, 0.5, 0);

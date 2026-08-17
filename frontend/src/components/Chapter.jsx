@@ -15,15 +15,15 @@ export function Chapter({ id, num, side = "left", overline, title, body, bullets
     <section
       id={id}
       data-testid={id}
-      className="pointer-events-none relative flex min-h-[170vh] items-center"
+      className="pointer-events-none relative flex min-h-[170vh] items-end pb-8 md:items-center md:pb-0"
     >
-      <div className="mx-auto grid w-full max-w-7xl grid-cols-12 px-6 md:px-10">
+      <div className="mx-auto grid w-full max-w-7xl grid-cols-12 px-5 md:px-10">
         <motion.div
           variants={container}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-25%" }}
-          className={`pointer-events-auto col-span-12 md:col-span-5 ${
+          className={`pointer-events-auto col-span-12 bg-[#09090B]/60 p-4 backdrop-blur-md md:col-span-5 md:bg-transparent md:p-0 md:backdrop-blur-none ${
             side === "right" ? "md:col-start-8" : "md:col-start-1"
           }`}
         >
@@ -44,16 +44,16 @@ export function Chapter({ id, num, side = "left", overline, title, body, bullets
           <h2 className="mt-5 font-head font-bold leading-[1.02] tracking-tight text-[#FAFAFA]">
             {title.map((line, i) => (
               <span key={i} className="block overflow-hidden pb-1">
-                <motion.span variants={lineUp} className="block text-4xl sm:text-5xl" data-testid={`${id}-title-${i}`}>
+                <motion.span variants={lineUp} className="block text-3xl sm:text-5xl" data-testid={`${id}-title-${i}`}>
                   {line}
                 </motion.span>
               </span>
             ))}
           </h2>
-          <motion.p variants={fade} data-testid={`${id}-body`} className="mt-6 max-w-md text-base leading-relaxed text-[#A1A1AA]">
+          <motion.p variants={fade} data-testid={`${id}-body`} className="mt-4 max-w-md text-sm leading-relaxed text-[#A1A1AA] md:mt-6 md:text-base">
             {body}
           </motion.p>
-          <motion.ul variants={fade} className="mt-8 space-y-3 border-t border-white/10 pt-6">
+          <motion.ul variants={fade} className="mt-5 space-y-2 border-t border-white/10 pt-4 md:mt-8 md:space-y-3 md:pt-6">
             {bullets.map((b, i) => (
               <li key={i} data-testid={`${id}-bullet-${i}`} className="flex items-center gap-3 text-sm text-[#FAFAFA]">
                 <span className="h-px w-6 bg-[#CBCC10]" />
