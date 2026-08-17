@@ -49,7 +49,11 @@ export default function HouseModel() {
     const upd = () => {
       const w = window.innerWidth;
       view.current =
-        w < 768 ? { f: 0.1, s: 0.56, y: 1.15 } : w < 1100 ? { f: 0.5, s: 0.82, y: 0.5 } : { f: 1, s: 1, y: 0 };
+        w < 768
+          ? { f: 0.04, s: 0.5, y: 1.1 }
+          : w < 1100
+            ? { f: 0.32, s: 0.68, y: 0.45 }
+            : { f: 1, s: 1, y: 0 };
     };
     upd();
     window.addEventListener("resize", upd);
