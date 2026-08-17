@@ -1,0 +1,84 @@
+{
+  "project_name": "Oak Park Construction",
+  "app_type": "landing_page",
+  "theme": "dark",
+  "art_direction": {
+    "concept": "The Blueprint to Reality. A single 3D house is the main character, pinned to the background and transforming as the user scrolls. The camera and HTML layout choreograph around it to reveal distinct service chapters.",
+    "vibe": "Award-worthy, highly kinesthetic, architectural, premium, brutalist but refined.",
+    "reference": "Awwwards Site-of-the-Day WebGL scroll-storytelling style."
+  },
+  "colors": {
+    "background": "#09090B",
+    "surface": "#121214",
+    "surface_glass": "rgba(18, 18, 20, 0.6)",
+    "primary": "#F5A623",
+    "primary_hover": "#E09313",
+    "text_main": "#FAFAFA",
+    "text_muted": "#A1A1AA",
+    "border": "rgba(255,255,255,0.08)",
+    "blueprint_blue": "#0A2540",
+    "blueprint_line": "#4A90E2"
+  },
+  "typography": {
+    "headings": "Cabinet Grotesk",
+    "body": "Satoshi",
+    "mono": "JetBrains Mono",
+    "rules": [
+      "Headings must use tracking-tight to tracking-tighter for a bold, structural look.",
+      "Overlines, chapter numbers, and metadata MUST use JetBrains Mono, uppercase, with wide tracking (tracking-[0.2em]).",
+      "No Inter or Roboto allowed anywhere.",
+      "Never center-align paragraphs. Left align to create an editorial grid feel."
+    ]
+  },
+  "visual_enhancers": {
+    "textures": "Include a subtle SVG noise filter (mix-blend-overlay, opacity-20) fixed over the entire viewport to remove digital flatness.",
+    "glassmorphism": "Used only for floating UI (like the header navigation or bottom scroll indicators). Use backdrop-blur-xl and a 1px top border.",
+    "borders": "Use 1px structural lines (border-white/10) to divide sections and create a subtle architectural grid.",
+    "hero_overlay": "Apply a subtle radial gradient behind the 3D model to act as a spotlight, drawing the eye to the architecture."
+  },
+  "layouts": {
+    "global_structure": "z-0 is the fixed 100vh w-full R3F Canvas. z-10 is the scrolling HTML overlay. The HTML container MUST have pointer-events: none to allow user interaction with the 3D model if needed, but apply pointer-events: auto to text containers, links, and buttons.",
+    "hero": "100vh. Massive typography overlaying the 3D blueprint model. Uses a bento grid or aggressive asymmetry.",
+    "chapters": "Each service section must be at least 150vh to give the user enough scroll-time to see the 3D transformation. Use grid-cols-12. Place text blocks in col-span-4 on the far left or right. The position must alternate to choreograph space for the 3D model.",
+    "about_gallery": "Switch back to standard DOM flow (or a solid background layer that scrolls over the fixed canvas) to show real photography and testimonials.",
+    "footer": "Massive bottom footer. py-32. Border top white/10."
+  },
+  "motion": {
+    "scroll": "Lenis MUST be used for smooth momentum scrolling.",
+    "text_reveals": "Use Framer Motion for line-by-line masked reveals on chapter headings. (Wrapper with overflow-hidden, child animating y: 100% -> 0%).",
+    "3d_choreography": "Map the Lenis scroll progress (via Framer Motion's useScroll) to the 3D model's rotation (y-axis), position (x, y), and scale. As the user scrolls into 'Kitchen Remodels', the model should shift left while the text fades in on the right.",
+    "marquee": "Include one slow, smooth editorial marquee running in the background of a section: 'OAK PARK CONSTRUCTION • BUILDING LEGACIES •'"
+  },
+  "3d_libraries": {
+    "core": "@react-three/fiber, @react-three/drei, three",
+    "animation": "framer-motion-3d",
+    "instructions": "Since a real GLTF isn't provided, use Drei primitives (<Box>, <Cylinder>, <Extrude>) to build a composite 'Mock House' <group>. The group must contain separate meshes for: The Skeleton, The Finished Walls, The Addition (scales from 0), and The Pergola/Driveway (scales from 0). Use a mesh clip plane or toggle visibility on the front wall for the 'Cutaway' kitchen view."
+  },
+  "media": {
+    "image_urls": {
+      "gallery_1_modern": "https://images.unsplash.com/photo-1706855203772-c249b75fe016?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MDZ8MHwxfHNlYXJjaHwzfHxwcmVtaXVtJTIwaG91c2UlMjBhcmNoaXRlY3R1cmV8ZW58MHx8fHwxNzg2OTMxNjU5fDA&ixlib=rb-4.1.0&q=85",
+      "gallery_2_kitchen": "https://images.unsplash.com/photo-1628745277862-bc0b2d68c50c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNTl8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBraXRjaGVuJTIwcmVtb2RlbCUyMGFyY2hpdGVjdHVyZXxlbnwwfHx8fDE3ODY5MzE2NTl8MA&ixlib=rb-4.1.0&q=85",
+      "gallery_3_outdoor": "https://images.unsplash.com/photo-1527359443443-84a48aec73d2?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBvdXRkb29yJTIwcGF0aW8lMjBwZXJnb2xhfGVufDB8fHx8MTc4NjkzMTY2N3ww&ixlib=rb-4.1.0&q=85",
+      "logo_minimalist": "https://images.unsplash.com/photo-1638864616270-64041b699a50?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODF8MHwxfHNlYXJjaHwxfHxtaW5pbWFsaXN0JTIwZ2VvbWV0cmljJTIwbG9nb3xlbnwwfHx8fDE3ODY5MzE2Njd8MA&ixlib=rb-4.1.0&q=85"
+    }
+  },
+  "instructions_to_main_agent": [
+    "Install required dependencies: yarn add framer-motion @studio-freight/react-lenis @react-three/fiber @react-three/drei three framer-motion-3d lucide-react",
+    "Create a <Canvas> component that is position: fixed and spans the entire screen behind the content.",
+    "Build a modular <HouseModel> component using three.js primitives. It must accept scrollProgress (0 to 1) as a prop to drive its internal states (wireframe to solid, scaling up the addition volume, dropping the front wall).",
+    "Create distinct scrolling HTML sections (Hero, Shell Construction, Kitchen Remodel, Additions, Concrete & Pavers). Use Framer Motion useScroll() with an offset (e.g., ['start end', 'end start']) on each section wrapper to know when that chapter is active, and pass that state to the 3D scene.",
+    "Number your chapters prominently (01, 02, 03) using JetBrains Mono.",
+    "Add a fixed fallback background color (#09090B) in case WebGL is slow to mount.",
+    "Ensure the HTML overlay blocks do not obscure the 3D model. If the text is on the left, shift the 3D model to the right via camera or group position."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "Do not converge toward generic outputs. The user requested an award-winning, boundary-pushing design.",
+    "Avoid simplistic Vercel-like gradients. Rely on high-contrast structural layouts and typography.",
+    "Never use `transition: all`. Target specific properties.",
+    "Never center-align large blocks of paragraph text.",
+    "Include a `data-testid` attribute on all interactive and key informational elements.",
+    "Never use placeholder URLs (via.placeholder.com). Use the provided image URLs.",
+    "Respect `prefers-reduced-motion`. In 3D, disable the scroll link and just show a static beautiful model if motion is reduced.",
+    "Do not use AI assistant Emoji characters (like 🤖🧠💭) for icons. Use lucide-react icons minimally and purposefully."
+  ]
+}
