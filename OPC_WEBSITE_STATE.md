@@ -3,19 +3,20 @@
 **This file is the single source of truth for this project. Any Claude session opening this folder MUST read this first.**
 
 - **Repo:** https://github.com/priihigashi/opc-website-v1
-- **Live:** https://priihigashi.github.io/opc-website-v1/
+- **Historical GitHub Pages live:** https://priihigashi.github.io/opc-website-v1/
+- **Active T-169 review copy:** https://opc-house-hero-preview.vercel.app/ (isolated Vercel project; not the final domain)
 - **Local:** `~/ClaudeWorkspace/opc-website/`
 - **Tracker (sheet):** https://docs.google.com/spreadsheets/d/1q0_v9qYDXKURo59xoS-WISFdHbZWIdc9ukdCDbdDaUQ/edit  ← CANONICAL (Marketing (shared drive) › Website Projects › 'OPC Website — Build Tracker')
 - **Drive mirror of this doc:** https://docs.google.com/document/d/1j2Y1z6rYRBS9fwE1Uk4seMvUNk9jFMZA-SZDAuCSZ2E/edit (ID `1j2Y1z6rYRBS9fwE1Uk4seMvUNk9jFMZA-SZDAuCSZ2E`)
 - **Skill:** `/opc-website` (loader skill — reads this file on activation)
 
-Last updated: **2026-06-25**
+Last updated: **2026-08-17**
 
 ---
 
-## ⚠️⚠️ STALENESS WARNING — THIS FILE IS BEHIND THE TRACKER (found 2026-08-16)
+## ⚠️⚠️ STALENESS WARNING — PARTIALLY RECONCILED THROUGH T-169 (2026-08-17)
 
-**This file's last real update was 2026-06-25/26. The Build Tracker has moved on without it.** Tracker
+The historical sections below still describe the June static/GitHub Pages family, but T-169 is now reconciled here and remains fully detailed in the canonical Build Tracker. Tracker
 `📋 Backlog` rows T-166 → T-169 describe work this file does not mention at all:
 - **T-166 / T-166-A** — `home-transform-v1`: a 3-state hero + editorial bridge + pinned transforming-services engine.
 - **T-167** — an **"Option 2C Hybrid MASTER AI JSON SCRIPT"** for a **persistent-house landing page** — which may
@@ -33,7 +34,7 @@ as this reconciliation.
 
 ## 🚨 CURRENT TRUTH — READ THIS FIRST
 
-The site has moved out of prototype-chasing and into commercial MVP work. The locked direction is **dark / lime / glass**, using real OPC photos and restrained Ricardo-style rendered 3D only where it helps.
+The active safe workbench is the exact Emergent React source on GitHub branch `emergent-house-hero-source-2026-08-17`, deployed only to the isolated review URL `https://opc-house-hero-preview.vercel.app/`. The original Emergent preview and the real OPC domain remain untouched. The locked direction is now expressed as calm architectural luxury: cream editorial structure, dark cinematic house storytelling, restrained lime, real OPC photography, warm materials and readable glass.
 
 **3D status:**
 - ✅ Ricardo forks exist: `new-construction-house3d.html` (#10· House 3D) and `kitchen-room3d.html` (#11· Kitchen Room 3D).
@@ -89,6 +90,7 @@ Priscila's **original** hero idea, said out loud 2026-08-16 and found to be reco
 
 ## 🎯 CURRENT FOCUS
 
+- **T-169 active review:** luxury art-direction pass is live at the isolated Vercel review URL; visual review is the next gate. Rollback checkpoint = `f0fc6c7`; current luxury commit = `9b431f5`. No duplicate full-site copy was created.
 - Production site is live on GitHub Pages with `home-b` promoted to `index.html`, gallery/category viewers built from real OPC photos, service pages live, and shared nav/font/footer/readability layers applied.
 - Prototypes remain in `/prototypes/` as lab/reference history, all `noindex,nofollow`; Ricardo-style 3D forks are the preferred future 3D family.
 - **Open right now:** real form backend, GA4/GTM + conversion tracking, 3D fork promotion into production service pages, before/after/testimonials, city SEO, image performance/WebP, and cleanup of stale Backlog rows in the canonical tracker.
@@ -312,6 +314,12 @@ Decision needed from Priscila on direction before build.
 ---
 
 ## 📝 ACTIVITY LOG (auto-appended by `/opc-website` skill after every report-back)
+
+- **2026-08-17 — T-169 LUXURY ART-DIRECTION PASS LIVE (`9b431f5`).** Audited the rendered React/Vercel review against the canonical state, tracker plans T-166–T-170, Design Decisions, References Picked and Tools & Resources. Refined the same safe branch/project rather than creating another website copy: locked Anton/Cormorant/Roboto Mono/Inter typography; editorial hero; warmer architectural house lighting/materials; refined glass; extra-wide chapter rail; cream asymmetric real-work gallery; unboxed trust ledger; cream/taupe consultation section; solid dark navigation for contrast. Production build passes; final bundle = 516.53 KB JS gzip and 12.74 KB CSS gzip. Desktop hero/chapter/gallery/contact plus 390×844 mobile hero/chapter visually checked, no horizontal overflow, browser console 0 errors; public `/`, `/services`, `/services/kitchen`, `/portfolio` all return HTTP 200. Same URL updated: https://opc-house-hero-preview.vercel.app/ . Original Emergent and oakpark-construction.com unchanged. Compact rollback record: `docs/t169-luxury-art-direction-pass-2026-08-17.md`; rollback checkpoint `f0fc6c7`.
+
+- **2026-08-17 — T-169 CHECKPOINT 2645b05 + MASTER DOC ADDENDUM.** On the isolated historical-repo workbench branch, committed the migration intake package (`2645b05`): official-doc-backed Emergent audit, portable content/route/hero/portfolio/contact/release contract, and dependency-free `npm run audit:migration` source scanner. Baseline scan: 97 code/content files, zero Supabase dependency findings and zero broken-local-link findings after dynamic-link filtering; 242 high-severity review hits and 36 medium hits remain, dominated by the unverified license number repeated across historical pages plus incomplete experimental forms and missing metadata. Strict mode intentionally fails while high findings remain. Appended and verified `CURRENT MIGRATION ADDENDUM — T-169` in the canonical Google master plan, including the hosting rule, exact-source blocker, live-preview findings, local commit evidence, provider/claims quarantine, and explicit statement that the workbench is not the Emergent export. Emergent builder access remains gated by sign-in; no authenticated Chrome connection is available, so no user account, live site, domain, DNS, or production deployment was changed.
+
+- **2026-08-17 — T-169 AUTONOMOUS MIGRATION AUDIT STARTED + HOSTING RULE LOCKED.** Read the full handoff and canonical state; marked T-169 In Progress in the Build Tracker; inspected the live Emergent preview, connected GitHub inventory, historical OPC repository, Vercel projects, master planning docs, Focus sheet, and official Emergent/Vercel/Web3Forms documentation. Locked architecture: **Emergent untouched fallback → exact Emergent source pushed to GitHub → non-production development branch → Vercel Preview → QA → Priscila approval → only then Vercel Production/domain cutover.** No Supabase unless an actual persistent backend requirement is proven. Current hard blocker: the connected GitHub account does not yet contain the Emergent React source and the public preview returns only a loading wrapper, so the exact source must be exported through authenticated Emergent **Save to GitHub**. Created a separate local audit/workbench branch from the historical repo (`codex/emergent-safe-migration-2026-08-17`) and documented the source gate; it is explicitly not represented as the Emergent export. Live preview audit found stock imagery, fabricated placeholder phone/email/address/metrics/testimonials, broken service-detail routing, placeholder SEO metadata, and a nonfunctional contact form. Removed invalid wrapper files that had been captured as a false “snapshot.” No live site, domain, DNS, production deployment, or Emergent project was changed.
 
 - **2026-08-16 — 🛠 SKILL LAYER REPAIRED + 🌀 SPEED-RAMP IDEA CAPTURED.** Two things, both closing real gaps:
   1. **`/opc-website` did not exist.** This file said *"Skill: `/opc-website` (loader skill)"* and `/website-reference-rebuild` said *"Registered under /opc-website"* — but the skill existed on no disk and in no repo, so **all 6 ACTIVE AUTO-RULES above were unenforced.** Built it as a loader (reads this file first; does NOT restate current focus/prototypes so it can't drift): `~/.agents/skills/opc-website/SKILL.md`, mirrored to `priscila-workspace/.agents/skills/opc-website/`, registry row `🤖 Skills & Agents!A102:N103`.
