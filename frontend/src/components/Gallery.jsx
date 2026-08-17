@@ -29,8 +29,9 @@ const works = [
 
 export default function Gallery() {
   return (
-    <section id="work" data-testid="work" className="relative border-b border-black/10 bg-[#FAFAFA]">
-      <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36">
+    <section id="work" data-testid="work" className="relative overflow-hidden border-b border-black/10 bg-[#F0EBE3]">
+      <div className="pointer-events-none absolute -right-24 top-0 font-editorial text-[22rem] leading-none text-black/[0.025]" aria-hidden>O</div>
+      <div className="relative mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-40">
         <motion.div
           initial={{ opacity: 0, y: 32 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -39,17 +40,18 @@ export default function Gallery() {
           className="flex flex-wrap items-end justify-between gap-6"
         >
           <div>
-            <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#09090B]">Selected Work</p>
-            <h2 className="mt-5 font-head text-4xl font-bold tracking-tight text-[#09090B] sm:text-5xl">
-              Proof, not promises.
+            <p className="luxury-kicker font-mono text-[10px] uppercase tracking-[0.28em] text-[#09090B] before:bg-[#09090B]">Selected Work</p>
+            <h2 className="mt-6 leading-[0.94] tracking-tight text-[#09090B]">
+              <span className="font-head block text-5xl uppercase sm:text-6xl">Proof,</span>
+              <span className="font-editorial block text-5xl sm:text-6xl">not promises.</span>
             </h2>
           </div>
-          <p className="max-w-sm text-sm leading-relaxed text-[#09090B]/75">
-            Real finished work from the Oak Park Construction project archive.
+          <p className="max-w-sm border-l border-black/20 pl-5 text-sm leading-[1.75] text-[#09090B]/70">
+            A restrained selection from Oak Park Construction's finished-work archive.
           </p>
         </motion.div>
 
-        <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-12">
+        <div className="mt-20 grid grid-cols-1 gap-5 md:grid-cols-12 md:gap-7">
           {works.map((w, i) => (
             <motion.figure
               key={i}
@@ -58,7 +60,7 @@ export default function Gallery() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-10%" }}
               transition={{ duration: 0.9, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
-              className={`group relative overflow-hidden border border-black/25 ${w.span}`}
+              className={`group relative overflow-hidden bg-[#09090B] shadow-[0_30px_80px_rgba(9,9,11,0.14)] ${w.span}`}
             >
               <div className={`overflow-hidden ${w.ratio}`}>
                 <img
@@ -71,10 +73,11 @@ export default function Gallery() {
                   className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
                 />
               </div>
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#09090B]/85 via-transparent to-transparent" />
-              <figcaption className="absolute bottom-0 left-0 p-6">
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#09090B]/90 via-transparent to-transparent opacity-90 transition-opacity duration-700 group-hover:opacity-100" />
+              <span className="absolute right-5 top-5 font-editorial text-3xl text-white/65">0{i + 1}</span>
+              <figcaption className="absolute bottom-0 left-0 p-6 md:p-8">
                 <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#CBCC10]">{w.tag}</p>
-                <p className="mt-1 font-head text-xl font-bold text-[#FAFAFA]">{w.title}</p>
+                <p className="font-editorial mt-2 text-2xl text-[#F0EBE3] md:text-3xl">{w.title}</p>
               </figcaption>
             </motion.figure>
           ))}

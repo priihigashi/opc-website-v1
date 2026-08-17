@@ -106,11 +106,11 @@ export default function HouseModel() {
         emissiveIntensity: 0.35,
         roughness: 0.5,
       }),
-      plinth: new THREE.MeshStandardMaterial({ color: "#3A3A3F", map: tex.concrete, roughness: 0.9 }),
-      ground: new THREE.MeshStandardMaterial({ color: "#0E0E11", roughness: 1 }),
-      stuccoFront: std("#F2EFE9", { map: tex.stucco, roughness: 0.95 }),
-      stuccoSide: std("#EDE9E2", { map: tex.stucco, roughness: 0.95 }),
-      woodScreenFront: std("#B07D4E", { map: tex.slatV, roughness: 0.7 }),
+      plinth: new THREE.MeshStandardMaterial({ color: "#262421", map: tex.concrete, roughness: 0.82 }),
+      ground: new THREE.MeshStandardMaterial({ color: "#020202", roughness: 1 }),
+      stuccoFront: std("#F0EBE3", { map: tex.stucco, roughness: 0.86 }),
+      stuccoSide: std("#DDD6CB", { map: tex.stucco, roughness: 0.88 }),
+      woodScreenFront: std("#9A6035", { map: tex.slatV, roughness: 0.62 }),
       fascia: std("#26262B", { metalness: 0.65, roughness: 0.35 }),
       membrane: std("#5C5C60", { roughness: 0.95 }),
       soffit: std("#A97848", { map: tex.slatH, roughness: 0.7 }),
@@ -120,9 +120,9 @@ export default function HouseModel() {
       glassSide: glass(0.45),
       glassFrost: frosted(),
       curtain: std("#E9E6DE", { roughness: 1 }),
-      doorWood: std("#8A5A30", { map: tex.slatV, roughness: 0.55 }),
+      doorWood: std("#7B4726", { map: tex.slatV, roughness: 0.5 }),
       sconce: std("#FFD9A0", { emissive: new THREE.Color("#FFB85C"), emissiveIntensity: 1.6 }),
-      floorOak: std("#9C7A52", { map: tex.oak, roughness: 0.5 }),
+      floorOak: std("#A37C52", { map: tex.oak, roughness: 0.42 }),
       ceilWhite: std("#F4F2EC", { roughness: 0.95 }),
       can: std("#FFE3B0", { emissive: new THREE.Color("#FFC97A"), emissiveIntensity: 2.2 }),
       tallDark: std("#33302B", { roughness: 0.5 }),
@@ -326,7 +326,7 @@ export default function HouseModel() {
       <mesh position={[0, 0.005, 0]} rotation={[-Math.PI / 2, 0, 0]} material={mats.ground} receiveShadow>
         <circleGeometry args={[9.5, 64]} />
       </mesh>
-      <gridHelper args={[64, 64, "#26262B", "#141417"]} position={[0, -0.01, 0]} />
+      <gridHelper args={[64, 64, "#302D29", "#171513"]} position={[0, -0.01, 0]} material-transparent material-opacity={0.22} />
       <group scale={0.62}>
         <mesh position={[1.85, 0.25, 0]} material={mats.plinth}>
           <boxGeometry args={[16.7, 0.5, 8.5]} />

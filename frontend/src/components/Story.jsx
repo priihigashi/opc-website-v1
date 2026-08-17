@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import Hero from "./Hero";
 import { Chapter } from "./Chapter";
+import ChapterRail from "./ChapterRail";
 
 const chapters = [
   {
@@ -53,6 +54,7 @@ const chapters = [
 export default function Story({ storyRef }) {
   return (
     <div ref={storyRef} data-testid="story" className="relative">
+      <ChapterRail />
       <Hero />
       {chapters.map((c) => (
         <Chapter key={c.id} {...c} />
@@ -66,11 +68,12 @@ export default function Story({ storyRef }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-30%" }}
           transition={{ duration: 0.9, ease: "easeOut" }}
-          className="story-copy-panel pointer-events-auto mx-6 px-8 py-10 text-center sm:px-12"
+          className="story-copy-panel pointer-events-auto mx-6 px-8 py-12 text-center sm:px-14"
         >
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#CBCC10]">One model. One crew.</p>
-          <p className="mt-4 font-head text-4xl font-bold tracking-tight text-[#FAFAFA] sm:text-5xl">
-            Same house. Every trade.
+          <p className="mt-4 text-[#F0EBE3]">
+            <span className="font-head block text-4xl uppercase tracking-tight sm:text-5xl">Same house.</span>
+            <span className="font-editorial mt-1 block text-4xl sm:text-5xl">Every trade.</span>
           </p>
         </motion.div>
       </section>

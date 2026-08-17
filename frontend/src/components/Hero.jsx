@@ -13,30 +13,37 @@ const fade = {
 export default function Hero() {
   return (
     <section id="top" data-testid="hero" className="pointer-events-none relative flex h-screen flex-col justify-between overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_28%,rgba(9,9,11,0.78),transparent_46%),linear-gradient(180deg,rgba(9,9,11,0.7)_0%,transparent_35%,rgba(9,9,11,0.76)_100%)]" aria-hidden />
+      <div className="hero-halo absolute inset-0" aria-hidden />
+      <div className="architectural-rule absolute left-6 right-6 top-24 h-px md:left-10 md:right-10" aria-hidden />
+      <p className="absolute right-6 top-[6.9rem] hidden font-mono text-[10px] uppercase tracking-[0.28em] text-[#F0EBE3]/45 md:block md:right-10">
+        Residential construction · 26.1° N
+      </p>
       <motion.div
         variants={container}
         initial="hidden"
         animate="show"
-        className="relative mx-auto w-full max-w-7xl px-6 pt-28 md:px-10 md:pt-32"
+        className="relative mx-auto w-full max-w-7xl px-6 pt-32 md:px-10 md:pt-36"
       >
         <div className="max-w-3xl overflow-hidden">
           <motion.p
             variants={lineUp}
             data-testid="hero-overline"
-            className="font-mono text-xs uppercase tracking-[0.3em] text-[#CBCC10]"
+            className="luxury-kicker font-mono text-[10px] uppercase tracking-[0.28em] md:text-xs"
           >
-            Oak Park Construction — South Florida General Contractor
+            Oak Park Construction · South Florida
           </motion.p>
         </div>
-        <h1 className="mt-6 max-w-4xl font-head font-bold leading-[0.92] tracking-tighter text-[#FAFAFA]">
-          {["One house.", "Every craft."].map((line, i) => (
-            <span key={i} className="block overflow-hidden pb-1">
-              <motion.span variants={lineUp} className="block text-5xl [text-shadow:0_3px_32px_rgba(0,0,0,0.95)] sm:text-7xl lg:text-8xl" data-testid={`hero-title-line-${i}`}>
-                {line}
-              </motion.span>
-            </span>
-          ))}
+        <h1 className="mt-6 max-w-4xl leading-[0.86] text-[#F0EBE3]">
+          <span className="block overflow-hidden pb-2">
+            <motion.span variants={lineUp} className="font-head block text-6xl uppercase tracking-[-0.025em] [text-shadow:0_4px_38px_rgba(0,0,0,0.96)] sm:text-8xl lg:text-[7.2rem]" data-testid="hero-title-line-0">
+              One house.
+            </motion.span>
+          </span>
+          <span className="block overflow-hidden pb-3">
+            <motion.span variants={lineUp} className="font-editorial block pl-[0.03em] text-6xl font-medium tracking-[-0.045em] text-[#F0EBE3] [text-shadow:0_4px_38px_rgba(0,0,0,0.96)] sm:text-8xl lg:text-[7.5rem]" data-testid="hero-title-line-1">
+              Every craft.
+            </motion.span>
+          </span>
         </h1>
       </motion.div>
 
@@ -44,22 +51,21 @@ export default function Hero() {
         variants={fade}
         initial="hidden"
         animate="show"
-        className="relative mx-auto flex w-full max-w-7xl flex-col gap-6 px-6 pb-10 md:flex-row md:items-end md:justify-between md:px-10 md:pb-14"
+        className="relative mx-auto flex w-full max-w-7xl flex-col gap-5 px-6 pb-7 md:flex-row md:items-end md:justify-between md:px-10 md:pb-12"
       >
-        <div className="hero-copy-panel max-w-xl">
-          <p data-testid="hero-sub" className="text-base leading-relaxed text-[#F4F4F5] md:text-lg">
-            From the first blueprint line to the last paver, watch one home take shape —
-            shell, kitchen, addition, backyard, driveway. Scroll, and the same house
-            becomes everything we build.
+        <div className="hero-copy-panel max-w-[34rem]">
+          <p data-testid="hero-sub" className="max-w-lg text-sm leading-[1.75] text-[#F0EBE3]/90 md:text-[0.98rem]">
+            One accountable team, from structure to final detail. Scroll through the
+            same South Florida home as each discipline comes into view.
           </p>
         </div>
         <div className="pointer-events-auto flex items-center gap-4">
           <a
             href="#ch-01"
             data-testid="hero-cta-scroll"
-            className="bg-[#CBCC10] px-6 py-3 font-mono text-xs uppercase tracking-[0.2em] text-[#09090B] transition-colors duration-300 hover:bg-[#B5B60D]"
+            className="luxury-pill inline-flex items-center gap-3 bg-[#CBCC10] px-6 py-3.5 font-mono text-[10px] uppercase tracking-[0.22em] text-[#09090B] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#DADB19] md:text-xs"
           >
-            Watch it build
+            Explore the house <span aria-hidden>↘</span>
           </a>
           <span className="hidden font-mono text-xs uppercase tracking-[0.25em] text-[#A1A1AA] md:block">
             Scroll ↓

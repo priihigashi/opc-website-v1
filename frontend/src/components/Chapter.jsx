@@ -23,16 +23,15 @@ export function Chapter({ id, num, side = "left", overline, title, body, bullets
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-25%" }}
-          className={`story-copy-panel pointer-events-auto col-span-12 p-5 sm:p-7 md:col-span-5 md:p-8 ${
+          className={`story-copy-panel pointer-events-auto col-span-12 p-6 sm:p-8 md:col-span-5 md:p-9 ${
             side === "right" ? "md:col-start-8" : "md:col-start-1"
           }`}
         >
           <div className="overflow-hidden">
-            <motion.div variants={lineUp} className="flex items-baseline gap-4">
+            <motion.div variants={lineUp} className="flex items-center gap-4">
               <span
                 data-testid={`${id}-number`}
-                className="font-mono text-6xl font-bold text-transparent md:text-7xl"
-                style={{ WebkitTextStroke: "1px rgba(203,204,16,0.7)" }}
+                className="font-editorial text-6xl font-medium text-[#F0EBE3]/20 md:text-7xl"
               >
                 {num}
               </span>
@@ -41,10 +40,10 @@ export function Chapter({ id, num, side = "left", overline, title, body, bullets
               </span>
             </motion.div>
           </div>
-          <h2 className="mt-5 font-head font-bold leading-[1.02] tracking-tight text-[#FAFAFA]">
+          <h2 className="mt-5 leading-[0.98] tracking-tight text-[#F0EBE3]">
             {title.map((line, i) => (
               <span key={i} className="block overflow-hidden pb-1">
-                <motion.span variants={lineUp} className="block text-3xl sm:text-5xl" data-testid={`${id}-title-${i}`}>
+                <motion.span variants={lineUp} className={`${i === title.length - 1 && title.length > 1 ? "font-editorial" : "font-head uppercase"} block text-3xl sm:text-5xl`} data-testid={`${id}-title-${i}`}>
                   {line}
                 </motion.span>
               </span>

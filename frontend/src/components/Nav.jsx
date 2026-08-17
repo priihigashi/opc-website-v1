@@ -37,9 +37,9 @@ export default function Nav() {
   return (
     <header
       data-testid="site-nav"
-      className="fixed inset-x-0 top-0 z-40 border-b border-white/10 bg-[#09090B]/60 backdrop-blur-xl"
+      className="fixed inset-x-0 top-0 z-40 border-b border-[#F0EBE3]/10 bg-[#09090B] shadow-[0_12px_40px_rgba(0,0,0,0.18)]"
     >
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 md:px-10">
+      <div className="mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between px-6 md:px-10">
         <a
           href="/"
           data-testid="nav-logo"
@@ -51,10 +51,10 @@ export default function Nav() {
             alt="Oak Park Construction"
             width="124"
             height="74"
-            className="h-10 w-auto opacity-95"
+            className="h-12 w-auto opacity-95"
           />
         </a>
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="hidden items-center gap-9 md:flex">
           {pageLinks.map((l) => (
             <a
               key={l.to}
@@ -64,7 +64,7 @@ export default function Nav() {
                 e.preventDefault();
                 navigate(l.to);
               }}
-              className={`font-mono text-xs uppercase tracking-[0.2em] transition-colors duration-300 ${
+              className={`font-mono text-[10px] uppercase tracking-[0.22em] transition-colors duration-300 ${
                 pathname.startsWith(l.to) ? "text-[#CBCC10]" : "text-[#A1A1AA] hover:text-[#FAFAFA]"
               }`}
             >
@@ -77,7 +77,7 @@ export default function Nav() {
               href={l.href}
               data-testid={`nav-link-${l.label.toLowerCase()}`}
               onClick={(e) => goAnchor(e, l.href)}
-              className="font-mono text-xs uppercase tracking-[0.2em] text-[#A1A1AA] transition-colors duration-300 hover:text-[#FAFAFA]"
+              className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#A1A1AA] transition-colors duration-300 hover:text-[#FAFAFA]"
             >
               {l.label}
             </a>
@@ -87,7 +87,7 @@ export default function Nav() {
           href="#contact"
           data-testid="nav-cta"
           onClick={(e) => goAnchor(e, "#contact")}
-          className="border border-[#CBCC10] px-3 py-2 font-mono text-[10px] uppercase tracking-[0.16em] text-[#CBCC10] transition-colors duration-300 hover:bg-[#CBCC10] hover:text-[#09090B] sm:px-4 sm:text-xs sm:tracking-[0.2em]"
+          className="luxury-pill border border-[#CBCC10]/70 px-4 py-2.5 font-mono text-[9px] uppercase tracking-[0.18em] text-[#CBCC10] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#CBCC10] hover:text-[#09090B] sm:px-5 sm:text-[10px] sm:tracking-[0.2em]"
         >
           Start a project
         </a>

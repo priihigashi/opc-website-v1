@@ -7,7 +7,7 @@ const API = process.env.REACT_APP_BACKEND_URL ? `${process.env.REACT_APP_BACKEND
 const services = ["Shell Construction", "Kitchen + Bath Remodel", "Addition", "Outdoor Living", "Concrete + Pavers", "Something else"];
 
 const inputCls =
-  "w-full border border-white/10 bg-[#121214] px-4 py-3 text-sm text-[#FAFAFA] placeholder-[#A1A1AA]/60 outline-none transition-colors duration-300 focus:border-[#CBCC10]";
+  "w-full border-0 border-b border-black/20 bg-transparent px-0 py-4 text-sm text-[#09090B] placeholder-black/45 outline-none transition-colors duration-300 focus:border-[#09090B]";
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", service: services[0], message: "" });
@@ -41,8 +41,9 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" data-testid="contact" className="relative border-b border-white/10">
-      <div className="mx-auto grid max-w-7xl grid-cols-12 gap-y-14 px-6 py-28 md:px-10 md:py-36">
+    <section id="contact" data-testid="contact" className="relative overflow-hidden border-b border-black/10 bg-[#F0EBE3] text-[#09090B]">
+      <div className="absolute inset-y-0 right-0 hidden w-[43%] bg-[#DCD4C7] md:block" aria-hidden />
+      <div className="relative mx-auto grid max-w-7xl grid-cols-12 gap-y-14 px-6 py-28 md:px-10 md:py-36">
         <motion.div
           initial={{ opacity: 0, y: 32 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -50,17 +51,18 @@ export default function Contact() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="col-span-12 md:col-span-5"
         >
-          <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#CBCC10]">Start Your Project</p>
-          <h2 className="mt-5 font-head text-4xl font-bold leading-[1.05] tracking-tight text-[#FAFAFA] sm:text-5xl">
-            Your house is the next one on the screen.
+          <p className="luxury-kicker font-mono text-[10px] uppercase tracking-[0.28em] text-[#09090B] before:bg-[#09090B]">Start Your Project</p>
+          <h2 className="mt-6 leading-[0.98] tracking-tight text-[#09090B]">
+            <span className="font-head block text-4xl uppercase sm:text-5xl">Your house is</span>
+            <span className="font-editorial block text-4xl sm:text-5xl">the next one on screen.</span>
           </h2>
-          <p className="mt-6 max-w-md text-base leading-relaxed text-[#A1A1AA]">
+          <p className="mt-7 max-w-md text-base leading-[1.75] text-[#09090B]/65">
             Tell us what you're dreaming up — a shell, a kitchen, more room, a better
             backyard. One call, one crew, one plan.
           </p>
-          <div className="mt-10 space-y-3 font-mono text-sm text-[#A1A1AA]">
-            <p data-testid="contact-phone"><a className="text-[#FAFAFA] transition-colors hover:text-[#CBCC10]" href="tel:+19542586769">(954) 258-6769</a></p>
-            <p data-testid="contact-email"><a className="text-[#FAFAFA] transition-colors hover:text-[#CBCC10]" href="mailto:priscila@oakpark-construction.com">priscila@oakpark-construction.com</a></p>
+          <div className="mt-10 space-y-3 font-mono text-sm text-[#09090B]/60">
+            <p data-testid="contact-phone"><a className="text-[#09090B] transition-colors hover:text-[#7B7C00]" href="tel:+19542586769">(954) 258-6769</a></p>
+            <p data-testid="contact-email"><a className="text-[#09090B] transition-colors hover:text-[#7B7C00]" href="mailto:priscila@oakpark-construction.com">priscila@oakpark-construction.com</a></p>
             <p data-testid="contact-address">Broward · Palm Beach · Miami-Dade</p>
           </div>
         </motion.div>
@@ -72,7 +74,7 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-15%" }}
           transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
-          className="col-span-12 grid grid-cols-2 gap-4 md:col-span-6 md:col-start-7"
+          className="col-span-12 grid grid-cols-2 gap-x-6 gap-y-3 bg-[#DCD4C7] p-6 md:col-span-6 md:col-start-7 md:p-10"
         >
           <input data-testid="contact-name" required minLength={2} placeholder="Full name" value={form.name} onChange={set("name")} className={`${inputCls} col-span-2 sm:col-span-1`} />
           <input data-testid="contact-email-input" required type="email" placeholder="Email" value={form.email} onChange={set("email")} className={`${inputCls} col-span-2 sm:col-span-1`} />
@@ -87,7 +89,7 @@ export default function Contact() {
             type="submit"
             data-testid="contact-submit"
             disabled={sending}
-            className="col-span-2 flex items-center justify-center gap-3 bg-[#CBCC10] px-6 py-4 font-mono text-xs uppercase tracking-[0.25em] text-[#09090B] transition-colors duration-300 hover:bg-[#B5B60D] disabled:opacity-60"
+            className="luxury-pill col-span-2 mt-5 flex items-center justify-center gap-3 bg-[#09090B] px-6 py-4 font-mono text-xs uppercase tracking-[0.25em] text-[#F0EBE3] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#202014] disabled:opacity-60"
           >
             {sending ? <Loader2 className="h-4 w-4 animate-spin" /> : <ArrowRight className="h-4 w-4" />}
             {sending ? "Sending…" : "Send enquiry"}
