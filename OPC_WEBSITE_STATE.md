@@ -13,6 +13,24 @@ Last updated: **2026-06-25**
 
 ---
 
+## ⚠️⚠️ STALENESS WARNING — THIS FILE IS BEHIND THE TRACKER (found 2026-08-16)
+
+**This file's last real update was 2026-06-25/26. The Build Tracker has moved on without it.** Tracker
+`📋 Backlog` rows T-166 → T-169 describe work this file does not mention at all:
+- **T-166 / T-166-A** — `home-transform-v1`: a 3-state hero + editorial bridge + pinned transforming-services engine.
+- **T-167** — an **"Option 2C Hybrid MASTER AI JSON SCRIPT"** for a **persistent-house landing page** — which may
+  supersede or reshape the "3D House Portal" plan recorded below.
+- **T-168** — a UI/animation resource audit (React Bits, 21st.dev, Uiverse, Refero, Originkit, Skiper UI, Cult UI, GSAP, Three.js, Motion.dev).
+- **T-169** — an autonomous audit + safe migration pass, including **an independent GitHub/Vercel migration** (so the
+  host may not stay GitHub Pages) and an Emergent sync.
+
+**DO NOT treat the sections below as current until T-166–T-169 are reconciled into this file.** Read the
+tracker `📋 Backlog` + `🔄 In Flight` tabs alongside this file. **Reconciling this file is the first job of the
+next website session.** The `/opc-website` skill points here as source of truth — that promise is only as good
+as this reconciliation.
+
+---
+
 ## 🚨 CURRENT TRUTH — READ THIS FIRST
 
 The site has moved out of prototype-chasing and into commercial MVP work. The locked direction is **dark / lime / glass**, using real OPC photos and restrained Ricardo-style rendered 3D only where it helps.
