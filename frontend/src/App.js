@@ -13,6 +13,7 @@ import GalleryV3 from "@/components/GalleryV3";
 import TestimonialsV3 from "@/components/TestimonialsV3";
 import ContactV2 from "@/components/ContactV2";
 import Footer from "@/components/Footer";
+import TitleCaseAuditV1 from "@/components/TitleCaseAuditV1";
 import Services from "@/pages/Services";
 import ServicesScene from "@/pages/ServicesScene";
 
@@ -123,29 +124,31 @@ function ServicesStageGate() {
 export default function App() {
   return (
     <BrowserRouter>
-      <Nav />
-      <ServicesStageGate />
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/services" element={<Services />} />
-        <Route
-          path="/services/:slug"
-          element={
-            <Suspense fallback={<div className="min-h-screen bg-[#09090B]" />}>
-              <ServiceDetail />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/portfolio"
-          element={
-            <Suspense fallback={<div className="min-h-screen bg-[#09090B]" />}>
-              <Portfolio />
-            </Suspense>
-          }
-        />
-      </Routes>
-      <Toaster position="bottom-right" theme="dark" />
+      <TitleCaseAuditV1>
+        <Nav />
+        <ServicesStageGate />
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/services" element={<Services />} />
+          <Route
+            path="/services/:slug"
+            element={
+              <Suspense fallback={<div className="min-h-screen bg-[#09090B]" />}>
+                <ServiceDetail />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/portfolio"
+            element={
+              <Suspense fallback={<div className="min-h-screen bg-[#09090B]" />}>
+                <Portfolio />
+              </Suspense>
+            }
+          />
+        </Routes>
+        <Toaster position="bottom-right" theme="dark" />
+      </TitleCaseAuditV1>
     </BrowserRouter>
   );
 }
