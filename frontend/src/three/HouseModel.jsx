@@ -37,7 +37,14 @@ const SCL = [[0, 0.85], [0.1, 0.85], [0.2, 0.92], [0.9, 0.92], [1, 1.05]];
 const BLUEPRINT = new THREE.Color("#5A8FD0");
 const LIME = new THREE.Color("#CBCC10");
 
-export default function HouseModel() {
+export default function HouseModel({
+  DrivewayComponent = Driveway,
+  rotationTrack = ROT,
+  positionXTrack = POSX,
+  positionYTrack = POSY,
+  scaleTrack = SCL,
+  viewConfig,
+}) {
   const r = useRef({}).current;
   const reg = (name) => (el) => {
     r[name] = el;
@@ -50,15 +57,15 @@ export default function HouseModel() {
       const w = window.innerWidth;
       view.current =
         w < 768
-          ? { f: 0.04, s: 0.5, y: 1.1 }
+          ? (viewConfig?.phone || { f: 0.04, s: 0.5, y: 1.1 })
           : w < 1100
-            ? { f: 0.32, s: 0.68, y: 0.45 }
-            : { f: 1, s: 1, y: 0 };
+            ? (viewConfig?.tablet || { f: 0.32, s: 0.68, y: 0.45 })
+            : (viewConfig?.desktop || { f: 1, s: 1, y: 0 });
     };
     upd();
     window.addEventListener("resize", upd);
     return () => window.removeEventListener("resize", upd);
-  }, []);
+  }, [viewConfig]);
 
   const mats = useMemo(() => {
     const std = (color, opts = {}) =>
@@ -199,10 +206,10 @@ export default function HouseModel() {
     const g = r.root;
     if (!g) return;
     window.__dbg = { p, rotY: g.rotation.y, shellOp: mats.shell.opacity, addVis: !!r.additionGroup && r.additionGroup.visible, addScale: r.additionGroup ? r.additionGroup.scale.x : -1 };
-    g.rotation.y = THREE.MathUtils.damp(g.rotation.y, track(p, ROT), 5, dt);
-    g.position.x = THREE.MathUtils.damp(g.position.x, track(p, POSX) * view.current.f, 5, dt);
-    g.position.y = THREE.MathUtils.damp(g.position.y, track(p, POSY) + view.current.y * seg(p, 0.06, 0.14), 5, dt);
-    const s = THREE.MathUtils.damp(g.scale.x || 1, track(p, SCL) * view.current.s, 5, dt);
+    g.rotation.y = THREE.MathUtils.damp(g.rotation.y, track(p, rotationTrack), 5, dt);
+    g.position.x = THREE.MathUtils.damp(g.position.x, track(p, positionXTrack) * view.current.f, 5, dt);
+    g.position.y = THREE.MathUtils.damp(g.position.y, track(p, positionYTrack) + view.current.y * seg(p, 0.06, 0.14), 5, dt);
+    const s = THREE.MathUtils.damp(g.scale.x || 1, track(p, scaleTrack) * view.current.s, 5, dt);
     g.scale.setScalar(s);
 
     // shell: blueprint wireframe -> lime structural frame
@@ -340,7 +347,7 @@ export default function HouseModel() {
         <Interior mats={mats} reg={reg} />
         <Addition mats={mats} reg={reg} />
         <Backyard mats={mats} reg={reg} />
-        <Driveway mats={mats} reg={reg} />
+        <DrivewayComponent mats={mats} reg={reg} />
       </group>
     </group>
   );

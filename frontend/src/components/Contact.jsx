@@ -9,7 +9,7 @@ const services = ["Shell Construction", "Kitchen + Bath Remodel", "Addition", "O
 const inputCls =
   "w-full border-0 border-b border-black/20 bg-transparent px-0 py-4 text-sm text-[#09090B] placeholder-black/45 outline-none transition-colors duration-300 focus:border-[#09090B]";
 
-export default function Contact() {
+export default function Contact({ kickerClassName = "text-[#09090B] before:bg-[#09090B]" }) {
   const [form, setForm] = useState({ name: "", email: "", phone: "", service: services[0], message: "" });
   const [sending, setSending] = useState(false);
 
@@ -51,7 +51,7 @@ export default function Contact() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="col-span-12 md:col-span-5"
         >
-          <p className="luxury-kicker font-mono text-[10px] uppercase tracking-[0.28em] text-[#09090B] before:bg-[#09090B]">Start Your Project</p>
+          <p className={`luxury-kicker font-mono text-[10px] font-semibold uppercase tracking-[0.28em] ${kickerClassName}`}>Start Your Project</p>
           <h2 className="mt-6 leading-[0.98] tracking-tight text-[#09090B]">
             <span className="font-head block text-4xl uppercase sm:text-5xl">Your house is</span>
             <span className="font-editorial block text-4xl sm:text-5xl">the next one on screen.</span>

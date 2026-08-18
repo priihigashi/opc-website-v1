@@ -4,14 +4,14 @@ import Lenis from "lenis";
 import "@/App.css";
 import { Toaster } from "@/components/ui/sonner";
 import { scrollStore } from "@/lib/scrollStore";
-import HouseScene from "@/three/HouseScene";
+import HouseSceneV2 from "@/three/HouseSceneV2";
 import Nav from "@/components/NavV2";
-import StoryV2 from "@/components/StoryV2";
+import StoryV3 from "@/components/StoryV3";
 import Marquee from "@/components/Marquee";
 import AboutV2 from "@/components/AboutV2";
 import Gallery from "@/components/Gallery";
-import Testimonials from "@/components/Testimonials";
-import Contact from "@/components/Contact";
+import TestimonialsV2 from "@/components/TestimonialsV2";
+import ContactV2 from "@/components/ContactV2";
 import Footer from "@/components/Footer";
 import Services from "@/pages/Services";
 import ServicesScene from "@/pages/ServicesScene";
@@ -88,15 +88,15 @@ function Landing() {
   return (
     <div className="bg-[#09090B] font-body text-[#FAFAFA] antialiased">
       <div className="noise-overlay" aria-hidden />
-      <HouseScene />
+      <HouseSceneV2 />
       <main className="relative z-10">
-        <StoryV2 storyRef={storyRef} />
+        <StoryV3 storyRef={storyRef} />
         <div className="relative border-t border-white/10 bg-[#09090B]">
           <Marquee />
           <AboutV2 />
           <Gallery />
-          <Testimonials />
-          <Contact />
+          <TestimonialsV2 />
+          <ContactV2 />
           <Footer />
         </div>
       </main>

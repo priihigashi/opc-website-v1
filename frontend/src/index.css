@@ -142,6 +142,15 @@
   background: #CBCC10;
 }
 
+.contact-kicker-v2 {
+  border: 1px solid rgba(9, 9, 11, 0.12);
+  border-radius: 6px;
+  background: rgba(9, 9, 11, 0.93);
+  padding: 0.55rem 0.75rem;
+  color: #CBCC10;
+  box-shadow: 0 10px 30px rgba(9, 9, 11, 0.1);
+}
+
 .luxury-pill {
   border-radius: 999px;
   box-shadow: 0 12px 42px rgba(203, 204, 16, 0.14);
