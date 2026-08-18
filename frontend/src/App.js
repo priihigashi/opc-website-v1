@@ -10,7 +10,7 @@ import StoryV6 from "@/components/StoryV6";
 import MarqueeV2 from "@/components/MarqueeV2";
 import AboutV3 from "@/components/AboutV3";
 import GalleryV3 from "@/components/GalleryV3";
-import TestimonialsV2 from "@/components/TestimonialsV2";
+import TestimonialsV3 from "@/components/TestimonialsV3";
 import ContactV2 from "@/components/ContactV2";
 import Footer from "@/components/Footer";
 import Services from "@/pages/Services";
@@ -95,7 +95,7 @@ function Landing() {
           <MarqueeV2 />
           <AboutV3 />
           <GalleryV3 />
-          <TestimonialsV2 />
+          <TestimonialsV3 />
           <ContactV2 />
           <Footer />
         </div>
