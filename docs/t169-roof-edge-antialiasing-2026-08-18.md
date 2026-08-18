@@ -31,4 +31,8 @@ This is a real-time 3D model, so a very close screenshot can still reveal indivi
 
 ## Release
 
-Deployment URL and deployment ID will be appended after public verification.
+- Public review URL: https://opc-house-hero-preview.vercel.app/
+- Vercel deployment: `dpl_6g9XedQqwNYUtHg54xsw8qPYevgY`
+- Deployment status: Ready
+- Public response verification: HTTP 200
+- Source commit: `a637f96`
