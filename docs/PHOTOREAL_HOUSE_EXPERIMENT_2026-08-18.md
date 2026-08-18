@@ -52,3 +52,13 @@ No third-party model was added to the repository in this experiment. This is int
 - verify the addition growth remains visible beside the content card;
 - verify site elements do not cover the entry path;
 - check GPU frame rate and final transfer size before any public review deployment.
+
+## Public review handoff
+
+- Public audit URL: `https://opc-house-elements-review.vercel.app/`
+- Separate Vercel project: `opc-house-elements-review`
+- Deployment: `dpl_4DiP2t1mTUchySrSwAXWJVjRPJa1`
+- The earlier unique preview URL was not suitable for handoff because it redirected unauthenticated visitors to Vercel login.
+- The public alias was verified in a clean in-app browser: the page title, full service copy, and one WebGL canvas loaded successfully.
+- The protected comparison remains `https://opc-house-hero-preview.vercel.app/`; its alias was not changed.
+- Completion email sent successfully to `priscila@oakpark-construction.com` through GitHub Actions workflow run `32184179161`.
