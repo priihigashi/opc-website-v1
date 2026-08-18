@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import HouseModel from "./HouseModel";
 import AdditionV3 from "./parts/AdditionV3";
-import DrivewayV3 from "./parts/DrivewayV3";
+import DrivewayV4 from "./parts/DrivewayV4";
 import EnvelopeV2 from "./parts/EnvelopeV2";
+import BackyardV2 from "./parts/BackyardV2";
 
 const ROTATION = [
   [0, -0.08], [0.1, -0.08], [0.19, 0.85], [0.26, 0.85], [0.33, 0.02],
@@ -50,8 +51,9 @@ export default function HouseModelV9() {
   return (
     <HouseModel
       AdditionComponent={AdditionV3}
-      DrivewayComponent={DrivewayV3}
+      DrivewayComponent={DrivewayV4}
       EnvelopeComponent={EnvelopeV2}
+      BackyardComponent={BackyardV2}
       rotationTrack={ROTATION}
       positionXTrack={positionTrack(stage.tablet ? -4.35 : -2.8)}
       positionYTrack={verticalTrack(stage.heroY)}

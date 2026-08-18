@@ -9,6 +9,7 @@ import Interior from "./parts/Interior";
 import Addition from "./parts/Addition";
 import Backyard from "./parts/Backyard";
 import Driveway from "./parts/Driveway";
+import LandscapeV1 from "./parts/LandscapeV1";
 
 const clamp01 = (v) => Math.min(1, Math.max(0, v));
 const sstep = (v) => {
@@ -39,6 +40,7 @@ const LIME = new THREE.Color("#CBCC10");
 
 export default function HouseModel({
   DrivewayComponent = Driveway,
+  BackyardComponent = Backyard,
   AdditionComponent = Addition,
   EnvelopeComponent = Envelope,
   envelopeProps,
@@ -122,14 +124,14 @@ export default function HouseModel({
       }),
       plinth: new THREE.MeshStandardMaterial({ color: "#262421", map: tex.concrete, roughness: 0.82 }),
       ground: new THREE.MeshStandardMaterial({ color: "#020202", roughness: 1 }),
-      stuccoFront: std("#F0EBE3", { map: tex.stucco, roughness: 0.86 }),
-      stuccoSide: std("#DDD6CB", { map: tex.stucco, roughness: 0.88 }),
+      stuccoFront: std("#ECE7DE", { map: tex.stucco, bumpMap: tex.stucco, bumpScale: 0.025, roughness: 0.82 }),
+      stuccoSide: std("#D5CEC2", { map: tex.stucco, bumpMap: tex.stucco, bumpScale: 0.022, roughness: 0.86 }),
       woodScreenFront: std("#9A6035", { map: tex.slatV, roughness: 0.62 }),
       fascia: std("#26262B", { metalness: 0.65, roughness: 0.35 }),
       membrane: std("#5C5C60", { roughness: 0.95 }),
       soffit: std("#A97848", { map: tex.slatH, roughness: 0.7 }),
-      frameFront: std("#1D1D20", { metalness: 0.7, roughness: 0.35 }),
-      frameSide: std("#1D1D20", { metalness: 0.7, roughness: 0.35 }),
+      frameFront: std("#17171A", { metalness: 0.76, roughness: 0.28 }),
+      frameSide: std("#17171A", { metalness: 0.76, roughness: 0.28 }),
       glassFront: glass(0.45),
       glassSide: glass(0.45),
       glassFrost: frosted(),
@@ -182,6 +184,11 @@ export default function HouseModel({
       planter: std("#3A3A3F", { map: tex.concrete, roughness: 0.9 }),
       soil: std("#1A1512", { roughness: 1 }),
       hedge: std("#33482C", { roughness: 1 }),
+      foliage: std("#263E27", { roughness: 0.92 }),
+      foliageLight: std("#3E6038", { roughness: 0.9 }),
+      palmTrunk: std("#6A5137", { roughness: 0.95 }),
+      mulch: std("#302219", { bumpMap: tex.concrete, bumpScale: 0.05, roughness: 1 }),
+      brass: std("#A8844A", { metalness: 0.76, roughness: 0.3 }),
     };
   }, []);
 
@@ -333,6 +340,10 @@ export default function HouseModel({
     mats.planter.opacity = conc;
     mats.soil.opacity = conc;
     mats.hedge.opacity = conc;
+    mats.foliage.opacity = solid * 0.92;
+    mats.foliageLight.opacity = solid * 0.92;
+    mats.palmTrunk.opacity = solid;
+    mats.mulch.opacity = solid;
   });
 
   return (
@@ -349,8 +360,9 @@ export default function HouseModel({
         <EnvelopeComponent mats={mats} reg={reg} {...envelopeProps} />
         <Interior mats={mats} reg={reg} />
         <AdditionComponent mats={mats} reg={reg} />
-        <Backyard mats={mats} reg={reg} />
+        <BackyardComponent mats={mats} reg={reg} />
         <DrivewayComponent mats={mats} reg={reg} />
+        <LandscapeV1 mats={mats} reg={reg} />
       </group>
     </group>
   );

@@ -1,4 +1,5 @@
 import { Wall, WindowUnit } from "./units";
+import { RoundedBox } from "@react-three/drei";
 
 const WALL_THICKNESS = 0.25;
 const FRONT_BACK_LENGTH = 3.525;
@@ -35,9 +36,7 @@ export default function AdditionV3({ mats, reg }) {
 
       <group position={[3.4, 0.5, 0.7]} rotation={[0, Math.PI / 2, 0]}>
         <Wall len={SIDE_DEPTH} h={3.1} t={WALL_THICKNESS} material={mats.addStucco} openings={[SIDE_DOOR]} />
-        <mesh position={[SIDE_DOOR.x, SIDE_DOOR.y1 / 2, 0.085]} material={mats.addWood}>
-          <boxGeometry args={[SIDE_DOOR.w, SIDE_DOOR.y1, 0.08]} />
-        </mesh>
+        <RoundedBox args={[SIDE_DOOR.w, SIDE_DOOR.y1, 0.08]} radius={0.025} smoothness={2} position={[SIDE_DOOR.x, SIDE_DOOR.y1 / 2, 0.085]} material={mats.addWood} />
         <mesh position={[SIDE_DOOR.x, SIDE_DOOR.y1 + 0.045, 0.135]} material={mats.addFrame}>
           <boxGeometry args={[SIDE_DOOR.w + 0.12, 0.09, 0.06]} />
         </mesh>
@@ -51,9 +50,10 @@ export default function AdditionV3({ mats, reg }) {
         </mesh>
       </group>
 
-      <mesh position={[1.7, 3.72, 0.7]} material={[mats.addFascia, mats.addFascia, mats.addMembrane, mats.addSoffit, mats.addFascia, mats.addFascia]}>
-        <boxGeometry args={[3.9, 0.14, 4.3]} />
-      </mesh>
+      <RoundedBox args={[3.9, 0.14, 4.3]} radius={0.045} smoothness={3} position={[1.7, 3.72, 0.7]} material={mats.addFascia} />
+      <mesh position={[1.7, 3.797, 0.7]} material={mats.addMembrane}><boxGeometry args={[3.74, 0.025, 4.14]} /></mesh>
+      <mesh position={[1.7, 3.64, 0.7]} material={mats.addSoffit}><boxGeometry args={[3.72, 0.018, 4.12]} /></mesh>
+      <pointLight position={[2.55, 3.38, 2.25]} intensity={2.4} distance={3.4} color="#FFD7A2" />
     </group>
   );
 }

@@ -1,4 +1,5 @@
 import { Wall, WindowUnit } from "./units";
+import { RoundedBox } from "@react-three/drei";
 
 const WALL_THICKNESS = 0.25;
 const TOWER_FRONT_LENGTH = 5.125;
@@ -105,15 +106,15 @@ export default function EnvelopeV2({ mats, reg }) {
       </group>
 
       <group name="roof-a-v2" ref={reg("finRoofA")}>
-        <mesh position={[-3.5, 6.155, 0]} material={[mats.fascia, mats.fascia, mats.membrane, mats.soffit, mats.fascia, mats.fascia]}>
-          <boxGeometry args={[5.35, 0.14, 6.5]} />
-        </mesh>
+        <RoundedBox args={[5.35, 0.14, 6.5]} radius={0.045} smoothness={3} position={[-3.5, 6.155, 0]} material={mats.fascia} />
+        <mesh position={[-3.5, 6.232, 0]} material={mats.membrane}><boxGeometry args={[5.18, 0.025, 6.33]} /></mesh>
+        <mesh position={[-3.5, 6.074, 0]} material={mats.soffit}><boxGeometry args={[5.16, 0.018, 6.3]} /></mesh>
       </group>
 
       <group name="roof-b-v2" ref={reg("finRoofB")}>
-        <mesh position={[3.07, 3.97, 0]} material={[mats.fascia, mats.fascia, mats.membrane, mats.soffit, mats.fascia, mats.fascia]}>
-          <boxGeometry args={[8.14, 0.16, 6.6]} />
-        </mesh>
+        <RoundedBox args={[8.14, 0.16, 6.6]} radius={0.045} smoothness={3} position={[3.07, 3.97, 0]} material={mats.fascia} />
+        <mesh position={[3.07, 4.058, 0]} material={mats.membrane}><boxGeometry args={[7.97, 0.025, 6.43]} /></mesh>
+        <mesh position={[3.07, 3.878, 0]} material={mats.soffit}><boxGeometry args={[7.94, 0.018, 6.4]} /></mesh>
       </group>
 
       <group name="facade-front-b-v2" ref={reg("finFrontB")} position={[0, 0.5, 2.5]}>
