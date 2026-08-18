@@ -6,7 +6,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { scrollStore } from "@/lib/scrollStore";
 import HouseSceneV7 from "@/three/HouseSceneV7";
 import Nav from "@/components/NavV3";
-import StoryV6 from "@/components/StoryV6";
+import StoryV7 from "@/components/StoryV7";
 import MarqueeV2 from "@/components/MarqueeV2";
 import AboutV3 from "@/components/AboutV3";
 import GalleryV3 from "@/components/GalleryV3";
@@ -90,7 +90,7 @@ function Landing() {
       <div className="noise-overlay" aria-hidden />
       <HouseSceneV7 />
       <main className="relative z-10">
-        <StoryV6 storyRef={storyRef} />
+        <StoryV7 storyRef={storyRef} />
         <div className="relative border-t border-white/10 bg-[#09090B]">
           <MarqueeV2 />
           <AboutV3 />
