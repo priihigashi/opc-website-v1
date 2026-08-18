@@ -54,4 +54,6 @@ The earlier working components remain preserved. The active app now uses:
 
 - Original Emergent preview: untouched.
 - `oakpark-construction.com`, DNS, and production: untouched.
-- Public Vercel review alias must not be claimed updated until deployment authorization succeeds and the alias is verified.
+- Git commit: `90543db` pushed to the isolated branch.
+- Vercel deployment: `dpl_HFhbDfrCAcVBq2wuZvJ4tKwYMeoD` — READY.
+- Stable review alias: `https://opc-house-hero-preview.vercel.app/` — updated and verified HTTP 200.
