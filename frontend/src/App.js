@@ -9,7 +9,7 @@ import Nav from "@/components/NavV3";
 import StoryV6 from "@/components/StoryV6";
 import MarqueeV2 from "@/components/MarqueeV2";
 import AboutV3 from "@/components/AboutV3";
-import Gallery from "@/components/Gallery";
+import GalleryV2 from "@/components/GalleryV2";
 import TestimonialsV2 from "@/components/TestimonialsV2";
 import ContactV2 from "@/components/ContactV2";
 import Footer from "@/components/Footer";
@@ -94,7 +94,7 @@ function Landing() {
         <div className="relative border-t border-white/10 bg-[#09090B]">
           <MarqueeV2 />
           <AboutV3 />
-          <Gallery />
+          <GalleryV2 />
           <TestimonialsV2 />
           <ContactV2 />
           <Footer />
