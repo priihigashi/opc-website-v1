@@ -47,6 +47,7 @@ export default function HouseModel({
   positionYTrack = POSY,
   scaleTrack = SCL,
   viewConfig,
+  materialConfig = {},
 }) {
   const r = useRef({}).current;
   const reg = (name) => (el) => {
@@ -122,8 +123,8 @@ export default function HouseModel({
       }),
       plinth: new THREE.MeshStandardMaterial({ color: "#262421", map: tex.concrete, roughness: 0.82 }),
       ground: new THREE.MeshStandardMaterial({ color: "#020202", roughness: 1 }),
-      stuccoFront: std("#F0EBE3", { map: tex.stucco, roughness: 0.86 }),
-      stuccoSide: std("#DDD6CB", { map: tex.stucco, roughness: 0.88 }),
+      stuccoFront: std(materialConfig.stuccoFront || "#F0EBE3", { map: tex.stucco, roughness: 0.86 }),
+      stuccoSide: std(materialConfig.stuccoSide || "#DDD6CB", { map: tex.stucco, roughness: 0.88 }),
       woodScreenFront: std("#9A6035", { map: tex.slatV, roughness: 0.62 }),
       fascia: std("#26262B", { metalness: 0.65, roughness: 0.35 }),
       membrane: std("#5C5C60", { roughness: 0.95 }),
@@ -183,7 +184,7 @@ export default function HouseModel({
       soil: std("#1A1512", { roughness: 1 }),
       hedge: std("#33482C", { roughness: 1 }),
     };
-  }, []);
+  }, [materialConfig.stuccoFront, materialConfig.stuccoSide]);
 
   useEffect(() => {
     if (!r.root) return;
