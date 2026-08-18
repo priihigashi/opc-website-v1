@@ -1,5 +1,5 @@
 import { Suspense, Component, useEffect } from "react";
-import { Canvas, useThree } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { ContactShadows, Environment } from "@react-three/drei";
 import { EffectComposer, N8AO } from "@react-three/postprocessing";
 import * as THREE from "three";
@@ -48,7 +48,7 @@ function RealismTuner() {
     loader.setCrossOrigin("anonymous");
     const maxAniso = Math.min(12, gl.capabilities.getMaxAnisotropy?.() || 8);
 
-    // CC0 photo-scanned PBR maps from Poly Haven. These are deliberately 1K for web performance.
+    // CC0 photo-scanned PBR maps from Poly Haven, kept at 1K for mobile/web performance.
     const stucco = {
       diff: prepTexture(loader.load(`${PH}/beige_wall_001/beige_wall_001_diff_1k.png`), { repeat: [3.2, 3.2], srgb: true, anisotropy: maxAniso }),
       normal: prepTexture(loader.load(`${PH}/beige_wall_001/beige_wall_001_nor_gl_1k.png`), { repeat: [3.2, 3.2], anisotropy: maxAniso }),
@@ -74,9 +74,9 @@ function RealismTuner() {
     };
 
     const concrete = {
-      diff: prepTexture(loader.load(`${PH}/concrete/concrete_diff_1k.png`), { repeat: [3.6, 3.6], srgb: true, anisotropy: maxAniso }),
-      normal: prepTexture(loader.load(`${PH}/concrete/concrete_nor_gl_1k.png`), { repeat: [3.6, 3.6], anisotropy: maxAniso }),
-      arm: prepTexture(loader.load(`${PH}/concrete/concrete_arm_1k.png`), { repeat: [3.6, 3.6], anisotropy: maxAniso }),
+      diff: prepTexture(loader.load(`${PH}/concrete_floor_worn_001/concrete_floor_worn_001_diff_1k.png`), { repeat: [3.6, 3.6], srgb: true, anisotropy: maxAniso }),
+      normal: prepTexture(loader.load(`${PH}/concrete_floor_worn_001/concrete_floor_worn_001_nor_gl_1k.png`), { repeat: [3.6, 3.6], anisotropy: maxAniso }),
+      arm: prepTexture(loader.load(`${PH}/concrete_floor_worn_001/concrete_floor_worn_001_arm_1k.png`), { repeat: [3.6, 3.6], anisotropy: maxAniso }),
     };
 
     const applyPbr = (material, set, { keepDiffuse = false, roughness = 0.9, normalScale = 0.45 } = {}) => {
@@ -111,7 +111,7 @@ function RealismTuner() {
           material.envMapIntensity = 1.05;
         }
 
-        if (["a97848"].includes(hex)) {
+        if (hex === "a97848") {
           applyPbr(material, woodH, { roughness: 0.76, normalScale: 0.68 });
           material.envMapIntensity = 0.95;
         }
@@ -127,7 +127,6 @@ function RealismTuner() {
         }
 
         if (["7a7a80", "54545c"].includes(hex)) {
-          // Keep the modeled/procedural paver joints, but replace the flat surface response.
           applyPbr(material, concrete, { keepDiffuse: true, roughness: 1, normalScale: 0.58 });
           material.envMapIntensity = 0.38;
         }
@@ -158,10 +157,8 @@ function RealismTuner() {
           material.envMapIntensity = 1.9;
         }
 
-        // The prior mobile version was still visibly blown out because these fixtures
-        // plus the global warm spot stacked together. Keep fixtures warm, not emissive-white.
         if (["ffd9a0", "ffe3b0"].includes(hex)) {
-          material.emissiveIntensity = mobile ? 0.38 : 0.72;
+          material.emissiveIntensity = mobile ? 0.32 : 0.68;
         }
 
         material.userData.opcRealismTuned = "v2";
@@ -169,6 +166,23 @@ function RealismTuner() {
       });
     });
   }, [scene, gl, mobile]);
+
+  return null;
+}
+
+function MobileInteriorLightGuard() {
+  const { scene, size } = useThree();
+  const mobile = size.width < 768;
+
+  useFrame(() => {
+    if (!mobile) return;
+    scene.traverse((object) => {
+      if (!object.isPointLight) return;
+      // Bedroom/bath fixture lives upstairs; clamp it harder than the kitchen/living light.
+      const maxIntensity = object.position.y > 4 ? 0.65 : 2.2;
+      if (object.intensity > maxIntensity) object.intensity = maxIntensity;
+    });
+  });
 
   return null;
 }
@@ -248,7 +262,7 @@ export default function HouseScene() {
         <Suspense fallback={null}>
           <HouseModel />
         </Suspense>
-
+        <MobileInteriorLightGuard />
         <RealismTuner />
 
         <EnvBoundary>
