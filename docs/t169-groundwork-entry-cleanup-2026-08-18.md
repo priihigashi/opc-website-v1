@@ -34,6 +34,8 @@ Review URL: https://opc-house-hero-preview.vercel.app/
 - Confirmed two entrance planters remain.
 - Confirmed four entrance slabs connect the driveway to the door.
 - Confirmed no experimental right-side landscaping remains.
+- Vercel deployment: `dpl_DavRBqZZDZy1xAwghVdmwN4xXZec` (`Ready`).
+- Public review alias: HTTP 200 at https://opc-house-hero-preview.vercel.app/
 
 ## Future improvement
 
