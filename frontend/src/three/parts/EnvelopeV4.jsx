@@ -17,7 +17,13 @@ const shiftOpenings = (openings) =>
 // separate from the shifted window grid. The door sits just proud of the wall
 // face and overlaps the opening by 0.02 units per side, preventing the pale
 // wall reveal from reading as a gap at oblique camera angles.
-export default function EnvelopeV4({ mats, reg }) {
+export default function EnvelopeV4({ mats, reg, entryDoor = {} }) {
+  const doorCenter = entryDoor.center ?? 1.6;
+  const doorWidth = entryDoor.width ?? 1.24;
+  const handleX = entryDoor.handleX ?? 2.07;
+  const handleY = entryDoor.handleY ?? 1.35;
+  const handleZ = entryDoor.handleZ ?? 0.06;
+  const handleSize = entryDoor.handleSize ?? [0.045, 0.9, 0.045];
   const frontOpenings = [
     { x: 1.6, w: 1.2, y0: 0, y1: 2.7 },
     ...shiftOpenings([
@@ -53,11 +59,11 @@ export default function EnvelopeV4({ mats, reg }) {
         <mesh position={[1.6, 4.25, 0.18]} material={mats.woodScreenFront}>
           <boxGeometry args={[1.2, 2.66, 0.08]} />
         </mesh>
-        <mesh position={[1.6, 1.35, 0.09]} material={mats.doorWood}>
-          <boxGeometry args={[1.24, 2.7, 0.1]} />
+        <mesh position={[doorCenter, 1.35, 0.09]} material={mats.doorWood}>
+          <boxGeometry args={[doorWidth, 2.7, 0.1]} />
         </mesh>
-        <mesh position={[2.07, 1.35, 0.06]} material={mats.frameFront}>
-          <boxGeometry args={[0.045, 0.9, 0.045]} />
+        <mesh position={[handleX, handleY, handleZ]} material={mats.frameFront}>
+          <boxGeometry args={handleSize} />
         </mesh>
         <mesh position={[1.6, 2.88, 0.76]} material={mats.frameFront}>
           <boxGeometry args={[1.8, 0.12, 1.3]} />
