@@ -3,6 +3,7 @@ import HouseModel from "./HouseModel";
 import AdditionV4 from "./parts/AdditionV4";
 import DrivewayV3 from "./parts/DrivewayV3";
 import EnvelopeV5 from "./parts/EnvelopeV5";
+import SiteGroundV1 from "./parts/SiteGroundV1";
 
 const MATERIAL_CONFIG = {
   stuccoFront: "#F0EBE3",
@@ -63,6 +64,7 @@ export default function HouseModelV13() {
       positionYTrack={verticalTrack(stage.heroY)}
       scaleTrack={SCALE}
       viewConfig={VIEW}
+      SiteComponent={SiteGroundV1}
     />
   );
 }

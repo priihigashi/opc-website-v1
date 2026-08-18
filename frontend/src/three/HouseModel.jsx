@@ -48,6 +48,7 @@ export default function HouseModel({
   scaleTrack = SCL,
   viewConfig,
   materialConfig = {},
+  SiteComponent,
 }) {
   const r = useRef({}).current;
   const reg = (name) => (el) => {
@@ -338,9 +339,13 @@ export default function HouseModel({
 
   return (
     <group ref={reg("root")}>
-      <mesh position={[0, 0.005, 0]} rotation={[-Math.PI / 2, 0, 0]} material={mats.ground} receiveShadow>
-        <circleGeometry args={[9.5, 64]} />
-      </mesh>
+      {SiteComponent ? (
+        <SiteComponent />
+      ) : (
+        <mesh position={[0, 0.005, 0]} rotation={[-Math.PI / 2, 0, 0]} material={mats.ground} receiveShadow>
+          <circleGeometry args={[9.5, 64]} />
+        </mesh>
+      )}
       <gridHelper args={[64, 64, "#302D29", "#171513"]} position={[0, -0.01, 0]} material-transparent material-opacity={0.22} />
       <group scale={0.62}>
         <mesh position={[1.85, 0.25, 0]} material={mats.plinth}>
