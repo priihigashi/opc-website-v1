@@ -2,7 +2,14 @@ import { Wall, WindowUnit } from "./units";
 
 // Exterior finishes: stucco facades with real openings, wood screens,
 // entry assembly, roof groups (name="roof") and glazing (name="windows").
-export default function Envelope({ mats, reg }) {
+export default function Envelope({
+  mats,
+  reg,
+  pavilionRoofX = 3.15,
+  pavilionRoofWidth = 8.0,
+  pavilionReturnHeight = 3.3,
+  pavilionReturnCenterY = 1.65,
+}) {
   return (
     <group name="exterior-finishes">
       {/* ---- Volume A front facade (z = 3) ---- */}
@@ -48,8 +55,8 @@ export default function Envelope({ mats, reg }) {
           <boxGeometry args={[0.09, 0.36, 0.09]} />
         </mesh>
         {/* return wall closing the reveal between volume A front (z=3) and pavilion glass (z=2.5) */}
-        <mesh position={[2.5, 1.65, -0.25]} material={mats.stuccoFront}>
-          <boxGeometry args={[0.25, 3.3, 0.5]} />
+        <mesh position={[2.5, pavilionReturnCenterY, -0.25]} material={mats.stuccoFront}>
+          <boxGeometry args={[0.25, pavilionReturnHeight, 0.5]} />
         </mesh>
       </group>
 
@@ -69,8 +76,8 @@ export default function Envelope({ mats, reg }) {
         <WindowUnit w={1.25} h={0.9} position={[-1.1, 3.95, 0]} glass={mats.glassSide} frame={mats.frameSide} mullions={1} />
         <WindowUnit w={1.25} h={0.9} position={[1.1, 3.95, 0]} glass={mats.glassSide} frame={mats.frameSide} mullions={1} />
         {/* return wall closing the rear reveal at the pavilion junction */}
-        <mesh position={[2.5, 1.65, 0.25]} material={mats.stuccoSide}>
-          <boxGeometry args={[0.25, 3.3, 0.5]} />
+        <mesh position={[2.5, pavilionReturnCenterY, 0.25]} material={mats.stuccoSide}>
+          <boxGeometry args={[0.25, pavilionReturnHeight, 0.5]} />
         </mesh>
       </group>
 
@@ -110,10 +117,10 @@ export default function Envelope({ mats, reg }) {
         </mesh>
       </group>
 
-      {/* ---- Roof B: floating plane, bronze fascia, wood soffit; stops east of the return wall ---- */}
+      {/* ---- Roof B: floating plane, bronze fascia, wood soffit; closes cleanly against the tower return ---- */}
       <group name="roof-b" ref={reg("finRoofB")}>
-        <mesh position={[3.15, 3.97, 0]} material={[mats.fascia, mats.fascia, mats.membrane, mats.soffit, mats.fascia, mats.fascia]}>
-          <boxGeometry args={[8.0, 0.16, 6.6]} />
+        <mesh position={[pavilionRoofX, 3.97, 0]} material={[mats.fascia, mats.fascia, mats.membrane, mats.soffit, mats.fascia, mats.fascia]}>
+          <boxGeometry args={[pavilionRoofWidth, 0.16, 6.6]} />
         </mesh>
       </group>
 

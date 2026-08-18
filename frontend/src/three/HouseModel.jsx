@@ -40,6 +40,7 @@ const LIME = new THREE.Color("#CBCC10");
 export default function HouseModel({
   DrivewayComponent = Driveway,
   AdditionComponent = Addition,
+  envelopeProps,
   rotationTrack = ROT,
   positionXTrack = POSX,
   positionYTrack = POSY,
@@ -344,7 +345,7 @@ export default function HouseModel({
           <boxGeometry args={[16.7, 0.5, 8.5]} />
         </mesh>
         <Shell mats={mats} reg={reg} />
-        <Envelope mats={mats} reg={reg} />
+        <Envelope mats={mats} reg={reg} {...envelopeProps} />
         <Interior mats={mats} reg={reg} />
         <AdditionComponent mats={mats} reg={reg} />
         <Backyard mats={mats} reg={reg} />
