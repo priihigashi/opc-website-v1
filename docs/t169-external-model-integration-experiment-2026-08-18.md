@@ -33,6 +33,12 @@ The full candidate house is a sprawling pitched-roof villa and does not preserve
 
 The full-house replacement remains an option only if the downloaded hierarchy allows the structure, roof, glazing and outdoor components to be separated without destructive rework.
 
+## Better donor candidate found
+
+The follow-up research found a more targeted free candidate: CGTrader model `6589173`, “Modern Villa Landscape Backyard Design—pergola—pool.” It is preferable for the outdoor chapters because the creator explicitly says the main villa is not included and the scene uses organized groups and layers. It includes SKP, FBX, DAE and OBJ files, is listed as low-poly, and contains a pool, pergola, paths, lawn and garden elements.
+
+Tradeoff: its archive is listed at 206 MB and roughly 80,000 polygons, so it must be selectively extracted and optimized before web use. It should be tested as the first outdoor donor once a signed-in download is available. The original `7273726` candidate remains useful as a visual-quality reference and possible hardscape donor, but not as the default full-house replacement.
+
 ## Required staged story
 
 The experiment must keep the existing “one house, every service” behavior:
