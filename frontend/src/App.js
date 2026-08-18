@@ -6,9 +6,9 @@ import { Toaster } from "@/components/ui/sonner";
 import { scrollStore } from "@/lib/scrollStore";
 import HouseSceneV6 from "@/three/HouseSceneV6";
 import Nav from "@/components/NavV3";
-import StoryV5 from "@/components/StoryV5";
-import Marquee from "@/components/Marquee";
-import AboutV2 from "@/components/AboutV2";
+import StoryV6 from "@/components/StoryV6";
+import MarqueeV2 from "@/components/MarqueeV2";
+import AboutV3 from "@/components/AboutV3";
 import Gallery from "@/components/Gallery";
 import TestimonialsV2 from "@/components/TestimonialsV2";
 import ContactV2 from "@/components/ContactV2";
@@ -90,10 +90,10 @@ function Landing() {
       <div className="noise-overlay" aria-hidden />
       <HouseSceneV6 />
       <main className="relative z-10">
-        <StoryV5 storyRef={storyRef} />
+        <StoryV6 storyRef={storyRef} />
         <div className="relative border-t border-white/10 bg-[#09090B]">
-          <Marquee />
-          <AboutV2 />
+          <MarqueeV2 />
+          <AboutV3 />
           <Gallery />
           <TestimonialsV2 />
           <ContactV2 />
