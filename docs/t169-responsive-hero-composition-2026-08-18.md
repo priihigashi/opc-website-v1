@@ -31,4 +31,6 @@ Scope: isolated Vercel review copy only; original Emergent preview and real OPC 
 
 ## Release
 
-Deployment ID and commit are appended after the public review alias is verified.
+- Feature commit: `8c2b527` (`feat: rebalance responsive hero composition`).
+- Vercel deployment: `dpl_EThkrwCQW69eVbg6pFcKtvJVamQy` — Ready.
+- Stable review alias: https://opc-house-hero-preview.vercel.app/ — verified HTTP 200.
