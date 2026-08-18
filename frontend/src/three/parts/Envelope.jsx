@@ -9,6 +9,9 @@ export default function Envelope({
   pavilionRoofWidth = 8.0,
   pavilionReturnHeight = 3.3,
   pavilionReturnCenterY = 1.65,
+  towerWestWallLength = 6,
+  towerEastUpperDepth = 6,
+  towerWestCornerClosure = 0,
 }) {
   return (
     <group name="exterior-finishes">
@@ -26,6 +29,14 @@ export default function Envelope({
             { x: -0.2, w: 1.25, y0: 3.95, y1: 4.85 },
           ]}
         />
+        {towerWestCornerClosure > 0 && (
+          <mesh
+            position={[-2.5 - towerWestCornerClosure / 2, 2.8, 0]}
+            material={mats.stuccoFront}
+          >
+            <boxGeometry args={[towerWestCornerClosure, 5.6, 0.25]} />
+          </mesh>
+        )}
         <group name="windows">
           <WindowUnit w={1.0} h={2.4} position={[-1.45, 0.5, 0]} glass={mats.glassFront} frame={mats.frameFront} mullions={1} />
           <WindowUnit w={1.0} h={2.4} position={[-0.25, 0.5, 0]} glass={mats.glassFront} frame={mats.frameFront} mullions={1} />
@@ -72,6 +83,14 @@ export default function Envelope({
             { x: 1.1, w: 1.25, y0: 3.95, y1: 4.85 },
           ]}
         />
+        {towerWestCornerClosure > 0 && (
+          <mesh
+            position={[-2.5 - towerWestCornerClosure / 2, 2.8, 0]}
+            material={mats.stuccoSide}
+          >
+            <boxGeometry args={[towerWestCornerClosure, 5.6, 0.25]} />
+          </mesh>
+        )}
         <WindowUnit w={1.8} h={2.4} position={[-0.5, 0, 0]} glass={mats.glassSide} frame={mats.frameSide} mullions={1} />
         <WindowUnit w={1.25} h={0.9} position={[-1.1, 3.95, 0]} glass={mats.glassSide} frame={mats.frameSide} mullions={1} />
         <WindowUnit w={1.25} h={0.9} position={[1.1, 3.95, 0]} glass={mats.glassSide} frame={mats.frameSide} mullions={1} />
@@ -84,7 +103,7 @@ export default function Envelope({
       {/* ---- Volume A west facade (x = -6) ---- */}
       <group name="facade-west-a" ref={reg("finWestA")} position={[-6, 0.5, 0]} rotation={[0, Math.PI / 2, 0]}>
         <Wall
-          len={6}
+          len={towerWestWallLength}
           h={5.6}
           material={mats.stuccoSide}
           openings={[
@@ -106,7 +125,7 @@ export default function Envelope({
       {/* ---- Volume A east upper wall (above pavilion roof) ---- */}
       <group name="facade-east-a" ref={reg("finEastA")}>
         <mesh position={[-1.125, 4.85, 0]} material={mats.stuccoSide}>
-          <boxGeometry args={[0.25, 2.5, 6]} />
+          <boxGeometry args={[0.25, 2.5, towerEastUpperDepth]} />
         </mesh>
       </group>
 
