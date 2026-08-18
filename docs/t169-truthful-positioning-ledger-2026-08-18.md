@@ -37,3 +37,5 @@ The OPC tracker references favor editorial builder positioning, owner-led trust,
 - No horizontal overflow detected at checked tablet/mobile widths.
 - No browser error overlay or console errors detected.
 - Active rendered page contains none of: `Since 1998`, `Nine services`, `Construction services`.
+- Vercel deployment: `dpl_A5qt96zEnTcPSFRJ7mx62cUpq4Rq` (`READY`).
+- Stable review alias: https://opc-house-hero-preview.vercel.app/
