@@ -15,7 +15,7 @@ export function Chapter({ id, num, side = "left", overline, title, body, bullets
     <section
       id={id}
       data-testid={id}
-      className="pointer-events-none relative flex min-h-[170vh] items-end pb-8 md:items-center md:pb-0"
+      className="pointer-events-none relative flex min-h-[170vh] items-start pt-[24vh] md:items-center md:pb-0 md:pt-0"
     >
       <div className="mx-auto grid w-full max-w-7xl grid-cols-12 px-5 md:px-10">
         <motion.div
