@@ -20,6 +20,52 @@ const ServiceDetail = lazy(() => import("@/pages/ServiceDetail"));
 const Portfolio = lazy(() => import("@/pages/Portfolio"));
 
 const clamp01 = (v) => Math.min(1, Math.max(0, v));
+const smooth01 = (v) => {
+  const t = clamp01(v);
+  return t * t * (3 - 2 * t);
+};
+
+// Mobile has much less unobstructed canvas than desktop. These plateaus deliberately
+// pause the HOUSE animation at each completed chapter while the DOM copy keeps moving.
+// The result is: build -> copy clears -> clean beauty hold -> transition/disassembly.
+const MOBILE_STORY_WARP = [
+  [0, 0],
+  [0.205, 0.205],
+  [0.225, 0.225],
+  [0.27, 0.225],
+  [0.3, 0.295],
+  [0.375, 0.375],
+  [0.395, 0.395],
+  [0.44, 0.395],
+  [0.47, 0.465],
+  [0.52, 0.52],
+  [0.54, 0.54],
+  [0.6, 0.54],
+  [0.625, 0.615],
+  [0.695, 0.695],
+  [0.715, 0.715],
+  [0.77, 0.715],
+  [0.8, 0.78],
+  [0.86, 0.86],
+  [0.88, 0.88],
+  [0.93, 0.88],
+  [0.955, 0.945],
+  [1, 1],
+];
+
+function warpMobileStoryProgress(raw) {
+  const p = clamp01(raw);
+  for (let i = 1; i < MOBILE_STORY_WARP.length; i++) {
+    const [x1, y1] = MOBILE_STORY_WARP[i];
+    if (p <= x1) {
+      const [x0, y0] = MOBILE_STORY_WARP[i - 1];
+      if (x1 === x0) return y1;
+      const t = smooth01((p - x0) / (x1 - x0));
+      return y0 + (y1 - y0) * t;
+    }
+  }
+  return 1;
+}
 
 function Landing() {
   const storyRef = useRef(null);
@@ -35,7 +81,9 @@ function Landing() {
       if (!el) return;
       const rect = el.getBoundingClientRect();
       const total = rect.height - window.innerHeight;
-      scrollStore.p = clamp01(-rect.top / Math.max(1, total));
+      const raw = clamp01(-rect.top / Math.max(1, total));
+      scrollStore.rawP = raw;
+      scrollStore.p = window.innerWidth < 768 ? warpMobileStoryProgress(raw) : raw;
     };
 
     if (!reduced) {
