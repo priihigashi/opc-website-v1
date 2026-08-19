@@ -4,7 +4,7 @@ import Lenis from "lenis";
 import "@/App.css";
 import { Toaster } from "@/components/ui/sonner";
 import { scrollStore } from "@/lib/scrollStore";
-import HouseSceneV14 from "@/three/HouseSceneV14";
+import HouseSceneV15 from "@/three/HouseSceneV15";
 import Nav from "@/components/NavV3";
 import StoryV10 from "@/components/StoryV10";
 import MarqueeV2 from "@/components/MarqueeV2";
@@ -90,7 +90,7 @@ function Landing() {
   return (
     <div className="bg-[#09090B] font-body text-[#FAFAFA] antialiased">
       <div className="noise-overlay" aria-hidden />
-      <HouseSceneV14 />
+      <HouseSceneV15 />
       <main className="relative z-10">
         <StoryV10 storyRef={storyRef} />
         <div className="relative border-t border-white/10 bg-[#09090B]">
