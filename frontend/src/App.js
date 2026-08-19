@@ -6,7 +6,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { scrollStore } from "@/lib/scrollStore";
 import HouseSceneV20 from "@/three/HouseSceneV20";
 import Nav from "@/components/NavV3";
-import StoryV10 from "@/components/StoryV10";
+import StoryV11 from "@/components/StoryV11";
 import MarqueeV2 from "@/components/MarqueeV2";
 import AboutV3 from "@/components/AboutV3";
 import GalleryV3 from "@/components/GalleryV3";
@@ -18,7 +18,7 @@ import Services from "@/pages/Services";
 import ServicesScene from "@/pages/ServicesScene";
 
 const ServiceDetail = lazy(() => import("@/pages/ServiceDetail"));
-const Portfolio = lazy(() => import("@/pages/PortfolioV6"));
+const Portfolio = lazy(() => import("@/pages/PortfolioV7"));
 const ProjectGallery = lazy(() => import("@/pages/ProjectGalleryV3"));
 const Privacy = lazy(() => import("@/pages/Privacy"));
 
@@ -93,7 +93,7 @@ function Landing() {
       <div className="noise-overlay" aria-hidden />
       <HouseSceneV20 />
       <main className="relative z-10">
-        <StoryV10 storyRef={storyRef} />
+        <StoryV11 storyRef={storyRef} />
         <div className="relative border-t border-white/10 bg-[#09090B]">
           <MarqueeV2 />
           <AboutV3 />
