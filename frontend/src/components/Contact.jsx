@@ -12,6 +12,8 @@ const inputCls =
 export default function Contact({
   kickerClassName = "text-[#09090B] before:bg-[#09090B]",
   metaClassName = "text-[#09090B]/60",
+  phoneClassName = "",
+  addressClassName = "",
 }) {
   const [form, setForm] = useState({ name: "", email: "", phone: "", service: services[0], message: "" });
   const [sending, setSending] = useState(false);
@@ -64,9 +66,9 @@ export default function Contact({
             backyard. One call, one crew, one plan.
           </p>
           <div className={`mt-10 space-y-3 font-mono text-sm ${metaClassName}`}>
-            <p data-testid="contact-phone"><a className="text-[#09090B] transition-colors hover:text-[#7B7C00]" href="tel:+19542586769">(954) 258-6769</a></p>
+            <p data-testid="contact-phone" className={phoneClassName}><a className="text-[#09090B] transition-colors hover:text-[#7B7C00]" href="tel:+19542586769">(954) 258-6769</a></p>
             <p data-testid="contact-email"><a className="text-[#09090B] transition-colors hover:text-[#7B7C00]" href="mailto:contact@oakpark-construction.com">contact@oakpark-construction.com</a></p>
-            <p data-testid="contact-address">Broward · Palm Beach · Miami-Dade</p>
+            <p data-testid="contact-address" className={addressClassName}>Broward · Palm Beach · Miami-Dade</p>
             <p>English · Português · Español</p>
           </div>
         </motion.div>

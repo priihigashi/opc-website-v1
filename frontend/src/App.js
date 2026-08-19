@@ -11,7 +11,7 @@ import MarqueeV2 from "@/components/MarqueeV2";
 import AboutV3 from "@/components/AboutV3";
 import GalleryV4 from "@/components/GalleryV4";
 import TestimonialsV3 from "@/components/TestimonialsV3";
-import ContactV3 from "@/components/ContactV3";
+import ContactV4 from "@/components/ContactV4";
 import Footer from "@/components/Footer";
 import TitleCaseAuditV1 from "@/components/TitleCaseAuditV1";
 import PortfolioRouteBoundaryV1 from "@/components/PortfolioRouteBoundaryV1";
@@ -100,7 +100,7 @@ function Landing() {
           <AboutV3 />
           <GalleryV4 />
           <TestimonialsV3 />
-          <ContactV3 />
+          <ContactV4 />
           <Footer />
         </div>
       </main>
