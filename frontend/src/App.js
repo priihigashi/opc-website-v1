@@ -14,6 +14,7 @@ import TestimonialsV3 from "@/components/TestimonialsV3";
 import ContactV3 from "@/components/ContactV3";
 import Footer from "@/components/Footer";
 import TitleCaseAuditV1 from "@/components/TitleCaseAuditV1";
+import PortfolioRouteBoundaryV1 from "@/components/PortfolioRouteBoundaryV1";
 import ServicesV3 from "@/pages/ServicesV3";
 import ServicesSceneV3 from "@/pages/ServicesSceneV3";
 
@@ -143,17 +144,25 @@ export default function App() {
           <Route
             path="/portfolio"
             element={
-              <Suspense fallback={<div className="min-h-screen bg-[#09090B]" />}>
-                <Portfolio />
-              </Suspense>
+              <PortfolioRouteBoundaryV1>
+                <Suspense fallback={<div className="min-h-screen bg-[#09090B]" />}>
+                  <Portfolio />
+                </Suspense>
+              </PortfolioRouteBoundaryV1>
             }
+          />
+          <Route
+            path="/portfolio/1270-harbor-court"
+            element={<Navigate to="/portfolio/harbor-court-residence" replace />}
           />
           <Route
             path="/portfolio/:projectId"
             element={
-              <Suspense fallback={<div className="min-h-screen bg-[#09090B]" />}>
-                <ProjectGallery />
-              </Suspense>
+              <PortfolioRouteBoundaryV1>
+                <Suspense fallback={<div className="min-h-screen bg-[#09090B]" />}>
+                  <ProjectGallery />
+                </Suspense>
+              </PortfolioRouteBoundaryV1>
             }
           />
           <Route
