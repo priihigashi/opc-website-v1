@@ -19,7 +19,7 @@ import ServicesScene from "@/pages/ServicesScene";
 
 const ServiceDetail = lazy(() => import("@/pages/ServiceDetail"));
 const Portfolio = lazy(() => import("@/pages/PortfolioV6"));
-const ProjectGallery = lazy(() => import("@/pages/ProjectGalleryV2"));
+const ProjectGallery = lazy(() => import("@/pages/ProjectGalleryV3"));
 
 const clamp01 = (v) => Math.min(1, Math.max(0, v));
 
