@@ -12,6 +12,7 @@ const shiftOpenings = (openings) =>
   openings.map((opening) => ({ ...opening, x: opening.x + OPENING_OFFSET }));
 
 const resolvePavilionJunction = (junction) => ({
+  width: junction.width ?? WALL_THICKNESS,
   depth: junction.depth ?? JUNCTION_DEPTH,
   height: junction.height ?? 3.4,
   centerY: junction.centerY ?? 1.7,
@@ -33,6 +34,7 @@ export default function EnvelopeV4({ mats, reg, entryDoor = {}, pavilionJunction
   const handleZ = entryDoor.handleZ ?? 0.06;
   const handleSize = entryDoor.handleSize ?? [0.045, 0.9, 0.045];
   const {
+    width: junctionWidth,
     depth: junctionDepth,
     height: junctionHeight,
     centerY: junctionCenterY,
@@ -87,7 +89,7 @@ export default function EnvelopeV4({ mats, reg, entryDoor = {}, pavilionJunction
           <boxGeometry args={[0.09, 0.36, 0.09]} />
         </mesh>
         <mesh position={[2.375, junctionCenterY, junctionFrontZ]} material={mats.stuccoSide}>
-          <boxGeometry args={[WALL_THICKNESS, junctionHeight, junctionDepth]} />
+          <boxGeometry args={[junctionWidth, junctionHeight, junctionDepth]} />
         </mesh>
       </group>
 
@@ -99,7 +101,7 @@ export default function EnvelopeV4({ mats, reg, entryDoor = {}, pavilionJunction
         <WindowUnit w={1.25} h={0.9} position={[-1.1, 3.95, 0]} glass={mats.glassSide} frame={mats.frameSide} mullions={1} />
         <WindowUnit w={1.25} h={0.9} position={[1.1, 3.95, 0]} glass={mats.glassSide} frame={mats.frameSide} mullions={1} />
         <mesh position={[2.375, junctionCenterY, junctionRearZ]} material={mats.stuccoSide}>
-          <boxGeometry args={[WALL_THICKNESS, junctionHeight, junctionDepth]} />
+          <boxGeometry args={[junctionWidth, junctionHeight, junctionDepth]} />
         </mesh>
       </group>
 

@@ -43,7 +43,7 @@ const viewportStage = () => {
   return { tablet: false, heroY: -0.16 };
 };
 
-export default function HouseModelV15() {
+export default function HouseModelV15({ EnvelopeComponent = EnvelopeV6 }) {
   const [stage, setStage] = useState(viewportStage);
 
   useEffect(() => {
@@ -56,7 +56,7 @@ export default function HouseModelV15() {
     <HouseModel
       AdditionComponent={AdditionV5}
       DrivewayComponent={DrivewayV3}
-      EnvelopeComponent={EnvelopeV6}
+      EnvelopeComponent={EnvelopeComponent}
       materialConfig={MATERIAL_CONFIG}
       rotationTrack={ROTATION}
       positionXTrack={positionTrack(stage.tablet ? -4.35 : -2.8)}
