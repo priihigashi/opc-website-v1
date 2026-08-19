@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import HouseSceneV20 from "@/three/HouseSceneV20";
+import HouseSceneV21 from "@/three/HouseSceneV21";
 import { scrollStore } from "@/lib/scrollStore";
 import { SERVICES_V2_BY_SLUG, SERVICES_V2_RESTING_PROGRESS } from "./servicesDataV2";
 
@@ -22,7 +22,7 @@ export default function ServicesSceneV2() {
 
   return (
     <div data-testid="services-scene-v2">
-      <HouseSceneV20 />
+      <HouseSceneV21 />
     </div>
   );
 }

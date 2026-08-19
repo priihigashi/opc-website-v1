@@ -5,6 +5,7 @@
 - Replaced the Services selector with an additive V2 that mounts the current homepage house model, supports all eight service destinations, shows selection progress, and preserves the existing Services implementation as a fallback.
 - Added a visible Home link to desktop and mobile navigation while retaining the clickable logo and current-page accessibility state.
 - Increased the contrast of the contact-section metadata on the light background through an additive Contact V3 wrapper.
+- Corrected the outdoor grill countertop so it uses the grill's dedicated material and exits with the grill instead of lingering on the interior-counter timing.
 - Preserved the current Services headline because replacement copy has not yet been approved.
 
 ## Verification
@@ -14,6 +15,7 @@
 - Services was checked at desktop, tablet, and mobile sizes with no horizontal overflow or runtime error overlay.
 - All eight service routes render successfully.
 - The service-selection animation visibly begins before navigation.
+- The outdoor-to-concrete transition no longer leaves the bright grill countertop behind.
 - Mobile navigation exposes Home, marks Services as the current page, and returns to the homepage correctly.
 
 ## Safety boundary
