@@ -33,6 +33,7 @@ Do not change the nameservers, MX records, SPF, DKIM, DMARC, or Google verificat
 - Direct routes and refreshes are supported for services and portfolio paths.
 - Search metadata, canonical URL, Open Graph metadata, `robots.txt`, and `sitemap.xml` are present.
 - Known indexed WordPress routes have permanent redirects in the Vercel configuration.
+- A plain-language privacy page explains the mail-app enquiry flow, hosting logs, current cookie status, and third-party links.
 - Baseline security headers are present: MIME sniffing prevention, strict referrer policy, camera/microphone/location disabled, and same-origin framing.
 - Visitor-facing exact project street numbers were replaced with project names.
 - Public contact information uses the business phone, business inbox, service area, license number, and languages only.
@@ -47,7 +48,7 @@ Do not change the nameservers, MX records, SPF, DKIM, DMARC, or Google verificat
 ## Tomorrow's publication checklist
 
 1. Open the launch candidate on phone and desktop and approve the visible content.
-2. In the Vercel project, add both `oakpark-construction.com` and `www.oakpark-construction.com` if not already present.
+2. Confirm the two domains already prepared in Vercel: `oakpark-construction.com` and `www.oakpark-construction.com`.
 3. Copy the exact DNS values displayed by Vercel.
 4. In SiteGround DNS Zone Editor, change only the apex (`@`) website record and the `www` website record to those exact Vercel values.
 5. Leave nameservers and every email-related MX/TXT record unchanged.
@@ -59,6 +60,7 @@ Do not change the nameservers, MX records, SPF, DKIM, DMARC, or Google verificat
    - portfolio landing and every project route
    - direct refresh on a project route
    - About, Google-review link, phone, email, and enquiry fallback
+   - privacy page and representative old WordPress redirect URLs
    - `robots.txt` and `sitemap.xml`
    - `www` redirects consistently to the chosen canonical domain
 8. Submit `https://oakpark-construction.com/sitemap.xml` in Google Search Console.

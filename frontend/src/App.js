@@ -1,5 +1,5 @@
 import { Suspense, lazy, useEffect, useRef, useState } from "react";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Navigate, Routes, Route, useLocation } from "react-router-dom";
 import Lenis from "lenis";
 import "@/App.css";
 import { Toaster } from "@/components/ui/sonner";
@@ -20,6 +20,7 @@ import ServicesScene from "@/pages/ServicesScene";
 const ServiceDetail = lazy(() => import("@/pages/ServiceDetail"));
 const Portfolio = lazy(() => import("@/pages/PortfolioV6"));
 const ProjectGallery = lazy(() => import("@/pages/ProjectGalleryV3"));
+const Privacy = lazy(() => import("@/pages/Privacy"));
 
 const clamp01 = (v) => Math.min(1, Math.max(0, v));
 
@@ -155,6 +156,15 @@ export default function App() {
               </Suspense>
             }
           />
+          <Route
+            path="/privacy"
+            element={
+              <Suspense fallback={<div className="min-h-screen bg-[#09090B]" />}>
+                <Privacy />
+              </Suspense>
+            }
+          />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
         <Toaster position="bottom-right" theme="dark" />
       </TitleCaseAuditV1>

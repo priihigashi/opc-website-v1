@@ -38,7 +38,10 @@ export default function Footer() {
         </div>
         <div className="flex flex-wrap items-center justify-between gap-4 py-8 font-mono text-[11px] uppercase tracking-[0.2em] text-[#A1A1AA]">
           <p>© {new Date().getFullYear()} Oak Park Construction</p>
-          <p>Florida GC · CBC1263425 · Insured</p>
+          <div className="flex flex-wrap items-center gap-4">
+            <a className="transition-colors hover:text-[#CBCC10]" href="/privacy">Privacy</a>
+            <p>Florida GC · CBC1263425 · Insured</p>
+          </div>
         </div>
       </div>
       <p

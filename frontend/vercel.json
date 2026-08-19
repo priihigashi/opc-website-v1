@@ -1,11 +1,35 @@
 {
   "redirects": [
+    { "source": "/gallery", "destination": "/portfolio", "permanent": true },
+    { "source": "/gallery/", "destination": "/portfolio", "permanent": true },
+    { "source": "/about-2", "destination": "/#about", "permanent": true },
+    { "source": "/about-2/", "destination": "/#about", "permanent": true },
+    { "source": "/hub", "destination": "/", "permanent": true },
+    { "source": "/hub/", "destination": "/", "permanent": true },
+    { "source": "/blog/services", "destination": "/services", "permanent": true },
+    { "source": "/blog/services/", "destination": "/services", "permanent": true },
     { "source": "/contact-us", "destination": "/#contact", "permanent": true },
     { "source": "/contact-us/", "destination": "/#contact", "permanent": true },
     { "source": "/jobgallery/full-home-remodel", "destination": "/services/full-renovation", "permanent": true },
     { "source": "/jobgallery/full-home-remodel/", "destination": "/services/full-renovation", "permanent": true },
     { "source": "/jobgallery/shell-construction-2", "destination": "/services/shell-construction", "permanent": true },
     { "source": "/jobgallery/shell-construction-2/", "destination": "/services/shell-construction", "permanent": true },
+    { "source": "/jobgallery/new-build-2/:path*", "destination": "/services/new-construction", "permanent": true },
+    { "source": "/jobgallery/commercial-buildout-2/:path*", "destination": "/services/full-renovation", "permanent": true },
+    { "source": "/jobgallery/kitchen-bath-builds-2/:path*", "destination": "/portfolio", "permanent": true },
+    { "source": "/jobgallery/exterior-feature-builds-2/:path*", "destination": "/services/outdoor-living", "permanent": true },
+    { "source": "/jobgallery/concrete/:path*", "destination": "/services/concrete-pavers", "permanent": true },
+    { "source": "/expertise/renovations/:path*", "destination": "/services/full-renovation", "permanent": true },
+    { "source": "/expertise/driveway-concrete-pavers/:path*", "destination": "/services/concrete-pavers", "permanent": true },
+    { "source": "/expertise/new-construction/:path*", "destination": "/services/new-construction", "permanent": true },
+    { "source": "/expertise/design-build-contractor/:path*", "destination": "/services/new-construction", "permanent": true },
+    { "source": "/expertise/accessory-dwelling-units-adus/:path*", "destination": "/services/additions", "permanent": true },
+    { "source": "/expertise/land-development/:path*", "destination": "/services/new-construction", "permanent": true },
+    { "source": "/expertise/pre-construction-planning/:path*", "destination": "/services/new-construction", "permanent": true },
+    { "source": "/expertise/owners-representative/:path*", "destination": "/services", "permanent": true },
+    { "source": "/expertise/home-additions/:path*", "destination": "/services/additions", "permanent": true },
+    { "source": "/expertise/interior-exterior-build-outs/:path*", "destination": "/services/full-renovation", "permanent": true },
+    { "source": "/project-gallery/:path*", "destination": "/portfolio", "permanent": true },
     { "source": "/budget-friendly-interior-painting-costs-in-2025-for-your-florida-home-remodel", "destination": "/services/full-renovation", "permanent": true },
     { "source": "/budget-friendly-interior-painting-costs-in-2025-for-your-florida-home-remodel/", "destination": "/services/full-renovation", "permanent": true }
   ],
@@ -13,7 +37,9 @@
     { "source": "/services", "destination": "/index.html" },
     { "source": "/services/:path*", "destination": "/index.html" },
     { "source": "/portfolio", "destination": "/index.html" },
-    { "source": "/portfolio/:path*", "destination": "/index.html" }
+    { "source": "/portfolio/:path*", "destination": "/index.html" },
+    { "source": "/privacy", "destination": "/index.html" },
+    { "source": "/privacy/", "destination": "/index.html" }
   ],
   "headers": [
     {
