@@ -10,13 +10,16 @@ const fade = {
   show: { opacity: 1, y: 0, transition: { duration: 0.85, delay: 0.78, ease: "easeOut" } },
 };
 
-export default function HeroV8() {
+export default function HeroV8({
+  haloClassName = "hero-halo",
+  bridgeBackground = "linear-gradient(180deg, rgba(9,9,11,0) 0%, rgba(9,9,11,0.34) 28%, rgba(9,9,11,0.92) 55%, rgba(9,9,11,0.58) 77%, rgba(9,9,11,0) 100%)",
+}) {
   const reduceMotion = useReducedMotion();
 
   return (
     <section id="top" data-testid="hero" className="pointer-events-none relative flex min-h-[100svh] flex-col justify-between overflow-x-clip">
       <div
-        className="hero-halo absolute inset-x-0 top-0 -bottom-[28svh]"
+        className={`${haloClassName} absolute inset-x-0 top-0 -bottom-[28svh]`}
         style={{
           WebkitMaskImage: "linear-gradient(180deg, #000 0%, #000 62%, rgba(0,0,0,0.78) 75%, transparent 100%)",
           maskImage: "linear-gradient(180deg, #000 0%, #000 62%, rgba(0,0,0,0.78) 75%, transparent 100%)",
@@ -26,7 +29,7 @@ export default function HeroV8() {
       <div
         className="absolute inset-x-0 -bottom-[26svh] z-[1] h-[58svh]"
         style={{
-          background: "linear-gradient(180deg, rgba(9,9,11,0) 0%, rgba(9,9,11,0.34) 28%, rgba(9,9,11,0.92) 55%, rgba(9,9,11,0.58) 77%, rgba(9,9,11,0) 100%)",
+          background: bridgeBackground,
         }}
         aria-hidden
       />

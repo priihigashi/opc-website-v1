@@ -11,11 +11,11 @@ const chapters = [
   { id: "ch-05", num: "05", side: "right", overline: "Concrete + Pavers", title: ["Groundwork", "that lasts."], body: "Finally the house faces forward again and the ground resolves — a driveway poured true, pavers laid in rhythm. The first thing you touch every day, engineered to outlast trends and winters.", bullets: ["Driveways, walkways & patios", "Interlocking pavers & stamped finishes", "Drainage, grading & base preparation"], portfolioHref: "/portfolio?category=CONCRETE#portfolio-projects", portfolioLabel: "View Concrete Projects" },
 ];
 
-export default function StoryV11({ storyRef }) {
+export default function StoryV11({ storyRef, HeroComponent = HeroV8 }) {
   return (
     <div ref={storyRef} data-testid="story" className="relative">
       <ChapterRail />
-      <HeroV8 />
+      <HeroComponent />
       {chapters.map((chapter) => <ChapterV3 key={chapter.id} {...chapter} />)}
       <section data-testid="story-outro" className="pointer-events-none relative flex min-h-[120vh] items-center justify-center">
         <motion.div
