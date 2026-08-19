@@ -14,11 +14,28 @@ Date: 2026-08-18
 
 - Source: CGTrader, “Luxury Modern Villa Pool 3D Model”.
 - Model ID: `7273726`.
-- Listed formats: SketchUp, Lumion, OBJ, MTL, materials and textures.
+- Download page format: SketchUp (`2123.skp`) only. The public listing references other workflow formats, but they were not included in the actual free download.
 - Listed complexity: 24,285 polygons, 35,000 vertices, 38 materials and 23 textures.
 - SketchUp hierarchy listed by the source: 178 groups and 67 component instances.
 - License shown by the source: free Royalty Free License, no AI usage.
-- The local source archive has not appeared in Downloads yet. Public preview images are saved only for evaluation and documentation; they are not website assets.
+- Download completed at `/Users/priscilahigashi/Downloads/2123.skp` (4.85 MB; SHA-256 `7ecbfa5de710bc01fa4e36bc6a2a0efa28553b5c55242395b5c5c8b267b57ef6`).
+- The untouched source was copied into `research/model-candidates/luxury-modern-villa-pool-7273726/source/`.
+- Public preview images remain evaluation/documentation assets only.
+
+## Local conversion and inspection result
+
+- Verified native SketchUp version: `21.1.332`.
+- Parsed locally with OpenSKP; no third-party upload or account handoff was used.
+- Parsed structure: 138 definitions, 337 web-renderable meshes, 46 materials, one SketchUp layer.
+- Web conversion: `2123.glb`, 2.85 MB, plus a 190 KB metadata sidecar and the embedded thumbnail.
+- The model renders successfully in the isolated route `/model-experiment`.
+- Oversized road/terrain planes are hidden in the experiment viewer so the architectural portion can be inspected clearly.
+- The source has many separate groups, but the creator left them generically named and placed everything on `Layer0`; stage assignment therefore requires spatial/manual mesh mapping rather than clean semantic tags.
+- The current open-source conversion preserves geometry, UVs and material colors, but its GLB serializer does not carry the embedded SketchUp texture images. Texture fidelity remains an explicit follow-up before any donor element can be production-ready.
+
+## Decision after rendering the actual file
+
+Do not replace the protected OPC hero house with this entire villa. The model is much wider, more traditional, and less compatible with the existing compact modern silhouette than the marketplace preview first suggested. Use it only as a donor candidate for pool, terrace, retaining-wall, stair and covered-outdoor elements after mesh mapping and material reconstruction. The protected procedural house remains the correct fallback and must stay untouched.
 
 ## Visual decision
 
@@ -65,4 +82,4 @@ No stage may expose later-stage objects early. The opening view must remain visu
 
 ## Next inspection step
 
-When the archive appears in Downloads, copy it into this experiment, preserve the original, inspect its object hierarchy and textures, then produce a small GLB test before integrating any object into the live hero.
+Map the pool, terrace, retaining-wall, stair and covered-outdoor meshes into named stage groups. Rebuild only the selected materials/textures, then test those donor elements around the protected house silhouette on the isolated branch. Do not merge or replace the protected preview before a separate review URL passes the acceptance gates.

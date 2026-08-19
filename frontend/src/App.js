@@ -20,6 +20,7 @@ import ServicesScene from "@/pages/ServicesScene";
 const ServiceDetail = lazy(() => import("@/pages/ServiceDetail"));
 const Portfolio = lazy(() => import("@/pages/PortfolioV5"));
 const ProjectGallery = lazy(() => import("@/pages/ProjectGalleryV2"));
+const ModelExperiment = lazy(() => import("@/pages/ModelExperiment"));
 
 const clamp01 = (v) => Math.min(1, Math.max(0, v));
 
@@ -152,6 +153,14 @@ export default function App() {
             element={
               <Suspense fallback={<div className="min-h-screen bg-[#09090B]" />}>
                 <ProjectGallery />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/model-experiment"
+            element={
+              <Suspense fallback={<div className="min-h-screen bg-[#09090B]" />}>
+                <ModelExperiment />
               </Suspense>
             }
           />
