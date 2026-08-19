@@ -45,6 +45,15 @@ The isolated refined branch now includes all later protected fixes in addition t
 - Existing responsive choreography and overflow corrections from the protected branch were merged unchanged; the protected device matrix already covers iPhone SE, iPhone 14, iPad Mini, iPad Air and iPad Pro.
 - JavaScript quality baseline unchanged: only the two documented inherited animation-loop complexity findings remain; no third finding was introduced.
 
+## Public audit release
+
+- Refined public audit URL: `https://opc-house-elements-review.vercel.app/`
+- Vercel production deployment: `dpl_GgTiPkkDRkgKrPSf4fnc2PguzQRr`
+- Protected prior-version URL: `https://opc-house-hero-preview.vercel.app/`
+- Refined implementation commit: `5fbb33e`
+- Branch pushed to GitHub: `codex/photoreal-audit-ready-2026-08-19`
+- Both public URLs were opened independently and confirmed to load their WebGL house and page content without a Vercel authentication screen.
+
 ## Honest limitation
 
 This is the strongest polished version of the compact procedural house, not a fully photoreal purchased model. The downloaded free mansion donor was rejected as cartoonish and oversized. The $2 CGTrader villa remains only a research candidate because its listing describes a 479 MB, roughly 9-million-polygon Blender asset that would require purchase, manual object separation and major optimization before it could safely reproduce the service choreography.
