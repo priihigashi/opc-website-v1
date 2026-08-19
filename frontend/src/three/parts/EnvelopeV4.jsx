@@ -11,19 +11,34 @@ const JUNCTION_DEPTH = 0.225;
 const shiftOpenings = (openings) =>
   openings.map((opening) => ({ ...opening, x: opening.x + OPENING_OFFSET }));
 
+const resolvePavilionJunction = (junction) => ({
+  depth: junction.depth ?? JUNCTION_DEPTH,
+  height: junction.height ?? 3.4,
+  centerY: junction.centerY ?? 1.7,
+  frontZ: junction.frontZ ?? -0.2375,
+  rearZ: junction.rearZ ?? 0.2375,
+});
+
 // Envelope v4 uses true butt joints. Front/back faces own the outer corners;
 // perpendicular walls stop at their inner faces, so no boxes overlap and no
 // cosmetic closure strips are needed. The entry opening is deliberately kept
 // separate from the shifted window grid. The door sits just proud of the wall
 // face and overlaps the opening by 0.02 units per side, preventing the pale
 // wall reveal from reading as a gap at oblique camera angles.
-export default function EnvelopeV4({ mats, reg, entryDoor = {} }) {
+export default function EnvelopeV4({ mats, reg, entryDoor = {}, pavilionJunction = {} }) {
   const doorCenter = entryDoor.center ?? 1.6;
   const doorWidth = entryDoor.width ?? 1.24;
   const handleX = entryDoor.handleX ?? 2.07;
   const handleY = entryDoor.handleY ?? 1.35;
   const handleZ = entryDoor.handleZ ?? 0.06;
   const handleSize = entryDoor.handleSize ?? [0.045, 0.9, 0.045];
+  const {
+    depth: junctionDepth,
+    height: junctionHeight,
+    centerY: junctionCenterY,
+    frontZ: junctionFrontZ,
+    rearZ: junctionRearZ,
+  } = resolvePavilionJunction(pavilionJunction);
   const frontOpenings = [
     { x: 1.6, w: 1.2, y0: 0, y1: 2.7 },
     ...shiftOpenings([
@@ -71,8 +86,8 @@ export default function EnvelopeV4({ mats, reg, entryDoor = {} }) {
         <mesh position={[0.6, 2.2, 0.17]} material={mats.sconce}>
           <boxGeometry args={[0.09, 0.36, 0.09]} />
         </mesh>
-        <mesh position={[2.375, 1.7, -0.2375]} material={mats.stuccoSide}>
-          <boxGeometry args={[WALL_THICKNESS, 3.4, JUNCTION_DEPTH]} />
+        <mesh position={[2.375, junctionCenterY, junctionFrontZ]} material={mats.stuccoSide}>
+          <boxGeometry args={[WALL_THICKNESS, junctionHeight, junctionDepth]} />
         </mesh>
       </group>
 
@@ -83,8 +98,8 @@ export default function EnvelopeV4({ mats, reg, entryDoor = {} }) {
         <WindowUnit w={1.8} h={2.4} position={[-0.5, 0, 0]} glass={mats.glassSide} frame={mats.frameSide} mullions={1} />
         <WindowUnit w={1.25} h={0.9} position={[-1.1, 3.95, 0]} glass={mats.glassSide} frame={mats.frameSide} mullions={1} />
         <WindowUnit w={1.25} h={0.9} position={[1.1, 3.95, 0]} glass={mats.glassSide} frame={mats.frameSide} mullions={1} />
-        <mesh position={[2.375, 1.7, 0.2375]} material={mats.stuccoSide}>
-          <boxGeometry args={[WALL_THICKNESS, 3.4, JUNCTION_DEPTH]} />
+        <mesh position={[2.375, junctionCenterY, junctionRearZ]} material={mats.stuccoSide}>
+          <boxGeometry args={[WALL_THICKNESS, junctionHeight, junctionDepth]} />
         </mesh>
       </group>
 
