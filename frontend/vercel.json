@@ -2,6 +2,7 @@
   "rewrites": [
     { "source": "/services", "destination": "/index.html" },
     { "source": "/services/:path*", "destination": "/index.html" },
-    { "source": "/portfolio", "destination": "/index.html" }
+    { "source": "/portfolio", "destination": "/index.html" },
+    { "source": "/model-experiment", "destination": "/index.html" }
   ]
 }
