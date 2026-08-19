@@ -1,6 +1,22 @@
+function LegacyLoungeFurniture({ mats }) {
+  return (
+    <>
+      <mesh position={[4.7, 0.75, -1.3]} material={mats.fabric}>
+        <boxGeometry args={[2.0, 0.45, 0.95]} />
+      </mesh>
+      <mesh position={[4.7, 1.15, -1.68]} material={mats.fabric}>
+        <boxGeometry args={[2.0, 0.55, 0.25]} />
+      </mesh>
+      <mesh position={[3.9, 0.68, -0.35]} material={mats.cabWood}>
+        <boxGeometry args={[1.0, 0.3, 0.5]} />
+      </mesh>
+    </>
+  );
+}
+
 // Interior: oak floors, ceilings with recessed cans, kitchen pavilion,
 // bathroom suite, furniture — revealed by the Ch.02 cutaway.
-export default function Interior({ mats, reg }) {
+export default function Interior({ mats, reg, LoungeFurnitureComponent = LegacyLoungeFurniture }) {
   return (
     <group name="interior" ref={reg("interiorGroup")}>
       {/* floors */}
@@ -65,15 +81,7 @@ export default function Interior({ mats, reg }) {
           </group>
         ))}
         {/* lounge */}
-        <mesh position={[4.7, 0.75, -1.3]} material={mats.fabric}>
-          <boxGeometry args={[2.0, 0.45, 0.95]} />
-        </mesh>
-        <mesh position={[4.7, 1.15, -1.68]} material={mats.fabric}>
-          <boxGeometry args={[2.0, 0.55, 0.25]} />
-        </mesh>
-        <mesh position={[3.9, 0.68, -0.35]} material={mats.cabWood}>
-          <boxGeometry args={[1.0, 0.3, 0.5]} />
-        </mesh>
+        <LoungeFurnitureComponent mats={mats} />
       </group>
 
       {/* ---- living room (volume A, ground floor front) ---- */}

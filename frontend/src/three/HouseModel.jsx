@@ -43,6 +43,8 @@ export default function HouseModel({
   BackyardComponent = Backyard,
   AdditionComponent = Addition,
   EnvelopeComponent = Envelope,
+  InteriorComponent = Interior,
+  LandscapeComponent = LandscapeV1,
   envelopeProps,
   rotationTrack = ROT,
   positionXTrack = POSX,
@@ -414,11 +416,11 @@ export default function HouseModel({
         </mesh>
         <Shell mats={mats} reg={reg} />
         <EnvelopeComponent mats={mats} reg={reg} {...envelopeProps} />
-        <Interior mats={mats} reg={reg} />
+        <InteriorComponent mats={mats} reg={reg} />
         <AdditionComponent mats={mats} reg={reg} />
         <BackyardComponent mats={mats} reg={reg} />
         <DrivewayComponent mats={mats} reg={reg} />
-        <LandscapeV1 mats={mats} reg={reg} />
+        <LandscapeComponent mats={mats} reg={reg} />
       </group>
     </group>
   );
