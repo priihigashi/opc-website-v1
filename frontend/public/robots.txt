@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://oakpark-construction.com/sitemap.xml

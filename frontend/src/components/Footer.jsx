@@ -31,7 +31,7 @@ export default function Footer() {
             <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#A1A1AA]">Contact</p>
             <ul className="mt-4 space-y-2 text-sm text-[#FAFAFA]">
               <li><a className="transition-colors hover:text-[#CBCC10]" href="tel:+19542586769">(954) 258-6769</a></li>
-              <li><a className="transition-colors hover:text-[#CBCC10]" href="mailto:priscila@oakpark-construction.com">priscila@oakpark-construction.com</a></li>
+              <li><a className="transition-colors hover:text-[#CBCC10]" href="mailto:contact@oakpark-construction.com">contact@oakpark-construction.com</a></li>
               <li>Broward · Palm Beach · Miami-Dade</li>
             </ul>
           </div>

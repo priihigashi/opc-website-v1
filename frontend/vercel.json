@@ -1,7 +1,29 @@
 {
+  "redirects": [
+    { "source": "/contact-us", "destination": "/#contact", "permanent": true },
+    { "source": "/contact-us/", "destination": "/#contact", "permanent": true },
+    { "source": "/jobgallery/full-home-remodel", "destination": "/services/full-renovation", "permanent": true },
+    { "source": "/jobgallery/full-home-remodel/", "destination": "/services/full-renovation", "permanent": true },
+    { "source": "/jobgallery/shell-construction-2", "destination": "/services/shell-construction", "permanent": true },
+    { "source": "/jobgallery/shell-construction-2/", "destination": "/services/shell-construction", "permanent": true },
+    { "source": "/budget-friendly-interior-painting-costs-in-2025-for-your-florida-home-remodel", "destination": "/services/full-renovation", "permanent": true },
+    { "source": "/budget-friendly-interior-painting-costs-in-2025-for-your-florida-home-remodel/", "destination": "/services/full-renovation", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/services", "destination": "/index.html" },
     { "source": "/services/:path*", "destination": "/index.html" },
-    { "source": "/portfolio", "destination": "/index.html" }
+    { "source": "/portfolio", "destination": "/index.html" },
+    { "source": "/portfolio/:path*", "destination": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
+      ]
+    }
   ]
 }

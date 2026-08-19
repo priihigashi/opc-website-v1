@@ -20,7 +20,7 @@ export default function Contact({ kickerClassName = "text-[#09090B] before:bg-[#
     if (!API) {
       const subject = encodeURIComponent(`Website project enquiry — ${form.service}`);
       const body = encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone || "—"}\nService: ${form.service}\n\n${form.message}`);
-      window.location.href = `mailto:priscila@oakpark-construction.com?subject=${subject}&body=${body}`;
+      window.location.href = `mailto:contact@oakpark-construction.com?subject=${subject}&body=${body}`;
       return;
     }
     setSending(true);
@@ -62,8 +62,9 @@ export default function Contact({ kickerClassName = "text-[#09090B] before:bg-[#
           </p>
           <div className="mt-10 space-y-3 font-mono text-sm text-[#09090B]/60">
             <p data-testid="contact-phone"><a className="text-[#09090B] transition-colors hover:text-[#7B7C00]" href="tel:+19542586769">(954) 258-6769</a></p>
-            <p data-testid="contact-email"><a className="text-[#09090B] transition-colors hover:text-[#7B7C00]" href="mailto:priscila@oakpark-construction.com">priscila@oakpark-construction.com</a></p>
+            <p data-testid="contact-email"><a className="text-[#09090B] transition-colors hover:text-[#7B7C00]" href="mailto:contact@oakpark-construction.com">contact@oakpark-construction.com</a></p>
             <p data-testid="contact-address">Broward · Palm Beach · Miami-Dade</p>
+            <p>English · Português · Español</p>
           </div>
         </motion.div>
 
@@ -92,8 +93,13 @@ export default function Contact({ kickerClassName = "text-[#09090B] before:bg-[#
             className="luxury-pill col-span-2 mt-5 flex items-center justify-center gap-3 bg-[#09090B] px-6 py-4 font-mono text-xs uppercase tracking-[0.25em] text-[#EEEDE9] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#202014] disabled:opacity-60"
           >
             {sending ? <Loader2 className="h-4 w-4 animate-spin" /> : <ArrowRight className="h-4 w-4" />}
-            {sending ? "Sending…" : "Send enquiry"}
+            {sending ? "Sending…" : API ? "Send enquiry" : "Open email to send"}
           </button>
+          {!API && (
+            <p className="col-span-2 text-center text-xs leading-relaxed text-[#09090B]/55">
+              This opens your email app with the project details filled in. You review and send the message from there.
+            </p>
+          )}
         </motion.form>
       </div>
     </section>

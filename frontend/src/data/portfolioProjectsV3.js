@@ -2,12 +2,12 @@ export const PORTFOLIO_FILTERS = ["ALL", "FULL HOME REMODELS", "KITCHENS + BATHR
 
 export const PORTFOLIO_PROJECTS = [
   {
-    id: "1270-harbor-court",
+    id: "harbor-court-residence",
     cat: "FULL HOME REMODELS",
-    title: "1270 Harbor Court",
+    title: "Harbor Court Residence",
     phase: "Multi-scope project",
     image: "/images/opc/kitchen-wide.jpg",
-    alt: "Finished light wood kitchen at the 1270 Harbor Court remodel",
+    alt: "Finished light wood kitchen at the Harbor Court residence remodel",
     detail: "Full-home remodel · addition · kitchen · bath · outdoor living",
     featured: true,
     intro: "One home, documented across the interior remodel, new addition and finished outdoor spaces.",
@@ -15,11 +15,11 @@ export const PORTFOLIO_PROJECTS = [
       {
         label: "Addition — Groundwork to Finish",
         images: [
-          ["/images/opc/projects/1270-harbor-court/groundwork.jpg", "Groundwork for the Harbor Court addition"],
-          ["/images/opc/projects/1270-harbor-court/addition-before.jpg", "Harbor Court addition under construction"],
-          ["/images/opc/projects/1270-harbor-court/addition-progress.jpg", "Stucco and enclosure progress"],
-          ["/images/opc/projects/1270-harbor-court/addition-near-finish.jpg", "Addition approaching completion"],
-          ["/images/opc/projects/1270-harbor-court/addition-finished.jpg", "Finished addition and outdoor kitchen"],
+          ["/images/opc/projects/harbor-court-residence/groundwork.jpg", "Groundwork for the Harbor Court addition"],
+          ["/images/opc/projects/harbor-court-residence/addition-before.jpg", "Harbor Court addition under construction"],
+          ["/images/opc/projects/harbor-court-residence/addition-progress.jpg", "Stucco and enclosure progress"],
+          ["/images/opc/projects/harbor-court-residence/addition-near-finish.jpg", "Addition approaching completion"],
+          ["/images/opc/projects/harbor-court-residence/addition-finished.jpg", "Finished addition and outdoor kitchen"],
         ],
       },
       {
@@ -33,9 +33,9 @@ export const PORTFOLIO_PROJECTS = [
       {
         label: "Raised Planter — Before, Progress, After",
         images: [
-          ["/images/opc/projects/1270-harbor-court/planter-before.jpg", "Raised planter framing"],
-          ["/images/opc/projects/1270-harbor-court/planter-progress.jpg", "Raised planter concrete progress"],
-          ["/images/opc/1270-harbor-ct-outdoor-after-enhanced-v1.jpg", "Finished hardwood bench and raised planter"],
+          ["/images/opc/projects/harbor-court-residence/planter-before.jpg", "Raised planter framing"],
+          ["/images/opc/projects/harbor-court-residence/planter-progress.jpg", "Raised planter concrete progress"],
+          ["/images/opc/harbor-court-outdoor-after-enhanced-v1.jpg", "Finished hardwood bench and raised planter"],
         ],
       },
     ],
@@ -120,7 +120,7 @@ export const PORTFOLIO_PROJECTS = [
     alt: "Fresh residential concrete slab being finished",
     detail: "Formwork · placement · finish control",
     intro: "Concrete work shown as construction documentation, never presented as finished photography.",
-    rows: [{ label: "2112 Rio Vista", images: [
+    rows: [{ label: "Rio Vista Concrete Work", images: [
       ["/images/opc/concrete-progress.jpg", "Residential concrete placement"],
       ["/images/opc/projects/concrete-work/rio-vista-01.jpg", "Rio Vista concrete work"],
       ["/images/opc/projects/concrete-work/rio-vista-02.jpg", "Rio Vista concrete progress"],

@@ -96,7 +96,7 @@ function GalleryRow({ row, rowIndex, projectTitle, aboveFold = false }) {
                 height="1013"
                 loading={rowIndex === 0 && imageIndex === 0 ? "eager" : "lazy"}
                 decoding="async"
-                className="aspect-video w-full object-cover"
+                className={aboveFold ? "h-[clamp(180px,30svh,330px)] w-full object-cover" : "aspect-video w-full object-cover"}
               />
               <figcaption className="flex items-center justify-between gap-4 px-4 py-2.5 text-xs text-white/65 sm:px-5 sm:py-3 sm:text-sm">
                 <span>{alt}</span>
