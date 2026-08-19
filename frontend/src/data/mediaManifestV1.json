@@ -1,0 +1,34 @@
+{
+  "/images/opc/house-static-fallback-v1.jpg": {
+    "width": 1600,
+    "height": 900,
+    "avif": [
+      {
+        "src": "/media/optimized/images/opc/house-static-fallback-v1-640.avif",
+        "width": 640
+      },
+      {
+        "src": "/media/optimized/images/opc/house-static-fallback-v1-1024.avif",
+        "width": 1024
+      },
+      {
+        "src": "/media/optimized/images/opc/house-static-fallback-v1-1600.avif",
+        "width": 1600
+      }
+    ],
+    "webp": [
+      {
+        "src": "/media/optimized/images/opc/house-static-fallback-v1-640.webp",
+        "width": 640
+      },
+      {
+        "src": "/media/optimized/images/opc/house-static-fallback-v1-1024.webp",
+        "width": 1024
+      },
+      {
+        "src": "/media/optimized/images/opc/house-static-fallback-v1-1600.webp",
+        "width": 1600
+      }
+    ]
+  }
+}

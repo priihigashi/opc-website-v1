@@ -4,7 +4,7 @@ import ResponsiveImageV1 from "@/components/ResponsiveImageV1";
 const HomeHouse = lazy(() => import("@/three/HouseSceneV24"));
 const ServicesHouse = lazy(() => import("@/pages/ServicesSceneV3"));
 
-const shouldUseStaticHouse = () => {
+export const shouldUseStaticHouse = () => {
   const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches
     || window.matchMedia("(max-width: 767px)").matches
