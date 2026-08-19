@@ -69,7 +69,7 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "GENERATE_SOURCEMAP=false craco build",
+    "build": "GENERATE_SOURCEMAP=false craco build && node scripts/generate-seo-pages.mjs",
     "test": "craco test",
     "quality:js": "eslint src --ext .js,.jsx"
   },

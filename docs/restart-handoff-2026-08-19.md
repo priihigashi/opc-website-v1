@@ -1,5 +1,12 @@
 # OPC Website Restart Handoff — 2026-08-19
 
+## SEO final-pass continuation
+
+- Active branch: `codex/seo-final-pass-2026-08-19`
+- SEO implementation and verification details: `docs/2026-08-19-seo-final-pass-v1.md`
+- The SEO pass is complete in code except for two honest external dependencies: Search Console ownership/DNS verification and Article markup on blog routes that do not yet exist.
+- No SEO deployment has been performed as of this handoff entry.
+
 ## Durable GitHub checkpoints
 
 - Current website work: branch `codex/furniture-landscape-v1-2026-08-19`

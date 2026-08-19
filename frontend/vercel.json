@@ -1,4 +1,6 @@
 {
+  "cleanUrls": true,
+  "trailingSlash": false,
   "redirects": [
     { "source": "/gallery", "destination": "/portfolio", "permanent": true },
     { "source": "/gallery/", "destination": "/portfolio", "permanent": true },
@@ -63,15 +65,31 @@
     { "source": "/project-gallery/kitchen-cabinet-1", "destination": "/portfolio", "permanent": true },
     { "source": "/project-gallery/kitchen-cabinet-1/", "destination": "/portfolio", "permanent": true },
     { "source": "/budget-friendly-interior-painting-costs-in-2025-for-your-florida-home-remodel", "destination": "/services/full-renovation", "permanent": true },
-    { "source": "/budget-friendly-interior-painting-costs-in-2025-for-your-florida-home-remodel/", "destination": "/services/full-renovation", "permanent": true }
+    { "source": "/budget-friendly-interior-painting-costs-in-2025-for-your-florida-home-remodel/", "destination": "/services/full-renovation", "permanent": true },
+    { "source": "/portfolio/1270-harbor-court", "destination": "/portfolio/harbor-court-residence", "permanent": true },
+    { "source": "/portfolio/1270-harbor-court/", "destination": "/portfolio/harbor-court-residence", "permanent": true }
   ],
   "rewrites": [
-    { "source": "/services", "destination": "/index.html" },
+    { "source": "/services", "destination": "/services/index.html" },
+    { "source": "/services/full-renovation", "destination": "/services/full-renovation/index.html" },
+    { "source": "/services/kitchen", "destination": "/services/kitchen/index.html" },
+    { "source": "/services/bathroom", "destination": "/services/bathroom/index.html" },
+    { "source": "/services/new-construction", "destination": "/services/new-construction/index.html" },
+    { "source": "/services/additions", "destination": "/services/additions/index.html" },
+    { "source": "/services/shell-construction", "destination": "/services/shell-construction/index.html" },
+    { "source": "/services/outdoor-living", "destination": "/services/outdoor-living/index.html" },
+    { "source": "/services/concrete-pavers", "destination": "/services/concrete-pavers/index.html" },
     { "source": "/services/:path*", "destination": "/index.html" },
-    { "source": "/portfolio", "destination": "/index.html" },
+    { "source": "/portfolio", "destination": "/portfolio/index.html" },
+    { "source": "/portfolio/harbor-court-residence", "destination": "/portfolio/harbor-court-residence/index.html" },
+    { "source": "/portfolio/kitchen-collection", "destination": "/portfolio/kitchen-collection/index.html" },
+    { "source": "/portfolio/bathroom-collection", "destination": "/portfolio/bathroom-collection/index.html" },
+    { "source": "/portfolio/clark-pergola", "destination": "/portfolio/clark-pergola/index.html" },
+    { "source": "/portfolio/shell-construction", "destination": "/portfolio/shell-construction/index.html" },
+    { "source": "/portfolio/concrete-work", "destination": "/portfolio/concrete-work/index.html" },
     { "source": "/portfolio/:path*", "destination": "/index.html" },
-    { "source": "/privacy", "destination": "/index.html" },
-    { "source": "/privacy/", "destination": "/index.html" }
+    { "source": "/service-areas", "destination": "/service-areas/index.html" },
+    { "source": "/privacy", "destination": "/privacy/index.html" }
   ],
   "headers": [
     {

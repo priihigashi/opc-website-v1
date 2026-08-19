@@ -6,22 +6,24 @@ import { Toaster } from "@/components/ui/sonner";
 import { scrollStore } from "@/lib/scrollStore";
 import HouseSceneV24 from "@/three/HouseSceneV24";
 import NavV4 from "@/components/NavV4";
-import StoryV12 from "@/components/StoryV12";
+import StoryV13 from "@/components/StoryV13";
 import MarqueeV2 from "@/components/MarqueeV2";
 import AboutV3 from "@/components/AboutV3";
 import GalleryV4 from "@/components/GalleryV4";
 import TestimonialsV3 from "@/components/TestimonialsV3";
 import ContactV4 from "@/components/ContactV4";
-import Footer from "@/components/Footer";
+import FooterV2 from "@/components/FooterV2";
+import SeoV1 from "@/components/SeoV1";
 import TitleCaseAuditV1 from "@/components/TitleCaseAuditV1";
 import PortfolioRouteBoundaryV1 from "@/components/PortfolioRouteBoundaryV1";
 import ServicesV3 from "@/pages/ServicesV3";
 import ServicesSceneV3 from "@/pages/ServicesSceneV3";
 
-const ServiceDetail = lazy(() => import("@/pages/ServiceDetail"));
+const ServiceDetail = lazy(() => import("@/pages/ServiceDetailV2"));
 const Portfolio = lazy(() => import("@/pages/PortfolioV7"));
 const ProjectGallery = lazy(() => import("@/pages/ProjectGalleryV3"));
-const Privacy = lazy(() => import("@/pages/Privacy"));
+const Privacy = lazy(() => import("@/pages/PrivacyV2"));
+const ServiceAreas = lazy(() => import("@/pages/ServiceAreasV1"));
 
 const clamp01 = (v) => Math.min(1, Math.max(0, v));
 
@@ -94,14 +96,14 @@ function Landing() {
       <div className="noise-overlay" aria-hidden />
       <HouseSceneV24 />
       <main className="relative z-10">
-        <StoryV12 storyRef={storyRef} />
+        <StoryV13 storyRef={storyRef} />
         <div className="relative border-t border-white/10 bg-[#09090B]">
           <MarqueeV2 />
           <AboutV3 />
           <GalleryV4 />
           <TestimonialsV3 />
           <ContactV4 />
-          <Footer />
+          <FooterV2 />
         </div>
       </main>
     </div>
@@ -127,6 +129,7 @@ function ServicesStageGate() {
 export default function App() {
   return (
     <BrowserRouter>
+      <SeoV1 />
       <TitleCaseAuditV1>
         <NavV4 />
         <ServicesStageGate />
@@ -163,6 +166,14 @@ export default function App() {
                   <ProjectGallery />
                 </Suspense>
               </PortfolioRouteBoundaryV1>
+            }
+          />
+          <Route
+            path="/service-areas"
+            element={
+              <Suspense fallback={<div className="min-h-screen bg-[#09090B]" />}>
+                <ServiceAreas />
+              </Suspense>
             }
           />
           <Route

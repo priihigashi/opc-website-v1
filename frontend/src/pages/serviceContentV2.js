@@ -1,0 +1,82 @@
+export const SERVICE_CONTENT_V2 = {
+  "full-renovation": {
+    title: "Full Renovation",
+    tag: "Whole-home transformation",
+    body: "We plan the house as one connected scope, coordinating structure, building systems, layout, finishes and indoor-outdoor relationships instead of treating each room as an isolated project.",
+    bullets: ["Existing-condition and scope review", "Coordinated structural and building-system work", "Interior and exterior finish planning", "Construction sequencing across the home"],
+    image: "/images/opc/kitchen-walnut.jpg",
+    imageAlt: "Finished walnut kitchen within a full-home renovation",
+    phase: "Finished OPC work",
+  },
+  kitchen: {
+    title: "Kitchen Remodels",
+    tag: "Planned around daily use",
+    body: "Kitchen remodeling begins with circulation, storage, cooking and gathering. The scope can bring together layout changes, cabinetry, stone, lighting, plumbing, electrical and appliance integration.",
+    bullets: ["Cabinetry and stone surfaces", "Layout and wall changes where appropriate", "Lighting, plumbing and electrical coordination", "Appliance planning and integration"],
+    image: "/images/opc/kitchen-wide.jpg",
+    imageAlt: "Finished light-wood kitchen and dining space",
+    phase: "Finished OPC work",
+  },
+  bathroom: {
+    title: "Bathroom Remodels",
+    tag: "Detailed from surface to system",
+    body: "Bathroom remodeling connects layout, tile, glass, fixtures, lighting, plumbing, ventilation and waterproofing in one clearly defined construction scope.",
+    bullets: ["Showers, tubs and fixture layouts", "Tile, stone and glass", "Lighting, plumbing and ventilation coordination", "Waterproofing and finish details"],
+    image: "/images/opc/bathroom-wide.jpg",
+    imageAlt: "Finished bathroom with frameless glass shower and stone surfaces",
+    phase: "Finished OPC work",
+  },
+  "new-construction": {
+    title: "New Construction",
+    tag: "A complete residential scope",
+    body: "We coordinate new residential construction from early feasibility and permitting through structural work, building systems, interiors and exterior completion, based on the property and approved project documents.",
+    bullets: ["Feasibility and permit coordination", "Foundation, shell and roof construction", "Interior construction and finishes", "Exterior and hardscape coordination"],
+    image: "/images/opc/addition-progress.jpg",
+    imageAlt: "South Florida residential construction work in progress",
+    phase: "OPC project · work in progress",
+  },
+  additions: {
+    title: "Additions",
+    tag: "More room within the same home",
+    body: "An addition is planned around the existing structure, roofline, circulation, building systems and finishes so the new space connects clearly with the home already on the property.",
+    bullets: ["Bedroom, office and family-room additions", "Structural tie-in coordination", "Roofline and finish integration", "Permit and inspection coordination"],
+    image: "/images/opc/addition-progress.jpg",
+    imageAlt: "Residential addition under construction",
+    phase: "OPC project · work in progress",
+  },
+  "shell-construction": {
+    title: "Shell Construction",
+    tag: "The structure comes first",
+    body: "Residential shell work brings together foundations, reinforced slabs, masonry walls, columns, beams and roof systems according to the project's approved plans and required inspections.",
+    bullets: ["Foundations and reinforced slabs", "Masonry walls, columns and beams", "Roof structures and dry-in", "Trade and inspection coordination"],
+    image: "/images/opc/sitework-progress.jpg",
+    imageAlt: "Residential shell construction in progress",
+    phase: "OPC project · work in progress",
+  },
+  "outdoor-living": {
+    title: "Outdoor Living",
+    tag: "A connected backyard space",
+    body: "Outdoor living projects can connect patios, shade structures, cooking areas and lighting around circulation, clearances and how the backyard relates to the home.",
+    bullets: ["Pergolas and shade structures", "Outdoor kitchens and grill stations", "Patios, pool surroundings and hardscape", "Lighting and utility coordination"],
+    image: "/images/opc/outdoor-kitchen-twilight-wide-v2.jpg",
+    imageAlt: "Finished illuminated outdoor kitchen and pergola at twilight",
+    phase: "Finished OPC work",
+  },
+  "concrete-pavers": {
+    title: "Concrete + Pavers",
+    tag: "Groundwork with a defined purpose",
+    body: "Concrete and paver scopes are planned around access, drainage, grading, base preparation and the connection between driveways, walkways, patios and the home.",
+    bullets: ["Driveways, walkways and patios", "Interlocking pavers and concrete finishes", "Drainage, grading and base preparation", "Planters, edging and site walls"],
+    image: "/images/opc/concrete-progress.jpg",
+    imageAlt: "Fresh residential concrete slab being finished",
+    phase: "OPC project · work in progress",
+  },
+};
+
+export const SERVICE_AREA_LINE = "Suitable residential projects in Broward, Palm Beach and Miami-Dade.";
+
+export const SERVICE_PROCESS = [
+  "Review the property and requested scope",
+  "Confirm fit, required planning and next steps",
+  "Define the construction scope before work begins",
+];
