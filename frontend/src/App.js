@@ -14,8 +14,8 @@ import TestimonialsV3 from "@/components/TestimonialsV3";
 import ContactV3 from "@/components/ContactV3";
 import Footer from "@/components/Footer";
 import TitleCaseAuditV1 from "@/components/TitleCaseAuditV1";
-import ServicesV2 from "@/pages/ServicesV2";
-import ServicesSceneV2 from "@/pages/ServicesSceneV2";
+import ServicesV3 from "@/pages/ServicesV3";
+import ServicesSceneV3 from "@/pages/ServicesSceneV3";
 
 const ServiceDetail = lazy(() => import("@/pages/ServiceDetail"));
 const Portfolio = lazy(() => import("@/pages/PortfolioV7"));
@@ -120,7 +120,7 @@ function ServicesStageGate() {
     return () => clearTimeout(id);
   }, [active]);
   if (!show) return null;
-  return <ServicesSceneV2 />;
+  return <ServicesSceneV3 />;
 }
 
 export default function App() {
@@ -131,7 +131,7 @@ export default function App() {
         <ServicesStageGate />
         <Routes>
           <Route path="/" element={<Landing />} />
-          <Route path="/services" element={<ServicesV2 />} />
+          <Route path="/services" element={<ServicesV3 />} />
           <Route
             path="/services/:slug"
             element={

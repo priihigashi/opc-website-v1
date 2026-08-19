@@ -50,6 +50,7 @@ export default function HouseModel({
   scaleTrack = SCL,
   viewConfig,
   materialConfig = {},
+  previewStore = null,
 }) {
   const r = useRef({}).current;
   const reg = (name) => (el) => {
@@ -213,16 +214,43 @@ export default function HouseModel({
 
   useFrame((state, dt) => {
     const p = clamp01(scrollStore.p);
-    const solid = Math.max(scrollStore.intro, seg(p, 0.005, 0.075));
-    const shell = pulse(p, 0.125, 0.185, 0.25, 0.295);
-    const cut = pulse(p, 0.3, 0.36, 0.415, 0.465);
-    const add = pulse(p, 0.43, 0.5, 0.575, 0.615);
-    const out = pulse(p, 0.64, 0.69, 0.74, 0.78);
-    const conc = pulse(p, 0.805, 0.855, 0.905, 0.945);
+    const preview = previewStore?.active ? previewStore : null;
+    const previewT = preview ? sstep(preview.t) : 0;
+    const reveal = preview ? seg(previewT, 0.02, 0.58) : 0;
+    const buildShell = preview?.kind === "build"
+      ? seg(previewT, 0.1, 0.38) * (1 - seg(previewT, 0.58, 0.82))
+      : 0;
+    const buildFinish = preview?.kind === "build"
+      ? Math.max(0.04, 1 - seg(previewT, 0.04, 0.3), seg(previewT, 0.56, 0.82))
+      : 1;
+    const solid = preview ? 1 : Math.max(scrollStore.intro, seg(p, 0.005, 0.075));
+    const shell = preview
+      ? preview.kind === "shell" ? reveal : buildShell
+      : pulse(p, 0.125, 0.185, 0.25, 0.295);
+    const cut = preview
+      ? ["renovation", "kitchen", "bathroom"].includes(preview.kind) ? reveal : 0
+      : pulse(p, 0.3, 0.36, 0.415, 0.465);
+    const add = preview ? preview.kind === "addition" ? reveal : 0 : pulse(p, 0.43, 0.5, 0.575, 0.615);
+    const out = preview ? preview.kind === "outdoor" ? reveal : 0 : pulse(p, 0.64, 0.69, 0.74, 0.78);
+    const conc = preview ? preview.kind === "concrete" ? reveal : 0 : pulse(p, 0.805, 0.855, 0.905, 0.945);
 
     const g = r.root;
     if (!g) return;
-    window.__dbg = { p, rotY: g.rotation.y, shellOp: mats.shell.opacity, addVis: !!r.additionGroup && r.additionGroup.visible, addScale: r.additionGroup ? r.additionGroup.scale.x : -1 };
+    window.__dbg = {
+      p,
+      previewKind: preview?.kind || null,
+      previewT,
+      reveal,
+      shell,
+      cut,
+      add,
+      out,
+      conc,
+      rotY: g.rotation.y,
+      shellOp: mats.shell.opacity,
+      addVis: !!r.additionGroup && r.additionGroup.visible,
+      addScale: r.additionGroup ? r.additionGroup.scale.x : -1,
+    };
     g.rotation.y = THREE.MathUtils.damp(g.rotation.y, track(p, rotationTrack), 5, dt);
     g.position.x = THREE.MathUtils.damp(g.position.x, track(p, positionXTrack) * view.current.f, 5, dt);
     g.position.y = THREE.MathUtils.damp(g.position.y, track(p, positionYTrack) + view.current.y * seg(p, 0.06, 0.14), 5, dt);
@@ -238,9 +266,9 @@ export default function HouseModel({
     if (r.shellGroup) r.shellGroup.visible = shellOp > 0.004;
 
     // exterior finishes
-    const frontMul = solid * (1 - shell * 0.85) * (1 - cut * 0.985);
-    const sideMul = solid * (1 - shell * 0.85) * (1 - cut * 0.4);
-    const roofMul = solid * (1 - shell * 0.8) * (1 - cut * 0.85);
+    const frontMul = solid * (1 - shell * 0.85) * (1 - cut * 0.985) * buildFinish;
+    const sideMul = solid * (1 - shell * 0.85) * (1 - cut * 0.4) * buildFinish;
+    const roofMul = solid * (1 - shell * 0.8) * (1 - cut * 0.85) * buildFinish;
     mats.stuccoFront.opacity = frontMul;
     mats.woodScreenFront.opacity = frontMul;
     mats.doorWood.opacity = frontMul;
@@ -347,6 +375,27 @@ export default function HouseModel({
     mats.planter.opacity = conc;
     mats.soil.opacity = conc;
     mats.hedge.opacity = conc;
+
+    // Services selector: emphasize only the chosen room. Full renovation gets
+    // a restrained whole-house lime pulse after the complete cutaway opens.
+    const highlightRamp = preview ? seg(previewT, 0.42, 0.68) : 0;
+    const highlightPulse = highlightRamp * (0.7 + Math.sin(state.clock.elapsedTime * 5.5) * 0.16);
+    const highlightGroups = {
+      renovation: [mats.stuccoFront, mats.stuccoSide, mats.floorOak, mats.cabWood, mats.tileBath, mats.vanityWood],
+      kitchen: [mats.cabWood, mats.counterStone, mats.tallDark],
+      bathroom: [mats.tileBath, mats.tubWhite, mats.vanityWood],
+    };
+    Object.entries(highlightGroups).forEach(([kind, materials]) => {
+      const intensity = preview?.kind === kind ? highlightPulse * (kind === "renovation" ? 0.34 : 0.72) : 0;
+      materials.forEach((material) => {
+        material.emissive.copy(LIME);
+        material.emissiveIntensity = intensity;
+      });
+    });
+    if (preview && r.interiorLight) {
+      const wholeHouseLift = preview.kind === "renovation" ? highlightRamp * 7 : 0;
+      r.interiorLight.intensity = cut * 20 + wholeHouseLift;
+    }
     mats.foliage.opacity = solid * 0.92;
     mats.foliageLight.opacity = solid * 0.92;
     mats.palmTrunk.opacity = solid;
