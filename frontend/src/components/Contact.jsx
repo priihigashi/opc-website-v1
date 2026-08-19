@@ -9,7 +9,10 @@ const services = ["Shell Construction", "Kitchen + Bath Remodel", "Addition", "O
 const inputCls =
   "w-full border-0 border-b border-black/20 bg-transparent px-0 py-4 text-sm text-[#09090B] placeholder-black/45 outline-none transition-colors duration-300 focus:border-[#09090B]";
 
-export default function Contact({ kickerClassName = "text-[#09090B] before:bg-[#09090B]" }) {
+export default function Contact({
+  kickerClassName = "text-[#09090B] before:bg-[#09090B]",
+  metaClassName = "text-[#09090B]/60",
+}) {
   const [form, setForm] = useState({ name: "", email: "", phone: "", service: services[0], message: "" });
   const [sending, setSending] = useState(false);
 
@@ -60,7 +63,7 @@ export default function Contact({ kickerClassName = "text-[#09090B] before:bg-[#
             Tell us what you're dreaming up — a shell, a kitchen, more room, a better
             backyard. One call, one crew, one plan.
           </p>
-          <div className="mt-10 space-y-3 font-mono text-sm text-[#09090B]/60">
+          <div className={`mt-10 space-y-3 font-mono text-sm ${metaClassName}`}>
             <p data-testid="contact-phone"><a className="text-[#09090B] transition-colors hover:text-[#7B7C00]" href="tel:+19542586769">(954) 258-6769</a></p>
             <p data-testid="contact-email"><a className="text-[#09090B] transition-colors hover:text-[#7B7C00]" href="mailto:contact@oakpark-construction.com">contact@oakpark-construction.com</a></p>
             <p data-testid="contact-address">Broward · Palm Beach · Miami-Dade</p>

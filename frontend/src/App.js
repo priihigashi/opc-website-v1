@@ -5,17 +5,17 @@ import "@/App.css";
 import { Toaster } from "@/components/ui/sonner";
 import { scrollStore } from "@/lib/scrollStore";
 import HouseSceneV20 from "@/three/HouseSceneV20";
-import Nav from "@/components/NavV3";
+import NavV4 from "@/components/NavV4";
 import StoryV11 from "@/components/StoryV11";
 import MarqueeV2 from "@/components/MarqueeV2";
 import AboutV3 from "@/components/AboutV3";
 import GalleryV3 from "@/components/GalleryV3";
 import TestimonialsV3 from "@/components/TestimonialsV3";
-import ContactV2 from "@/components/ContactV2";
+import ContactV3 from "@/components/ContactV3";
 import Footer from "@/components/Footer";
 import TitleCaseAuditV1 from "@/components/TitleCaseAuditV1";
-import Services from "@/pages/Services";
-import ServicesScene from "@/pages/ServicesScene";
+import ServicesV2 from "@/pages/ServicesV2";
+import ServicesSceneV2 from "@/pages/ServicesSceneV2";
 
 const ServiceDetail = lazy(() => import("@/pages/ServiceDetail"));
 const Portfolio = lazy(() => import("@/pages/PortfolioV7"));
@@ -99,7 +99,7 @@ function Landing() {
           <AboutV3 />
           <GalleryV3 />
           <TestimonialsV3 />
-          <ContactV2 />
+          <ContactV3 />
           <Footer />
         </div>
       </main>
@@ -120,18 +120,18 @@ function ServicesStageGate() {
     return () => clearTimeout(id);
   }, [active]);
   if (!show) return null;
-  return <ServicesScene />;
+  return <ServicesSceneV2 />;
 }
 
 export default function App() {
   return (
     <BrowserRouter>
       <TitleCaseAuditV1>
-        <Nav />
+        <NavV4 />
         <ServicesStageGate />
         <Routes>
           <Route path="/" element={<Landing />} />
-          <Route path="/services" element={<Services />} />
+          <Route path="/services" element={<ServicesV2 />} />
           <Route
             path="/services/:slug"
             element={
