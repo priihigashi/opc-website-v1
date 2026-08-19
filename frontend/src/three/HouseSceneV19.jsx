@@ -19,7 +19,7 @@ class EnvBoundary extends Component {
   }
 }
 
-export default function HouseSceneV19() {
+export default function HouseSceneV19({ ModelComponent = HouseModelV17 }) {
   return (
     <div className="fixed inset-0 z-0" data-testid="house-scene" aria-hidden>
       <div
@@ -62,7 +62,7 @@ export default function HouseSceneV19() {
         />
         <directionalLight position={[-8, 7, -7]} intensity={0.52} color="#A8C2D7" />
         <spotLight position={[2, 7, 8]} intensity={22} angle={0.46} penumbra={0.92} color="#D3A16C" distance={28} />
-        <Suspense fallback={null}><HouseModelV17 /></Suspense>
+        <Suspense fallback={null}><ModelComponent /></Suspense>
         <EnvBoundary><Suspense fallback={null}><Environment files="/hdr/city_1k.hdr" /></Suspense></EnvBoundary>
         <ContactShadows position={[0, 0.02, 0]} opacity={0.3} scale={28} blur={4.6} far={9} />
       </Canvas>

@@ -16,7 +16,7 @@ const SIDE_DOOR = { x: -0.72, w: 1.12, y0: 0, y1: 2.68 };
 // return now bridges the recessed addition facade to the pavilion's final
 // glass-door frame. This closes the depth gap that exposed a brown floor sliver
 // at the base instead of disguising it with trim.
-export default function AdditionV5({ mats, reg }) {
+export default function AdditionV5({ mats, reg, includePavilionReturn = true }) {
   return (
     <group name="addition-v5" ref={reg("additionGroup")} position={[6, 0, -0.68]} visible={false}>
       <group position={[1.7, 0.5, 2.6]}>
@@ -28,9 +28,11 @@ export default function AdditionV5({ mats, reg }) {
         ))}
       </group>
 
-      <mesh position={[0, 2.05, 2.89]} material={mats.addStucco}>
-        <boxGeometry args={[0.24, 3.1, 0.58]} />
-      </mesh>
+      {includePavilionReturn && (
+        <mesh position={[0, 2.05, 2.89]} material={mats.addStucco}>
+          <boxGeometry args={[0.24, 3.1, 0.58]} />
+        </mesh>
+      )}
 
       <group position={[1.7, 0.5, -1.2]}>
         <group position={[BACK_OFFSET, 0, 0]}>
