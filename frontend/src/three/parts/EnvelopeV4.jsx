@@ -26,7 +26,13 @@ const resolvePavilionJunction = (junction) => ({
 // separate from the shifted window grid. The door sits just proud of the wall
 // face and overlaps the opening by 0.02 units per side, preventing the pale
 // wall reveal from reading as a gap at oblique camera angles.
-export default function EnvelopeV4({ mats, reg, entryDoor = {}, pavilionJunction = {} }) {
+export default function EnvelopeV4({
+  mats,
+  reg,
+  entryDoor = {},
+  pavilionJunction = {},
+  upperEastWallShadows = true,
+}) {
   const doorCenter = entryDoor.center ?? 1.6;
   const doorWidth = entryDoor.width ?? 1.24;
   const handleX = entryDoor.handleX ?? 2.07;
@@ -127,7 +133,11 @@ export default function EnvelopeV4({ mats, reg, entryDoor = {}, pavilionJunction
       </group>
 
       <group name="facade-east-a-v2" ref={reg("finEastA")}>
-        <mesh position={[-1.125, 4.85, 0]} material={mats.stuccoSide}>
+        <mesh
+          position={[-1.125, 4.85, 0]}
+          material={mats.stuccoSide}
+          userData={{ noCast: !upperEastWallShadows, noReceive: !upperEastWallShadows }}
+        >
           <boxGeometry args={[WALL_THICKNESS, 2.5, TOWER_SIDE_DEPTH]} />
         </mesh>
       </group>

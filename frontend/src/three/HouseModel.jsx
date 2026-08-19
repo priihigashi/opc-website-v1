@@ -206,8 +206,8 @@ export default function HouseModel({
     if (!r.root) return;
     r.root.traverse((o) => {
       if (o.isMesh) {
-        o.castShadow = true;
-        o.receiveShadow = true;
+        o.castShadow = !o.userData.noCast;
+        o.receiveShadow = !o.userData.noReceive;
         const m = o.material;
         if (m && !Array.isArray(m) && m.userData.noCast) o.castShadow = false;
       }
