@@ -49,6 +49,7 @@ export default function HouseModel({
   positionYTrack = POSY,
   scaleTrack = SCL,
   viewConfig,
+  materialConfig = {},
 }) {
   const r = useRef({}).current;
   const reg = (name) => (el) => {
@@ -124,8 +125,14 @@ export default function HouseModel({
       }),
       plinth: new THREE.MeshStandardMaterial({ color: "#262421", map: tex.concrete, roughness: 0.82 }),
       ground: new THREE.MeshStandardMaterial({ color: "#020202", roughness: 1 }),
-      stuccoFront: std("#ECE7DE", { map: tex.stucco, bumpMap: tex.stucco, bumpScale: 0.025, roughness: 0.82 }),
-      stuccoSide: std("#D5CEC2", { map: tex.stucco, bumpMap: tex.stucco, bumpScale: 0.022, roughness: 0.86 }),
+      stuccoFront: std(materialConfig.stuccoFront || "#F0EBE3", {
+        map: tex.stucco,
+        roughness: 0.84,
+      }),
+      stuccoSide: std(materialConfig.stuccoSide || "#F0EBE3", {
+        map: tex.stucco,
+        roughness: 0.86,
+      }),
       woodScreenFront: std("#9A6035", { map: tex.slatV, roughness: 0.62 }),
       fascia: std("#26262B", { metalness: 0.65, roughness: 0.35 }),
       membrane: std("#5C5C60", { roughness: 0.95 }),
@@ -190,7 +197,7 @@ export default function HouseModel({
       mulch: std("#302219", { bumpMap: tex.concrete, bumpScale: 0.05, roughness: 1 }),
       brass: std("#A8844A", { metalness: 0.76, roughness: 0.3 }),
     };
-  }, []);
+  }, [materialConfig.stuccoFront, materialConfig.stuccoSide]);
 
   useEffect(() => {
     if (!r.root) return;

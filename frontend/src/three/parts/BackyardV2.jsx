@@ -1,9 +1,11 @@
 import { RoundedBox } from "@react-three/drei";
 
+// The rounded patio keeps the refined experiment finish while the one-sided
+// extension supports the complete outdoor kitchen instead of leaving it afloat.
 export default function BackyardV2({ mats, reg }) {
   return (
     <group name="outdoor-living-v2" ref={reg("pergolaGroup")} visible={false}>
-      <RoundedBox ref={reg("patio")} args={[7, 0.14, 3.4]} radius={0.06} smoothness={3} position={[2.5, 0.56, -4.4]} material={mats.patioPaver} />
+      <RoundedBox ref={reg("patio")} args={[7.8, 0.14, 3.4]} radius={0.06} smoothness={3} position={[2.9, 0.56, -4.4]} material={mats.patioPaver} />
       <group ref={reg("pergolaPosts")} position={[2.5, 0.62, -4.4]}>
         {[[-2.2, -1.3], [2.2, -1.3], [-2.2, 1.3], [2.2, 1.3]].map(([x, z], i) => (
           <RoundedBox key={i} args={[0.2, 2.5, 0.2]} radius={0.025} smoothness={2} position={[x, 1.25, z]} material={mats.pergolaWood} />
@@ -17,7 +19,7 @@ export default function BackyardV2({ mats, reg }) {
         {[-1.45, 0, 1.45].map((x) => <pointLight key={x} position={[x, 2.48, 0]} intensity={2.2} distance={3.4} color="#FFD8A3" />)}
       </group>
       <group ref={reg("bbqGroup")} position={[6.15, 0.62, -4.4]} rotation={[0, Math.PI / 2, 0]}>
-        <RoundedBox args={[2.0, 0.85, 0.65]} radius={0.06} smoothness={3} position={[0, 0.44, 0]} material={mats.bbqSteel} />
+        <RoundedBox args={[2, 0.85, 0.65]} radius={0.06} smoothness={3} position={[0, 0.44, 0]} material={mats.bbqSteel} />
         <RoundedBox args={[2.1, 0.07, 0.72]} radius={0.025} smoothness={2} position={[0, 0.9, 0]} material={mats.counterStone} />
         <RoundedBox args={[0.72, 0.42, 0.56]} radius={0.04} smoothness={2} position={[-0.4, 1.14, 0]} material={mats.bbqSteel} />
         {[-0.62, 0.03, 0.68].map((x) => <mesh key={x} position={[x, 0.43, 0.335]} material={mats.brass}><boxGeometry args={[0.018, 0.48, 0.012]} /></mesh>)}

@@ -4,9 +4,9 @@ import Lenis from "lenis";
 import "@/App.css";
 import { Toaster } from "@/components/ui/sonner";
 import { scrollStore } from "@/lib/scrollStore";
-import HouseSceneV10 from "@/three/HouseSceneV10";
+import HouseSceneV19 from "@/three/HouseSceneV19";
 import Nav from "@/components/NavV3";
-import StoryV9 from "@/components/StoryV9";
+import StoryV10 from "@/components/StoryV10";
 import MarqueeV2 from "@/components/MarqueeV2";
 import AboutV3 from "@/components/AboutV3";
 import GalleryV3 from "@/components/GalleryV3";
@@ -18,8 +18,8 @@ import Services from "@/pages/Services";
 import ServicesScene from "@/pages/ServicesScene";
 
 const ServiceDetail = lazy(() => import("@/pages/ServiceDetail"));
-const Portfolio = lazy(() => import("@/pages/PortfolioV4"));
-const ProjectGallery = lazy(() => import("@/pages/ProjectGalleryV1"));
+const Portfolio = lazy(() => import("@/pages/PortfolioV6"));
+const ProjectGallery = lazy(() => import("@/pages/ProjectGalleryV3"));
 
 const clamp01 = (v) => Math.min(1, Math.max(0, v));
 
@@ -90,9 +90,9 @@ function Landing() {
   return (
     <div className="bg-[#09090B] font-body text-[#FAFAFA] antialiased">
       <div className="noise-overlay" aria-hidden />
-      <HouseSceneV10 />
+      <HouseSceneV19 />
       <main className="relative z-10">
-        <StoryV9 storyRef={storyRef} />
+        <StoryV10 storyRef={storyRef} />
         <div className="relative border-t border-white/10 bg-[#09090B]">
           <MarqueeV2 />
           <AboutV3 />
