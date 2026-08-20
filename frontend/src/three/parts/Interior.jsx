@@ -14,9 +14,48 @@ function LegacyLoungeFurniture({ mats }) {
   );
 }
 
+function LegacyLivingFurniture({ mats }) {
+  return (
+    <>
+      <mesh position={[-3.8, 0.575, 1.2]} material={mats.fabric}>
+        <boxGeometry args={[3.2, 0.03, 2.2]} />
+      </mesh>
+      <mesh position={[-2.3, 0.78, 1.5]} material={mats.fabric}>
+        <boxGeometry args={[0.95, 0.45, 2.2]} />
+      </mesh>
+      <mesh position={[-1.85, 1.16, 1.5]} material={mats.fabric}>
+        <boxGeometry args={[0.25, 0.55, 2.2]} />
+      </mesh>
+      <mesh position={[-3.4, 0.72, 1.5]} material={mats.cabWood}>
+        <boxGeometry args={[0.55, 0.3, 1.1]} />
+      </mesh>
+      <mesh position={[-5.55, 0.82, 1.5]} material={mats.cabWood}>
+        <boxGeometry args={[0.45, 0.5, 2.0]} />
+      </mesh>
+      <mesh position={[-5.8, 1.75, 1.5]} material={mats.tallDark}>
+        <boxGeometry args={[0.06, 0.95, 1.7]} />
+      </mesh>
+      <mesh position={[-5.35, 1.31, -0.3]} material={mats.pendant}>
+        <cylinderGeometry args={[0.02, 0.02, 1.5, 8]} />
+      </mesh>
+      <mesh position={[-5.35, 2.1, -0.3]} material={mats.pendant}>
+        <cylinderGeometry args={[0.16, 0.22, 0.26, 16]} />
+      </mesh>
+      <mesh position={[-5.35, 1.95, -0.3]} material={mats.can}>
+        <sphereGeometry args={[0.06, 10, 10]} />
+      </mesh>
+    </>
+  );
+}
+
 // Interior: oak floors, ceilings with recessed cans, kitchen pavilion,
 // bathroom suite, furniture — revealed by the Ch.02 cutaway.
-export default function Interior({ mats, reg, LoungeFurnitureComponent = LegacyLoungeFurniture }) {
+export default function Interior({
+  mats,
+  reg,
+  LoungeFurnitureComponent = LegacyLoungeFurniture,
+  LivingFurnitureComponent = LegacyLivingFurniture,
+}) {
   return (
     <group name="interior" ref={reg("interiorGroup")}>
       {/* floors */}
@@ -86,33 +125,7 @@ export default function Interior({ mats, reg, LoungeFurnitureComponent = LegacyL
 
       {/* ---- living room (volume A, ground floor front) ---- */}
       <group name="living">
-        <mesh position={[-3.8, 0.575, 1.2]} material={mats.fabric}>
-          <boxGeometry args={[3.2, 0.03, 2.2]} />
-        </mesh>
-        <mesh position={[-2.3, 0.78, 1.5]} material={mats.fabric}>
-          <boxGeometry args={[0.95, 0.45, 2.2]} />
-        </mesh>
-        <mesh position={[-1.85, 1.16, 1.5]} material={mats.fabric}>
-          <boxGeometry args={[0.25, 0.55, 2.2]} />
-        </mesh>
-        <mesh position={[-3.4, 0.72, 1.5]} material={mats.cabWood}>
-          <boxGeometry args={[0.55, 0.3, 1.1]} />
-        </mesh>
-        <mesh position={[-5.55, 0.82, 1.5]} material={mats.cabWood}>
-          <boxGeometry args={[0.45, 0.5, 2.0]} />
-        </mesh>
-        <mesh position={[-5.8, 1.75, 1.5]} material={mats.tallDark}>
-          <boxGeometry args={[0.06, 0.95, 1.7]} />
-        </mesh>
-        <mesh position={[-5.35, 1.31, -0.3]} material={mats.pendant}>
-          <cylinderGeometry args={[0.02, 0.02, 1.5, 8]} />
-        </mesh>
-        <mesh position={[-5.35, 2.1, -0.3]} material={mats.pendant}>
-          <cylinderGeometry args={[0.16, 0.22, 0.26, 16]} />
-        </mesh>
-        <mesh position={[-5.35, 1.95, -0.3]} material={mats.can}>
-          <sphereGeometry args={[0.06, 10, 10]} />
-        </mesh>
+        <LivingFurnitureComponent mats={mats} />
       </group>
 
       {/* ---- upstairs bedroom (larger rear half; bed pulled away from exterior glass) ---- */}
