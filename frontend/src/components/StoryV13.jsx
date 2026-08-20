@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import HeroV9 from "./HeroV9";
+import HeroV10 from "./HeroV10";
 import { ChapterV3 } from "./ChapterV3";
 import ChapterRail from "./ChapterRail";
 
@@ -67,7 +67,7 @@ export default function StoryV13({ storyRef }) {
   return (
     <div ref={storyRef} data-testid="story" className="relative">
       <ChapterRail />
-      <HeroV9 />
+      <HeroV10 />
       {chapters.map((chapter) => <ChapterV3 key={chapter.id} {...chapter} />)}
       <section data-testid="story-outro" className="pointer-events-none relative flex min-h-[120vh] items-center justify-center">
         <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-30%" }} transition={{ duration: 0.9, ease: "easeOut" }} className="story-copy-panel pointer-events-auto mx-6 px-8 py-12 text-center sm:px-14">
