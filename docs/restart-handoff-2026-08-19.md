@@ -1,5 +1,18 @@
 # OPC Website Restart Handoff — 2026-08-19
 
+## Recovery reconciliation — 2026-08-20
+
+- Active deploy-source worktree: `/Users/priscilahigashi/Documents/Codex/2026-08-17/is-t/work/opc-photoreal-audit-ready`.
+- Restart-safe branch: `codex/recovery-source-truth-2026-08-20`.
+- Exact pushed checkpoint: `7abfe00189c55ab2af2048c5c71b142f5eab67ce`.
+- GitHub readback verified the branch and commit at that exact SHA.
+- The required historical checkpoints `3eba563`, `967d5ac`, `63c87bc`, `ae0b2b3`, and `bf1ead7` are ancestors of the recovery checkpoint and remain recoverable.
+- The approved AI-edited pergola asset remains `frontend/public/images/opc/outdoor-kitchen-twilight-wide-v2.jpg`; local SHA-256 matches the locked value `271e27fc6a4fdaeaed0a576854aa3cffbf02c3d630b119fdc50c5d3ab18ca044`.
+- The candidate alias still serves Vercel deployment `dpl_9UXzS16Hvk3QWNDh34bCgr9GPT8g` from commit `ae0b2b367e871705f0063ddc2a630a525f2b7a2b`; it is behind the recovery checkpoint.
+- Candidate deployment is blocked because the local Vercel CLI returned `Not authorized`; no alias, fallback, real-domain, DNS, SiteGround, WordPress, email, billing, or production-traffic change was made.
+- Protected fallback remains deployment `dpl_3i6oogMAxc9kL5jirZnR6oJYtyXw` from `bde6efb0a1c4754559a66125c5662cf817d5adf2` at `https://opc-house-hero-preview.vercel.app/`.
+- The active worktree is clean after preserving the seven pre-existing local source files in two scoped commits. Disposable ignored outputs remain local only: `.env.local`, `.vercel/`, `build/`, and `node_modules/`.
+
 ## SEO final-pass continuation
 
 - Active branch: `codex/seo-final-pass-2026-08-19`
