@@ -4,7 +4,7 @@ import Lenis from "lenis";
 import "@/App.css";
 import { Toaster } from "@/components/ui/sonner";
 import { scrollStore } from "@/lib/scrollStore";
-import DeferredHouseStageV4 from "@/components/DeferredHouseStageV4";
+import DeferredHouseStageV5 from "@/components/DeferredHouseStageV5";
 import NavV4 from "@/components/NavV4";
 import StoryV13 from "@/components/StoryV13";
 import MarqueeV2 from "@/components/MarqueeV2";
@@ -92,7 +92,7 @@ function Landing() {
   return (
     <div className="bg-[#09090B] font-body text-[#FAFAFA] antialiased">
       <div className="noise-overlay" aria-hidden />
-      <DeferredHouseStageV4 />
+      <DeferredHouseStageV5 />
       <main className="relative z-10">
         <StoryV13 storyRef={storyRef} />
         <div className="relative border-t border-white/10 bg-[#09090B]">
@@ -123,7 +123,7 @@ function ServicesStageGate() {
   }, [active]);
 
   if (!show) return null;
-  return <DeferredHouseStageV4 scene="services" />;
+  return <DeferredHouseStageV5 scene="services" />;
 }
 
 export default function AppV3() {
