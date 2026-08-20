@@ -89,7 +89,8 @@ export default function NavV4() {
           <a href="#contact" data-testid="nav-cta" onClick={(event) => goAnchor(event, "#contact")} className="luxury-pill hidden border border-[#CBCC10]/70 px-5 py-2.5 font-mono text-[10px] uppercase tracking-[0.2em] text-[#CBCC10] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#CBCC10] hover:text-[#09090B] sm:inline-flex">
             Start a project
           </a>
-          <button type="button" aria-label={open ? "Close navigation menu" : "Open navigation menu"} aria-expanded={open} aria-controls="mobile-navigation" onClick={() => setOpen((value) => !value)} className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/[0.04] text-white lg:hidden">
+          <button type="button" data-testid="mobile-menu-toggle" aria-label={open ? "Close navigation menu" : "Open navigation menu"} aria-expanded={open} aria-controls="mobile-navigation" onClick={() => setOpen((value) => !value)} className="flex h-11 items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-3 text-white lg:hidden">
+            <span className="font-mono text-[10px] uppercase tracking-[0.18em]">Menu</span>
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
