@@ -53,6 +53,7 @@ export default function HouseModel({
   viewConfig,
   materialConfig = {},
   previewStore = null,
+  scopedRoomHighlights = false,
 }) {
   const r = useRef({}).current;
   const reg = (name) => (el) => {
@@ -214,6 +215,52 @@ export default function HouseModel({
     });
   }, [r]);
 
+  useEffect(() => {
+    if (!scopedRoomHighlights || !r.interiorGroup) return undefined;
+
+    const originals = [];
+    const scoped = { kitchen: [], bathroom: [] };
+    const roomMaterials = { kitchen: new Map(), bathroom: new Map() };
+
+    const roomFor = (mesh) => {
+      let node = mesh.parent;
+      while (node && node !== r.interiorGroup) {
+        if (node.name === "bathroom-upstairs") return "bathroom";
+        if (node.name === "kitchen") {
+          // The legacy interior nests lounge furniture inside the kitchen group.
+          // Its meshes sit to the right of the actual kitchen work zone.
+          return mesh.position.x < 3.2 ? "kitchen" : null;
+        }
+        node = node.parent;
+      }
+      return null;
+    };
+
+    r.interiorGroup.traverse((mesh) => {
+      if (!mesh.isMesh || Array.isArray(mesh.material)) return;
+      const room = roomFor(mesh);
+      if (!room) return;
+
+      const source = mesh.material;
+      let local = roomMaterials[room].get(source);
+      if (!local) {
+        local = source.clone();
+        local.userData = { ...source.userData, serviceRoomHighlight: room };
+        roomMaterials[room].set(source, local);
+        scoped[room].push({ local, source });
+      }
+      originals.push({ mesh, source });
+      mesh.material = local;
+    });
+
+    r.scopedHighlightMaterials = scoped;
+    return () => {
+      originals.forEach(({ mesh, source }) => { mesh.material = source; });
+      Object.values(scoped).flat().forEach(({ local }) => local.dispose());
+      r.scopedHighlightMaterials = null;
+    };
+  }, [r, scopedRoomHighlights]);
+
   useFrame((state, dt) => {
     const p = clamp01(scrollStore.p);
     const preview = previewStore?.active ? previewStore : null;
@@ -313,6 +360,12 @@ export default function HouseModel({
     mats.tileBath.opacity = inMul * (1 - cut * 0.88);
     mats.partWhite.opacity = inMul * (1 - cut * 0.88);
     mats.showerGlass.opacity = inMul * 0.5;
+    if (r.scopedHighlightMaterials) {
+      Object.values(r.scopedHighlightMaterials).flat().forEach(({ local, source }) => {
+        local.opacity = source.opacity;
+        local.transparent = source.transparent;
+      });
+    }
     if (r.interiorGroup) r.interiorGroup.visible = inMul > 0.004;
     if (r.interiorLight) r.interiorLight.intensity = cut * 20;
     if (r.bathLight) r.bathLight.intensity = cut * 5.5;
@@ -382,11 +435,19 @@ export default function HouseModel({
     // a restrained whole-house lime pulse after the complete cutaway opens.
     const highlightRamp = preview ? seg(previewT, 0.42, 0.68) : 0;
     const highlightPulse = highlightRamp * (0.7 + Math.sin(state.clock.elapsedTime * 5.5) * 0.16);
-    const highlightGroups = {
-      renovation: [mats.stuccoFront, mats.stuccoSide, mats.floorOak, mats.cabWood, mats.tileBath, mats.vanityWood],
-      kitchen: [mats.cabWood, mats.counterStone, mats.tallDark],
-      bathroom: [mats.tileBath, mats.tubWhite, mats.vanityWood],
-    };
+    const scopedKitchen = r.scopedHighlightMaterials?.kitchen?.map(({ local }) => local) || [];
+    const scopedBathroom = r.scopedHighlightMaterials?.bathroom?.map(({ local }) => local) || [];
+    const highlightGroups = scopedRoomHighlights
+      ? {
+          renovation: [mats.stuccoFront, mats.stuccoSide, mats.floorOak, mats.cabWood, mats.tileBath, mats.vanityWood, ...scopedKitchen, ...scopedBathroom],
+          kitchen: scopedKitchen,
+          bathroom: scopedBathroom,
+        }
+      : {
+          renovation: [mats.stuccoFront, mats.stuccoSide, mats.floorOak, mats.cabWood, mats.tileBath, mats.vanityWood],
+          kitchen: [mats.cabWood, mats.counterStone, mats.tallDark],
+          bathroom: [mats.tileBath, mats.tubWhite, mats.vanityWood],
+        };
     Object.entries(highlightGroups).forEach(([kind, materials]) => {
       const intensity = preview?.kind === kind ? highlightPulse * (kind === "renovation" ? 0.34 : 0.72) : 0;
       materials.forEach((material) => {

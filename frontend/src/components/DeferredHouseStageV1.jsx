@@ -2,7 +2,7 @@ import { lazy, Suspense, useEffect, useState } from "react";
 import ResponsiveImageV1 from "@/components/ResponsiveImageV1";
 
 const HomeHouse = lazy(() => import("@/three/HouseSceneV24"));
-const ServicesHouse = lazy(() => import("@/pages/ServicesSceneV3"));
+const ServicesHouse = lazy(() => import("@/pages/ServicesSceneV4"));
 
 export const shouldUseStaticHouse = () => {
   const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
