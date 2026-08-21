@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { Link, useSearchParams } from "react-router-dom";
 import { PORTFOLIO_FILTERS, PORTFOLIO_PROJECTS } from "@/data/portfolioProjectsV3";
+import { PORTFOLIO_HERO_VIDEO, PORTFOLIO_HERO_POSTER } from "./portfolioHeroMedia";
 
 function ProjectCard({ project, index }) {
   return (
@@ -48,9 +49,9 @@ export default function PortfolioV7() {
 
   return <div data-testid="portfolio-page" className="min-h-screen bg-[#09090B] pt-16 text-[#FAFAFA]">
     <header className="relative min-h-[calc(100svh-4rem)] overflow-hidden border-b border-white/10">
-      <img src="/video/portfolio-hero-poster-v2.jpg" alt="Oak Park Construction completed interior work" width="1280" height="720" fetchPriority="high" className="absolute inset-0 h-full w-full object-cover" />
-      <video data-testid="portfolio-hero-video" aria-hidden autoPlay muted loop playsInline preload="metadata" poster="/video/portfolio-hero-poster-v2.jpg" className="absolute inset-0 hidden h-full w-full object-cover motion-reduce:hidden sm:block">
-        <source src="/video/portfolio-hero-intro-v2.mp4" type="video/mp4" />
+      <img src={PORTFOLIO_HERO_POSTER} alt="Oak Park Construction completed interior work" width="1280" height="720" fetchPriority="high" className="absolute inset-0 h-full w-full object-cover" />
+      <video data-testid="portfolio-hero-video" aria-hidden autoPlay muted loop playsInline preload="metadata" poster={PORTFOLIO_HERO_POSTER} className="absolute inset-0 hidden h-full w-full object-cover motion-reduce:hidden sm:block">
+        <source src={PORTFOLIO_HERO_VIDEO} type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(9,9,11,0.58)_0%,rgba(9,9,11,0.20)_48%,rgba(9,9,11,0.06)_100%)]" />
       <div className="absolute inset-0 bg-gradient-to-t from-[#09090B]/65 via-transparent to-black/10" />
