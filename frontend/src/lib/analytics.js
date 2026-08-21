@@ -10,7 +10,13 @@
 // conservative default; a cookie banner can later call grantConsent().
 
 const GA4_ID = process.env.REACT_APP_GA4_ID || "";
-export const analyticsEnabled = Boolean(GA4_ID);
+const GTM_ID = process.env.REACT_APP_GTM_ID || "";
+
+// Either route activates analytics. GTM takes precedence when both are set,
+// because a container is normally configured to load GA4 itself and loading
+// both directly would double-count every event.
+export const analyticsEnabled = Boolean(GA4_ID || GTM_ID);
+export const analyticsRoute = GTM_ID ? "gtm" : (GA4_ID ? "ga4" : "none");
 
 // GA4 reads arguments off the dataLayer positionally, so each call is pushed
 // as an array rather than an object.
@@ -33,14 +39,19 @@ export function initAnalytics() {
     analytics_storage: "granted",
   });
   push("js", new Date());
-  // send_page_view is disabled so SPA route changes are the single source of
-  // pageviews; otherwise the first route double-counts.
-  push("config", GA4_ID, { send_page_view: false, anonymize_ip: true });
 
-  const s = document.createElement("script");
-  s.async = true;
-  s.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(GA4_ID)}`;
-  document.head.appendChild(s);
+  const script = document.createElement("script");
+  script.async = true;
+  if (GTM_ID) {
+    window.dataLayer.push({ "gtm.start": Date.now(), event: "gtm.js" });
+    script.src = `https://www.googletagmanager.com/gtm.js?id=${encodeURIComponent(GTM_ID)}`;
+  } else {
+    // send_page_view is disabled so SPA route changes are the single source of
+    // pageviews; otherwise the first route double-counts.
+    push("config", GA4_ID, { send_page_view: false, anonymize_ip: true });
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(GA4_ID)}`;
+  }
+  document.head.appendChild(script);
   return true;
 }
 

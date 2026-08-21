@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect, useState } from "react";
 import ResponsiveImageV1 from "@/components/ResponsiveImageV1";
+import HouseStageBoundaryV1 from "@/components/HouseStageBoundaryV1";
 import { scrollStore } from "@/lib/scrollStore";
 
 const HomeHouse = lazy(() => import("@/three/HouseSceneV24"));
@@ -58,7 +59,9 @@ export default function DeferredHouseStageV4({ scene = "home" }) {
           className={`fixed inset-0 z-0 transition-opacity duration-700 ${interactiveReady ? "opacity-100" : "opacity-0"}`}
           data-testid="house-interactive-gate-v4"
         >
-          <Suspense fallback={null}><Scene /></Suspense>
+          <HouseStageBoundaryV1>
+            <Suspense fallback={null}><Scene /></Suspense>
+          </HouseStageBoundaryV1>
         </div>
       ) : null}
     </>
