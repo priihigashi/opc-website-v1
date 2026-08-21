@@ -9,6 +9,7 @@ import {
   networkFallback,
   readAttribution,
 } from "./contactSubmit";
+import { CONVERSIONS, trackConversion } from "@/lib/analytics";
 
 const ENDPOINT = "/api/enquiries";
 
@@ -84,6 +85,7 @@ export default function ContactV5(props) {
   const applyOutcome = (outcome) => {
     const handlers = {
       sent: () => {
+        trackConversion(CONVERSIONS.LEAD_SUBMITTED, { service: form.service });
         setStatus("sent");
         setForm(EMPTY);
         startedAt.current = Date.now();
@@ -99,6 +101,7 @@ export default function ContactV5(props) {
       },
       // Never lose a lead: hand the visitor their mail app, pre-filled.
       fallback: () => {
+        trackConversion(CONVERSIONS.LEAD_FALLBACK, { service: form.service });
         setStatus("fallback");
         setNotice(outcome.message);
         window.location.href = buildMailto(form);

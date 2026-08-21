@@ -118,3 +118,21 @@ test("responses are never cached", async () => {
   const res = await call("POST", valid(), { env: {} });
   assert.equal(res.headers["cache-control"], "no-store");
 });
+
+test("OPC_LEAD_TO accepts a comma-separated recipient list", async () => {
+  // Answers an open operational question: a second recipient can be added later
+  // by editing configuration alone, with no code change. Delivery still has to be
+  // proven for each address separately before relying on it.
+  const res = await call("POST", valid(), {
+    env: { ...CONFIGURED, OPC_LEAD_TO: "first@example.test, second@example.test" },
+  });
+  // SMTP is pointed at a closed port, so reaching send_failed proves the address
+  // list was accepted and delivery was attempted rather than rejected as invalid.
+  assert.equal(res.statusCode, 502);
+  assert.equal(res.body.code, "send_failed");
+});
+
+test("OPC_LEAD_BCC is optional and never required for delivery", async () => {
+  const withBcc = await call("POST", valid(), { env: { ...CONFIGURED, OPC_LEAD_BCC: "archive@example.test" } });
+  assert.equal(withBcc.statusCode, 502, "bcc must not change the delivery path");
+});

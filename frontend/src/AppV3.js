@@ -17,6 +17,7 @@ import SeoV1 from "@/components/SeoV1";
 import TitleCaseAuditV1 from "@/components/TitleCaseAuditV1";
 import PortfolioRouteBoundaryV1 from "@/components/PortfolioRouteBoundaryV1";
 import ServicesV5 from "@/pages/ServicesV5";
+import AnalyticsBoundaryV1 from "@/components/AnalyticsBoundaryV1";
 
 const ServiceDetail = lazy(() => import("@/pages/ServiceDetailV3"));
 const Portfolio = lazy(() => import("@/pages/PortfolioV7"));
@@ -130,6 +131,7 @@ export default function AppV3() {
   return (
     <BrowserRouter>
       <SeoV1 />
+      <AnalyticsBoundaryV1 />
       <TitleCaseAuditV1>
         <NavV4 />
         <ServicesStageGate />
