@@ -2,103 +2,487 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
-    { "source": "/gallery", "destination": "/portfolio", "permanent": true },
-    { "source": "/gallery/", "destination": "/portfolio", "permanent": true },
-    { "source": "/about-2", "destination": "/#about", "permanent": true },
-    { "source": "/about-2/", "destination": "/#about", "permanent": true },
-    { "source": "/hub", "destination": "/", "permanent": true },
-    { "source": "/hub/", "destination": "/", "permanent": true },
-    { "source": "/blog/services", "destination": "/services", "permanent": true },
-    { "source": "/blog/services/", "destination": "/services", "permanent": true },
-    { "source": "/contact-us", "destination": "/#contact", "permanent": true },
-    { "source": "/contact-us/", "destination": "/#contact", "permanent": true },
-    { "source": "/jobgallery/full-home-remodel", "destination": "/services/full-renovation", "permanent": true },
-    { "source": "/jobgallery/full-home-remodel/", "destination": "/services/full-renovation", "permanent": true },
-    { "source": "/jobgallery/shell-construction-2", "destination": "/services/shell-construction", "permanent": true },
-    { "source": "/jobgallery/shell-construction-2/", "destination": "/services/shell-construction", "permanent": true },
-    { "source": "/jobgallery/new-build-2", "destination": "/services/new-construction", "permanent": true },
-    { "source": "/jobgallery/new-build-2/", "destination": "/services/new-construction", "permanent": true },
-    { "source": "/jobgallery/commercial-buildout-2", "destination": "/services/full-renovation", "permanent": true },
-    { "source": "/jobgallery/commercial-buildout-2/", "destination": "/services/full-renovation", "permanent": true },
-    { "source": "/jobgallery/kitchen-bath-builds-2", "destination": "/portfolio", "permanent": true },
-    { "source": "/jobgallery/kitchen-bath-builds-2/", "destination": "/portfolio", "permanent": true },
-    { "source": "/jobgallery/exterior-feature-builds-2", "destination": "/services/outdoor-living", "permanent": true },
-    { "source": "/jobgallery/exterior-feature-builds-2/", "destination": "/services/outdoor-living", "permanent": true },
-    { "source": "/jobgallery/concrete", "destination": "/services/concrete-pavers", "permanent": true },
-    { "source": "/jobgallery/concrete/", "destination": "/services/concrete-pavers", "permanent": true },
-    { "source": "/expertise/renovations", "destination": "/services/full-renovation", "permanent": true },
-    { "source": "/expertise/renovations/", "destination": "/services/full-renovation", "permanent": true },
-    { "source": "/expertise/driveway-concrete-pavers", "destination": "/services/concrete-pavers", "permanent": true },
-    { "source": "/expertise/driveway-concrete-pavers/", "destination": "/services/concrete-pavers", "permanent": true },
-    { "source": "/expertise/new-construction", "destination": "/services/new-construction", "permanent": true },
-    { "source": "/expertise/new-construction/", "destination": "/services/new-construction", "permanent": true },
-    { "source": "/expertise/design-build-contractor", "destination": "/services/new-construction", "permanent": true },
-    { "source": "/expertise/design-build-contractor/", "destination": "/services/new-construction", "permanent": true },
-    { "source": "/expertise/accessory-dwelling-units-adus", "destination": "/services/additions", "permanent": true },
-    { "source": "/expertise/accessory-dwelling-units-adus/", "destination": "/services/additions", "permanent": true },
-    { "source": "/expertise/land-development", "destination": "/services/new-construction", "permanent": true },
-    { "source": "/expertise/land-development/", "destination": "/services/new-construction", "permanent": true },
-    { "source": "/expertise/pre-construction-planning", "destination": "/services/new-construction", "permanent": true },
-    { "source": "/expertise/pre-construction-planning/", "destination": "/services/new-construction", "permanent": true },
-    { "source": "/expertise/owners-representative", "destination": "/services", "permanent": true },
-    { "source": "/expertise/owners-representative/", "destination": "/services", "permanent": true },
-    { "source": "/expertise/home-additions", "destination": "/services/additions", "permanent": true },
-    { "source": "/expertise/home-additions/", "destination": "/services/additions", "permanent": true },
-    { "source": "/expertise/interior-exterior-build-outs", "destination": "/services/full-renovation", "permanent": true },
-    { "source": "/expertise/interior-exterior-build-outs/", "destination": "/services/full-renovation", "permanent": true },
-    { "source": "/project-gallery/new-build", "destination": "/portfolio", "permanent": true },
-    { "source": "/project-gallery/new-build/", "destination": "/portfolio", "permanent": true },
-    { "source": "/project-gallery/shell-construction", "destination": "/portfolio", "permanent": true },
-    { "source": "/project-gallery/shell-construction/", "destination": "/portfolio", "permanent": true },
-    { "source": "/project-gallery/commercial-buildout", "destination": "/portfolio", "permanent": true },
-    { "source": "/project-gallery/commercial-buildout/", "destination": "/portfolio", "permanent": true },
-    { "source": "/project-gallery/exterior-feature-builds", "destination": "/portfolio", "permanent": true },
-    { "source": "/project-gallery/exterior-feature-builds/", "destination": "/portfolio", "permanent": true },
-    { "source": "/project-gallery/kitchen-bath-builds", "destination": "/portfolio", "permanent": true },
-    { "source": "/project-gallery/kitchen-bath-builds/", "destination": "/portfolio", "permanent": true },
-    { "source": "/project-gallery/concrete", "destination": "/portfolio", "permanent": true },
-    { "source": "/project-gallery/concrete/", "destination": "/portfolio", "permanent": true },
-    { "source": "/project-gallery/bathroom-tiles-1", "destination": "/portfolio", "permanent": true },
-    { "source": "/project-gallery/bathroom-tiles-1/", "destination": "/portfolio", "permanent": true },
-    { "source": "/project-gallery/kitchen-cabinet-2", "destination": "/portfolio", "permanent": true },
-    { "source": "/project-gallery/kitchen-cabinet-2/", "destination": "/portfolio", "permanent": true },
-    { "source": "/project-gallery/kitchen-cabinet-1", "destination": "/portfolio", "permanent": true },
-    { "source": "/project-gallery/kitchen-cabinet-1/", "destination": "/portfolio", "permanent": true },
-    { "source": "/budget-friendly-interior-painting-costs-in-2025-for-your-florida-home-remodel", "destination": "/services/full-renovation", "permanent": true },
-    { "source": "/budget-friendly-interior-painting-costs-in-2025-for-your-florida-home-remodel/", "destination": "/services/full-renovation", "permanent": true },
-    { "source": "/portfolio/1270-harbor-court", "destination": "/portfolio/harbor-court-residence", "permanent": true },
-    { "source": "/portfolio/1270-harbor-court/", "destination": "/portfolio/harbor-court-residence", "permanent": true }
+    {
+      "source": "/gallery",
+      "destination": "/portfolio",
+      "permanent": true
+    },
+    {
+      "source": "/gallery/",
+      "destination": "/portfolio",
+      "permanent": true
+    },
+    {
+      "source": "/about-2",
+      "destination": "/#about",
+      "permanent": true
+    },
+    {
+      "source": "/about-2/",
+      "destination": "/#about",
+      "permanent": true
+    },
+    {
+      "source": "/hub",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/hub/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/services",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/blog/services/",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/contact-us",
+      "destination": "/#contact",
+      "permanent": true
+    },
+    {
+      "source": "/contact-us/",
+      "destination": "/#contact",
+      "permanent": true
+    },
+    {
+      "source": "/jobgallery/full-home-remodel",
+      "destination": "/services/full-renovation",
+      "permanent": true
+    },
+    {
+      "source": "/jobgallery/full-home-remodel/",
+      "destination": "/services/full-renovation",
+      "permanent": true
+    },
+    {
+      "source": "/jobgallery/shell-construction-2",
+      "destination": "/services/shell-construction",
+      "permanent": true
+    },
+    {
+      "source": "/jobgallery/shell-construction-2/",
+      "destination": "/services/shell-construction",
+      "permanent": true
+    },
+    {
+      "source": "/jobgallery/new-build-2",
+      "destination": "/services/new-construction",
+      "permanent": true
+    },
+    {
+      "source": "/jobgallery/new-build-2/",
+      "destination": "/services/new-construction",
+      "permanent": true
+    },
+    {
+      "source": "/jobgallery/commercial-buildout-2",
+      "destination": "/services/full-renovation",
+      "permanent": true
+    },
+    {
+      "source": "/jobgallery/commercial-buildout-2/",
+      "destination": "/services/full-renovation",
+      "permanent": true
+    },
+    {
+      "source": "/jobgallery/kitchen-bath-builds-2",
+      "destination": "/portfolio",
+      "permanent": true
+    },
+    {
+      "source": "/jobgallery/kitchen-bath-builds-2/",
+      "destination": "/portfolio",
+      "permanent": true
+    },
+    {
+      "source": "/jobgallery/exterior-feature-builds-2",
+      "destination": "/services/outdoor-living",
+      "permanent": true
+    },
+    {
+      "source": "/jobgallery/exterior-feature-builds-2/",
+      "destination": "/services/outdoor-living",
+      "permanent": true
+    },
+    {
+      "source": "/jobgallery/concrete",
+      "destination": "/services/concrete-pavers",
+      "permanent": true
+    },
+    {
+      "source": "/jobgallery/concrete/",
+      "destination": "/services/concrete-pavers",
+      "permanent": true
+    },
+    {
+      "source": "/expertise/renovations",
+      "destination": "/services/full-renovation",
+      "permanent": true
+    },
+    {
+      "source": "/expertise/renovations/",
+      "destination": "/services/full-renovation",
+      "permanent": true
+    },
+    {
+      "source": "/expertise/driveway-concrete-pavers",
+      "destination": "/services/concrete-pavers",
+      "permanent": true
+    },
+    {
+      "source": "/expertise/driveway-concrete-pavers/",
+      "destination": "/services/concrete-pavers",
+      "permanent": true
+    },
+    {
+      "source": "/expertise/new-construction",
+      "destination": "/services/new-construction",
+      "permanent": true
+    },
+    {
+      "source": "/expertise/new-construction/",
+      "destination": "/services/new-construction",
+      "permanent": true
+    },
+    {
+      "source": "/expertise/design-build-contractor",
+      "destination": "/services/new-construction",
+      "permanent": true
+    },
+    {
+      "source": "/expertise/design-build-contractor/",
+      "destination": "/services/new-construction",
+      "permanent": true
+    },
+    {
+      "source": "/expertise/accessory-dwelling-units-adus",
+      "destination": "/services/additions",
+      "permanent": true
+    },
+    {
+      "source": "/expertise/accessory-dwelling-units-adus/",
+      "destination": "/services/additions",
+      "permanent": true
+    },
+    {
+      "source": "/expertise/land-development",
+      "destination": "/services/new-construction",
+      "permanent": true
+    },
+    {
+      "source": "/expertise/land-development/",
+      "destination": "/services/new-construction",
+      "permanent": true
+    },
+    {
+      "source": "/expertise/pre-construction-planning",
+      "destination": "/services/new-construction",
+      "permanent": true
+    },
+    {
+      "source": "/expertise/pre-construction-planning/",
+      "destination": "/services/new-construction",
+      "permanent": true
+    },
+    {
+      "source": "/expertise/owners-representative",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/expertise/owners-representative/",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/expertise/home-additions",
+      "destination": "/services/additions",
+      "permanent": true
+    },
+    {
+      "source": "/expertise/home-additions/",
+      "destination": "/services/additions",
+      "permanent": true
+    },
+    {
+      "source": "/expertise/interior-exterior-build-outs",
+      "destination": "/services/full-renovation",
+      "permanent": true
+    },
+    {
+      "source": "/expertise/interior-exterior-build-outs/",
+      "destination": "/services/full-renovation",
+      "permanent": true
+    },
+    {
+      "source": "/project-gallery/new-build",
+      "destination": "/portfolio",
+      "permanent": true
+    },
+    {
+      "source": "/project-gallery/new-build/",
+      "destination": "/portfolio",
+      "permanent": true
+    },
+    {
+      "source": "/project-gallery/shell-construction",
+      "destination": "/portfolio",
+      "permanent": true
+    },
+    {
+      "source": "/project-gallery/shell-construction/",
+      "destination": "/portfolio",
+      "permanent": true
+    },
+    {
+      "source": "/project-gallery/commercial-buildout",
+      "destination": "/portfolio",
+      "permanent": true
+    },
+    {
+      "source": "/project-gallery/commercial-buildout/",
+      "destination": "/portfolio",
+      "permanent": true
+    },
+    {
+      "source": "/project-gallery/exterior-feature-builds",
+      "destination": "/portfolio",
+      "permanent": true
+    },
+    {
+      "source": "/project-gallery/exterior-feature-builds/",
+      "destination": "/portfolio",
+      "permanent": true
+    },
+    {
+      "source": "/project-gallery/kitchen-bath-builds",
+      "destination": "/portfolio",
+      "permanent": true
+    },
+    {
+      "source": "/project-gallery/kitchen-bath-builds/",
+      "destination": "/portfolio",
+      "permanent": true
+    },
+    {
+      "source": "/project-gallery/concrete",
+      "destination": "/portfolio",
+      "permanent": true
+    },
+    {
+      "source": "/project-gallery/concrete/",
+      "destination": "/portfolio",
+      "permanent": true
+    },
+    {
+      "source": "/project-gallery/bathroom-tiles-1",
+      "destination": "/portfolio",
+      "permanent": true
+    },
+    {
+      "source": "/project-gallery/bathroom-tiles-1/",
+      "destination": "/portfolio",
+      "permanent": true
+    },
+    {
+      "source": "/project-gallery/kitchen-cabinet-2",
+      "destination": "/portfolio",
+      "permanent": true
+    },
+    {
+      "source": "/project-gallery/kitchen-cabinet-2/",
+      "destination": "/portfolio",
+      "permanent": true
+    },
+    {
+      "source": "/project-gallery/kitchen-cabinet-1",
+      "destination": "/portfolio",
+      "permanent": true
+    },
+    {
+      "source": "/project-gallery/kitchen-cabinet-1/",
+      "destination": "/portfolio",
+      "permanent": true
+    },
+    {
+      "source": "/budget-friendly-interior-painting-costs-in-2025-for-your-florida-home-remodel",
+      "destination": "/services/full-renovation",
+      "permanent": true
+    },
+    {
+      "source": "/budget-friendly-interior-painting-costs-in-2025-for-your-florida-home-remodel/",
+      "destination": "/services/full-renovation",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/1270-harbor-court",
+      "destination": "/portfolio/harbor-court-residence",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/1270-harbor-court/",
+      "destination": "/portfolio/harbor-court-residence",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/kitchen-collection",
+      "destination": "/portfolio?category=KITCHENS%20%2B%20BATHROOMS",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/kitchen-collection/",
+      "destination": "/portfolio?category=KITCHENS%20%2B%20BATHROOMS",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/bathroom-collection",
+      "destination": "/portfolio?category=KITCHENS%20%2B%20BATHROOMS",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/bathroom-collection/",
+      "destination": "/portfolio?category=KITCHENS%20%2B%20BATHROOMS",
+      "permanent": true
+    }
   ],
   "rewrites": [
-    { "source": "/services", "destination": "/services/index.html" },
-    { "source": "/services/full-renovation", "destination": "/services/full-renovation/index.html" },
-    { "source": "/services/kitchen", "destination": "/services/kitchen/index.html" },
-    { "source": "/services/bathroom", "destination": "/services/bathroom/index.html" },
-    { "source": "/services/new-construction", "destination": "/services/new-construction/index.html" },
-    { "source": "/services/additions", "destination": "/services/additions/index.html" },
-    { "source": "/services/shell-construction", "destination": "/services/shell-construction/index.html" },
-    { "source": "/services/outdoor-living", "destination": "/services/outdoor-living/index.html" },
-    { "source": "/services/concrete-pavers", "destination": "/services/concrete-pavers/index.html" },
-    { "source": "/services/:path*", "destination": "/index.html" },
-    { "source": "/portfolio", "destination": "/portfolio/index.html" },
-    { "source": "/portfolio/harbor-court-residence", "destination": "/portfolio/harbor-court-residence/index.html" },
-    { "source": "/portfolio/kitchen-collection", "destination": "/portfolio/kitchen-collection/index.html" },
-    { "source": "/portfolio/bathroom-collection", "destination": "/portfolio/bathroom-collection/index.html" },
-    { "source": "/portfolio/clark-pergola", "destination": "/portfolio/clark-pergola/index.html" },
-    { "source": "/portfolio/shell-construction", "destination": "/portfolio/shell-construction/index.html" },
-    { "source": "/portfolio/concrete-work", "destination": "/portfolio/concrete-work/index.html" },
-    { "source": "/portfolio/:path*", "destination": "/index.html" },
-    { "source": "/service-areas", "destination": "/service-areas/index.html" },
-    { "source": "/privacy", "destination": "/privacy/index.html" }
+    {
+      "source": "/services",
+      "destination": "/services/index.html"
+    },
+    {
+      "source": "/services/full-renovation",
+      "destination": "/services/full-renovation/index.html"
+    },
+    {
+      "source": "/services/kitchen",
+      "destination": "/services/kitchen/index.html"
+    },
+    {
+      "source": "/services/bathroom",
+      "destination": "/services/bathroom/index.html"
+    },
+    {
+      "source": "/services/new-construction",
+      "destination": "/services/new-construction/index.html"
+    },
+    {
+      "source": "/services/additions",
+      "destination": "/services/additions/index.html"
+    },
+    {
+      "source": "/services/shell-construction",
+      "destination": "/services/shell-construction/index.html"
+    },
+    {
+      "source": "/services/outdoor-living",
+      "destination": "/services/outdoor-living/index.html"
+    },
+    {
+      "source": "/services/concrete-pavers",
+      "destination": "/services/concrete-pavers/index.html"
+    },
+    {
+      "source": "/services/:path*",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/portfolio",
+      "destination": "/portfolio/index.html"
+    },
+    {
+      "source": "/portfolio/victoria-park-residence",
+      "destination": "/portfolio/victoria-park-residence/index.html"
+    },
+    {
+      "source": "/portfolio/harbor-court-residence",
+      "destination": "/portfolio/harbor-court-residence/index.html"
+    },
+    {
+      "source": "/portfolio/dockside-full-home-remodel",
+      "destination": "/portfolio/dockside-full-home-remodel/index.html"
+    },
+    {
+      "source": "/portfolio/shell-construction",
+      "destination": "/portfolio/shell-construction/index.html"
+    },
+    {
+      "source": "/portfolio/salon-buildout",
+      "destination": "/portfolio/salon-buildout/index.html"
+    },
+    {
+      "source": "/portfolio/miami-new-build",
+      "destination": "/portfolio/miami-new-build/index.html"
+    },
+    {
+      "source": "/portfolio/clark-pergola",
+      "destination": "/portfolio/clark-pergola/index.html"
+    },
+    {
+      "source": "/portfolio/opa-locka-airport",
+      "destination": "/portfolio/opa-locka-airport/index.html"
+    },
+    {
+      "source": "/portfolio/matte-black-bathroom",
+      "destination": "/portfolio/matte-black-bathroom/index.html"
+    },
+    {
+      "source": "/portfolio/pompano-kitchen-remodel",
+      "destination": "/portfolio/pompano-kitchen-remodel/index.html"
+    },
+    {
+      "source": "/portfolio/pompano-patio-slab",
+      "destination": "/portfolio/pompano-patio-slab/index.html"
+    },
+    {
+      "source": "/portfolio/concrete-work",
+      "destination": "/portfolio/concrete-work/index.html"
+    },
+    {
+      "source": "/portfolio/weston-new-build",
+      "destination": "/portfolio/weston-new-build/index.html"
+    },
+    {
+      "source": "/portfolio/:path*",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/service-areas",
+      "destination": "/service-areas/index.html"
+    },
+    {
+      "source": "/privacy",
+      "destination": "/privacy/index.html"
+    }
   ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
-        { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
       ]
     }
   ]

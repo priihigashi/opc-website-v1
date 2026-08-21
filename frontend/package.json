@@ -72,7 +72,10 @@
     "build": "GENERATE_SOURCEMAP=false craco build && node scripts/generate-seo-pages.mjs",
     "optimize:media": "node scripts/generate-media-derivatives.mjs",
     "test": "craco test",
-    "quality:js": "eslint src --ext .js,.jsx"
+    "quality:js": "eslint src --ext .js,.jsx",
+    "portfolio:data": "python3 scripts/generate-portfolio-data.py",
+    "portfolio:validate": "python3 ../tests/portfolio/validate_portfolio_integration.py",
+    "portfolio:qa": "node scripts/portfolio-browser-qa.mjs"
   },
   "engines": {
     "node": ">=24"
@@ -103,6 +106,7 @@
     "eslint-plugin-react": "7.37.4",
     "eslint-plugin-react-hooks": "5.2.0",
     "globals": "15.15.0",
+    "playwright": "1.61.1",
     "postcss": "8.5.10",
     "tailwindcss": "3.4.17"
   },

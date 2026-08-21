@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { ChevronDown, ChevronLeft, ChevronRight, MoveLeft } from "lucide-react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { getPortfolioProject } from "@/data/portfolioProjectsV3";
+import PortfolioPicture from "@/components/PortfolioPicture";
 
 function GalleryRow({ row, rowIndex, projectTitle, aboveFold = false }) {
   const scrollerRef = useRef(null);
@@ -83,23 +84,58 @@ function GalleryRow({ row, rowIndex, projectTitle, aboveFold = false }) {
           ref={scrollerRef}
           className="no-scrollbar flex w-full snap-x snap-mandatory gap-5 overflow-x-auto"
         >
-          {row.images.map(([src, alt], imageIndex) => (
+          {row.images.map((image, imageIndex) => (
             <figure
-              key={src}
+              key={image.id}
               data-slide
               className="min-w-full snap-center overflow-hidden rounded-[18px] border border-white/10 bg-[#131316]"
             >
-              <img
-                src={src}
-                alt={alt}
-                width="1800"
-                height="1013"
-                loading={rowIndex === 0 && imageIndex === 0 ? "eager" : "lazy"}
-                decoding="async"
-                className={aboveFold ? "h-[clamp(180px,30svh,330px)] w-full object-cover" : "aspect-video w-full object-cover"}
-              />
+              {/* The slide box stays a constant 4:3 so the carousel never jumps between
+                  slides. Landscape masters are 4:3 natively and fill it with no crop at
+                  all; portrait masters are contained rather than cropped, because a 3:4
+                  photograph forced through object-cover loses about 70% of the frame —
+                  which is exactly how construction work disappears from a gallery. */}
+              <div
+                className={`relative overflow-hidden ${
+                  aboveFold
+                    ? "flex h-[clamp(180px,30svh,330px)] w-full items-center justify-center bg-[#0D0D0F]"
+                    : "flex aspect-[4/3] w-full items-center justify-center bg-[#0D0D0F]"
+                }`}
+              >
+                {/* A portrait photograph in a wide box is letterboxed rather than cropped,
+                    so the sides would otherwise read as dead black. A blurred, scaled copy
+                    of the same photo fills them — nothing is cropped and nothing looks empty.
+                    It uses the smallest derivative, so it costs almost nothing. */}
+                {image.orientation === "portrait" && (
+                  <div
+                    aria-hidden
+                    className="absolute inset-0 scale-110 bg-cover bg-center opacity-45 blur-2xl"
+                    style={{ backgroundImage: `url("${image.src}-${image.widths[0]}w.jpg")` }}
+                  />
+                )}
+                <PortfolioPicture
+                  image={image}
+                  eager={rowIndex === 0 && imageIndex === 0}
+                  sizes="(max-width: 880px) 100vw, 880px"
+                  pictureClassName={
+                    image.orientation === "portrait"
+                      ? "relative flex h-full w-full items-center justify-center"
+                      : "relative block h-full w-full"
+                  }
+                  className={
+                    image.orientation === "portrait"
+                      ? "h-full w-auto max-w-full object-contain"
+                      : "h-full w-full object-cover"
+                  }
+                />
+              </div>
               <figcaption className="flex items-center justify-between gap-4 px-4 py-2.5 text-xs text-white/65 sm:px-5 sm:py-3 sm:text-sm">
-                <span>{alt}</span>
+                <span>
+                  <span className="mr-2 rounded-full border border-[#CBCC10]/40 px-2 py-0.5 font-mono text-[8px] uppercase tracking-[0.16em] text-[#CBCC10]">
+                    {image.phase === "AFTER" ? "Finished" : image.phase === "DURING" ? "During" : "Before"}
+                  </span>
+                  {image.alt}
+                </span>
                 <span className="shrink-0 font-mono text-[8px] uppercase tracking-[0.2em] text-white/40 sm:hidden">
                   {imageIndex + 1}/{row.images.length}
                 </span>
@@ -127,13 +163,16 @@ export default function ProjectGalleryV3() {
   const project = getPortfolioProject(projectId);
   if (!project) return <Navigate to="/portfolio" replace />;
 
-  const [firstRow, ...additionalRows] = project.rows;
+  const rows = (project.rows || []).filter((row) => row.images && row.images.length > 0);
+  const [firstRow, ...additionalRows] = rows;
   const showMore = additionalRows.length > 0;
   const scrollToNextRow = () => document.getElementById("project-sequence-2")?.scrollIntoView({ behavior: "smooth", block: "start" });
 
   return (
     <div className="min-h-screen bg-[#09090B] pt-16 text-white">
-      <div className="relative flex min-h-[calc(100svh-4rem)] flex-col pb-11">
+      {/* Only reserve a full viewport when there is a second sequence to scroll to.
+          A single-sequence project was leaving ~220px of dead black below the photo. */}
+      <div className={`relative flex flex-col pb-11 ${showMore ? "min-h-[calc(100svh-4rem)]" : ""}`}>
         <header className="mx-auto grid w-full max-w-6xl gap-3 px-6 pb-4 pt-5 sm:pt-7 md:grid-cols-[minmax(0,1.35fr)_minmax(260px,0.65fr)] md:items-end md:gap-10 md:px-10 md:pb-5 md:pt-8">
           <div>
             <Link to="/portfolio" className="inline-flex items-center gap-3 font-mono text-[9px] uppercase tracking-[0.25em] text-white/60 transition-colors hover:text-[#CBCC10] sm:text-[10px]">
@@ -145,7 +184,9 @@ export default function ProjectGalleryV3() {
           <p className="max-w-xl text-sm leading-relaxed text-white/65 md:pb-1 md:text-base">{project.intro}</p>
         </header>
 
-        {firstRow && <GalleryRow row={firstRow} rowIndex={0} projectTitle={project.title} aboveFold />}
+        {/* Compact the lead row only when something follows it; otherwise present the
+            single sequence at full size instead of clamping it and leaving space empty. */}
+        {firstRow && <GalleryRow row={firstRow} rowIndex={0} projectTitle={project.title} aboveFold={showMore} />}
 
         {showMore && (
           <button

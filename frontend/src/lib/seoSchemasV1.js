@@ -79,7 +79,7 @@ export const buildArticleSchemaV1 = ({ headline, description, path, image, dateP
   publisher: { "@id": BUSINESS_ID },
 });
 
-const allProjectImages = (project) => project.rows.flatMap((row) => row.images.map(([src, alt]) => ({ src, alt })));
+const allProjectImages = (project) => project.rows.flatMap((row) => row.images.map((image) => ({ src: `${image.src}-1200w.jpg`, alt: image.alt })));
 
 export const buildRouteSchemasV1 = (path, route) => {
   if (!route) return [];
