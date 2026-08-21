@@ -21,7 +21,7 @@ import ServicesV5 from "@/pages/ServicesV5";
 const ServiceDetail = lazy(() => import("@/pages/ServiceDetailV3"));
 const Portfolio = lazy(() => import("@/pages/PortfolioV7"));
 const ProjectGallery = lazy(() => import("@/pages/ProjectGalleryV3"));
-const Privacy = lazy(() => import("@/pages/PrivacyV2"));
+const Privacy = lazy(() => import("@/pages/PrivacyV3"));
 const ServiceAreas = lazy(() => import("@/pages/ServiceAreasV1"));
 
 const clamp01 = (value) => Math.min(1, Math.max(0, value));
