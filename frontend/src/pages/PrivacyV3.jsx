@@ -1,9 +1,15 @@
 import FooterV2 from "@/components/FooterV2";
+import { analyticsEnabled } from "@/lib/analytics";
 
 // V3 corrects the Contact Enquiries section. V2 described a mail-app-only form,
 // which stopped being true when /api/enquiries shipped: the form now submits to
 // our own endpoint. The endpoint still stores nothing, and that distinction is
 // what this page has to state accurately.
+//
+// The analytics wording reads the SAME build-time flag the analytics module
+// uses, so the page physically cannot claim the site has no analytics while
+// analytics is running, or advertise analytics that is switched off. Whichever
+// way the site is built, this section describes what actually happens.
 export default function PrivacyV3() {
   return (
     <div className="min-h-screen bg-[#09090B] pt-24 text-[#FAFAFA]">
@@ -25,8 +31,20 @@ export default function PrivacyV3() {
             <p className="mt-3">To block automated spam, the form checks how quickly it was completed and limits how many enquiries can be sent from one internet connection in a short period. For that check we record a short, scrambled fingerprint of the connection rather than your IP address, and it is never stored alongside your message.</p>
           </section>
           <section>
+            <h2 className="font-head text-2xl uppercase text-white">Website Analytics</h2>
+            {analyticsEnabled ? (
+              <>
+                <p className="mt-3">We use Google Analytics to understand how the website is used overall — which pages people read, and which of them lead to an enquiry. It helps us see what is useful and what is not.</p>
+                <p className="mt-3"><strong className="text-white">We never send your enquiry to analytics.</strong> Your name, email address, phone number and the message you write are not shared with Google or any analytics provider. When an enquiry is sent we record only two things: which service was selected, and which page it was sent from.</p>
+                <p className="mt-3">Advertising storage, advertising personalisation and advertising user data are switched off by default, so this data is not used to build an advertising profile of you or to follow you to other websites.</p>
+              </>
+            ) : (
+              <p className="mt-3">This website is not currently running any analytics or measurement service. No analytics cookie is set and no usage data is sent to a third party.</p>
+            )}
+          </section>
+          <section>
             <h2 className="font-head text-2xl uppercase text-white">Technical Information</h2>
-            <p className="mt-3">Our hosting provider may process standard technical information—such as an IP address, browser type, device information, and request logs—to deliver, secure, and maintain the site. This website does not currently use advertising trackers or marketing cookies.</p>
+            <p className="mt-3">Our hosting provider may process standard technical information—such as an IP address, browser type, device information, and request logs—to deliver, secure, and maintain the site. This website does not use advertising trackers, and it does not sell or share your information for advertising.</p>
           </section>
           <section>
             <h2 className="font-head text-2xl uppercase text-white">External Services</h2>
