@@ -23,3 +23,6 @@ yarn-debug.log*
 yarn-error.log*
 .vercel
 .env*
+
+# The example carries no secrets and must be committed as documentation.
+!.env.example
