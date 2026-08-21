@@ -26,12 +26,33 @@ const resolvePavilionJunction = (junction) => ({
 // separate from the shifted window grid. The door sits just proud of the wall
 // face and overlaps the opening by 0.02 units per side, preventing the pale
 // wall reveal from reading as a gap at oblique camera angles.
+// The tower's upper east wall. endClearance pulls its Z end faces off the front/back
+// walls' inner planes; topClearance drops its top off the roof underside. Both default to
+// 0, which reproduces the original geometry exactly. They exist because those faces were
+// coincident with their neighbours, which is invisible while the stucco is opaque but
+// interferes while it is still transparent during the intro fade (Build Tracker T-234).
+// The defaults live here rather than in EnvelopeV4's signature to keep that function
+// under the repository complexity gate.
+function UpperEastWall({ mats, shadows, depth, endClearance = 0, topClearance = 0 }) {
+  return (
+    <mesh
+      position={[-1.125, 4.85 - topClearance / 2, 0]}
+      material={mats.stuccoSide}
+      userData={{ noCast: !shadows, noReceive: !shadows }}
+    >
+      <boxGeometry args={[WALL_THICKNESS, 2.5 - topClearance, depth - endClearance]} />
+    </mesh>
+  );
+}
+
 export default function EnvelopeV4({
   mats,
   reg,
   entryDoor = {},
   pavilionJunction = {},
   upperEastWallShadows = true,
+  upperEastWallEndClearance,
+  upperEastWallTopClearance,
 }) {
   const doorCenter = entryDoor.center ?? 1.6;
   const doorWidth = entryDoor.width ?? 1.24;
@@ -133,13 +154,13 @@ export default function EnvelopeV4({
       </group>
 
       <group name="facade-east-a-v2" ref={reg("finEastA")}>
-        <mesh
-          position={[-1.125, 4.85, 0]}
-          material={mats.stuccoSide}
-          userData={{ noCast: !upperEastWallShadows, noReceive: !upperEastWallShadows }}
-        >
-          <boxGeometry args={[WALL_THICKNESS, 2.5, TOWER_SIDE_DEPTH]} />
-        </mesh>
+        <UpperEastWall
+          mats={mats}
+          shadows={upperEastWallShadows}
+          depth={TOWER_SIDE_DEPTH}
+          endClearance={upperEastWallEndClearance}
+          topClearance={upperEastWallTopClearance}
+        />
       </group>
 
       <group name="roof-a-v2" ref={reg("finRoofA")}>
