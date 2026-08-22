@@ -28,6 +28,22 @@ SHELL_CONCRETE_TAG = {
     "Pompano Patio Slab": "CONCRETE",
 }
 
+# Extra service tags taken from how the OLD PUBLISHED SITE itself categorised a project.
+# This is documentary evidence of OPC's own classification, not a visual judgement.
+# oakpark-construction.com/jobgallery/full-home-remodel/ listed four projects: Pompano
+# Beach, Home Theater, Crestheaven and Victoria Park. Victoria Park's photos there sit at
+# the same GPS property (26.129,-80.135) as the victoria-park selects, so the project the
+# old site called a Full Home Remodel is the one already in V2.
+# Priscila 2026-08-21: "don't put the repetition ... just have unique ones and the biggest
+# of them ... you keep the one with more photos". Each project appears under exactly ONE
+# category. The default winner is the scope carrying the most photographs.
+# PRIMARY_TAG is an explicit override where she or the old published site named the
+# category directly — she called Victoria Park a full remodel, and
+# oakpark-construction.com/jobgallery/full-home-remodel/ listed it there too.
+PRIMARY_TAG = {
+    "Victoria Park": "FULL HOME REMODELS",
+}
+
 # Route ids. Existing V2 routes are PRESERVED where the project genuinely corresponds.
 ROUTE_ID = {
     "Harbor Court": "harbor-court-residence",      # existing route + live redirect from 1270-harbor-court
@@ -87,11 +103,11 @@ for r in sorted(rows, key=lambda r: (r["project"], r["scope_slug"], PHASE_ORDER[
     p = projects.setdefault(r["project"], {
         "id": ROUTE_ID[r["project"]],
         "title": TITLE.get(r["project"], r["project"]),
-        "tags": [], "scopes": collections.OrderedDict(), "seen": set(),
+        "tags": [], "scope_tags": {}, "scopes": collections.OrderedDict(), "seen": set(),
     })
     t = tag_for(r)
-    if t not in p["tags"]:
-        p["tags"].append(t)
+    p.setdefault("scope_tags", {})
+    p["scope_tags"].setdefault(r["scope_slug"], t)
     if r["source_filename"] in p["seen"]:
         continue                      # same photo placed under two scopes: keep the first
     p["seen"].add(r["source_filename"])
@@ -100,6 +116,10 @@ for r in sorted(rows, key=lambda r: (r["project"], r["scope_slug"], PHASE_ORDER[
 out = []
 for name, p in projects.items():
     multi = len(p["scopes"]) > 1
+    # one category per project: the scope with the most photographs wins, unless
+    # PRIMARY_TAG names it explicitly.
+    biggest_scope = max(p["scopes"], key=lambda sc: len(p["scopes"][sc]))
+    p["tags"] = [PRIMARY_TAG.get(name, p["scope_tags"][biggest_scope])]
     rows_out, all_imgs = [], []
     # One row per SCOPE, ordered BEFORE -> DURING -> AFTER. Splitting further by phase
     # produced 11 single-image "carousels" with two dead arrows; the phase is carried on

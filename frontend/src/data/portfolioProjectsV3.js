@@ -8,10 +8,9 @@ export const PORTFOLIO_PROJECTS = [
     "id": "victoria-park-residence",
     "title": "Victoria Park",
     "tags": [
-      "KITCHENS + BATHROOMS",
-      "SHELL + NEW BUILD"
+      "FULL HOME REMODELS"
     ],
-    "cat": "KITCHENS + BATHROOMS",
+    "cat": "FULL HOME REMODELS",
     "phase": "Multi-scope project",
     "detail": "Kitchen + Bath · New Build",
     "intro": "13 verified photographs from this project, in order: Before → During Construction → Finished.",
@@ -294,8 +293,7 @@ export const PORTFOLIO_PROJECTS = [
     "id": "harbor-court-residence",
     "title": "Harbor Court Residence",
     "tags": [
-      "ADDITIONS",
-      "OUTDOOR LIVING"
+      "ADDITIONS"
     ],
     "cat": "ADDITIONS",
     "phase": "Multi-scope project",

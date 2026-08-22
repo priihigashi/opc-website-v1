@@ -186,7 +186,7 @@ export default function ProjectGalleryV3() {
 
         {/* Compact the lead row only when something follows it; otherwise present the
             single sequence at full size instead of clamping it and leaving space empty. */}
-        {firstRow && <GalleryRow row={firstRow} rowIndex={0} projectTitle={project.title} aboveFold={showMore} />}
+        {firstRow && <GalleryRow row={firstRow} rowIndex={0} projectTitle={project.title} />}
 
         {showMore && (
           <button
