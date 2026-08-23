@@ -4,7 +4,7 @@ import Lenis from "lenis";
 import "@/App.css";
 import { Toaster } from "@/components/ui/sonner";
 import { scrollStore } from "@/lib/scrollStore";
-import HouseSceneV24 from "@/three/HouseSceneV24";
+import HouseSceneV27 from "@/three/HouseSceneV27";
 import NavV4 from "@/components/NavV4";
 import StoryV13 from "@/components/StoryV13";
 import MarqueeV2 from "@/components/MarqueeV2";
@@ -16,7 +16,7 @@ import FooterV2 from "@/components/FooterV2";
 import SeoV1 from "@/components/SeoV1";
 import TitleCaseAuditV1 from "@/components/TitleCaseAuditV1";
 import PortfolioRouteBoundaryV1 from "@/components/PortfolioRouteBoundaryV1";
-import ServicesV3 from "@/pages/ServicesV3";
+import ServicesV6 from "@/pages/ServicesV6";
 import ServicesSceneV3 from "@/pages/ServicesSceneV3";
 
 const ServiceDetail = lazy(() => import("@/pages/ServiceDetailV2"));
@@ -94,7 +94,7 @@ function Landing() {
   return (
     <div className="bg-[#09090B] font-body text-[#FAFAFA] antialiased">
       <div className="noise-overlay" aria-hidden />
-      <HouseSceneV24 />
+      <HouseSceneV27 />
       <main className="relative z-10">
         <StoryV13 storyRef={storyRef} />
         <div className="relative border-t border-white/10 bg-[#09090B]">
@@ -135,7 +135,7 @@ export default function App() {
         <ServicesStageGate />
         <Routes>
           <Route path="/" element={<Landing />} />
-          <Route path="/services" element={<ServicesV3 />} />
+          <Route path="/services" element={<ServicesV6 />} />
           <Route
             path="/services/:slug"
             element={
