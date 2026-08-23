@@ -31,8 +31,8 @@ export default function AboutV3() {
         >
           <p className="luxury-kicker font-mono text-[10px] uppercase tracking-[0.28em]">The OPC approach</p>
           <h2 className="mt-6 leading-[0.98] tracking-tight text-[#EEEDE9]">
-            <span className="font-head block text-4xl uppercase sm:text-5xl">One team sees the whole home.</span>
-            <span className="font-editorial mt-2 block text-4xl sm:text-5xl">Every detail works together.</span>
+            <span className="font-head block text-4xl uppercase sm:text-5xl">One team sees the whole home</span>
+            <span className="font-editorial mt-2 block text-4xl sm:text-5xl">Every detail works together</span>
           </h2>
         </motion.div>
         <motion.div

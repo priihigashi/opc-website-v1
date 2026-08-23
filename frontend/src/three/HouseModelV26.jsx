@@ -16,7 +16,7 @@ const ROTATION = [
 ];
 
 const positionTrack = (additionX) => [
-  [0, 2.35], [0.004, 2.35], [0.11, -2.3], [0.27, -2.3], [0.33, 2.3],
+  [0, -0.55], [0.004, -0.55], [0.11, -2.3], [0.27, -2.3], [0.33, 2.3],
   [0.39, 2.3], [0.425, additionX], [0.615, additionX], [0.65, 2.3],
   [0.74, 2.3], [0.83, -2], [0.93, -2], [1, 0],
 ];
@@ -43,7 +43,7 @@ const viewportStage = () => {
   return { tablet: false, heroY: -0.16 };
 };
 
-export default function HouseModelV25() {
+export default function HouseModelV26() {
   const [stage, setStage] = useState(viewportStage);
 
   useEffect(() => {

@@ -58,7 +58,7 @@ export default function HeroV8({
               className="font-head block text-[clamp(4.1rem,7vw,7rem)] uppercase leading-[0.88] tracking-[-0.025em]"
               data-testid="hero-title-line-0"
             >
-              One team.
+              One team
             </motion.span>
           </span>
           <span className="block overflow-hidden pb-[0.12em] pt-[0.02em]">
@@ -67,7 +67,7 @@ export default function HeroV8({
               className="font-editorial block pl-[0.02em] text-[clamp(3.45rem,5.4vw,5.4rem)] font-medium leading-[0.95] tracking-[-0.045em]"
               data-testid="hero-title-line-1"
             >
-              Every detail.
+              Every detail
             </motion.span>
           </span>
         </h1>

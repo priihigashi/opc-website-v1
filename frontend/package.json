@@ -74,7 +74,9 @@
     "optimize:media": "node scripts/generate-media-derivatives.mjs",
     "test": "craco test",
     "quality:js": "eslint src --ext .js,.jsx",
-    "test:api": "node --test api/_tests/*.test.mjs"
+    "test:api": "node --test api/_tests/*.test.mjs",
+    "test:contract": "node --test src/__contract__/*.test.mjs",
+    "test:all": "yarn test:api && yarn test:contract"
   },
   "engines": {
     "node": ">=24"

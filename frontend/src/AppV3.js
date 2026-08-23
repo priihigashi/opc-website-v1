@@ -4,7 +4,8 @@ import Lenis from "lenis";
 import "@/App.css";
 import { Toaster } from "@/components/ui/sonner";
 import { scrollStore } from "@/lib/scrollStore";
-import DeferredHouseStageV4 from "@/components/DeferredHouseStageV4";
+import DeferredHouseStageV5 from "@/components/DeferredHouseStageV5";
+import HouseSceneV28 from "@/three/HouseSceneV28";
 import NavV4 from "@/components/NavV4";
 import StoryV13 from "@/components/StoryV13";
 import MarqueeV2 from "@/components/MarqueeV2";
@@ -16,7 +17,7 @@ import FooterV2 from "@/components/FooterV2";
 import SeoV1 from "@/components/SeoV1";
 import TitleCaseAuditV1 from "@/components/TitleCaseAuditV1";
 import PortfolioRouteBoundaryV1 from "@/components/PortfolioRouteBoundaryV1";
-import ServicesV5 from "@/pages/ServicesV5";
+import ServicesV7 from "@/pages/ServicesV7";
 import AnalyticsBoundaryV1 from "@/components/AnalyticsBoundaryV1";
 
 const ServiceDetail = lazy(() => import("@/pages/ServiceDetailV3"));
@@ -27,7 +28,7 @@ const ServiceAreas = lazy(() => import("@/pages/ServiceAreasV1"));
 
 const clamp01 = (value) => Math.min(1, Math.max(0, value));
 
-function Landing() {
+function Landing({ Stage = null }) {
   const storyRef = useRef(null);
   const location = useLocation();
 
@@ -93,7 +94,7 @@ function Landing() {
   return (
     <div className="bg-[#09090B] font-body text-[#FAFAFA] antialiased">
       <div className="noise-overlay" aria-hidden />
-      <DeferredHouseStageV4 />
+      {Stage ? <Stage /> : <DeferredHouseStageV5 />}
       <main className="relative z-10">
         <StoryV13 storyRef={storyRef} />
         <div className="relative border-t border-white/10 bg-[#09090B]">
@@ -124,7 +125,7 @@ function ServicesStageGate() {
   }, [active]);
 
   if (!show) return null;
-  return <DeferredHouseStageV4 scene="services" />;
+  return <DeferredHouseStageV5 scene="services" />;
 }
 
 export default function AppV3() {
@@ -137,7 +138,9 @@ export default function AppV3() {
         <ServicesStageGate />
         <Routes>
           <Route path="/" element={<Landing />} />
-          <Route path="/services" element={<ServicesV5 />} />
+          {/* T-245 centred-composition preview. Production route untouched. */}
+          <Route path="/preview/centered-house" element={<Landing Stage={HouseSceneV28} />} />
+          <Route path="/services" element={<ServicesV7 />} />
           <Route
             path="/services/:slug"
             element={

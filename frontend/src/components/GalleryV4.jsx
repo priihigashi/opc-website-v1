@@ -95,7 +95,7 @@ export default function GalleryV4() {
             </p>
             <h2 className="mt-6 leading-[0.94] tracking-tight text-[#09090B]">
               <span className="font-head block text-5xl uppercase sm:text-6xl">Proof,</span>
-              <span className="font-editorial block text-5xl sm:text-6xl">not promises.</span>
+              <span className="font-editorial block text-5xl sm:text-6xl">not promises</span>
             </h2>
           </div>
           <p className="max-w-sm border-l border-black/20 pl-5 text-sm leading-[1.75] text-[#09090B]/70">

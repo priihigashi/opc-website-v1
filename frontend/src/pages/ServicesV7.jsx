@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { shouldUseStaticHouse } from "@/components/DeferredHouseStageV2";
 import { scrollStore } from "@/lib/scrollStore";
-import { SERVICES_V3, SERVICES_V3_RESTING_PROGRESS } from "./servicesDataV3";
+import { SERVICES_V4, SERVICES_V4_RESTING_PROGRESS } from "./servicesDataV4";
 import { servicesPreviewStoreV3 as previewStore } from "./servicesPreviewStoreV3";
 
-const phaseLabel = (service, progress) => {
-  const holdAt = service.kind === "build" ? 0.84 : 0.58;
-  if (progress < holdAt) return `Revealing ${service.label}`;
-  if (progress < 0.9) return `Holding ${service.label} view`;
+const phaseLabel = (service, elapsed) => {
+  if (elapsed < service.revealMs) return `Revealing ${service.label}`;
+  if (elapsed < service.revealMs + service.holdMs) return `${service.label} view complete`;
   return `Opening ${service.label}`;
 };
 
@@ -35,17 +35,17 @@ function ServiceControl({ service, selected, disabled, onPick }) {
   );
 }
 
-export default function ServicesV6() {
+export default function ServicesV7() {
   const navigate = useNavigate();
   const animationRef = useRef(0);
   const mountedRef = useRef(true);
   const [selected, setSelected] = useState(null);
-  const [progress, setProgress] = useState(0);
+  const [elapsed, setElapsed] = useState(0);
 
   useEffect(() => {
     mountedRef.current = true;
     scrollStore.intro = 1;
-    scrollStore.p = SERVICES_V3_RESTING_PROGRESS;
+    scrollStore.p = SERVICES_V4_RESTING_PROGRESS;
     previewStore.active = null;
     previewStore.kind = null;
     previewStore.t = 0;
@@ -59,25 +59,28 @@ export default function ServicesV6() {
   const pick = (service) => {
     if (selected) return;
 
-    import("./ServiceDetail");
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const duration = reducedMotion ? 1250 : service.duration * 1000;
-    const startedAt = performance.now();
+    import("./ServiceDetailV3");
+    if (shouldUseStaticHouse()) {
+      navigate(`/services/${service.slug}`);
+      return;
+    }
 
+    const startedAt = performance.now();
+    const totalMs = service.revealMs + service.holdMs + service.handoffMs;
     setSelected(service);
-    setProgress(0);
+    setElapsed(0);
     scrollStore.p = service.target;
     previewStore.active = service.slug;
     previewStore.kind = service.kind;
     previewStore.t = 0;
-    previewStore.reducedMotion = reducedMotion;
+    previewStore.reducedMotion = false;
 
     const tick = (now) => {
-      const raw = Math.min(1, (now - startedAt) / duration);
-      previewStore.t = raw;
+      const nextElapsed = Math.min(totalMs, now - startedAt);
+      previewStore.t = Math.min(1, nextElapsed / service.revealMs);
 
-      if (mountedRef.current) setProgress(raw);
-      if (raw < 1) {
+      if (mountedRef.current) setElapsed(nextElapsed);
+      if (nextElapsed < totalMs) {
         animationRef.current = requestAnimationFrame(tick);
         return;
       }
@@ -88,9 +91,12 @@ export default function ServicesV6() {
     animationRef.current = requestAnimationFrame(tick);
   };
 
+  const totalMs = selected ? selected.revealMs + selected.holdMs + selected.handoffMs : 1;
+  const progress = Math.min(1, elapsed / totalMs);
+
   return (
     <main
-      data-testid="services-page-v3"
+      data-testid="services-page-v5"
       className="pointer-events-none relative z-10 min-h-[100svh] overflow-hidden bg-transparent text-[#FAFAFA]"
     >
       <section className="mx-auto flex min-h-[100svh] w-full max-w-[110rem] flex-col px-4 pb-5 pt-20 sm:px-6 md:px-8 md:pb-8 md:pt-24 xl:px-12">
@@ -102,14 +108,14 @@ export default function ServicesV6() {
             Choose Its Next Chapter
           </h1>
           <p className="mx-auto mt-3 max-w-2xl text-xs leading-relaxed text-[#C8C7C1] sm:text-sm">
-            Select a service to see its own transformation, then explore the full service page.
+            Choose a service to see the house focus on that scope, then continue to the full service page.
           </p>
         </div>
 
         <div className="services-spacer-v2 min-h-[34svh] flex-1 sm:min-h-[38svh] md:min-h-0" aria-hidden="true" />
 
         <div className="pointer-events-auto mx-auto grid w-full max-w-6xl grid-cols-2 gap-2 sm:gap-3 md:grid-cols-4">
-          {SERVICES_V3.map((service) => (
+          {SERVICES_V4.map((service) => (
             <ServiceControl
               key={service.slug}
               service={service}
@@ -122,9 +128,9 @@ export default function ServicesV6() {
 
         <div className="mt-3 min-h-9 text-center" aria-live="polite">
           {selected ? (
-            <div data-testid="preview-progress-v3" className="pointer-events-auto mx-auto w-full max-w-sm">
+            <div data-testid="preview-progress-v5" className="pointer-events-auto mx-auto w-full max-w-sm">
               <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-[#EEEDE9]">
-                {phaseLabel(selected, progress)}
+                {phaseLabel(selected, elapsed)}
               </p>
               <div className="mt-2 h-0.5 overflow-hidden rounded-full bg-white/15">
                 <div
@@ -135,7 +141,7 @@ export default function ServicesV6() {
             </div>
           ) : (
             <p className="font-mono text-[9px] uppercase tracking-[0.24em] text-[#8F8F94] sm:text-[10px]">
-              Each selection now previews only that service.
+              Select any service to preview its scope.
             </p>
           )}
         </div>
