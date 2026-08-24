@@ -217,6 +217,9 @@ agent_communication:
   - agent: "testing"
     message: >
       USER-REPORTED VERIFICATION COMPLETE (2 changes tested). CHANGE 1 - Contact form service dropdown: ALL 5 REQUIREMENTS PASS. (a) Placeholder 'Select a service' with value='' initially displayed, NOT 'Shell Construction'. (b) Placeholder disabled, cannot be re-selected. (c) Visual alignment verified: select appearance:none renders as underline field matching Phone input baseline (same border-bottom style) on desktop 1440x900 & mobile 390x844. (d) Validation: form blocks submission without service, shows error 'Please select a service.' (e) With service selected, submission proceeds to fallback path (expected without API). CHANGE 2 - T-263 concrete pergola: ALL 3 REQUIREMENTS PASS. (a) At p=0.715 (out=1), pergola material pergolaConcrete (#A8A49C grey-beige, concrete texture, roughness 0.88) with thick square columns (0.42x2.5x0.42), connected perimeter beam, 7 open overhead members with gaps - NOT thin wood. (b) At p=0.775 (out=0.215), T-196 sync verified: grill/counter and pergola retract together, no floating white countertop. (c) No console errors, no horizontal overflow on desktop/tablet/mobile. Both changes working correctly.
+  - agent: "testing"
+    message: >
+      FINAL LAUNCH VERIFICATION COMPLETE - ALL 5 TESTS PASS. Verified three critical fixes on homepage 3D at http://localhost:3000: TEST 1 - Banner entrance (user bug "banners appear glitchy mid-screen"): ✓ PASS. ch-01-panel at p=0.20 shows opacity=0.5, translateY=28px (mid-fade with positive Y translation confirming rise from below 56px→0px). ch-04-panel at p=0.705 shows opacity=0.504, translateY=27.78px (same correct behavior). Banners correctly rise from bottom while fading in, NOT materializing mid-screen. TEST 2 - T-264/T-230 shell state (no stipple/dual-surface): ✓ PASS. At p=0.215 (shell=1.0), captured two frames 1s apart - IDENTICAL (both 46746 bytes). Shell shows ONLY grey concrete piers with open voids + lime structural members (columns/beams). NO finished white stucco/glass visible, NO flicker/stipple/transparent double-surfaces. Reverse scroll (p=0.19→0.24→0.19) shows no flash. TEST 3 - T-234 first-load wall: ✓ PASS. After hard reload, interactive gate reached opacity-100 in 4s (within 4s failsafe spec). Captured 3 frames 700ms apart - ALL IDENTICAL (34491 bytes each). Upper-right second-floor wall region complete and stable, NO missing wall, NO stipple/shadow flash. TEST 4 - Pergola placement + T-196: ✓ PASS. At p=0.715 (out=1), concrete pergola with thick beige columns sits clearly separated from glass pavilion on larger paver slab extending toward pool, open canopy intact. At p=0.775 (out=0.215), grill and pergola fade together, NO floating white top (T-196 sync correct). TEST 5 - General checks: ✓ PASS. No horizontal overflow on desktop 1440x900 or mobile 390x844 (tested at p=0.215 and p=0.715). Zero console page errors. No panel mid-screen popping on mobile. All fixes verified working correctly with visual evidence captured.
 
 frontend:
   - task: "T-261 batch: T-230 shell bones, T-258 panel choreography, T-259 grid balance, T-234 first-frame gate, static-fallback zoom fix"
@@ -265,3 +268,16 @@ frontend:
       - working: true
         agent: "testing"
         comment: "Pergola verified concrete/masonry (columns+ring beam+open members) on 3 viewports; T-196 grill sync intact; contact select starts at disabled 'Select a service', blocks submit with inline error, underline-aligned with Phone on desktop+mobile."
+
+frontend:
+  - task: "T-264 shell/wall glitch root-cause + banner entrance + pergola placement"
+    implemented: true
+    working: true
+    file: "frontend/src/three/HouseModel.jsx, frontend/src/three/parts/Shell.jsx, frontend/src/components/ChapterV3.jsx, frontend/src/three/parts/BackyardV3.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "All 5 tests pass: banner rises 56px->0 on fade-in (ch-01+ch-04), shell state frames byte-identical (no stipple, envelope fully retired under bones), first-load upper wall stable across 3 frames, pergola separated toward pool + T-196 sync, no overflow/console errors desktop+mobile."
