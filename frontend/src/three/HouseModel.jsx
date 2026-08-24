@@ -127,6 +127,7 @@ export default function HouseModel({
         emissive: new THREE.Color("#5A8FD0"),
         emissiveIntensity: 0.35,
         roughness: 0.5,
+        depthWrite: false,
       }),
       // T-230: CBS wall piers / slabs of the structural shell. Lerps blueprint ->
       // concrete grey so the lime (mats.shell) is reserved for active structural
@@ -139,6 +140,7 @@ export default function HouseModel({
         emissive: new THREE.Color("#5A8FD0"),
         emissiveIntensity: 0.2,
         roughness: 0.85,
+        depthWrite: false,
       }),
       plinth: new THREE.MeshStandardMaterial({ color: "#262421", map: tex.concrete, roughness: 0.82 }),
       ground: new THREE.MeshStandardMaterial({ color: "#020202", roughness: 1 }),
@@ -337,8 +339,8 @@ export default function HouseModel({
     if (r.shellGroup) r.shellGroup.visible = shellOp > 0.004;
 
     // exterior finishes
-    const frontMul = solid * (1 - shell * 0.85) * (1 - cut * 0.985) * buildFinish;
-    const sideMul = solid * (1 - shell * 0.85) * (1 - cut * 0.4) * buildFinish;
+    const frontMul = solid * (1 - shell * 0.985) * (1 - cut * 0.985) * buildFinish;
+    const sideMul = solid * (1 - shell * 0.985) * (1 - cut * 0.4) * buildFinish;
     const roofMul = solid * (1 - shell * 0.8) * (1 - cut * 0.85) * buildFinish;
     mats.stuccoFront.opacity = frontMul;
     mats.woodScreenFront.opacity = frontMul;

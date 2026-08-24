@@ -5,17 +5,17 @@ import { RoundedBox } from "@react-three/drei";
 export default function BackyardV3({ mats, reg }) {
   return (
     <group name="outdoor-living-v3" ref={reg("pergolaGroup")} visible={false}>
-      <RoundedBox ref={reg("patio")} args={[7.8, 0.14, 3.4]} radius={0.06} smoothness={3} position={[2.9, 0.56, -4.4]} material={mats.patioPaver} />
+      <RoundedBox ref={reg("patio")} args={[8.4, 0.14, 4.6]} radius={0.06} smoothness={3} position={[2.9, 0.56, -4.9]} material={mats.patioPaver} />
       {/* T-263: concrete pergola — substantial masonry columns, a connected
           perimeter ring beam and OPEN overhead concrete-look members. Same
           group refs/origins so the T-258 outdoor build/retract timing and the
           T-196 grill synchronization are untouched. */}
-      <group ref={reg("pergolaPosts")} position={[2.5, 0.62, -4.4]}>
+      <group ref={reg("pergolaPosts")} position={[2.5, 0.62, -5.15]}>
         {[[-2.2, -1.3], [2.2, -1.3], [-2.2, 1.3], [2.2, 1.3]].map(([x, z], i) => (
           <RoundedBox key={i} args={[0.42, 2.5, 0.42]} radius={0.02} smoothness={2} position={[x, 1.25, z]} material={mats.pergolaConcrete} />
         ))}
       </group>
-      <group ref={reg("pergolaRoof")} position={[2.5, 0.62, -4.4]}>
+      <group ref={reg("pergolaRoof")} position={[2.5, 0.62, -5.15]}>
         {/* connected perimeter ring beam */}
         {[-1.3, 1.3].map((z) => <RoundedBox key={`rb-${z}`} args={[5.36, 0.34, 0.36]} radius={0.02} smoothness={2} position={[0, 2.62, z]} material={mats.pergolaConcrete} />)}
         {[-2.2, 2.2].map((x) => <RoundedBox key={`eb-${x}`} args={[0.36, 0.34, 2.96]} radius={0.02} smoothness={2} position={[x, 2.62, 0]} material={mats.pergolaConcrete} />)}

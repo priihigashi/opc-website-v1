@@ -42,30 +42,30 @@ const Header = ({ opening, material }) => (
 );
 
 const TOWER_CORNERS = [
-  [-5.85, 2.85], [-5.85, -2.85], [-1.15, 2.85], [-1.15, -2.85],
+  [-5.79, 2.79], [-5.79, -2.79], [-1.21, 2.79], [-1.21, -2.79],
 ];
 
 export default function Shell({ mats, reg }) {
   return (
     <group name="shell" ref={reg("shellGroup")}>
       {/* ------------------------------------------------ tower CBS piers -- */}
-      <group position={[-3.5, 0.5, 2.9]}>
+      <group position={[-3.5, 0.5, 2.84]}>
         <Wall len={5.0} h={5.6} t={0.2} material={mats.shellConcrete} openings={FRONT_OPENINGS} />
         {FRONT_OPENINGS.map((o, i) => <Header key={i} opening={o} material={mats.shell} />)}
       </group>
-      <group position={[-3.5, 0.5, -2.9]}>
+      <group position={[-3.5, 0.5, -2.84]}>
         <Wall len={5.0} h={5.6} t={0.2} material={mats.shellConcrete} openings={BACK_OPENINGS} />
         {BACK_OPENINGS.map((o, i) => <Header key={i} opening={o} material={mats.shell} />)}
       </group>
-      <group position={[-5.9, 0.5, 0]} rotation={[0, Math.PI / 2, 0]}>
+      <group position={[-5.84, 0.5, 0]} rotation={[0, Math.PI / 2, 0]}>
         <Wall len={5.75} h={5.6} t={0.2} material={mats.shellConcrete} openings={WEST_OPENINGS} />
         {WEST_OPENINGS.map((o, i) => <Header key={i} opening={o} material={mats.shell} />)}
       </group>
       {/* east bearing wall: lower storey + upper band above the pavilion roof */}
-      <mesh position={[-1.1, 2.175, 0]} material={mats.shellConcrete}>
+      <mesh position={[-1.16, 2.175, 0]} material={mats.shellConcrete}>
         <boxGeometry args={[0.2, 3.35, 5.6]} />
       </mesh>
-      <mesh position={[-1.1, 4.8, 0]} material={mats.shellConcrete}>
+      <mesh position={[-1.16, 4.8, 0]} material={mats.shellConcrete}>
         <boxGeometry args={[0.2, 2.4, 5.6]} />
       </mesh>
 
@@ -79,16 +79,16 @@ export default function Shell({ mats, reg }) {
       {/* ------------------------- perimeter tie beams (mid + top of wall) -- */}
       {[3.5, 5.85].map((y) => (
         <group key={`tie-${y}`}>
-          <mesh position={[-3.5, y, 2.92]} material={mats.shell}>
+          <mesh position={[-3.5, y, 2.86]} material={mats.shell}>
             <boxGeometry args={[5.0, 0.26, 0.28]} />
           </mesh>
-          <mesh position={[-3.5, y, -2.92]} material={mats.shell}>
+          <mesh position={[-3.5, y, -2.86]} material={mats.shell}>
             <boxGeometry args={[5.0, 0.26, 0.28]} />
           </mesh>
-          <mesh position={[-5.92, y, 0]} material={mats.shell}>
+          <mesh position={[-5.86, y, 0]} material={mats.shell}>
             <boxGeometry args={[0.28, 0.26, 6.12]} />
           </mesh>
-          <mesh position={[-1.08, y, 0]} material={mats.shell}>
+          <mesh position={[-1.14, y, 0]} material={mats.shell}>
             <boxGeometry args={[0.28, 0.26, 6.12]} />
           </mesh>
         </group>

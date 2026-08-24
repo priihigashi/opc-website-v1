@@ -63,7 +63,9 @@ export function ChapterV3({
         const { enter, exitStart, exitEnd } = panelWindow;
         const visible = seg(p, enter, enter + 0.01) * (1 - seg(p, exitStart, exitEnd));
         el.style.opacity = String(visible);
-        el.style.transform = `translateX(${(1 - visible) * 24 * dir}px)`;
+        // Rise from below while fading in, so the banner reads as entering
+        // from the bottom rather than materialising mid-screen.
+        el.style.transform = `translate(${(1 - visible) * 16 * dir}px, ${(1 - visible) * 56}px)`;
         el.style.pointerEvents = visible > 0.6 ? "auto" : "none";
       }
       raf = requestAnimationFrame(tick);
