@@ -1,5 +1,3 @@
-import { Wall } from "./units";
-
 // T-230 — Structural shell that reads as the BONES of the same house.
 //
 // The tower is no longer five full-height wall slabs (which the lime state
@@ -50,24 +48,14 @@ export default function Shell({ mats, reg }) {
     <group name="shell" ref={reg("shellGroup")}>
       {/* ------------------------------------------------ tower CBS piers -- */}
       <group position={[-3.5, 0.5, 2.84]}>
-        <Wall len={5.0} h={5.6} t={0.2} material={mats.shellConcrete} openings={FRONT_OPENINGS} />
-        {FRONT_OPENINGS.map((o, i) => <Header key={i} opening={o} material={mats.shell} />)}
+                {FRONT_OPENINGS.map((o, i) => <Header key={i} opening={o} material={mats.shell} />)}
       </group>
       <group position={[-3.5, 0.5, -2.84]}>
-        <Wall len={5.0} h={5.6} t={0.2} material={mats.shellConcrete} openings={BACK_OPENINGS} />
-        {BACK_OPENINGS.map((o, i) => <Header key={i} opening={o} material={mats.shell} />)}
+                {BACK_OPENINGS.map((o, i) => <Header key={i} opening={o} material={mats.shell} />)}
       </group>
       <group position={[-5.84, 0.5, 0]} rotation={[0, Math.PI / 2, 0]}>
-        <Wall len={5.75} h={5.6} t={0.2} material={mats.shellConcrete} openings={WEST_OPENINGS} />
-        {WEST_OPENINGS.map((o, i) => <Header key={i} opening={o} material={mats.shell} />)}
+                {WEST_OPENINGS.map((o, i) => <Header key={i} opening={o} material={mats.shell} />)}
       </group>
-      {/* east bearing wall: lower storey + upper band above the pavilion roof */}
-      <mesh position={[-1.16, 2.175, 0]} material={mats.shellConcrete}>
-        <boxGeometry args={[0.2, 3.35, 5.6]} />
-      </mesh>
-      <mesh position={[-1.16, 4.8, 0]} material={mats.shellConcrete}>
-        <boxGeometry args={[0.2, 2.4, 5.6]} />
-      </mesh>
 
       {/* ------------------------------------------ tower corner columns -- */}
       {TOWER_CORNERS.map(([x, z], i) => (

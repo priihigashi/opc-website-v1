@@ -339,8 +339,8 @@ export default function HouseModel({
     if (r.shellGroup) r.shellGroup.visible = shellOp > 0.004;
 
     // exterior finishes
-    const frontMul = solid * (1 - shell * 0.985) * (1 - cut * 0.985) * buildFinish;
-    const sideMul = solid * (1 - shell * 0.985) * (1 - cut * 0.4) * buildFinish;
+    const frontMul = solid * (1 - cut * 0.985) * buildFinish; // T-265: facade persists in Bones state
+    const sideMul = solid * (1 - cut * 0.4) * buildFinish;
     const roofMul = solid * (1 - shell * 0.8) * (1 - cut * 0.85) * buildFinish;
     mats.stuccoFront.opacity = frontMul;
     mats.woodScreenFront.opacity = frontMul;

@@ -84,7 +84,7 @@ export function ChapterV3({
       data-testid={id}
       className="pointer-events-none relative min-h-[170vh]"
     >
-      <div className="sticky top-0 flex h-screen items-end pb-8 md:items-center md:pb-0">
+      <div className="sticky top-16 flex h-[calc(100svh-4rem)] items-end py-6 md:items-center">
         <div className="mx-auto grid w-full max-w-7xl grid-cols-12 px-4 md:px-10">
           <motion.div
             ref={panelRef}
