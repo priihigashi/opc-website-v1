@@ -6,15 +6,22 @@ export default function BackyardV3({ mats, reg }) {
   return (
     <group name="outdoor-living-v3" ref={reg("pergolaGroup")} visible={false}>
       <RoundedBox ref={reg("patio")} args={[7.8, 0.14, 3.4]} radius={0.06} smoothness={3} position={[2.9, 0.56, -4.4]} material={mats.patioPaver} />
+      {/* T-263: concrete pergola — substantial masonry columns, a connected
+          perimeter ring beam and OPEN overhead concrete-look members. Same
+          group refs/origins so the T-258 outdoor build/retract timing and the
+          T-196 grill synchronization are untouched. */}
       <group ref={reg("pergolaPosts")} position={[2.5, 0.62, -4.4]}>
         {[[-2.2, -1.3], [2.2, -1.3], [-2.2, 1.3], [2.2, 1.3]].map(([x, z], i) => (
-          <RoundedBox key={i} args={[0.2, 2.5, 0.2]} radius={0.025} smoothness={2} position={[x, 1.25, z]} material={mats.pergolaWood} />
+          <RoundedBox key={i} args={[0.42, 2.5, 0.42]} radius={0.02} smoothness={2} position={[x, 1.25, z]} material={mats.pergolaConcrete} />
         ))}
       </group>
       <group ref={reg("pergolaRoof")} position={[2.5, 0.62, -4.4]}>
-        {[-1.3, 1.3].map((z) => <RoundedBox key={z} args={[5, 0.22, 0.2]} radius={0.025} smoothness={2} position={[0, 2.56, z]} material={mats.pergolaWood} />)}
-        {[-2.2, -1.65, -1.1, -0.55, 0, 0.55, 1.1, 1.65, 2.2].map((x) => (
-          <RoundedBox key={x} args={[0.13, 0.17, 3.2]} radius={0.018} smoothness={2} position={[x, 2.74, 0]} material={mats.pergolaWood} />
+        {/* connected perimeter ring beam */}
+        {[-1.3, 1.3].map((z) => <RoundedBox key={`rb-${z}`} args={[5.36, 0.34, 0.36]} radius={0.02} smoothness={2} position={[0, 2.62, z]} material={mats.pergolaConcrete} />)}
+        {[-2.2, 2.2].map((x) => <RoundedBox key={`eb-${x}`} args={[0.36, 0.34, 2.96]} radius={0.02} smoothness={2} position={[x, 2.62, 0]} material={mats.pergolaConcrete} />)}
+        {/* open overhead concrete members — wide daylight gaps, not a solid roof */}
+        {[-1.8, -1.2, -0.6, 0, 0.6, 1.2, 1.8].map((x) => (
+          <RoundedBox key={x} args={[0.2, 0.22, 3.2]} radius={0.015} smoothness={2} position={[x, 2.85, 0]} material={mats.pergolaConcrete} />
         ))}
         {[-1.45, 0, 1.45].map((x) => <pointLight key={x} position={[x, 2.48, 0]} intensity={2.2} distance={3.4} color="#FFD8A3" />)}
       </group>

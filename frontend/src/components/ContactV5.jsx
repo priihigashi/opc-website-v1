@@ -16,7 +16,7 @@ const ENDPOINT = "/api/enquiries";
 const inputCls =
   "w-full border-0 border-b border-black/20 bg-transparent px-0 py-4 text-sm text-[#09090B] placeholder-black/45 outline-none transition-colors duration-300 focus:border-[#09090B]";
 const errorCls = "border-b-[#A33628] focus:border-[#A33628]";
-const EMPTY = { name: "", email: "", phone: "", service: SERVICES[0], message: "" };
+const EMPTY = { name: "", email: "", phone: "", service: "", message: "" };
 
 const DEFAULT_STYLES = {
   kickerClassName: "text-[#09090B] before:bg-[#09090B]",
@@ -116,6 +116,13 @@ export default function ContactV5(props) {
     setStatus("sending");
     setErrors({});
     setNotice("");
+    // A service must be chosen deliberately — defaulting to the first option
+    // was mislabeling most enquiries as Shell Construction.
+    if (!form.service) {
+      setStatus("idle");
+      setErrors({ service: "Please select a service." });
+      return;
+    }
     applyOutcome(
       await postEnquiry({
         ...form,
@@ -199,9 +206,18 @@ export default function ContactV5(props) {
 
           <div className="col-span-2 sm:col-span-1">
             <label className="sr-only" htmlFor="contact-service">Service</label>
-            <select id="contact-service" name="service" data-testid="contact-service" value={form.service} onChange={set("service")} className={inputCls}>
-              {SERVICES.map((s) => <option key={s} value={s}>{s}</option>)}
-            </select>
+            <div className="relative">
+              {/* appearance-none keeps the select on the same underline baseline as the
+                  Phone field (native chrome rendered it as a floating box). */}
+              <select id="contact-service" name="service" data-testid="contact-service" value={form.service} onChange={set("service")}
+                aria-invalid={Boolean(errors.service)} aria-describedby={describedBy("service")}
+                className={`${fieldCls("service")} appearance-none rounded-none pr-6 ${form.service ? "" : "text-black/45"}`}>
+                <option value="" disabled>Select a service</option>
+                {SERVICES.map((s) => <option key={s} value={s}>{s}</option>)}
+              </select>
+              <span aria-hidden className="pointer-events-none absolute right-1 top-1/2 -translate-y-1/2 text-xs text-black/50">▾</span>
+            </div>
+            <FieldError id="err-service" message={errors.service} />
           </div>
 
           <div className="col-span-2">

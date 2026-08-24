@@ -189,6 +189,8 @@ export default function HouseModel({
       addFrame: std("#1D1D20", { metalness: 0.7, roughness: 0.35 }),
       addGlass: glass(0.55),
       pergolaWood: std("#6E4F30", { roughness: 0.65 }),
+      // T-263: modern architectural concrete pergola members (open canopy).
+      pergolaConcrete: std("#A8A49C", { map: tex.concrete, roughness: 0.88 }),
       poolDeck: std("#54545C", { roughness: 0.9 }),
       poolCoping: std("#CFC9BE", { roughness: 0.55 }),
       poolPlaster: std("#3E8E93", { roughness: 0.35 }),
@@ -424,6 +426,7 @@ export default function HouseModel({
       }
     }
     mats.pergolaWood.opacity = out;
+    mats.pergolaConcrete.opacity = out;
     mats.patioPaver.opacity = out;
     mats.patioEdge.opacity = out;
     mats.bbqSteel.opacity = out;
