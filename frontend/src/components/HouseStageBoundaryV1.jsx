@@ -26,6 +26,9 @@ export default class HouseStageBoundaryV1 extends Component {
   componentDidCatch(error) {
     // Surfaced for diagnostics only; the visitor is never shown an error.
     console.warn(`[house-stage] 3D scene unavailable, static hero retained: ${error?.message}`);
+    // Lets the stage swap in the static hero immediately (the photo is no
+    // longer pre-mounted behind this layer on the normal path).
+    this.props.onFailure?.();
   }
 
   render() {
