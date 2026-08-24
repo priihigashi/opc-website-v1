@@ -37,6 +37,7 @@ const SCL = [[0, 0.85], [0.1, 0.85], [0.2, 0.92], [0.9, 0.92], [1, 1.05]];
 
 const BLUEPRINT = new THREE.Color("#5A8FD0");
 const LIME = new THREE.Color("#CBCC10");
+const SHELL_CONCRETE = new THREE.Color("#98938A");
 
 export default function HouseModel({
   DrivewayComponent = Driveway,
@@ -126,6 +127,18 @@ export default function HouseModel({
         emissive: new THREE.Color("#5A8FD0"),
         emissiveIntensity: 0.35,
         roughness: 0.5,
+      }),
+      // T-230: CBS wall piers / slabs of the structural shell. Lerps blueprint ->
+      // concrete grey so the lime (mats.shell) is reserved for active structural
+      // members (columns, tie beams, headers) and never a full facade slab.
+      shellConcrete: new THREE.MeshStandardMaterial({
+        color: "#5A8FD0",
+        transparent: true,
+        opacity: 0.95,
+        wireframe: true,
+        emissive: new THREE.Color("#5A8FD0"),
+        emissiveIntensity: 0.2,
+        roughness: 0.85,
       }),
       plinth: new THREE.MeshStandardMaterial({ color: "#262421", map: tex.concrete, roughness: 0.82 }),
       ground: new THREE.MeshStandardMaterial({ color: "#020202", roughness: 1 }),
@@ -273,15 +286,18 @@ export default function HouseModel({
       ? Math.max(0.04, 1 - seg(previewT, 0.04, 0.3), seg(previewT, 0.56, 0.82))
       : 1;
     const solid = preview ? 1 : Math.max(scrollStore.intro, seg(p, 0.005, 0.075));
+    // T-258/T-261 choreography: each state's retract may begin only AFTER the
+    // chapter's panel has exited and the completed state has held alone
+    // (solo-hold ends: ch01 0.260, ch02 0.415, ch03 0.575, ch04 0.745, ch05 0.910).
     const shell = preview
       ? preview.kind === "shell" ? reveal : buildShell
-      : pulse(p, 0.125, 0.185, 0.25, 0.295);
+      : pulse(p, 0.125, 0.185, 0.262, 0.3);
     const cut = preview
       ? ["renovation", "kitchen", "bathroom"].includes(preview.kind) ? reveal : 0
       : pulse(p, 0.3, 0.36, 0.415, 0.465);
     const add = preview ? preview.kind === "addition" ? reveal : 0 : pulse(p, 0.43, 0.5, 0.575, 0.615);
-    const out = preview ? preview.kind === "outdoor" ? reveal : 0 : pulse(p, 0.64, 0.69, 0.74, 0.78);
-    const conc = preview ? preview.kind === "concrete" ? reveal : 0 : pulse(p, 0.805, 0.855, 0.905, 0.945);
+    const out = preview ? preview.kind === "outdoor" ? reveal : 0 : pulse(p, 0.64, 0.69, 0.747, 0.787);
+    const conc = preview ? preview.kind === "concrete" ? reveal : 0 : pulse(p, 0.805, 0.855, 0.912, 0.948);
 
     const g = r.root;
     if (!g) return;
@@ -306,12 +322,16 @@ export default function HouseModel({
     const s = THREE.MathUtils.damp(g.scale.x || 1, track(p, scaleTrack) * view.current.s, 5, dt);
     g.scale.setScalar(s);
 
-    // shell: blueprint wireframe -> lime structural frame
+    // shell: blueprint wireframe -> lime members + concrete bones (T-230)
     const shellOp = Math.max((1 - solid) * 0.95, shell);
     mats.shell.opacity = shellOp;
     mats.shell.wireframe = solid < 0.6 && shell < 0.5;
     mats.shell.color.lerpColors(BLUEPRINT, LIME, shell);
     mats.shell.emissive.copy(mats.shell.color).multiplyScalar(0.3);
+    mats.shellConcrete.opacity = shellOp;
+    mats.shellConcrete.wireframe = solid < 0.6 && shell < 0.5;
+    mats.shellConcrete.color.lerpColors(BLUEPRINT, SHELL_CONCRETE, shell);
+    mats.shellConcrete.emissive.copy(mats.shellConcrete.color).multiplyScalar(0.12);
     if (r.shellGroup) r.shellGroup.visible = shellOp > 0.004;
 
     // exterior finishes

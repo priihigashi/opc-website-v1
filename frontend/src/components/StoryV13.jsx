@@ -3,9 +3,14 @@ import HeroV10 from "./HeroV10";
 import { ChapterV3 } from "./ChapterV3";
 import ChapterRail from "./ChapterRail";
 
+// T-258/T-261 exact panel windows (normalized story progress). Order per chapter:
+// TRANSFORM -> SETTLE -> PANEL (enter..exitStart) -> PANEL OUT (exitStart..exitEnd)
+// -> SOLO HOLD (~0.010-0.015) -> NEXT TRANSFORM. House handoffs in HouseModelV25
+// start only after each solo hold: 0.260 / 0.415 / 0.575 / 0.745 / 0.910.
 const chapters = [
   {
     id: "ch-01",
+    window: { enter: 0.195, exitStart: 0.235, exitEnd: 0.245 },
     num: "01",
     side: "right",
     overline: "Shell Construction",
@@ -17,6 +22,7 @@ const chapters = [
   },
   {
     id: "ch-02",
+    window: { enter: 0.37, exitStart: 0.395, exitEnd: 0.405 },
     num: "02",
     side: "left",
     overline: "Kitchen + Bathroom Remodels",
@@ -28,6 +34,7 @@ const chapters = [
   },
   {
     id: "ch-03",
+    window: { enter: 0.515, exitStart: 0.55, exitEnd: 0.56 },
     num: "03",
     side: "right",
     overline: "Additions",
@@ -41,6 +48,7 @@ const chapters = [
   },
   {
     id: "ch-04",
+    window: { enter: 0.7, exitStart: 0.725, exitEnd: 0.735 },
     num: "04",
     side: "left",
     overline: "Outdoor Living",
@@ -52,6 +60,7 @@ const chapters = [
   },
   {
     id: "ch-05",
+    window: { enter: 0.865, exitStart: 0.89, exitEnd: 0.9 },
     num: "05",
     side: "right",
     overline: "Concrete + Pavers",

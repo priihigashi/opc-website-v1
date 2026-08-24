@@ -6,12 +6,42 @@ import { PORTFOLIO_FILTERS, PORTFOLIO_PROJECTS } from "@/data/portfolioProjectsV
 import { PORTFOLIO_HERO_VIDEO, PORTFOLIO_HERO_POSTER } from "./portfolioHeroMedia";
 import PortfolioPicture from "@/components/PortfolioPicture";
 
-function ProjectCard({ project, index }) {
+// T-259/T-261: card geometry responds to the RESULT SET, not the global featured flag.
+// Returns one span per shown project: "single" | "wide" | "std".
+//  1 result  -> one centered card, 4:3, max ~900px.
+//  2 results -> two equal 4:3 cards (never a 16:8 featured card).
+//  3 results -> one full-width 16:8 card, then two equal 4:3 cards.
+//  4+        -> equal 4:3 two-column grid; on ALL an editorial featured rhythm is
+//               allowed only when featured lands at a row start; any incomplete
+//               final row is closed by promoting the last card to wide, so no
+//               orphan tile can ever appear.
+export function computeCardSpans(projects, honorFeatured) {
+  const n = projects.length;
+  if (n === 1) return ["single"];
+  if (n === 2) return ["std", "std"];
+  if (n === 3) return ["wide", "std", "std"];
+  const spans = [];
+  let col = 0;
+  for (let i = 0; i < n; i += 1) {
+    if (honorFeatured && projects[i].featured && col === 0) {
+      spans.push("wide");
+    } else {
+      spans.push("std");
+      col = (col + 1) % 2;
+    }
+  }
+  if (col === 1) spans[n - 1] = "wide"; // close the final row intentionally
+  return spans;
+}
+
+function ProjectCard({ project, index, span = "std" }) {
+  const wide = span === "wide";
   return (
-    <motion.article initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "200px 0px 200px 0px", amount: 0.01 }} transition={{ duration: 0.65, delay: Math.min(index * 0.05, 0.2) }} className={project.featured ? "md:col-span-2" : ""}>
-      <Link to={`/portfolio/${project.id}`} data-testid={`portfolio-project-${project.id}`} className="group block overflow-hidden rounded-[22px] border border-white/10 bg-white/[0.045] backdrop-blur-xl transition-colors hover:border-[#CBCC10]/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#CBCC10]">
-        <div className={`relative overflow-hidden ${project.featured ? "aspect-[16/8]" : "aspect-[4/3]"}`}>
-          <PortfolioPicture image={project.cover} eager={index < 2} sizes={project.featured ? "(max-width: 768px) 100vw, 66vw" : "(max-width: 768px) 100vw, 33vw"} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.025]" />
+    <motion.article initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "200px 0px 200px 0px", amount: 0.01 }} transition={{ duration: 0.65, delay: Math.min(index * 0.05, 0.2) }} className={span === "single" ? "w-full max-w-[900px] md:col-span-2 md:justify-self-center" : wide ? "md:col-span-2" : ""}>
+      <Link to={`/portfolio/${project.id}`} data-testid={`portfolio-project-${project.id}`} data-span={span} className="group block overflow-hidden rounded-[22px] border border-white/10 bg-white/[0.045] backdrop-blur-xl transition-colors hover:border-[#CBCC10]/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#CBCC10]">
+        {/* Phones always use the same 4:3 frame; the 16:8 treatment is md+ only. */}
+        <div className={`relative overflow-hidden aspect-[4/3] ${wide ? "md:aspect-[16/8]" : ""}`}>
+          <PortfolioPicture image={project.cover} eager={index < 2} sizes={wide ? "(max-width: 768px) 100vw, 66vw" : "(max-width: 768px) 100vw, 33vw"} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.025]" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
           <div className="absolute left-5 top-5 rounded-full border border-white/15 bg-black/55 px-3 py-2 font-mono text-[9px] uppercase tracking-[0.2em] text-white backdrop-blur-md"><span className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-[#CBCC10]" />{project.phase} · {project.imageCount} photos</div>
           <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5 sm:p-7">
@@ -19,7 +49,8 @@ function ProjectCard({ project, index }) {
             <ArrowUpRight aria-hidden className="h-6 w-6 flex-none text-white transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
           </div>
         </div>
-        <p className="px-5 py-4 text-sm text-[#B8B8BC] sm:px-7">{project.detail}</p>
+        {/* min-height keeps two-result footer bands on the same baseline when detail lengths differ */}
+        <p className="min-h-[3.25rem] px-5 py-4 text-sm text-[#B8B8BC] sm:px-7">{project.detail}</p>
       </Link>
     </motion.article>
   );
@@ -31,6 +62,7 @@ export default function PortfolioV7() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [filter, setFilter] = useState(() => getValidFilter(searchParams.get("category")));
   const shown = PORTFOLIO_PROJECTS.filter((project) => filter === "ALL" || project.tags.includes(filter));
+  const spans = computeCardSpans(shown, filter === "ALL");
 
   useEffect(() => {
     const requestedFilter = getValidFilter(searchParams.get("category"));
@@ -65,7 +97,7 @@ export default function PortfolioV7() {
       </div>
     </header>
     <nav id="portfolio-projects" aria-label="Portfolio categories" className="sticky top-16 z-30 scroll-mt-16 border-y border-white/15 bg-[linear-gradient(90deg,rgba(9,9,11,0.96),rgba(18,18,19,0.92),rgba(9,9,11,0.96))] shadow-[0_12px_32px_rgba(0,0,0,0.24)] backdrop-blur-xl"><div className="no-scrollbar mx-auto flex max-w-7xl gap-2 overflow-x-auto px-6 py-4 md:px-10">{PORTFOLIO_FILTERS.map((item) => <button key={item} type="button" aria-pressed={filter === item} onClick={() => selectFilter(item)} className={`flex-none rounded-full border px-4 py-2 font-mono text-[9px] uppercase tracking-[0.18em] transition-colors duration-300 ${filter === item ? "border-[#CBCC10] bg-[#CBCC10] text-[#09090B]" : "border-white/25 bg-black/10 text-white/75 hover:border-white/45 hover:text-white"}`}>{item}</button>)}</div></nav>
-    {shown.length > 0 ? <main data-testid="portfolio-grid" className="mx-auto grid max-w-7xl scroll-mt-32 grid-cols-1 gap-5 px-6 py-10 md:grid-cols-2 md:px-10 md:py-14">{shown.map((project, index) => <ProjectCard key={project.id} project={project} index={index} />)}</main> : <main data-testid="portfolio-grid-empty" className="mx-auto max-w-7xl px-6 py-20 text-center md:px-10"><p className="font-mono text-[10px] uppercase tracking-[0.24em] text-white/60">No documented projects in this category yet.</p><button type="button" onClick={() => selectFilter("ALL")} className="mt-6 inline-flex rounded-full border border-[#CBCC10] px-6 py-3 font-mono text-[10px] uppercase tracking-[0.2em] text-[#CBCC10]">View all projects</button></main>}
+    {shown.length > 0 ? <main data-testid="portfolio-grid" className="mx-auto grid max-w-7xl scroll-mt-32 grid-cols-1 gap-5 px-6 py-10 md:grid-cols-2 md:px-10 md:py-14">{shown.map((project, index) => <ProjectCard key={project.id} project={project} index={index} span={spans[index]} />)}</main> : <main data-testid="portfolio-grid-empty" className="mx-auto max-w-7xl px-6 py-20 text-center md:px-10"><p className="font-mono text-[10px] uppercase tracking-[0.24em] text-white/60">No documented projects in this category yet.</p><button type="button" onClick={() => selectFilter("ALL")} className="mt-6 inline-flex rounded-full border border-[#CBCC10] px-6 py-3 font-mono text-[10px] uppercase tracking-[0.2em] text-[#CBCC10]">View all projects</button></main>}
     <footer className="mx-auto max-w-7xl px-6 pb-24 pt-10 text-center md:px-10"><div className="rounded-[22px] border border-white/10 bg-white/[0.045] px-6 py-14"><p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#CBCC10]">Built with one accountable team</p><h2 className="mx-auto mt-5 max-w-3xl font-head text-4xl uppercase sm:text-5xl">Your Project Can Be the Next Documented Transformation</h2><a href="/#contact" className="mt-8 inline-flex rounded-full bg-[#CBCC10] px-7 py-4 font-mono text-[10px] uppercase tracking-[0.22em] text-[#09090B]">Start a Project</a></div></footer>
   </div>;
 }

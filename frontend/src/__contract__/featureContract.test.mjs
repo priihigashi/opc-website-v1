@@ -75,8 +75,27 @@ const REQUIRED = [
       return holds.length >= 4 && holds.every((h) => h <= 0.02);
     } },
   { route: "/", file: () => liveHouseModel(),
-    name: "chapters 2-5 choreography preserved (late keyframes intact)",
-    check: (s) => s.includes("[0.27, -2.3]") && s.includes("[0.9, 0.92]") },
+    name: "chapters 2-5 choreography preserved (late keyframes intact, T-258 retimed)",
+    check: (s) => s.includes("[0.27, -2.3]") && s.includes("[0.912, 0.92]") },
+  // T-258/T-261 — panel choreography: exact windows live in StoryV13 and the gate in ChapterV3.
+  { route: "/", file: () => "components/StoryV13.jsx",
+    name: "all five chapter panel windows are specified (T-258)",
+    check: (s) => ["0.195", "0.37", "0.515", "0.7", "0.865"].every((v) => s.includes(`enter: ${v},`)) },
+  { route: "/", file: () => "components/ChapterV3.jsx",
+    name: "chapter panel is scroll-window gated, not always-on (T-258)",
+    check: (s) => s.includes("exitStart") && s.includes("seg(p, enter, enter + 0.01)") },
+  // T-259/T-261 — filtered grid balance: spans respond to the result set.
+  { route: "/portfolio", file: () => `pages/${lazyTarget("Portfolio")}.jsx`,
+    name: "two filtered results render as an equal matched pair (T-259)",
+    check: (s) => s.includes('if (n === 2) return ["std", "std"]') && s.includes("computeCardSpans(shown") },
+  // T-242 — PROMOTED from LOST: construction-sequence galleries are back via the
+  // verified dataset (phase-ordered rows) and per-slide Before/During/Finished chips.
+  { route: "/portfolio/:projectId", file: () => "data/portfolioProjectsV3.js",
+    name: "projects carry phase-ordered rows (T-242 restored)",
+    check: (s) => s.includes('"phases"') && s.includes('"BEFORE"') && s.includes('"rows"') },
+  { route: "/portfolio/:projectId", file: () => `pages/${lazyTarget("ProjectGallery")}.jsx`,
+    name: "gallery slides label Before/During/Finished (T-242 restored)",
+    check: (s) => s.includes('image.phase === "AFTER" ? "Finished"') },
 ];
 
 // ------------------------------------------------------------------- LOST ---
@@ -84,9 +103,8 @@ const REQUIRED = [
 // These are real regressions awaiting Priscila's decision, recorded so the set
 // cannot grow silently. If one starts passing, promote it to REQUIRED.
 const LOST = [
-  { route: "/portfolio", file: () => `pages/${lazyTarget("Portfolio")}.jsx`,
-    name: "Before/After multi-row galleries (built f26178e, dropped by V2-V7 chain) — T-242",
-    check: (s) => /rows\s*:/.test(s) },
+  // (empty) — T-242 Before/After multi-row galleries were restored on 2026-08-24 and
+  // promoted to REQUIRED above. Add future genuine regressions here.
 ];
 
 for (const f of REQUIRED) {
