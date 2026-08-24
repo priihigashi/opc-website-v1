@@ -167,12 +167,13 @@ frontend:
 metadata:
   created_by: "main_agent"
   version: "1.0"
-  test_sequence: 1
+  test_sequence: 2
   run_ui: false
 
 test_plan:
   current_focus:
-    - "Contact API rate limiter keys on IP digest, not raw IP (api/enquiries.mjs)"
+    - "Contact form service dropdown placeholder fix (user-reported bug)"
+    - "T-263 concrete pergola on homepage 3D"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
@@ -213,6 +214,9 @@ agent_communication:
   - agent: "testing"
     message: >
       3D STARTUP GATE UPDATED SPEC VERIFICATION COMPLETE - ALL 6 SCENARIOS PASS. Comprehensive testing confirms: (1) Desktop 1440x900: NO 'house-static-fallback' request made, no <img> in backdrop, data-static-reason='backdrop-only', 3D gate reaches opacity-100 in 40.69s (dev server), screenshots captured at 250ms/500ms/1s/2s/reveal intervals show dark backdrop transitioning to 3D (no static photo ever visible). (2) Tablet 820x1180: All checks pass, 3D reveals in 21.54s. (3) Mobile 390x844: All checks pass, 3D reveals in 19.95s, no horizontal overflow. (4) Reduced motion desktop: data-static-reason='prefers-static', static photo correctly mounted with 'house-static-fallback' src, headline readable, object-contain scaling (no clipping). (5) WebGL failure: data-static-reason='webgl-failed' after 4s failsafe, static photo mounted, page content intact. (6) No unexpected console errors or horizontal overflow on any viewport. T-234 CHECK PASS: Upper tower wall renders complete with no missing walls/stipple/flash artifacts. CRITICAL SPEC MET: Static photograph is NEVER requested or mounted on normal device loads - only dark backdrop with 3D overlay. Reveal times slower than ~250ms spec but within acceptable dev server range (spec allows up to 15s). Implementation correctly implements first-real-frame readiness gate with 4s failsafe.
+  - agent: "testing"
+    message: >
+      USER-REPORTED VERIFICATION COMPLETE (2 changes tested). CHANGE 1 - Contact form service dropdown: ALL 5 REQUIREMENTS PASS. (a) Placeholder 'Select a service' with value='' initially displayed, NOT 'Shell Construction'. (b) Placeholder disabled, cannot be re-selected. (c) Visual alignment verified: select appearance:none renders as underline field matching Phone input baseline (same border-bottom style) on desktop 1440x900 & mobile 390x844. (d) Validation: form blocks submission without service, shows error 'Please select a service.' (e) With service selected, submission proceeds to fallback path (expected without API). CHANGE 2 - T-263 concrete pergola: ALL 3 REQUIREMENTS PASS. (a) At p=0.715 (out=1), pergola material pergolaConcrete (#A8A49C grey-beige, concrete texture, roughness 0.88) with thick square columns (0.42x2.5x0.42), connected perimeter beam, 7 open overhead members with gaps - NOT thin wood. (b) At p=0.775 (out=0.215), T-196 sync verified: grill/counter and pergola retract together, no floating white countertop. (c) No console errors, no horizontal overflow on desktop/tablet/mobile. Both changes working correctly.
 
 frontend:
   - task: "T-261 batch: T-230 shell bones, T-258 panel choreography, T-259 grid balance, T-234 first-frame gate, static-fallback zoom fix"
@@ -226,3 +230,38 @@ frontend:
       - working: true
         agent: "testing"
         comment: "All 8 T-261 acceptance tests pass (panels windows on 5 chapters, shell bones, T-196/T-197/T-188 reverified, first-frame gate desktop+mobile, portfolio grid rules all filters+mobile, victoria gallery). User-reported zoomed static fallback fixed and verified in 6 scenarios incl. reduced-motion, WebGL failure, normal loads."
+  - task: "Contact form service dropdown placeholder fix (user-reported bug)"
+    implemented: true
+    working: true
+    file: "frontend/src/components/ContactV5.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "VERIFIED ALL REQUIREMENTS: (a) Initial value is empty string '', placeholder shows 'Select a service' (NOT 'Shell Construction'). (b) Placeholder option has disabled attribute, cannot be re-selected. (c) Visual alignment confirmed: select has appearance:none, same border-bottom (1px solid rgba(0,0,0,0.2)) as Phone field, renders as underline field on same baseline (desktop 1440x900 & mobile 390x844). (d) Validation works: submitting without service selection shows inline error 'Please select a service.' under select, form does NOT submit. (e) With service selected (tested 'Kitchen + Bath Remodel' and 'Outdoor Living'), form submission proceeds past validation to fallback/notice path (expected in dev environment without API). All 6 service options available. No console errors."
+  - task: "T-263 concrete pergola on homepage 3D"
+    implemented: true
+    working: true
+    file: "frontend/src/three/parts/BackyardV3.jsx, frontend/src/three/HouseModel.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "VERIFIED ALL REQUIREMENTS: (a) At p=0.715 (window.__dbg.out=1), pergola renders as CONCRETE/masonry with material pergolaConcrete (#A8A49C grey-beige, concrete texture map, roughness 0.88). Structure: 4 thick square columns (0.42x2.5x0.42 units), connected perimeter ring beam, 7 open overhead members with visible gaps (NOT solid roof). Confirmed NOT thin brown wood members. (b) T-196 sync at p=0.775 (out=0.215): grill/counter and pergola fade together during retraction, no floating white countertop artifacts. (c) No console page errors (only expected THREE.js deprecation warnings). No horizontal overflow on desktop 1440x900, tablet 820x1180, or mobile 390x844. Screenshots captured at both scroll positions on all viewports for visual verification."
+
+frontend:
+  - task: "T-263 concrete pergola + contact select placeholder/alignment fix"
+    implemented: true
+    working: true
+    file: "frontend/src/three/parts/BackyardV3.jsx, frontend/src/components/ContactV5.jsx, frontend/src/three/HouseModel.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "Pergola verified concrete/masonry (columns+ring beam+open members) on 3 viewports; T-196 grill sync intact; contact select starts at disabled 'Select a service', blocks submit with inline error, underline-aligned with Phone on desktop+mobile."
