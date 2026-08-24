@@ -192,3 +192,15 @@ agent_communication:
       with IP digest keys (5 allowed, 6th is 429), (4) Logs show only 8-hex digest, never
       raw IP, (5) No hardcoded secrets in codebase. Implementation correctly matches privacy
       disclosure. Ready for main agent to summarize and finish.
+  - agent: "testing"
+    message: >
+      LAUNCH VERIFICATION COMPLETE (8 comprehensive tests executed). ALL TESTS PASS:
+      ✓ T-258 Chapter panel choreography: All 5 chapters show correct opacity transitions at exact scroll positions, panels positioned beside house without overlap.
+      ✓ T-230 Shell bones: 3D house correctly renders structural bones (grey piers with voids, lime columns/beams, visible slabs) - NOT a solid block.
+      ✓ T-196 Grill/white-top regression: No floating white countertop/grill artifacts at p=0.76 or p=0.80 during outdoor element retraction.
+      ✓ T-197 Hero overlay: Hero house clearly visible (interactive gate opacity=1), headline text visible, no heavy dark overlay blocking view.
+      ✓ First-frame gate: Interactive 3D house loads and reaches opacity-100 (verified on desktop 1440x900 and mobile 390x844), no blank page, no horizontal overflow, no console errors.
+      ✓ T-259 Portfolio grid: All filters correct (FULL HOME REMODELS: 2 std cards equal width, SHELL+NEW BUILD: 1 wide+2 std, CONCRETE: 3 cards including opa-locka-airport, ADDITIONS: 1 single centered ~900px, ALL: 13 cards no orphan). Mobile: all single column 4:3 aspect, no horizontal overflow.
+      ✓ T-188 Services flash: Navigation to service detail works, no blocking issues detected.
+      ✓ Project gallery: Images load correctly, phase chips visible (26 found), no horizontal overflow on mobile 390x844.
+      Site is launch-ready. All critical 3D choreography, portfolio presentation, and first-load performance requirements verified.

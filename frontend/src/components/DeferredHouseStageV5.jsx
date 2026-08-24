@@ -70,7 +70,12 @@ export default function DeferredHouseStageV5({ scene = "home" }) {
         className={`fixed inset-0 z-0 overflow-hidden bg-[#09090B] transition-opacity duration-700 ${interactiveReady ? "opacity-0" : "opacity-100"}`}
         aria-hidden
         data-testid="house-static-fallback-v4"
+        data-static-reason={staticOnly ? "prefers-static" : interactiveFailed ? "webgl-failed" : "warming-up"}
       >
+        {/* The source photo is a tight full-frame crop; scaled + shifted so the
+            house sits at the same size/position as the live 3D hero (right of
+            the headline on desktop, centered below the copy on phones) instead
+            of filling the whole screen "zoomed in". */}
         <ResponsiveImageV1
           src="/images/opc/house-static-fallback-v1.jpg"
           alt=""
@@ -78,7 +83,7 @@ export default function DeferredHouseStageV5({ scene = "home" }) {
           width="1600"
           height="900"
           fetchPriority="high"
-          className="h-full w-full object-contain object-center max-md:translate-x-[2%] max-md:-translate-y-[3svh] max-md:scale-[1.16]"
+          className="h-full w-full object-contain object-center [mask-image:radial-gradient(ellipse_62%_58%_at_center,black_58%,transparent_92%)] max-md:translate-y-[6svh] max-md:scale-[0.82] md:translate-x-[14%] md:translate-y-[4%] md:scale-[0.56]"
         />
       </div>
       {!staticOnly && !interactiveFailed ? (
