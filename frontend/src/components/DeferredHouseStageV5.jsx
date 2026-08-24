@@ -1,7 +1,6 @@
 import { lazy, Suspense, useEffect, useState } from "react";
 import ResponsiveImageV1 from "@/components/ResponsiveImageV1";
 import HouseStageBoundaryV1 from "@/components/HouseStageBoundaryV1";
-import { scrollStore } from "@/lib/scrollStore";
 
 const HomeHouse = lazy(() => import("@/three/HouseSceneV27"));
 const ServicesHouse = lazy(() => import("@/pages/ServicesSceneV5"));
@@ -13,18 +12,42 @@ export const shouldUseStaticHouse = () => {
     || ["slow-2g", "2g"].includes(connection?.effectiveType);
 };
 
+// How long the interactive scene may stay mounted-but-unconfirmed before we
+// declare 3D failed and keep the verified static hero. Generous enough for a
+// slow chunk download; slow-2g/2g/save-data clients never mount 3D at all.
+const FIRST_FRAME_FAILSAFE_MS = 15000;
+
 export default function DeferredHouseStageV5({ scene = "home" }) {
   const [staticOnly] = useState(shouldUseStaticHouse);
   const [interactiveReady, setInteractiveReady] = useState(false);
+  const [interactiveFailed, setInteractiveFailed] = useState(false);
 
   useEffect(() => {
     if (staticOnly) return undefined;
 
+    // First-real-render-frame gate (reviewed P-1 approach): the house model
+    // publishes window.__dbg from inside its useFrame loop, so __dbg only
+    // exists after the renderer has actually drawn the model. We require two
+    // confirmations on separate animation frames so a presented frame is on
+    // screen before the static cover fades — no intro timer may mask the
+    // first seconds where a real 3D glitch would appear.
     window.__dbg = undefined;
     let animationFrame;
+    let confirmedFrames = 0;
+    let settled = false;
+
+    const failsafe = window.setTimeout(() => {
+      if (settled) return;
+      settled = true;
+      window.cancelAnimationFrame(animationFrame);
+      setInteractiveFailed(true); // static hero stays; broken 3D never shows
+    }, FIRST_FRAME_FAILSAFE_MS);
 
     const confirmRenderedScene = () => {
-      if (window.__dbg && scrollStore.intro >= 0.995) {
+      if (window.__dbg) confirmedFrames += 1;
+      if (confirmedFrames >= 2) {
+        settled = true;
+        window.clearTimeout(failsafe);
         setInteractiveReady(true);
         return;
       }
@@ -32,7 +55,11 @@ export default function DeferredHouseStageV5({ scene = "home" }) {
     };
 
     animationFrame = window.requestAnimationFrame(confirmRenderedScene);
-    return () => window.cancelAnimationFrame(animationFrame);
+    return () => {
+      settled = true;
+      window.cancelAnimationFrame(animationFrame);
+      window.clearTimeout(failsafe);
+    };
   }, [staticOnly]);
 
   const Scene = scene === "services" ? ServicesHouse : HomeHouse;
@@ -54,7 +81,7 @@ export default function DeferredHouseStageV5({ scene = "home" }) {
           className="h-full w-full object-contain object-center max-md:translate-x-[2%] max-md:-translate-y-[3svh] max-md:scale-[1.16]"
         />
       </div>
-      {!staticOnly ? (
+      {!staticOnly && !interactiveFailed ? (
         <div
           className={`fixed inset-0 z-0 transition-opacity duration-700 ${interactiveReady ? "opacity-100" : "opacity-0"}`}
           data-testid="house-interactive-gate-v4"

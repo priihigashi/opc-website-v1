@@ -98,7 +98,9 @@ export default async function handler(req, res) {
     "unknown";
   const tag = await ipTag(ip);
 
-  if (rateLimited(ip)) {
+  // Privacy alignment: the in-memory limiter keys on the salted short digest,
+  // never the raw IP, so implementation matches the privacy disclosure.
+  if (rateLimited(tag)) {
     console.warn(`[enquiries] rate_limited ip=${tag}`);
     return send(res, 429, {
       ok: false,
