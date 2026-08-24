@@ -149,6 +149,9 @@ frontend:
       - working: true
         agent: "main"
         comment: "Intro-timer condition removed. Reveal ~1s after first real frame (window.__dbg from HouseModel useFrame, 2 rAF confirmations). Verified: desktop, mobile 390px, reduced-motion (static only, no canvas), WebGL-failure (static stays, no crash), no overflow, no glitch through first scroll."
+      - working: true
+        agent: "testing"
+        comment: "VERIFIED: Static fallback bug fix working correctly. All 6 scenarios tested: (1) Desktop normal load: Static (scale 0.56, shifted right) replaced by 3D in ~2s, opacity transition correct. (2) Mobile normal load: Static (scale 0.82, centered below headline) replaced by 3D successfully. (3) Reduced motion desktop: Static permanent with data-static-reason='prefers-static', house NOT zoomed full-screen, headline 'ONE TEAM / Every detail' fully visible, correct scale 0.56. (4) Reduced motion mobile: Static centered below headline, scale 0.82, no horizontal overflow. (5) WebGL failure: Static remains visible, data-static-reason correctly changes to 'webgl-failed' after 15s failsafe, page content intact. React dev error overlay appears (expected in dev mode only, not in production). (6) No console page errors except expected WebGL context error in test 5. Bug fix CONFIRMED: Static image no longer zoomed full-screen, properly scaled and positioned to match 3D hero."
   - task: "Portfolio: 13 verified projects, PortfolioPicture AVIF/WebP/JPEG, portrait-safe, phase chips, Opa Locka=CONCRETE"
     implemented: true
     working: true
@@ -204,3 +207,19 @@ agent_communication:
       ✓ T-188 Services flash: Navigation to service detail works, no blocking issues detected.
       ✓ Project gallery: Images load correctly, phase chips visible (26 found), no horizontal overflow on mobile 390x844.
       Site is launch-ready. All critical 3D choreography, portfolio presentation, and first-load performance requirements verified.
+  - agent: "testing"
+    message: >
+      STATIC FALLBACK BUG FIX VERIFICATION COMPLETE. User-reported bug "static image shows very zoomed in and can't be deactivated" is FIXED. All 6 test scenarios PASS: (1) Desktop normal: Static replaced by 3D in 2s with correct opacity transitions. (2) Mobile normal: Static replaced by 3D successfully. (3) Reduced motion desktop: Static permanent (data-static-reason='prefers-static'), house at scale 0.56 positioned right-center, NOT full-screen zoomed, headline fully visible. (4) Reduced motion mobile: Static at scale 0.82 centered below headline, no overflow. (5) WebGL failure: Static remains visible, data-static-reason='webgl-failed' after 15s, page functional (React dev error overlay appears in dev mode only, not production). (6) No console errors except expected WebGL context error in test 5. Fix confirmed working as designed.
+
+frontend:
+  - task: "T-261 batch: T-230 shell bones, T-258 panel choreography, T-259 grid balance, T-234 first-frame gate, static-fallback zoom fix"
+    implemented: true
+    working: true
+    file: "frontend/src/three/parts/Shell.jsx, frontend/src/components/ChapterV3.jsx, frontend/src/pages/PortfolioV7.jsx, frontend/src/components/DeferredHouseStageV5.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "All 8 T-261 acceptance tests pass (panels windows on 5 chapters, shell bones, T-196/T-197/T-188 reverified, first-frame gate desktop+mobile, portfolio grid rules all filters+mobile, victoria gallery). User-reported zoomed static fallback fixed and verified in 6 scenarios incl. reduced-motion, WebGL failure, normal loads."
