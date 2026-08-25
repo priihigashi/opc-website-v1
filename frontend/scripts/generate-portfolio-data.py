@@ -141,11 +141,24 @@ for name, p in projects.items():
         label = f"{SCOPE_WORD[scope]} · {span}" if multi else span
         rows_out.append({"label": label, "phases": present, "images": ordered})
 
-    # The manifest already designates hero candidates during curation. Honour that
-    # rather than picking a cover by position — position is not an editorial judgement.
-    heroes = [i for i in all_imgs if i.get("role") == "hero"]
-    finished = [i for i in all_imgs if i["phase"] == "AFTER"]
-    cover = heroes[0] if heroes else (finished[-1] if finished else all_imgs[-1])
+    # Multi-scope projects must represent the same scope as their one public category.
+    # Otherwise Harbor Court's ADDITIONS card borrows its only hero from Outdoor Living.
+    # Prefer a curated hero in the category-matched scope, then its first finished card
+    # (the earliest verified finished view in the sequence). An explicit category such
+    # as Victoria Park's FULL HOME REMODELS may have no same-named manifest scope; only
+    # then do we fall back to the largest scope. Single-scope projects keep the established
+    # cover rule bit-for-bit, including their historical final-finished fallback.
+    if multi:
+        matching_scopes = [scope for scope, tag in p["scope_tags"].items() if tag == p["tags"][0]]
+        cover_scope = matching_scopes[0] if matching_scopes else biggest_scope
+        primary_imgs = p["scopes"][cover_scope]
+        primary_heroes = [i for i in primary_imgs if i.get("role") == "hero"]
+        primary_finished = [i for i in primary_imgs if i["phase"] == "AFTER"]
+        cover = primary_heroes[0] if primary_heroes else (primary_finished[0] if primary_finished else primary_imgs[-1])
+    else:
+        heroes = [i for i in all_imgs if i.get("role") == "hero"]
+        finished = [i for i in all_imgs if i["phase"] == "AFTER"]
+        cover = heroes[0] if heroes else (finished[-1] if finished else all_imgs[-1])
     phases_present = [ph for ph in ("BEFORE", "DURING", "AFTER") if any(i["phase"] == ph for i in all_imgs)]
 
     scope_words = " · ".join(SCOPE_WORD[s] for s in p["scopes"])
@@ -169,7 +182,11 @@ for i, p in enumerate(out):
     p["featured"] = i in (0, 3)
 
 body = "// GENERATED from the verified T-203 EXPORT_MANIFEST.csv — do not hand-edit.\n"
-body += "// Every image, phase, sequence and alt string traces to the READY_FOR_WEB manifest.\n\n"
+body += "// Every image, phase, sequence and alt string traces to the READY_FOR_WEB manifest.\n"
+body += "// Launch-audit exception 2026-08-24: Opa Locka Airport corrected to CONCRETE /\n"
+body += "// \"Concrete Repair\" (was mislabeled Commercial Build-Out). The generator at\n"
+body += "// scripts/generate-portfolio-data.py carries the same override, so regeneration\n"
+body += "// will not reintroduce the mislabel.\n\n"
 body += "export const PORTFOLIO_FILTERS = " + json.dumps(FILTERS) + ";\n\n"
 body += "export const PORTFOLIO_PROJECTS = " + json.dumps(out, indent=2, ensure_ascii=False) + ";\n\n"
 body += "export const getPortfolioProject = (id) => PORTFOLIO_PROJECTS.find((project) => project.id === id);\n"

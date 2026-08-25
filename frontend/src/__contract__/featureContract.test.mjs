@@ -95,6 +95,9 @@ const REQUIRED = [
   { route: "/portfolio", file: () => `pages/${lazyTarget("Portfolio")}.jsx`,
     name: "two filtered results render as an equal matched pair (T-259)",
     check: (s) => s.includes('if (n === 2) return ["std", "std"]') && s.includes("computeCardSpans(shown") },
+  { route: "/portfolio", file: () => `pages/${lazyTarget("Portfolio")}.jsx`,
+    name: "a single filtered project requests an image sized for its full card",
+    check: (s) => s.includes('span === "single"') && s.includes('100vw, 900px') && s.includes('sizes={pictureSizes}') },
   // T-242 — PROMOTED from LOST: construction-sequence galleries are back via the
   // verified dataset (phase-ordered rows) and per-slide Before/During/Finished chips.
   { route: "/portfolio/:projectId", file: () => "data/portfolioProjectsV3.js",
@@ -108,6 +111,16 @@ const REQUIRED = [
     check: (s) => s.includes('replaceAll("During Construction", "During")')
       && s.includes('aria-label={row.label}')
       && s.includes('whitespace-nowrap') },
+  { route: "/portfolio?category=ADDITIONS", file: () => "data/portfolioProjectsV3.js",
+    name: "the Harbor Court Additions card uses Addition photography",
+    check: (s) => {
+      const harbor = s.slice(s.indexOf('"id": "harbor-court-residence"'), s.indexOf('"id": "dockside-full-home-remodel"'));
+      return harbor.includes('"cat": "ADDITIONS"')
+        && harbor.includes('/portfolio/addition/harbor-court/harbor-court__addition__AFTER__card__seq04__img-3370');
+    } },
+  { route: "/portfolio/harbor-court-residence", file: () => "data/seoRoutesV1.json",
+    name: "Harbor Court social previews use the same Addition image",
+    check: (s) => s.includes('/portfolio/addition/harbor-court/harbor-court__addition__AFTER__card__seq04__img-3370-1200w.jpg') },
 ];
 
 // ------------------------------------------------------------------- LOST ---

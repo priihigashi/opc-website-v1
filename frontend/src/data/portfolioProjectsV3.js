@@ -304,8 +304,8 @@ export const PORTFOLIO_PROJECTS = [
     "detail": "Addition · Outdoor Living",
     "intro": "11 verified photographs from this project, in order: During Construction → Finished.",
     "cover": {
-      "id": "1RpfVXFyJjuKDu2l9XCnEZQmVseZHuJ37",
-      "src": "/images/opc/portfolio/outdoor-living/harbor-court/harbor-court__outdoor-living__AFTER__hero__seq02__img-4755",
+      "id": "1FJrR8WDCMTGqp16l7calpamZcJ7pJlKQ",
+      "src": "/images/opc/portfolio/addition/harbor-court/harbor-court__addition__AFTER__card__seq04__img-3370",
       "w": 1800,
       "h": 1350,
       "widths": [
@@ -316,10 +316,10 @@ export const PORTFOLIO_PROJECTS = [
       ],
       "alt": "Completed-work view at the Harbor Court project.",
       "phase": "AFTER",
-      "seq": 2,
+      "seq": 4,
       "orientation": "landscape",
-      "role": "hero",
-      "source": "IMG_4755.jpeg"
+      "role": "card",
+      "source": "IMG_3370.jpeg"
     },
     "rows": [
       {
