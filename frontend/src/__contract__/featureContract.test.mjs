@@ -165,3 +165,16 @@ test("every routed component file actually exists", () => {
     assert.doesNotThrow(() => read(p), `App.js routes to a file that does not exist: ${p}`);
   }
 });
+
+test("dining stays out of the kitchen lounge and beside the TV-room seating", () => {
+  for (const model of ["three/HouseModelV24.jsx", "three/HouseModelV25.jsx", "three/HouseModelV26.jsx"]) {
+    assert.ok(read(model).includes('import InteriorV4 from "./parts/InteriorV4"'),
+      `${model} no longer uses the corrected furniture plan`);
+  }
+
+  const interior = read("three/parts/InteriorV4.jsx");
+  assert.ok(interior.includes('name="tv-room-dining"'), "the relocated dining group is missing");
+  assert.ok(interior.includes("[-3.65, 1.03, -1.45]"), "the dining table left its audited TV-room position");
+  assert.ok(interior.includes("[4.7, 0.82, -0.15]"), "the kitchen-lounge coffee table was not preserved");
+  assert.ok(!interior.includes('name="compact-dining-test"'), "the dining set returned to the kitchen lounge");
+});

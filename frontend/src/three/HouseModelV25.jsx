@@ -4,7 +4,7 @@ import AdditionV6 from "./parts/AdditionV6";
 import BackyardV3 from "./parts/BackyardV3";
 import DrivewayV5 from "./parts/DrivewayV5";
 import EnvelopeV9 from "./parts/EnvelopeV9";
-import InteriorV2 from "./parts/InteriorV2";
+import InteriorV4 from "./parts/InteriorV4";
 import LandscapeV2 from "./parts/LandscapeV2";
 
 const MATERIAL_CONFIG = { stuccoFront: "#F0EBE3", stuccoSide: "#F0EBE3" };
@@ -61,7 +61,7 @@ export default function HouseModelV25({ onFrame = null }) {
       BackyardComponent={BackyardV3}
       DrivewayComponent={DrivewayV5}
       EnvelopeComponent={EnvelopeV9}
-      InteriorComponent={InteriorV2}
+      InteriorComponent={InteriorV4}
       LandscapeComponent={LandscapeV2}
       materialConfig={MATERIAL_CONFIG}
       rotationTrack={ROTATION}
