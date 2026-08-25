@@ -22,7 +22,7 @@ import AnalyticsBoundaryV1 from "@/components/AnalyticsBoundaryV1";
 
 const ServiceDetail = lazy(() => import("@/pages/ServiceDetailV3"));
 const Portfolio = lazy(() => import("@/pages/PortfolioV7"));
-const ProjectGallery = lazy(() => import("@/pages/ProjectGalleryV3"));
+const ProjectGallery = lazy(() => import("@/pages/ProjectGalleryV4"));
 const Privacy = lazy(() => import("@/pages/PrivacyV3"));
 const ServiceAreas = lazy(() => import("@/pages/ServiceAreasV1"));
 

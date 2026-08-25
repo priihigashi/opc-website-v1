@@ -103,6 +103,11 @@ const REQUIRED = [
   { route: "/portfolio/:projectId", file: () => `pages/${lazyTarget("ProjectGallery")}.jsx`,
     name: "gallery slides label Before/During/Finished (T-242 restored)",
     check: (s) => s.includes('image.phase === "AFTER" ? "Finished"') },
+  { route: "/portfolio/:projectId", file: () => `pages/${lazyTarget("ProjectGallery")}.jsx`,
+    name: "gallery phase sequence stays on one line with a display-only short label",
+    check: (s) => s.includes('replaceAll("During Construction", "During")')
+      && s.includes('aria-label={row.label}')
+      && s.includes('whitespace-nowrap') },
 ];
 
 // ------------------------------------------------------------------- LOST ---
