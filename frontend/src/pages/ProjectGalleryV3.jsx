@@ -1,3 +1,4 @@
+import FooterV2 from "@/components/FooterV2";
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown, ChevronLeft, ChevronRight, MoveLeft } from "lucide-react";
 import { Link, Navigate, useParams } from "react-router-dom";
@@ -210,6 +211,7 @@ export default function ProjectGalleryV3() {
           Return to All Projects
         </Link>
       </div>
+      <FooterV2 />
     </div>
   );
 }
