@@ -187,6 +187,32 @@
   background: linear-gradient(135deg, rgba(28, 28, 22, 0.88), rgba(22, 22, 24, 0.68));
 }
 
+/* T-273: a click that has to wait for the 3D must LOOK like it registered.
+   Without this the control is disabled for up to 4s with no visible change,
+   which reads as a dead button. */
+.service-control-v2[data-preparing="true"] {
+  border-color: rgba(203, 204, 16, 0.55);
+  color: #CBCC10;
+  opacity: 1;
+}
+.service-control-v2[data-preparing="true"]::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  margin-top: 6px;
+  background: linear-gradient(90deg, transparent, #CBCC10, transparent);
+  background-size: 200% 100%;
+  animation: svc-preparing 1.1s linear infinite;
+}
+@keyframes svc-preparing {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .service-control-v2[data-preparing="true"]::after { animation: none; opacity: .6; }
+}
+
 .service-control-v2-selected {
   border-color: #CBCC10;
   background: #CBCC10;

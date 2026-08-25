@@ -76,7 +76,8 @@
     "quality:js": "eslint src --ext .js,.jsx",
     "test:api": "node --test api/_tests/*.test.mjs",
     "test:contract": "node --test src/__contract__/*.test.mjs",
-    "test:all": "yarn test:api && yarn test:contract"
+    "test:all": "yarn test:api && yarn test:contract",
+    "test:e2e:stage": "python3 e2e/stage-overlap.spec.py"
   },
   "engines": {
     "node": ">=24"

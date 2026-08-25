@@ -84,7 +84,19 @@ export function ChapterV3({
       data-testid={id}
       className="pointer-events-none relative min-h-[170vh]"
     >
-      <div className="sticky top-16 flex h-[calc(100svh-4rem)] items-end py-6 md:items-center">
+      {/* T-265: the nav is h-[4.5rem] (NavV4.jsx). top-16/4rem was 8px short, which
+          pushed the panel under the header and clipped the whole headline off screen. */}
+      {/*
+        T-265 (2026-08-25, measured): the panel was positioned at top:-173px on desktop and
+        top:-34px on mobile for chapters 1 and 2 — i.e. dragged up behind the nav — because a
+        FULL-HEIGHT sticky wrapper releases too early. A sticky element stays pinned only while
+        its own height still fits in the section below it; a ~92vh wrapper in a 170vh section
+        releases at 46% through, but chapter 1's visible window does not open until 53%.
+        A SHORT wrapper stays pinned far longer, and the panel simply overflows below it
+        (overflow is visible), so nothing is clipped. Chapters 3-5 were already fine and are
+        unaffected. Panel height is 625px desktop / 529px mobile, both well inside the viewport.
+      */}
+      <div className="sticky top-[4.5rem] flex h-[32svh] items-start py-6">
         <div className="mx-auto grid w-full max-w-7xl grid-cols-12 px-4 md:px-10">
           <motion.div
             ref={panelRef}

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { shouldUseStaticHouse } from "@/components/DeferredHouseStageV2";
+import { houseStageStatus, whenHouseStageSettled, HOUSE_FAILED, HOUSE_PENDING } from "@/lib/houseRenderPolicy";
 import { scrollStore } from "@/lib/scrollStore";
 import { SERVICES_V4, SERVICES_V4_RESTING_PROGRESS } from "./servicesDataV4";
 import { servicesPreviewStoreV3 as previewStore } from "./servicesPreviewStoreV3";
@@ -12,12 +12,14 @@ const phaseLabel = (service, elapsed) => {
   return `Opening ${service.label}`;
 };
 
-function ServiceControl({ service, selected, disabled, onPick }) {
+function ServiceControl({ service, selected, disabled, preparing = false, onPick }) {
   return (
     <button
       type="button"
       data-testid={`svc-${service.slug}`}
       aria-pressed={selected}
+      aria-busy={preparing}
+      data-preparing={preparing ? "true" : undefined}
       disabled={disabled}
       onClick={() => onPick(service)}
       className={`service-control-v2 pointer-events-auto group flex min-h-14 w-full items-center justify-between gap-4 px-4 py-3 text-left transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#CBCC10] focus-visible:ring-offset-2 focus-visible:ring-offset-[#09090B] ${
@@ -38,6 +40,7 @@ function ServiceControl({ service, selected, disabled, onPick }) {
 export default function ServicesV7() {
   const navigate = useNavigate();
   const animationRef = useRef(0);
+  const [preparing, setPreparing] = useState(null);
   const mountedRef = useRef(true);
   const [selected, setSelected] = useState(null);
   const [elapsed, setElapsed] = useState(0);
@@ -57,14 +60,40 @@ export default function ServicesV7() {
   }, []);
 
   const pick = (service) => {
-    if (selected) return;
+    // A pending wait is just as exclusive as a playing preview. Without this a
+    // second click during the wait starts a competing waiter; when readiness
+    // arrives BOTH resolve, both call play(), and they race the shared preview
+    // store and animation frame — two previews, possibly two destinations.
+    if (selected || preparing) return;
 
     import("./ServiceDetailV3");
-    if (shouldUseStaticHouse()) {
+
+    // T-273: ask the ONE authority, and ask about the LIVE stage rather than the
+    // device alone. Three outcomes, not two:
+    //   FAILED  - device refuses 3D, or the scene is gone. Go straight through.
+    //   PENDING - a healthy scene is still confirming its first frames. WAIT.
+    //             Treating pending as failure made an early click on a perfectly
+    //             good device skip the preview entirely (regression of T-188/T-262).
+    //   READY   - play the choreography.
+    const status = houseStageStatus();
+    if (status === HOUSE_FAILED) {
       navigate(`/services/${service.slug}`);
       return;
     }
+    if (status === HOUSE_PENDING) {
+      setPreparing(service.slug);
+      whenHouseStageSettled().then((settled) => {
+        if (!mountedRef.current) return;
+        setPreparing(null);
+        if (settled === HOUSE_FAILED) navigate(`/services/${service.slug}`);
+        else play(service);
+      });
+      return;
+    }
+    play(service);
+  };
 
+  const play = (service) => {
     const startedAt = performance.now();
     const totalMs = service.revealMs + service.holdMs + service.handoffMs;
     setSelected(service);
@@ -117,16 +146,22 @@ export default function ServicesV7() {
         <div className="pointer-events-auto mx-auto grid w-full max-w-6xl grid-cols-2 gap-2 sm:gap-3 md:grid-cols-4">
           {SERVICES_V4.map((service) => (
             <ServiceControl
+              preparing={preparing === service.slug}
               key={service.slug}
               service={service}
               selected={selected?.slug === service.slug}
-              disabled={Boolean(selected)}
+              disabled={Boolean(selected) || Boolean(preparing)}
               onPick={pick}
             />
           ))}
         </div>
 
         <div className="mt-3 min-h-9 text-center" aria-live="polite">
+          {preparing && !selected ? (
+            <p data-testid="preview-preparing-v7" className="font-mono text-[10px] uppercase tracking-[0.24em] text-[#CBCC10]">
+              Preparing the view&hellip;
+            </p>
+          ) : null}
           {selected ? (
             <div data-testid="preview-progress-v5" className="pointer-events-auto mx-auto w-full max-w-sm">
               <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-[#EEEDE9]">

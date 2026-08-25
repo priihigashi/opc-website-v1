@@ -5,7 +5,7 @@ import { scrollStore } from "@/lib/scrollStore";
 import { SERVICES_V4_BY_SLUG, SERVICES_V4_RESTING_PROGRESS } from "./servicesDataV4";
 import { servicesPreviewStoreV3 as previewStore } from "./servicesPreviewStoreV3";
 
-export default function ServicesSceneV5() {
+export default function ServicesSceneV5({ onFrame = null }) {
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export default function ServicesSceneV5() {
 
   return (
     <div data-testid="services-scene-v5">
-      <HouseSceneV26 />
+      <HouseSceneV26 onFrame={onFrame} />
     </div>
   );
 }

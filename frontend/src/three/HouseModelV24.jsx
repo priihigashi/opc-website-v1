@@ -44,7 +44,7 @@ const viewportStage = () => {
   return { tablet: false, heroY: -0.16 };
 };
 
-export default function HouseModelV24() {
+export default function HouseModelV24({ onFrame = null }) {
   const [stage, setStage] = useState(viewportStage);
 
   useEffect(() => {
@@ -55,6 +55,7 @@ export default function HouseModelV24() {
 
   return (
     <HouseModel
+      onFrame={onFrame}
       AdditionComponent={AdditionV6}
       BackyardComponent={BackyardV3}
       DrivewayComponent={DrivewayV5}

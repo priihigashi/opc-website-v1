@@ -39,7 +39,15 @@ const BLUEPRINT = new THREE.Color("#5A8FD0");
 const LIME = new THREE.Color("#CBCC10");
 const SHELL_CONCRETE = new THREE.Color("#98938A");
 
+// The per-instance frame report. HouseModel has 26 wrapper versions and only two of
+// them pass onFrame, so the null case is real — but neither a guard nor a default
+// parameter may live inside HouseModel itself: both add a branch to an already
+// over-threshold function, and the project rule is that existing complexity debt must
+// not increase. The guard lives out here instead, where it costs nothing.
+const reportFrame = (onFrame) => { if (onFrame) onFrame(); };
+
 export default function HouseModel({
+  onFrame,
   DrivewayComponent = Driveway,
   BackyardComponent = Backyard,
   AdditionComponent = Addition,
@@ -305,6 +313,11 @@ export default function HouseModel({
 
     const g = r.root;
     if (!g) return;
+    // T-273/round-3: window.__dbg is a SHARED global and two stages overlap by 800ms
+    // on a route change, so a stage counting frames on it can be certified ready by
+    // ANOTHER stage's canvas. onFrame is the per-instance signal; __dbg stays for the
+    // debug overlay only and must never be used as a readiness source again.
+    reportFrame(onFrame);
     window.__dbg = {
       p,
       previewKind: preview?.kind || null,
@@ -341,7 +354,7 @@ export default function HouseModel({
     // exterior finishes
     const frontMul = solid * (1 - shell * 0.55) * (1 - cut * 0.985) * buildFinish; // T-265: facade stays present but translucent so bones read through
     const sideMul = solid * (1 - shell * 0.55) * (1 - cut * 0.4) * buildFinish;
-    const roofMul = solid * (1 - shell * 0.8) * (1 - cut * 0.85) * buildFinish;
+    const roofMul = solid * (1 - shell * 0.42) * (1 - cut * 0.85) * buildFinish; // T-230: was *0.8 -> 20% at Bones, roof vanished and planes read detached
     mats.stuccoFront.opacity = frontMul;
     mats.woodScreenFront.opacity = frontMul;
     mats.doorWood.opacity = frontMul;
@@ -367,15 +380,25 @@ export default function HouseModel({
     setPos("finWestA", -6 - shell * 1.2, 0.5, 0);
     setPos("finEastA", shell * 1.2, 0, 0);
     setPos("finEastB", 6 + shell * 1.2, 0.5, 0);
-    setPos("finRoofA", 0, shell * 1.6 + cut * 3.4, 0);
-    setPos("finRoofB", 0, shell * 1.3 + cut * 2.8, 0);
+    // T-230 (2026-08-25): the roof planes lifted 1.6/1.3 units during Bones, which read
+    // as two dark slabs floating detached above the house rather than a roof being lifted
+    // off a structure. Reduced so they separate enough to show the roof as its own layer
+    // while staying visually attached. The cutaway (Rooms) lift is untouched.
+    setPos("finRoofA", 0, shell * 0.5 + cut * 3.4, 0);
+    setPos("finRoofB", 0, shell * 0.4 + cut * 2.8, 0);
     // ceilings rise as separated layers during the cutaway, staying just below their roof planes
     if (r.ceilPavilion) r.ceilPavilion.position.y = 3.78 + cut * 2.62;
     if (r.ceilA) r.ceilA.position.y = 3.33 + cut * 5.62;
     if (r.ceilUpper) r.ceilUpper.position.y = 5.52 + cut * 3.66;
 
     // interior
-    const inMul = Math.max(cut, seg(solid, 0.7, 1));
+    // T-230 (2026-08-25): during Bones the walls drop to 45% but the furniture used
+    // to stay at 100%, so you looked through a translucent wall at a fully lit living
+    // room. That is what read as "stripped / see-through", NOT the wall opacity —
+    // the 45% facade is the intended effect. Fade the interior with the shell so the
+    // structure reads against a near-empty envelope. `cut` (the Rooms chapter) still
+    // wins, so the interior reveal is untouched.
+    const inMul = Math.max(cut, seg(solid, 0.7, 1) * (1 - shell * 0.82));
     [mats.floorOak, mats.ceilWhite, mats.can, mats.tallDark, mats.cabWood, mats.counterStone, mats.pendant,
      mats.stoolSeat, mats.fabric, mats.tubWhite, mats.vanityWood, mats.mirror].forEach((m) => {
       m.opacity = inMul;

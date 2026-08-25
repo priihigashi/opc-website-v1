@@ -1,27 +1,32 @@
-import { lazy, Suspense, useCallback, useEffect, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
 import ResponsiveImageV1 from "@/components/ResponsiveImageV1";
 import HouseStageBoundaryV1 from "@/components/HouseStageBoundaryV1";
+import { shouldUseStaticHouse as staticHousePolicy, setHouseStageFailed } from "@/lib/houseRenderPolicy";
+import { useHouseStageRegistration } from "@/lib/useHouseStageRegistration";
 
 const HomeHouse = lazy(() => import("@/three/HouseSceneV27"));
 const ServicesHouse = lazy(() => import("@/pages/ServicesSceneV5"));
 
-export const shouldUseStaticHouse = () => {
-  const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-  return window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    || connection?.saveData
-    || ["slow-2g", "2g"].includes(connection?.effectiveType);
-};
+// T-273: the policy now lives in @/lib/houseRenderPolicy (non-versioned, so it
+// cannot go stale). Re-exported here only so existing importers keep working;
+// new code must import from the policy module directly.
+export const shouldUseStaticHouse = staticHousePolicy;
 
 // T-234/T-261 spec: if the 3D cannot produce a usable frame within ~4 seconds,
 // fall back to the static hero. On the normal path the photograph is never even
 // mounted, so a healthy device never requests it.
 const FIRST_FRAME_FAILSAFE_MS = 4000;
 
+// A scene that fails AFTER becoming ready used to leave a BLANK stage: the canvas
+// was unmounted while the fallback parent stayed at opacity-0, because reveal was
+// keyed on readiness alone. Reveal requires readiness AND no failure.
+const isRevealed = (ready, failed) => ready && !failed;
+
 /**
  * Normal path (working 3D):
  *   dark stage backdrop -> 3D mounts immediately (invisible) -> first REAL
- *   stable frame confirmed on two consecutive animation frames (window.__dbg is
- *   written from inside the house model's useFrame) -> reveal in 200ms.
+ *   stable frame confirmed on two consecutive animation frames reported by THIS
+ *   stage's own model through the onFrame prop -> reveal in 200ms.
  *   No static house photograph is mounted or requested on this path.
  *
  * Static photograph mounts ONLY for: prefers-reduced-motion, Save-Data,
@@ -33,14 +38,32 @@ export default function DeferredHouseStageV5({ scene = "home" }) {
   const [staticOnly] = useState(shouldUseStaticHouse);
   const [interactiveReady, setInteractiveReady] = useState(false);
   const [interactiveFailed, setInteractiveFailed] = useState(false);
+
+  // Each mounted stage owns its OWN record. Two stages can overlap (AppV3 keeps
+  // ServicesStageGate alive for 800ms after leaving /services while Landing mounts
+  // another), so a single shared flag would let a departing stage clobber the
+  // healthy one it left behind.
+  const stageIdRef = useHouseStageRegistration({
+    staticOnly,
+    ready: interactiveReady,
+    failed: interactiveFailed,
+  });
+
   const failInteractive = useCallback(() => setInteractiveFailed(true), []);
+
+  // Frames from THIS stage's own canvas. window.__dbg is a shared global and two
+  // stages overlap by 800ms on a route change, so counting frames on it let a
+  // departing stage certify a brand-new, still-suspended one as ready — which
+  // revealed an empty canvas and cancelled its failsafe. Each stage now counts
+  // only the frames its own model reports through onFrame.
+  const ownFramesRef = useRef(0);
+  const noteOwnFrame = useCallback(() => { ownFramesRef.current += 1; }, []);
 
   useEffect(() => {
     if (staticOnly || interactiveFailed) return undefined;
 
-    window.__dbg = undefined;
+    ownFramesRef.current = 0;
     let animationFrame;
-    let confirmedFrames = 0;
     let settled = false;
 
     const failsafe = window.setTimeout(() => {
@@ -48,11 +71,13 @@ export default function DeferredHouseStageV5({ scene = "home" }) {
       settled = true;
       window.cancelAnimationFrame(animationFrame);
       setInteractiveFailed(true); // static hero mounts; broken 3D never shows
+      if (stageIdRef.current) setHouseStageFailed(stageIdRef.current, true);
     }, FIRST_FRAME_FAILSAFE_MS);
 
     const confirmRenderedScene = () => {
-      if (window.__dbg) confirmedFrames += 1;
-      if (confirmedFrames >= 2) {
+      // Two consecutive frames from our OWN model, exactly as before — only the
+      // source of truth changed from the shared global to this instance.
+      if (ownFramesRef.current >= 2) {
         settled = true;
         window.clearTimeout(failsafe);
         setInteractiveReady(true);
@@ -67,7 +92,7 @@ export default function DeferredHouseStageV5({ scene = "home" }) {
       window.cancelAnimationFrame(animationFrame);
       window.clearTimeout(failsafe);
     };
-  }, [staticOnly, interactiveFailed]);
+  }, [staticOnly, interactiveFailed, stageIdRef]);
 
   const Scene = scene === "services" ? ServicesHouse : HomeHouse;
   const showStatic = staticOnly || interactiveFailed;
@@ -76,7 +101,7 @@ export default function DeferredHouseStageV5({ scene = "home" }) {
     <>
       {/* Dark stage backdrop. The photograph exists ONLY on fallback paths. */}
       <div
-        className={`fixed inset-0 z-0 overflow-hidden bg-[#09090B] transition-opacity duration-200 ${interactiveReady ? "opacity-0" : "opacity-100"}`}
+        className={`fixed inset-0 z-0 overflow-hidden bg-[#09090B] transition-opacity duration-200 ${isRevealed(interactiveReady, interactiveFailed) ? "opacity-0" : "opacity-100"}`}
         aria-hidden
         data-testid="house-static-fallback-v4"
         data-static-reason={staticOnly ? "prefers-static" : interactiveFailed ? "webgl-failed" : "backdrop-only"}
@@ -95,11 +120,11 @@ export default function DeferredHouseStageV5({ scene = "home" }) {
       </div>
       {!showStatic ? (
         <div
-          className={`fixed inset-0 z-0 transition-opacity duration-200 ${interactiveReady ? "opacity-100" : "opacity-0"}`}
+          className={`fixed inset-0 z-0 transition-opacity duration-200 ${isRevealed(interactiveReady, interactiveFailed) ? "opacity-100" : "opacity-0"}`}
           data-testid="house-interactive-gate-v4"
         >
           <HouseStageBoundaryV1 onFailure={failInteractive}>
-            <Suspense fallback={null}><Scene /></Suspense>
+            <Suspense fallback={null}><Scene onFrame={noteOwnFrame} /></Suspense>
           </HouseStageBoundaryV1>
         </div>
       ) : null}
