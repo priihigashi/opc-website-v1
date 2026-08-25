@@ -89,9 +89,10 @@ test("a filled honeypot is always spam", () => {
   assert.ok(s.reasons.includes("honeypot"));
 });
 
-test("an instant submission is spam", () => {
+test("a fast otherwise-clean human submission is not silently classified as spam", () => {
   const s = scoreSpam({ ...good(), startedAt: Date.now() - 200 });
-  assert.equal(s.spam, true);
+  assert.equal(s.spam, false);
+  assert.ok(s.score <= 1, `timing alone scored ${s.score}`);
   assert.ok(s.reasons.includes("too_fast"));
 });
 
@@ -118,6 +119,18 @@ test("one link in an otherwise real message is tolerated", () => {
   });
   assert.equal(s.spam, false);
   assert.ok(s.reasons.includes("has_link"));
+});
+
+test("weak timing and content signals cannot combine into an opaque rejection", () => {
+  const s = scoreSpam({
+    ...good(),
+    startedAt: Date.now() - 200,
+    message: "厨房 remodel inspiration: https://example.com/our-layout",
+  });
+  assert.ok(s.reasons.includes("too_fast"));
+  assert.ok(s.reasons.includes("has_link"));
+  assert.ok(s.reasons.includes("unexpected_script"));
+  assert.equal(s.spam, false, `weak signals silently rejected a lead: ${s.reasons.join(",")}`);
 });
 
 test("known spam pitches are caught", () => {

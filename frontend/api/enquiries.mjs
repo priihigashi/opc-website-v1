@@ -1,8 +1,9 @@
 // POST /api/enquiries — the Oak Park Construction lead form endpoint.
 //
-// PRIVACY: this endpoint deliberately stores NOTHING. The submission is
-// validated, emailed to the business, and discarded. There is no database and
-// no retention window, which is what the published /privacy page promises.
+// PRIVACY: this endpoint never stores the message or contact details. It emits
+// limited operational logs (event, connection digest, service, spam reasons,
+// and scrubbed error codes), then discards the request after delivery. There is
+// no customer database or account.
 //
 // CONFIGURATION GATE: delivery requires SMTP credentials in the environment.
 // When they are absent the endpoint answers 503 `config_pending` and the
@@ -76,6 +77,14 @@ const send = (res, status, payload) => {
   res.end(JSON.stringify(payload));
 };
 
+/** Keep provider error text out of logs; it can echo an email address. */
+export function operationalErrorTag(err) {
+  const rawCode = typeof err?.code === "string" ? err.code : "unknown";
+  const code = rawCode.replace(/[^a-z0-9_-]/gi, "_").slice(0, 48) || "unknown";
+  const responseCode = Number.isInteger(err?.responseCode) ? err.responseCode : null;
+  return responseCode ? `code=${code} response=${responseCode}` : `code=${code}`;
+}
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
@@ -134,7 +143,7 @@ export default async function handler(req, res) {
       auth: { user: config.user, pass: config.pass },
     });
   } catch (err) {
-    console.error(`[enquiries] transport_unavailable ${err?.message}`);
+    console.error(`[enquiries] transport_unavailable ${operationalErrorTag(err)}`);
     return send(res, 503, { ok: false, code: "config_pending" });
   }
 
@@ -149,8 +158,9 @@ export default async function handler(req, res) {
       html: renderHtml(enquiry, attribution),
     });
   } catch (err) {
-    // No PII in the log line — just enough to diagnose a delivery outage.
-    console.error(`[enquiries] send_failed ip=${tag} service=${enquiry.service} err=${err?.message}`);
+    // No PII or provider prose in the log line — just enough to diagnose a
+    // delivery outage without risking an echoed recipient address.
+    console.error(`[enquiries] send_failed ip=${tag} service=${enquiry.service} ${operationalErrorTag(err)}`);
     return send(res, 502, {
       ok: false,
       code: "send_failed",

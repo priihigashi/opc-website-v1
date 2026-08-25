@@ -72,9 +72,10 @@ export function validateEnquiry(body) {
 }
 
 /**
- * Score a submission for spam. Higher is worse; >= 3 is rejected.
- * Returns the reasons so a false positive can be diagnosed from logs
- * without storing the submission itself.
+ * Score a submission for spam. Timing and other weak signals remain useful
+ * diagnostics, but only high-confidence evidence may silently reject a lead.
+ * Returns the reasons so a false positive can be diagnosed from logs without
+ * storing the submission itself.
  */
 export function scoreSpam(body, { now = Date.now() } = {}) {
   const reasons = [];
@@ -90,7 +91,10 @@ export function scoreSpam(body, { now = Date.now() } = {}) {
   if (Number.isFinite(startedAt) && startedAt > 0) {
     const elapsed = now - startedAt;
     if (elapsed < LIMITS.minFillMs) {
-      score += 3;
+      // Autofill, paste, a warm repeat visit, or a retry after validation can
+      // all complete quickly. Bots can spoof this client-supplied timestamp,
+      // so timing is corroboration only — never a standalone rejection.
+      score += 1;
       reasons.push("too_fast");
     } else if (elapsed > LIMITS.maxFillMs) {
       score += 1;
@@ -125,7 +129,14 @@ export function scoreSpam(body, { now = Date.now() } = {}) {
     reasons.push("unexpected_script");
   }
 
-  return { score, spam: score >= 3, reasons };
+  // Opaque rejection is deliberately limited to evidence a real visitor is
+  // very unlikely to produce. Weak signals may still be logged alongside a
+  // genuine send, but they can never silently discard the message.
+  const highConfidence = reasons.some(
+    (reason) => reason === "honeypot" || reason === "many_links" || reason.startsWith("phrase:"),
+  );
+
+  return { score, spam: highConfidence, reasons };
 }
 
 /** Whitelist the marketing attribution we keep, and cap its size. */

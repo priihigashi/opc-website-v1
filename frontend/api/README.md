@@ -32,12 +32,13 @@ No redeploy of code is required, only a redeploy to pick up the env.**
 
 ## Spam handling
 
-Rejection needs a score of 3+, from: honeypot field (5), submitted under three
-seconds (3), three or more links (3), a known spam phrase (3), unexpected script
-(2), no timing token (2), one link (1).
+Opaque rejection requires high-confidence evidence: a filled honeypot, three or
+more links, or a known spam phrase. Weak signals remain diagnostic but cannot
+silently discard a lead: submitted under three seconds (1), unexpected script
+(2), no timing token (2), a stale token (1), and one link (1).
 
-A visitor with JavaScript disabled scores 2 for the missing timing token — below
-the threshold on purpose, so they are never blocked on that alone.
+A visitor with JavaScript disabled can still reach delivery because the missing
+timing token is never enough to trigger opaque rejection.
 
 ## Known limits
 

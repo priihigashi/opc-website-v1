@@ -2,6 +2,7 @@
 // cannot reach while the configuration gate is closed.
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { operationalErrorTag } from "../enquiries.mjs";
 
 // Point SMTP at a closed local port so the "delivery attempted and failed"
 // branch is exercised without sending mail or needing a real credential.
@@ -52,6 +53,18 @@ const valid = () => ({
   startedAt: Date.now() - 30_000,
 });
 
+test("operational error logs cannot echo provider prose or contact details", () => {
+  const tag = operationalErrorTag({
+    code: "EENVELOPE",
+    responseCode: 550,
+    message: "Mailbox dana@example.com rejected for Dana Whitfield at 954-555-0142",
+  });
+  assert.equal(tag, "code=EENVELOPE response=550");
+  assert.ok(!tag.includes("dana@example.com"));
+  assert.ok(!tag.includes("Dana Whitfield"));
+  assert.ok(!tag.includes("954-555-0142"));
+});
+
 test("GET is rejected and advertises POST", async () => {
   const res = await call("GET", null);
   assert.equal(res.statusCode, 405);
@@ -86,6 +99,35 @@ test("field errors come back as 400 with per-field messages", async () => {
 
 test("a honeypot submission gets a 200 so a bot learns nothing", async () => {
   const res = await call("POST", { ...valid(), company: "Acme SEO" });
+  assert.equal(res.statusCode, 200);
+  assert.equal(res.body.code, "received");
+});
+
+test("a fast otherwise-valid human enquiry reaches delivery instead of opaque rejection", async () => {
+  const res = await call("POST", { ...valid(), startedAt: Date.now() - 200 });
+  // SMTP is intentionally down. Reaching send_failed proves the handler tried
+  // delivery; the broken implementation returns 200/received before SMTP.
+  assert.equal(res.statusCode, 502);
+  assert.equal(res.body.code, "send_failed");
+});
+
+test("a no-JS multilingual enquiry with one link still reaches delivery", async () => {
+  const { startedAt, ...noTiming } = valid();
+  const res = await call("POST", {
+    ...noTiming,
+    message: "厨房 remodel inspiration: https://example.com/our-layout",
+  });
+  // Missing timing + one link + non-Latin text are all weak signals. Even in
+  // combination they must never enter the opaque rejection branch.
+  assert.equal(res.statusCode, 502);
+  assert.equal(res.body.code, "send_failed");
+});
+
+test("a known spam pitch keeps the opaque 200 response", async () => {
+  const res = await call("POST", {
+    ...valid(),
+    message: "We provide SEO services and link building for construction companies.",
+  });
   assert.equal(res.statusCode, 200);
   assert.equal(res.body.code, "received");
 });
