@@ -17,7 +17,7 @@ import FooterV2 from "@/components/FooterV2";
 import SeoV1 from "@/components/SeoV1";
 import TitleCaseAuditV1 from "@/components/TitleCaseAuditV1";
 import PortfolioRouteBoundaryV1 from "@/components/PortfolioRouteBoundaryV1";
-import ServicesV7 from "@/pages/ServicesV7";
+import ServicesV8 from "@/pages/ServicesV8";
 import AnalyticsBoundaryV1 from "@/components/AnalyticsBoundaryV1";
 
 const ServiceDetail = lazy(() => import("@/pages/ServiceDetailV3"));
@@ -140,7 +140,7 @@ export default function AppV3() {
           <Route path="/" element={<Landing />} />
           {/* T-245 centred-composition preview. Production route untouched. */}
           <Route path="/preview/centered-house" element={<Landing Stage={HouseSceneV28} />} />
-          <Route path="/services" element={<ServicesV7 />} />
+          <Route path="/services" element={<ServicesV8 />} />
           <Route
             path="/services/:slug"
             element={

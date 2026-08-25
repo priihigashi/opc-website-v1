@@ -59,6 +59,13 @@ const REQUIRED = [
   { route: "/services", file: () => `pages/${routedComponent("/services")}.jsx`,
     name: "services headline carries no 'One House.' prefix",
     check: (s) => !s.includes("One House.") },
+  { route: "/services", file: () => `pages/${routedComponent("/services")}.jsx`,
+    name: "services headline is the borderless editorial treatment, not the old glass box",
+    check: (s) => s.includes("services-heading-v3") && !s.includes("services-heading-v2") },
+  { route: "/services", file: () => `pages/${routedComponent("/services")}.jsx`,
+    name: "services uses the modestly faster V5 timing while preserving the completed-view hold",
+    check: (s) => s.includes("SERVICES_V5") && read("pages/servicesDataV5.js").includes("revealMs * 0.88")
+      && read("pages/servicesDataV5.js").includes("SERVICES_V4") },
   { route: "/privacy", file: () => `pages/${lazyTarget("Privacy")}.jsx`,
     name: "privacy page discloses server-side enquiry handling, not mailto-only",
     check: (s) => /posted|our contact service|discard/i.test(s) },
