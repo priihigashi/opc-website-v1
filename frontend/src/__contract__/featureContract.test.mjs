@@ -15,12 +15,14 @@ import { dirname, join } from "node:path";
 const SRC = join(dirname(fileURLToPath(import.meta.url)), "..");
 const read = (p) => readFileSync(join(SRC, p), "utf8");
 // CRITICAL: resolve the entry the way the browser does. index.js imports the real
-// app module (currently AppV3), NOT App.js. On 2026-08-23 a whole round of fixes was
+// app module (currently AppV4), NOT App.js. On 2026-08-23 a whole round of fixes was
 // applied to App.js — which nothing imports — and appeared to pass review while the
 // live site was unchanged. This test must never read a file the bundle does not use.
 const entryName = /import App from "@\/([A-Za-z0-9_]+)"/.exec(read("index.js"))?.[1];
 if (!entryName) throw new Error("could not resolve the app entry from index.js");
 const app = read(`${entryName}.js`);
+const storyName = /import (StoryV\d+) from "@\/components\/(StoryV\d+)"/.exec(app)?.[1];
+if (!storyName) throw new Error("could not resolve the live story from the app entry");
 
 // Follow the real chain: entry -> DeferredHouseStage -> HouseScene -> HouseModel.
 function liveHouseModel() {
@@ -84,13 +86,15 @@ const REQUIRED = [
   { route: "/", file: () => liveHouseModel(),
     name: "chapters 2-5 choreography preserved (late keyframes intact, T-258 retimed)",
     check: (s) => s.includes("[0.27, -2.3]") && s.includes("[0.912, 0.92]") },
-  // T-258/T-261 — panel choreography: exact windows live in StoryV13 and the gate in ChapterV3.
-  { route: "/", file: () => "components/StoryV13.jsx",
-    name: "all five chapter panel windows are specified (T-258)",
-    check: (s) => ["0.195", "0.37", "0.515", "0.7", "0.865"].every((v) => s.includes(`enter: ${v},`)) },
-  { route: "/", file: () => "components/ChapterV3.jsx",
-    name: "chapter panel is scroll-window gated, not always-on (T-258)",
-    check: (s) => s.includes("exitStart") && s.includes("seg(p, enter, enter + 0.01)") },
+  { route: "/", file: () => `components/${storyName}.jsx`,
+    name: "all five chapters use the deterministic banner timeline",
+    check: (s) => s.includes("HOME_STORY_BANNER_TIMELINE_V1") && s.includes("ChapterV4") },
+  { route: "/", file: () => "components/StoryBannerRailV1.jsx",
+    name: "one story rail travels by scroll progress without opacity gating",
+    check: (s) => s.includes("bannerTravelY") && s.includes("requestAnimationFrame") && s.includes("activeIndexFor") && !s.includes("whileInView") },
+  { route: "/", file: () => "components/ChapterV4.jsx",
+    name: "offscreen chapter links leave the accessibility tree and tab order",
+    check: (s) => s.includes('aria-hidden={interactive ? undefined : "true"}') && s.includes("tabIndex={interactive ? 0 : -1}") },
   // T-259/T-261 — filtered grid balance: spans respond to the result set.
   { route: "/portfolio", file: () => `pages/${lazyTarget("Portfolio")}.jsx`,
     name: "two filtered results render as an equal matched pair (T-259)",
@@ -149,7 +153,7 @@ test("no NEW feature regressions — the LOST set has not grown", () => {
 });
 
 test("display headlines carry no trailing period (testimonials exempt)", () => {
-  const files = ["components/StoryV13.jsx", "components/HeroV8.jsx", "components/AboutV3.jsx",
+  const files = [`components/${storyName}.jsx`, "components/HeroV8.jsx", "components/AboutV3.jsx",
                  "components/GalleryV4.jsx", `pages/${lazyTarget("Portfolio")}.jsx`];
   for (const p of files) {
     const titles = [...read(p).matchAll(/title: \[([^\]]*)\]/g)].map((m) => m[1]);
@@ -167,7 +171,7 @@ test("every routed component file actually exists", () => {
 });
 
 test("dining stays out of the kitchen lounge and beside the TV-room seating", () => {
-  for (const model of ["three/HouseModelV24.jsx", "three/HouseModelV25.jsx", "three/HouseModelV26.jsx"]) {
+  for (const model of ["three/HouseModelV24.jsx", "three/HouseModelV25.jsx", "three/HouseModelV26.jsx", "three/HouseModelV27.jsx"]) {
     assert.ok(read(model).includes('import InteriorV4 from "./parts/InteriorV4"'),
       `${model} no longer uses the corrected furniture plan`);
   }
