@@ -12,7 +12,7 @@ import MarqueeV2 from "@/components/MarqueeV2";
 import AboutV3 from "@/components/AboutV3";
 import GalleryV4 from "@/components/GalleryV4";
 import TestimonialsV3 from "@/components/TestimonialsV3";
-import ContactV6 from "@/components/ContactV6";
+import ContactV7 from "@/components/ContactV7";
 import FooterV2 from "@/components/FooterV2";
 import SeoV1 from "@/components/SeoV1";
 import TitleCaseAuditV1 from "@/components/TitleCaseAuditV1";
@@ -102,7 +102,7 @@ function Landing({ Stage = null }) {
           <AboutV3 />
           <GalleryV4 />
           <TestimonialsV3 />
-          <ContactV6 />
+          <ContactV7 />
           <FooterV2 />
         </div>
       </main>

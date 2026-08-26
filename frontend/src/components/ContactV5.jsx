@@ -30,12 +30,12 @@ function FieldError({ id, message }) {
   return <p id={id} className="mt-1.5 font-mono text-[11px] text-[#A33628]">{message}</p>;
 }
 
-function FormStatus({ status, notice }) {
+function FormStatus({ status, notice, successMessage }) {
   if (status === "sent") {
     return (
       <p className="flex items-start gap-2 text-sm leading-relaxed text-[#2F5E37]">
         <Check className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
-        Thank you — your enquiry is on its way. We reply within one business day.
+        {successMessage}
       </p>
     );
   }
@@ -64,7 +64,13 @@ async function postEnquiry(payload) {
 }
 
 export default function ContactV5(props) {
-  const { kickerClassName, metaClassName, phoneClassName, addressClassName } = { ...DEFAULT_STYLES, ...props };
+  const {
+    kickerClassName,
+    metaClassName,
+    phoneClassName,
+    addressClassName,
+    successMessage = "Thank you — your enquiry is on its way. We reply within one business day.",
+  } = { ...DEFAULT_STYLES, ...props };
   const [form, setForm] = useState(EMPTY);
   const [status, setStatus] = useState("idle"); // idle | sending | sent | error | fallback
   const [errors, setErrors] = useState({});
@@ -236,7 +242,7 @@ export default function ContactV5(props) {
           </button>
 
           <div role="status" aria-live="polite" data-testid="contact-status" className="col-span-2 min-h-[1.25rem]">
-            <FormStatus status={status} notice={notice} />
+            <FormStatus status={status} notice={notice} successMessage={successMessage} />
           </div>
         </motion.form>
       </div>
