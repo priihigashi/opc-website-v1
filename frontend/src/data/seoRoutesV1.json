@@ -84,38 +84,6 @@
     "imageAlt": "Completed Oak Park Construction interior project",
     "type": "portfolio"
   },
-  "/portfolio/harbor-court-residence": {
-    "title": "Harbor Court Residence | Oak Park Construction Portfolio",
-    "description": "11 verified Oak Park Construction photographs from the Harbor Court Residence project in South Florida — addition · outdoor living — shown during construction, finished.",
-    "image": "/images/opc/portfolio/addition/harbor-court/harbor-court__addition__AFTER__card__seq04__img-3370-1200w.jpg",
-    "imageAlt": "Completed-work view at the Harbor Court project.",
-    "type": "project",
-    "projectId": "harbor-court-residence"
-  },
-  "/portfolio/clark-pergola": {
-    "title": "Clark Pergola + Outdoor Kitchen | Oak Park Construction Portfolio",
-    "description": "5 verified Oak Park Construction photographs from the Clark Pergola + Outdoor Kitchen project in South Florida — outdoor living — shown during construction, finished.",
-    "image": "/images/opc/portfolio/outdoor-living/pergola-outdoor-living/pergola-outdoor-living__outdoor-living__AFTER__hero__seq05__img-4626-1200w.jpg",
-    "imageAlt": "Completed-work view at the Pergola Outdoor Living project.",
-    "type": "project",
-    "projectId": "clark-pergola"
-  },
-  "/portfolio/shell-construction": {
-    "title": "Kinney Shell Build | Oak Park Construction Portfolio",
-    "description": "8 verified Oak Park Construction photographs from the Kinney Shell Build project in South Florida — shell + concrete — shown before, during construction, finished.",
-    "image": "/images/opc/portfolio/shell-concrete/kinney-shell-build/kinney-shell-build__shell-concrete__AFTER__card__seq08__img-5901-900w.jpg",
-    "imageAlt": "Completed-work view at the Kinney Shell Build project.",
-    "type": "project",
-    "projectId": "shell-construction"
-  },
-  "/portfolio/concrete-work": {
-    "title": "Rio Vista Concrete | Oak Park Construction Portfolio",
-    "description": "3 verified Oak Park Construction photographs from the Rio Vista Concrete project in South Florida — shell + concrete — shown finished.",
-    "image": "/images/opc/portfolio/shell-concrete/rio-vista-concrete/rio-vista-concrete__shell-concrete__AFTER__card__seq03__img-5291-1200w.jpg",
-    "imageAlt": "Completed-work view at the Rio Vista Concrete project.",
-    "type": "project",
-    "projectId": "concrete-work"
-  },
   "/service-areas": {
     "title": "South Florida Service Areas | Oak Park Construction",
     "description": "Oak Park Construction serves residential projects across Broward, Palm Beach and Miami-Dade counties in South Florida.",
@@ -131,76 +99,28 @@
     "type": "privacy",
     "robots": "noindex,follow"
   },
-  "/portfolio/victoria-park-residence": {
-    "title": "Victoria Park | Oak Park Construction Portfolio",
-    "description": "13 verified Oak Park Construction photographs from the Victoria Park project in South Florida — kitchen + bath · new build — shown before, during construction, finished.",
-    "image": "/images/opc/portfolio/kitchen-bath/victoria-park/victoria-park__kitchen-bath__AFTER__card__seq12__img-2880-1200w.jpg",
-    "imageAlt": "Completed-work view at the Victoria Park project.",
-    "type": "project",
-    "projectId": "victoria-park-residence"
-  },
-  "/portfolio/dockside-full-home-remodel": {
-    "title": "Dockside Full Home Remodel | Oak Park Construction Portfolio",
-    "description": "10 verified Oak Park Construction photographs from the Dockside Full Home Remodel project in South Florida — full home remodel — shown before, during construction, finished.",
-    "image": "/images/opc/portfolio/full-home-remodel/dockside-full-home-remodel/dockside-full-home-remodel__full-home-remodel__AFTER__card__seq10__img-7200-900w.jpg",
-    "imageAlt": "Completed-work view at the Dockside Full Home Remodel project.",
-    "type": "project",
-    "projectId": "dockside-full-home-remodel"
-  },
   "/portfolio/salon-buildout": {
     "title": "Salon Buildout | Oak Park Construction Portfolio",
-    "description": "7 verified Oak Park Construction photographs from the Salon Buildout project in South Florida — commercial build-out — shown before, finished.",
+    "description": "Five verified finished photographs from a commercial salon buildout in South Florida.",
     "image": "/images/opc/portfolio/commercial/salon-buildout/salon-buildout__commercial__AFTER__card__seq07__img-1001-900w.jpg",
-    "imageAlt": "Completed-work view at the Salon Buildout project.",
+    "imageAlt": "Completed commercial salon buildout by Oak Park Construction.",
     "type": "project",
     "projectId": "salon-buildout"
   },
-  "/portfolio/miami-new-build": {
-    "title": "Miami New Build | Oak Park Construction Portfolio",
-    "description": "6 verified Oak Park Construction photographs from the Miami New Build project in South Florida — new build — shown during construction.",
-    "image": "/images/opc/portfolio/new-build/miami-new-build/miami-new-build__new-build__DURING__gallery__seq06__img-7491-900w.jpg",
-    "imageAlt": "Construction progress at the Miami New Build project.",
+  "/portfolio/pergola-outdoor-kitchen": {
+    "title": "Pergola + Outdoor Kitchen | Oak Park Construction Portfolio",
+    "description": "Five verified Oak Park Construction photographs from an outdoor pergola and kitchen project in South Florida, shown during construction and finished.",
+    "image": "/images/opc/portfolio/outdoor-living/pergola-outdoor-living/pergola-outdoor-living__outdoor-living__AFTER__hero__seq05__img-4626-1200w.jpg",
+    "imageAlt": "Completed pergola and outdoor kitchen by Oak Park Construction.",
     "type": "project",
-    "projectId": "miami-new-build"
-  },
-  "/portfolio/opa-locka-airport": {
-    "title": "Opa Locka Airport | Oak Park Construction Portfolio",
-    "description": "4 verified Oak Park Construction photographs from the Opa Locka Airport project in South Florida — concrete repair — shown during construction.",
-    "image": "/images/opc/portfolio/commercial/opa-locka-airport/opa-locka-airport__commercial__DURING__gallery__seq04__img-7140-900w.jpg",
-    "imageAlt": "Construction progress at the Opa Locka Airport project.",
-    "type": "project",
-    "projectId": "opa-locka-airport"
+    "projectId": "pergola-outdoor-kitchen"
   },
   "/portfolio/matte-black-bathroom": {
     "title": "Matte Black Bathroom | Oak Park Construction Portfolio",
-    "description": "3 verified Oak Park Construction photographs from the Matte Black Bathroom project in South Florida — kitchen + bath — shown before, during construction, finished.",
+    "description": "Three verified Oak Park Construction photographs from a bathroom remodel in South Florida, shown before, during construction and finished.",
     "image": "/images/opc/portfolio/kitchen-bath/matte-black-bathroom/matte-black-bathroom__kitchen-bath__AFTER__card__seq03__img-6595-900w.jpg",
-    "imageAlt": "Completed-work view at the Matte Black Bathroom project.",
+    "imageAlt": "Completed matte-black bathroom remodel by Oak Park Construction.",
     "type": "project",
     "projectId": "matte-black-bathroom"
-  },
-  "/portfolio/pompano-kitchen-remodel": {
-    "title": "Pompano Kitchen Remodel | Oak Park Construction Portfolio",
-    "description": "3 verified Oak Park Construction photographs from the Pompano Kitchen Remodel project in South Florida — kitchen + bath — shown before, during construction, finished.",
-    "image": "/images/opc/portfolio/kitchen-bath/pompano-kitchen-remodel/pompano-kitchen-remodel__kitchen-bath__AFTER__card__seq03__img-4493-1200w.jpg",
-    "imageAlt": "Completed-work view at the Pompano Kitchen Remodel project.",
-    "type": "project",
-    "projectId": "pompano-kitchen-remodel"
-  },
-  "/portfolio/pompano-patio-slab": {
-    "title": "Pompano Patio Slab | Oak Park Construction Portfolio",
-    "description": "3 verified Oak Park Construction photographs from the Pompano Patio Slab project in South Florida — shell + concrete — shown during construction.",
-    "image": "/images/opc/portfolio/shell-concrete/pompano-patio-slab/pompano-patio-slab__shell-concrete__DURING__gallery__seq03__img-4698-1200w.jpg",
-    "imageAlt": "Construction progress at the Pompano Patio Slab project.",
-    "type": "project",
-    "projectId": "pompano-patio-slab"
-  },
-  "/portfolio/weston-new-build": {
-    "title": "Weston New Build | Oak Park Construction Portfolio",
-    "description": "3 verified Oak Park Construction photographs from the Weston New Build project in South Florida — new build — shown during construction.",
-    "image": "/images/opc/portfolio/new-build/weston-new-build/weston-new-build__new-build__DURING__gallery__seq03__img-8634-900w.jpg",
-    "imageAlt": "Construction progress at the Weston New Build project.",
-    "type": "project",
-    "projectId": "weston-new-build"
   }
 }

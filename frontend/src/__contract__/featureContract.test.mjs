@@ -104,7 +104,7 @@ const REQUIRED = [
     check: (s) => s.includes('span === "single"') && s.includes('100vw, 900px') && s.includes('sizes={pictureSizes}') },
   // T-242 — PROMOTED from LOST: construction-sequence galleries are back via the
   // verified dataset (phase-ordered rows) and per-slide Before/During/Finished chips.
-  { route: "/portfolio/:projectId", file: () => "data/portfolioProjectsV3.js",
+  { route: "/portfolio/:projectId", file: () => "data/portfolioProjectsLaunchV1.js",
     name: "projects carry phase-ordered rows (T-242 restored)",
     check: (s) => s.includes('"phases"') && s.includes('"BEFORE"') && s.includes('"rows"') },
   { route: "/portfolio/:projectId", file: () => `pages/${lazyTarget("ProjectGallery")}.jsx`,
@@ -115,16 +115,13 @@ const REQUIRED = [
     check: (s) => s.includes('replaceAll("During Construction", "During")')
       && s.includes('aria-label={row.label}')
       && s.includes('whitespace-nowrap') },
-  { route: "/portfolio?category=ADDITIONS", file: () => "data/portfolioProjectsV3.js",
-    name: "the Harbor Court Additions card uses Addition photography",
-    check: (s) => {
-      const harbor = s.slice(s.indexOf('"id": "harbor-court-residence"'), s.indexOf('"id": "dockside-full-home-remodel"'));
-      return harbor.includes('"cat": "ADDITIONS"')
-        && harbor.includes('/portfolio/addition/harbor-court/harbor-court__addition__AFTER__card__seq04__img-3370');
-    } },
-  { route: "/portfolio/harbor-court-residence", file: () => "data/seoRoutesV1.json",
-    name: "Harbor Court social previews use the same Addition image",
-    check: (s) => s.includes('/portfolio/addition/harbor-court/harbor-court__addition__AFTER__card__seq04__img-3370-1200w.jpg') },
+  { route: "/portfolio", file: () => "data/portfolioProjectsLaunchV1.js",
+    name: "launch Portfolio contains only the Council-cleared review batch",
+    check: (s) => ["salon-buildout", "pergola-outdoor-kitchen", "matte-black-bathroom"].every((id) => s.includes(`\"id\": \"${id}\"`))
+      && !["victoria-park-residence", "pompano-kitchen-remodel", "harbor-court-residence"].some((id) => s.includes(`\"id\": \"${id}\"`)) },
+  { route: "/portfolio", file: () => "data/portfolioProjectsLaunchV1.js",
+    name: "launch Portfolio excludes private photo source fields and source-style IDs",
+    check: (s) => !s.includes('"source":') && !/1[A-Za-z0-9_-]{24,}/.test(s) },
 ];
 
 // ------------------------------------------------------------------- LOST ---

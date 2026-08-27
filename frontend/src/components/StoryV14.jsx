@@ -37,7 +37,7 @@ const chapterContent = [
     title: ["Grow without", "moving"],
     body: "A new volume joins the same house — a bedroom, an office or a family room — planned to connect with the existing structure, roofline, circulation and finishes.",
     bullets: ["Bedroom, office & family room wings", "Structural tie-in coordination", "Permit, engineering & inspection coordination"],
-    portfolioHref: "/portfolio/harbor-court-residence",
+    portfolioHref: "/portfolio?category=ADDITIONS#portfolio-projects",
     portfolioLabel: "View Addition Project",
     compact: true,
   },

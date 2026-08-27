@@ -1,4 +1,4 @@
-import { PORTFOLIO_PROJECTS, getPortfolioProject } from "@/data/portfolioProjectsV3";
+import { PORTFOLIO_PROJECTS, getPortfolioProject } from "@/data/portfolioProjectsLaunchV1";
 
 export const SITE_ORIGIN = "https://oakpark-construction.com";
 export const BUSINESS_ID = `${SITE_ORIGIN}/#business`;

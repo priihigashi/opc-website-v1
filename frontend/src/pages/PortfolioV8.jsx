@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { Link, useSearchParams } from "react-router-dom";
-import { PORTFOLIO_FILTERS, PORTFOLIO_PROJECTS } from "@/data/portfolioProjectsV3";
+import { PORTFOLIO_FILTERS, PORTFOLIO_PROJECTS } from "@/data/portfolioProjectsLaunchV1";
 import { PORTFOLIO_HERO_VIDEO, PORTFOLIO_HERO_POSTER } from "./portfolioHeroMedia";
 import PortfolioPicture from "@/components/PortfolioPicture";
 
@@ -95,7 +95,7 @@ export default function PortfolioV8() {
       <div className="relative mx-auto flex min-h-[calc(100svh-4rem)] max-w-7xl flex-col justify-end px-6 pb-20 pt-14 md:px-10 md:pb-24">
         <div className="grid items-end gap-8 md:grid-cols-[1.4fr_0.6fr]">
           <div><p className="font-mono text-[10px] uppercase tracking-[0.35em] text-[#CBCC10]">Portfolio · South Florida</p><h1 className="mt-5 max-w-4xl leading-[0.88] tracking-[-0.035em]"><span className="block font-head text-5xl uppercase sm:text-7xl md:text-8xl">Our Projects</span><span className="font-editorial text-5xl sm:text-7xl md:text-8xl">See the Work</span></h1></div>
-          <div className="rounded-[18px] border border-white/15 bg-black/35 p-5 text-sm leading-relaxed text-white/90 backdrop-blur-xl">Open a project to see finished photos and construction progress in order. Full-home projects stay together, so you can follow the complete transformation.</div>
+          <div className="rounded-[18px] border border-white/15 bg-black/35 p-5 text-sm leading-relaxed text-white/90 backdrop-blur-xl">Open a project to see finished photos and construction progress in documented order.</div>
         </div>
         <a href="#portfolio-projects" className="absolute bottom-5 left-1/2 flex -translate-x-1/2 flex-col items-center gap-1 font-mono text-[9px] uppercase tracking-[0.24em] text-white/85 transition-colors hover:text-[#CBCC10]"><span>View Projects</span><ChevronDown aria-hidden className="h-4 w-4" /></a>
       </div>

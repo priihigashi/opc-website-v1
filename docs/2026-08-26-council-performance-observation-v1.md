@@ -61,3 +61,36 @@ explicit accessibility state, and route-specific fallback composition.
 Reusable audit addition: always test transformed-offscreen interactive elements with keyboard
 tab order and assistive-technology state. Treat a performance architecture named in the frozen
 contract—such as “one rail”—as an acceptance requirement, not an implementation suggestion.
+
+## Portfolio launch confidence observation
+
+Two blind seats initially agreed that six to seven V3 groups were strong enough for review.
+That agreement was still incomplete: both relied on the generated export and visible sequence,
+while the evidence seat reconciled exact filenames against the canonical Photo Catalog and found
+phase, scope, and public-name conflicts. The Council correctly changed its answer instead of
+averaging incompatible evidence.
+
+Reusable rule: separate technical delivery, visual appeal, and documentary truth into distinct
+scores, but let documentary conflicts act as hard gates. A beautiful photograph and two agreeing
+reviewers cannot overrule a contradictory source of record. Require the evidence seat to inspect
+the canonical catalog before unsealing visual or code opinions, then record why the stricter
+source supersedes a provisional majority.
+
+## Portfolio execution audit observation
+
+The strongest audit sequence was: restore the historical dataset byte-for-byte, move the public
+selection into a small launch-only dataset, derive the generated-output allowlist from that active
+dataset, and verify both positive presence and negative absence. This made rollback and containment
+measurable without deleting source evidence.
+
+The visual audit also exposed a tooling trap: a stitched full-page screenshot appeared to duplicate
+cards and footer regions even though the accessibility snapshot and DOM had exactly three articles
+and one actual footer component. Viewport screenshots, element counts, bounding behavior, and direct
+route checks resolved the false alarm. Reusable rule: never diagnose animated `whileInView` pages
+from a stitched full-page capture alone; corroborate it with viewport captures and live DOM counts.
+
+Final Council result: three independent seats returned VERIFIED. Evidence verified truth/privacy and
+the 156-file allowlisted output; code review verified containment and legacy-route behavior; the
+OpenAI-style reviewer verified build/test output and protected house/banner boundaries. The Council
+did not vote to publish Production—it verified only that the exact isolated candidate is safe to put
+on a separate review Preview.

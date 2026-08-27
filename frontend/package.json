@@ -70,7 +70,7 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "GENERATE_SOURCEMAP=false craco build && node scripts/generate-seo-pages.mjs",
+    "build": "GENERATE_SOURCEMAP=false craco build && node scripts/prune-held-portfolio-assets.mjs && node scripts/generate-seo-pages.mjs",
     "optimize:media": "node scripts/generate-media-derivatives.mjs",
     "test": "craco test",
     "quality:js": "eslint src --ext .js,.jsx",

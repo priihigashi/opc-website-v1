@@ -142,7 +142,6 @@ export default function AppV4() {
           <Route path="/services" element={<ServicesV8 />} />
           <Route path="/services/:slug" element={<Suspense fallback={<div className="min-h-screen bg-[#09090B]" />}><ServiceDetail /></Suspense>} />
           <Route path="/portfolio" element={<PortfolioRouteBoundaryV1><Suspense fallback={<div className="min-h-screen bg-[#09090B]" />}><Portfolio /></Suspense></PortfolioRouteBoundaryV1>} />
-          <Route path="/portfolio/1270-harbor-court" element={<Navigate to="/portfolio/harbor-court-residence" replace />} />
           <Route path="/portfolio/:projectId" element={<PortfolioRouteBoundaryV1><Suspense fallback={<div className="min-h-screen bg-[#09090B]" />}><ProjectGallery /></Suspense></PortfolioRouteBoundaryV1>} />
           <Route path="/service-areas" element={<Suspense fallback={<div className="min-h-screen bg-[#09090B]" />}><ServiceAreas /></Suspense>} />
           <Route path="/privacy" element={<Suspense fallback={<div className="min-h-screen bg-[#09090B]" />}><Privacy /></Suspense>} />

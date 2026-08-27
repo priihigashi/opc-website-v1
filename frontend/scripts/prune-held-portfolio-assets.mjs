@@ -1,0 +1,57 @@
+import { readdir, rm } from "node:fs/promises";
+import { dirname, join, relative, sep } from "node:path";
+import { fileURLToPath } from "node:url";
+import { PORTFOLIO_PROJECTS } from "../src/data/portfolioProjectsLaunchV1.js";
+
+const scriptDir = dirname(fileURLToPath(import.meta.url));
+const frontendDir = dirname(scriptDir);
+const portfolioRoot = join(frontendDir, "build", "images", "opc", "portfolio");
+
+const allowed = new Set(
+  PORTFOLIO_PROJECTS.flatMap((project) =>
+    project.rows.flatMap((row) =>
+      row.images.flatMap((image) =>
+        image.widths.flatMap((width) =>
+          ["avif", "webp", "jpg"].map((format) => `${image.src.slice(1)}-${width}w.${format}`),
+        ),
+      ),
+    ),
+  ),
+);
+
+const listFiles = async (root) => {
+  const entries = await readdir(root, { withFileTypes: true });
+  const nested = await Promise.all(entries.map(async (entry) => {
+    const path = join(root, entry.name);
+    return entry.isDirectory() ? listFiles(path) : [path];
+  }));
+  return nested.flat();
+};
+
+const removeEmptyDirectories = async (root) => {
+  const entries = await readdir(root, { withFileTypes: true });
+  for (const entry of entries) {
+    if (!entry.isDirectory()) continue;
+    const path = join(root, entry.name);
+    await removeEmptyDirectories(path);
+    if ((await readdir(path)).length === 0) await rm(path, { recursive: true });
+  }
+};
+
+const files = await listFiles(portfolioRoot);
+for (const file of files) {
+  const publicPath = `images/opc/portfolio/${relative(portfolioRoot, file).split(sep).join("/")}`;
+  if (!allowed.has(publicPath)) await rm(file);
+}
+await removeEmptyDirectories(portfolioRoot);
+
+const remaining = (await listFiles(portfolioRoot))
+  .map((file) => `images/opc/portfolio/${relative(portfolioRoot, file).split(sep).join("/")}`)
+  .sort();
+const expected = [...allowed].sort();
+
+if (JSON.stringify(remaining) !== JSON.stringify(expected)) {
+  throw new Error(`Portfolio build containment failed: expected ${expected.length} assets, found ${remaining.length}`);
+}
+
+console.log(`Portfolio build contains ${remaining.length} approved derivatives across ${PORTFOLIO_PROJECTS.length} projects.`);

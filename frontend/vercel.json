@@ -323,16 +323,6 @@
       "permanent": true
     },
     {
-      "source": "/portfolio/1270-harbor-court",
-      "destination": "/portfolio/harbor-court-residence",
-      "permanent": true
-    },
-    {
-      "source": "/portfolio/1270-harbor-court/",
-      "destination": "/portfolio/harbor-court-residence",
-      "permanent": true
-    },
-    {
       "source": "/portfolio/kitchen-collection",
       "destination": "/portfolio",
       "permanent": true
@@ -350,6 +340,126 @@
     {
       "source": "/portfolio/bathroom-collection/",
       "destination": "/portfolio",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/clark-pergola",
+      "destination": "/portfolio/pergola-outdoor-kitchen",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/clark-pergola/",
+      "destination": "/portfolio/pergola-outdoor-kitchen",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/1270-harbor-court",
+      "destination": "/portfolio?category=ADDITIONS",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/1270-harbor-court/",
+      "destination": "/portfolio?category=ADDITIONS",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/harbor-court-residence",
+      "destination": "/portfolio?category=ADDITIONS",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/harbor-court-residence/",
+      "destination": "/portfolio?category=ADDITIONS",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/victoria-park-residence",
+      "destination": "/portfolio?category=FULL%20HOME%20REMODELS",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/victoria-park-residence/",
+      "destination": "/portfolio?category=FULL%20HOME%20REMODELS",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/dockside-full-home-remodel",
+      "destination": "/portfolio?category=FULL%20HOME%20REMODELS",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/dockside-full-home-remodel/",
+      "destination": "/portfolio?category=FULL%20HOME%20REMODELS",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/shell-construction",
+      "destination": "/portfolio?category=SHELL%20%2B%20NEW%20BUILD",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/shell-construction/",
+      "destination": "/portfolio?category=SHELL%20%2B%20NEW%20BUILD",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/miami-new-build",
+      "destination": "/portfolio?category=SHELL%20%2B%20NEW%20BUILD",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/miami-new-build/",
+      "destination": "/portfolio?category=SHELL%20%2B%20NEW%20BUILD",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/weston-new-build",
+      "destination": "/portfolio?category=SHELL%20%2B%20NEW%20BUILD",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/weston-new-build/",
+      "destination": "/portfolio?category=SHELL%20%2B%20NEW%20BUILD",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/opa-locka-airport",
+      "destination": "/portfolio?category=CONCRETE",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/opa-locka-airport/",
+      "destination": "/portfolio?category=CONCRETE",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/pompano-patio-slab",
+      "destination": "/portfolio?category=CONCRETE",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/pompano-patio-slab/",
+      "destination": "/portfolio?category=CONCRETE",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/concrete-work",
+      "destination": "/portfolio?category=CONCRETE",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/concrete-work/",
+      "destination": "/portfolio?category=CONCRETE",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/pompano-kitchen-remodel",
+      "destination": "/portfolio?category=KITCHENS%20%2B%20BATHROOMS",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/pompano-kitchen-remodel/",
+      "destination": "/portfolio?category=KITCHENS%20%2B%20BATHROOMS",
       "permanent": true
     }
   ],
@@ -399,56 +509,16 @@
       "destination": "/portfolio/index.html"
     },
     {
-      "source": "/portfolio/harbor-court-residence",
-      "destination": "/portfolio/harbor-court-residence/index.html"
-    },
-    {
-      "source": "/portfolio/clark-pergola",
-      "destination": "/portfolio/clark-pergola/index.html"
-    },
-    {
-      "source": "/portfolio/shell-construction",
-      "destination": "/portfolio/shell-construction/index.html"
-    },
-    {
-      "source": "/portfolio/concrete-work",
-      "destination": "/portfolio/concrete-work/index.html"
-    },
-    {
-      "source": "/portfolio/victoria-park-residence",
-      "destination": "/portfolio/victoria-park-residence/index.html"
-    },
-    {
-      "source": "/portfolio/dockside-full-home-remodel",
-      "destination": "/portfolio/dockside-full-home-remodel/index.html"
-    },
-    {
       "source": "/portfolio/salon-buildout",
       "destination": "/portfolio/salon-buildout/index.html"
-    },
-    {
-      "source": "/portfolio/miami-new-build",
-      "destination": "/portfolio/miami-new-build/index.html"
-    },
-    {
-      "source": "/portfolio/opa-locka-airport",
-      "destination": "/portfolio/opa-locka-airport/index.html"
     },
     {
       "source": "/portfolio/matte-black-bathroom",
       "destination": "/portfolio/matte-black-bathroom/index.html"
     },
     {
-      "source": "/portfolio/pompano-kitchen-remodel",
-      "destination": "/portfolio/pompano-kitchen-remodel/index.html"
-    },
-    {
-      "source": "/portfolio/pompano-patio-slab",
-      "destination": "/portfolio/pompano-patio-slab/index.html"
-    },
-    {
-      "source": "/portfolio/weston-new-build",
-      "destination": "/portfolio/weston-new-build/index.html"
+      "source": "/portfolio/pergola-outdoor-kitchen",
+      "destination": "/portfolio/pergola-outdoor-kitchen/index.html"
     },
     {
       "source": "/portfolio/:path*",

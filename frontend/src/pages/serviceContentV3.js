@@ -15,11 +15,11 @@ const CONTENT_REFINEMENTS = {
 };
 
 const PROOF_LINKS = {
-  "full-renovation": "/portfolio",
+  "full-renovation": "/portfolio?category=FULL%20HOME%20REMODELS#portfolio-projects",
   kitchen: "/portfolio?category=KITCHENS%20%2B%20BATHROOMS#portfolio-projects",
   bathroom: "/portfolio?category=KITCHENS%20%2B%20BATHROOMS#portfolio-projects",
   "new-construction": "/portfolio?category=SHELL%20%2B%20NEW%20BUILD#portfolio-projects",
-  additions: "/portfolio/harbor-court-residence",
+  additions: "/portfolio?category=ADDITIONS#portfolio-projects",
   "shell-construction": "/portfolio?category=SHELL%20%2B%20NEW%20BUILD#portfolio-projects",
   "outdoor-living": "/portfolio?category=OUTDOOR%20LIVING#portfolio-projects",
   "concrete-pavers": "/portfolio?category=CONCRETE#portfolio-projects",
