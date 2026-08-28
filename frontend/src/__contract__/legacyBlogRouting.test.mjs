@@ -45,3 +45,17 @@ test("the pass-through never exposes the origin's identity or admin surface", ()
   assert.ok(fn.includes("canonicalPath"), "must canonicalise before authorising");
   assert.ok(fn.includes("script-src 'none'"), "legacy pages must not run scripts under the new origin");
 });
+
+test("the sitemap lists every legacy post, or Google loses 233 indexed pages", () => {
+  const xml = readFileSync("public/sitemap.xml", "utf8");
+  const missing = manifest.paths.filter(
+    (p) => !xml.includes(`<loc>https://oakpark-construction.com${p}</loc>`)
+  );
+  assert.deepEqual(missing.slice(0, 5), [], `${missing.length} legacy path(s) absent from sitemap.xml`);
+});
+
+test("the sitemap uses the served form, not the redirecting trailing slash", () => {
+  const xml = readFileSync("public/sitemap.xml", "utf8");
+  const slashed = manifest.paths.filter((p) => xml.includes(`${p}/</loc>`));
+  assert.deepEqual(slashed, [], `sitemap lists redirecting URLs: ${slashed.slice(0, 3)}`);
+});

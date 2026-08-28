@@ -17,9 +17,10 @@ const HOP_BY_HOP = new Set([
   "connection", "keep-alive", "proxy-authenticate", "proxy-authorization",
   "te", "trailer", "transfer-encoding", "upgrade", "set-cookie",
   "content-security-policy", "content-security-policy-report-only",
-  "x-frame-options", "strict-transport-security"
+  "x-frame-options", "strict-transport-security", "cache-control", "expires", "pragma"
 ]);
 
+const MAX_HTML_BYTES = 3 * 1024 * 1024;   // a WordPress article is ~270KB
 const ASSET_EXT = /\.(css|js|mjs|jpe?g|png|gif|webp|avif|svg|ico|woff2?|ttf|eot|mp4|webm)$/i;
 
 const normalise = (p) => (p.length > 1 ? p.replace(/\/+$/, "") : p);
@@ -64,8 +65,11 @@ module.exports = (req, res) => {
   // WordPress canonicalises post URLs WITH a trailing slash and 301s to add it.
   // Ask for the canonical form directly so the origin never needs to redirect.
   const isPost = ALLOWED.has(normalise(safePath));
+  // Drop the query string on article requests. WordPress ignores it, but
+  // forwarding it lets anyone mint unlimited distinct cache keys and unlimited
+  // origin hits against SiteGround.
   const originPath =
-    (isPost ? normalise(safePath) + "/" : safePath) + (query ? "?" + query : "");
+    isPost ? normalise(safePath) + "/" : safePath + (query ? "?" + query : "");
 
   const upstream = https.request(
     {
@@ -111,6 +115,9 @@ module.exports = (req, res) => {
           "style-src 'self' 'unsafe-inline' https:; font-src 'self' data: https:"
       );
       res.setHeader("X-Content-Type-Options", "nosniff");
+      // These articles change rarely. Let the CDN hold them so a burst of blog
+      // traffic does not become a burst of requests against SiteGround.
+      res.setHeader("Cache-Control", "public, s-maxage=3600, stale-while-revalidate=86400");
       res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
       // The site sets trailingSlash:false, so Vercel serves these at /post while
       // WordPress still self-canonicalises to /post/. Left alone that is a
@@ -122,11 +129,21 @@ module.exports = (req, res) => {
         const served = `https://${originHost}${normalise(safePath)}`;
         const slashed = served + "/";
         const chunks = [];
-        up.on("data", (c) => chunks.push(c));
+        let bytes = 0;
+        up.on("data", (c) => {
+          bytes += c.length;
+          if (bytes > MAX_HTML_BYTES) { up.destroy(); res.statusCode = 502; return res.end("Legacy page too large"); }
+          chunks.push(c);
+        });
         up.on("end", () => {
           const html = Buffer.concat(chunks)
             .toString("utf8")
-            .split(`"${slashed}"`).join(`"${served}"`);
+            // plain attributes: canonical, og:url, hreflang
+            .split(`"${slashed}"`).join(`"${served}"`)
+            // JSON-LD escapes its slashes, so the plain replace misses every
+            // @id / url / mainEntityOfPage and leaves them pointing at a
+            // URL that now redirects.
+            .split(slashed.replace(/\//g, "\\/")).join(served.replace(/\//g, "\\/"));
           res.removeHeader("content-length");
           res.setHeader("content-length", Buffer.byteLength(html));
           res.end(html);
