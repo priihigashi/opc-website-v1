@@ -112,6 +112,28 @@ module.exports = (req, res) => {
       );
       res.setHeader("X-Content-Type-Options", "nosniff");
       res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+      // The site sets trailingSlash:false, so Vercel serves these at /post while
+      // WordPress still self-canonicalises to /post/. Left alone that is a
+      // canonical pointing at a URL that redirects — an avoidable mixed signal
+      // on exactly the 233 URLs we are trying to protect. Rewrite the self
+      // references in the HTML to the URL actually being served.
+      const type = String(up.headers["content-type"] || "");
+      if (isPost && type.includes("text/html")) {
+        const served = `https://${originHost}${normalise(safePath)}`;
+        const slashed = served + "/";
+        const chunks = [];
+        up.on("data", (c) => chunks.push(c));
+        up.on("end", () => {
+          const html = Buffer.concat(chunks)
+            .toString("utf8")
+            .split(`"${slashed}"`).join(`"${served}"`);
+          res.removeHeader("content-length");
+          res.setHeader("content-length", Buffer.byteLength(html));
+          res.end(html);
+        });
+        up.on("error", () => res.end());
+        return;
+      }
       up.pipe(res);
     }
   );
