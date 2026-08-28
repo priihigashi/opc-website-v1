@@ -81,8 +81,14 @@ export function trackConversion(name, params = {}) {
 const here = () =>
   typeof window === "undefined" ? "" : window.location.pathname;
 
+// Runtime allowlists make the privacy boundary fail closed. Even if a future
+// caller accidentally passes form content as `placement`, no event is emitted.
+const PHONE_PLACEMENTS = new Set(["contact-section", "footer"]);
+const CTA_PLACEMENTS = new Set(["nav-desktop", "nav-mobile", "service-detail"]);
+
 /** A phone tap. `placement` is where the number was tapped, e.g. "footer". */
 export function trackPhoneClick(placement) {
+  if (!PHONE_PLACEMENTS.has(placement)) return;
   trackConversion(CONVERSIONS.PHONE_CLICK, {
     placement,
     source_page: here(),
@@ -91,6 +97,7 @@ export function trackPhoneClick(placement) {
 
 /** A primary call-to-action click, e.g. the nav "Start a project" pill. */
 export function trackCtaClick(placement) {
+  if (!CTA_PLACEMENTS.has(placement)) return;
   trackConversion(CONVERSIONS.CTA_CLICK, {
     placement,
     source_page: here(),

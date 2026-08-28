@@ -115,3 +115,32 @@ test("no form field can reach analytics", () => {
     );
   }
 });
+
+test("runtime payloads are exact and unknown placements fail closed", async () => {
+  const previousId = process.env.REACT_APP_GA4_ID;
+  const previousWindow = globalThis.window;
+  const previousDocument = globalThis.document;
+  process.env.REACT_APP_GA4_ID = "G-TEST";
+  globalThis.window = { dataLayer: [], location: { pathname: "/services" } };
+  globalThis.document = { title: "Test" };
+
+  try {
+    const live = await import(`../lib/analytics.js?payload-test=${Date.now()}`);
+    live.trackPhoneClick("footer");
+    live.trackCtaClick("nav-desktop");
+    live.trackPhoneClick("customer@example.com");
+    live.trackCtaClick("a form message must never be analytics metadata");
+
+    assert.deepEqual(globalThis.window.dataLayer, [
+      ["event", "phone_click", { placement: "footer", source_page: "/services" }],
+      ["event", "cta_click", { placement: "nav-desktop", source_page: "/services" }],
+    ]);
+  } finally {
+    if (previousId === undefined) delete process.env.REACT_APP_GA4_ID;
+    else process.env.REACT_APP_GA4_ID = previousId;
+    if (previousWindow === undefined) delete globalThis.window;
+    else globalThis.window = previousWindow;
+    if (previousDocument === undefined) delete globalThis.document;
+    else globalThis.document = previousDocument;
+  }
+});

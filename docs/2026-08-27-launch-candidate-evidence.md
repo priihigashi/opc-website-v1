@@ -27,7 +27,7 @@ All **289 / 289** returned their configured status and `Location` on the exact
 Preview. Contract tests model the extra platform hop for slash input:
 `/legacy/` → 308 `/legacy` → configured 307/308 destination.
 
-Current verified gates: API **54 / 54**, contracts **77 / 77**, production build
+Current verified gates: API **54 / 54**, contracts **78 / 78**, production build
 PASS. The branch was pushed and `origin/release/opc-launch-2026-08-27` matched
 the verified code commit. Statements below claiming that Root Directory,
 deployment, build, push credentials, or live redirect behavior were unverified
@@ -83,11 +83,11 @@ so instead of inheriting an older PASS.
 | Suite | Result |
 |---|---|
 | `node --test api/_tests/*.test.mjs` | **54 / 54 pass** |
-| `node --test src/__contract__/*.test.mjs` | **77 / 77 pass** |
-| Total | **131 / 131** |
+| `node --test src/__contract__/*.test.mjs` | **78 / 78 pass** |
+| Total | **132 / 132** |
 
-28 of those contract tests are new in this candidate (redirect map 9,
-analytics 6, SEO 9, security headers 4).
+29 of those contract tests are new in this candidate (redirect map 9,
+analytics 7, SEO 9, security headers 4).
 
 `eslint-plugin-jsx-a11y` **strict** ruleset across the 20 routed components and
 pages: **0 violations**. The ruleset was proved live against a deliberately
@@ -211,7 +211,8 @@ Now instrumented: both phone numbers (footer, contact section) and all three
 primary CTAs (desktop nav, mobile nav, service detail), plus the new
 `cta_click` event. The two emitters take a fixed placement label and read the
 path themselves rather than accepting a caller-supplied object, so no form field
-can reach GA4 through them — asserted by test. Everything stays inert without
+can reach GA4 through them. Runtime allowlists reject any unknown placement, and
+a mocked dataLayer test asserts the exact emitted payloads. Everything stays inert without
 `REACT_APP_GA4_ID`, and Consent Mode still opens **denied** for `ad_storage`,
 `ad_user_data` and `ad_personalization`.
 
@@ -346,7 +347,7 @@ Re-run the evidence with:
 ```
 cd frontend
 node --test api/_tests/*.test.mjs        # 54/54
-node --test src/__contract__/*.test.mjs  # 77/77
+node --test src/__contract__/*.test.mjs  # 78/78
 ```
 
 `nodemailer` must be installed or five API tests will report 503 instead of 502.
