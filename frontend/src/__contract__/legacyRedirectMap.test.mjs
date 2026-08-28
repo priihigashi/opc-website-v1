@@ -1,7 +1,9 @@
 // Legacy URL continuity contract — T-208-F (launch-safe realization of T-208-E).
 //
 // WHY THIS EXISTS: the redirect map is the only thing standing between the
-// indexed WordPress URLs and a wall of 404s on cutover day. It is 578 rules
+// indexed WordPress URLs and a wall of 404s on cutover day. It is 289 effective
+// rules; Vercel canonicalizes a trailing slash to the bare path before these
+// redirects run because trailingSlash is false.
 // long, it was assembled from a spreadsheet, and nobody can eyeball it. A
 // broken rule is invisible until traffic is already lost, so the map is
 // asserted here instead of being trusted.
@@ -56,7 +58,16 @@ const resolve = (url) => {
   return null;
 };
 
+/** Model the platform-owned canonicalization that precedes redirect rules. */
+const resolvePlatformHop = (url) => {
+  if (url !== "/" && url.endsWith("/")) {
+    return { status: 308, location: url.slice(0, -1) };
+  }
+  return resolve(url);
+};
+
 test("Vercel's 1024-rule ceiling is not exceeded", () => {
+  assert.equal(redirects.length, 289, "expected only effective bare-path rules");
   assert.ok(
     redirects.length <= 1024,
     `${redirects.length} redirects exceeds the platform limit of 1024`,
@@ -87,7 +98,7 @@ test("every destination is a route that exists today", () => {
   );
 });
 
-test("no redirect chains and no loops", () => {
+test("configured destinations create no application redirect chains or loops", () => {
   const sources = new Set(redirects.map((r) => r.source));
   const chained = redirects
     .filter((r) => {
@@ -103,36 +114,19 @@ test("no redirect chains and no loops", () => {
   assert.deepEqual(selfLoops, [], `self-referential redirects: ${selfLoops}`);
 });
 
-test("every legacy path is covered with and without its trailing slash", () => {
-  const sources = new Set(redirects.map((r) => r.source));
-  const missing = [];
-  for (const source of sources) {
-    const twin = source.endsWith("/") ? source.slice(0, -1) : `${source}/`;
-    if (twin === "" ) continue; // "/" has no bare twin
-    if (!sources.has(twin)) missing.push(`${source} (missing ${twin})`);
-  }
-  assert.deepEqual(
-    missing,
-    [],
-    `trailing-slash variants not paired:\n  ${missing.join("\n  ")}`,
-  );
-});
-
-test("a trailing-slash variant always agrees with its bare twin", () => {
-  const bySource = new Map(redirects.map((r) => [r.source, r]));
-  const disagreements = [];
+test("trailing-slash requests canonicalize once, then take the intended redirect", () => {
   for (const rule of redirects) {
-    if (!rule.source.endsWith("/")) continue;
-    const twin = bySource.get(rule.source.slice(0, -1));
-    if (!twin) continue;
-    if (
-      twin.destination !== rule.destination ||
-      twin.permanent !== rule.permanent
-    ) {
-      disagreements.push(rule.source);
-    }
+    assert.ok(!rule.source.endsWith("/"), `${rule.source} is an unreachable slash rule`);
+
+    const canonical = resolvePlatformHop(`${rule.source}/`);
+    assert.deepEqual(canonical, { status: 308, location: rule.source });
+
+    const intended = resolvePlatformHop(canonical.location);
+    assert.deepEqual(intended, {
+      status: statusFor(rule),
+      location: rule.destination,
+    });
   }
-  assert.deepEqual(disagreements, [], `slash/bare mismatch: ${disagreements}`);
 });
 
 test("the painting-costs post is a reclaimable 307, not a permanent 308", () => {
@@ -140,12 +134,12 @@ test("the painting-costs post is a reclaimable 307, not a permanent 308", () => 
   // rule shipped at bf1ead7 gave the address away for good; a 307 holds it.
   const slug =
     "/budget-friendly-interior-painting-costs-in-2025-for-your-florida-home-remodel";
-  for (const url of [slug, `${slug}/`]) {
-    const hit = resolve(url);
-    assert.ok(hit, `${url} has no redirect rule`);
-    assert.equal(hit.status, 307, `${url} must not be a permanent redirect`);
-    assert.equal(hit.location, "/services/full-renovation");
-  }
+  const hit = resolve(slug);
+  assert.ok(hit, `${slug} has no redirect rule`);
+  assert.equal(hit.status, 307, `${slug} must not be a permanent redirect`);
+  assert.equal(hit.location, "/services/full-renovation");
+
+  assert.deepEqual(resolvePlatformHop(`${slug}/`), { status: 308, location: slug });
 });
 
 test("keeper posts hold their address with 307 and dropped posts release it with 308", () => {
@@ -153,15 +147,14 @@ test("keeper posts hold their address with 307 and dropped posts release it with
   const released = redirects.filter((r) => r.permanent);
   assert.ok(holding.length > 0, "no holding redirects survived the merge");
   assert.ok(released.length > 0, "no permanent redirects survived the merge");
-  // 130 keeper posts x 2 slash variants.
-  assert.equal(holding.length, 260, "expected the 130 keeper posts as 307 pairs");
+  assert.equal(holding.length, 130, "expected one canonical rule per keeper post");
 });
 
 test("category and tag archives are covered", () => {
   const categories = redirects.filter((r) => r.source.startsWith("/category/"));
   const tags = redirects.filter((r) => r.source.startsWith("/tag/"));
-  assert.equal(categories.length, 18, "expected 9 category archives as pairs");
-  assert.equal(tags.length, 28, "expected 14 tag archives as pairs");
+  assert.equal(categories.length, 9, "expected 9 category archives");
+  assert.equal(tags.length, 14, "expected 14 tag archives");
   for (const rule of [...categories, ...tags]) {
     assert.ok(isReachable(rule.destination), `${rule.source} -> nowhere`);
   }
@@ -186,6 +179,6 @@ test("the pre-existing non-blog legacy redirects still fire", () => {
     assert.ok(hit, `${url} lost its redirect`);
     assert.equal(hit.status, status, `${url} status`);
     assert.equal(hit.location, location, `${url} location`);
-    assert.equal(resolve(`${url}/`)?.location, location, `${url}/ location`);
+    assert.deepEqual(resolvePlatformHop(`${url}/`), { status: 308, location: url });
   }
 });
