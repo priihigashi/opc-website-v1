@@ -31,8 +31,8 @@ export const SERVICE_CONTENT_V2 = {
     tag: "A complete residential scope",
     body: "We coordinate new residential construction from early feasibility and permitting through structural work, building systems, interiors and exterior completion, based on the property and approved project documents.",
     bullets: ["Feasibility and permit coordination", "Foundation, shell and roof construction", "Interior construction and finishes", "Exterior and hardscape coordination"],
-    image: "/images/opc/addition-progress.jpg",
-    imageAlt: "South Florida residential construction work in progress",
+    image: "/images/opc/new-construction-finished-v1.jpg",
+    imageAlt: "Completed two-storey residential construction with covered patio in South Florida",
     phase: "OPC project · work in progress",
   },
   additions: {
@@ -49,8 +49,8 @@ export const SERVICE_CONTENT_V2 = {
     tag: "The structure comes first",
     body: "Residential shell work brings together foundations, reinforced slabs, masonry walls, columns, beams and roof systems according to the project's approved plans and required inspections.",
     bullets: ["Foundations and reinforced slabs", "Masonry walls, columns and beams", "Roof structures and dry-in", "Trade and inspection coordination"],
-    image: "/images/opc/sitework-progress.jpg",
-    imageAlt: "Residential shell construction in progress",
+    image: "/images/opc/shell-construction-residential-v1.jpg",
+    imageAlt: "Residential shell and structural work underway on a South Florida home",
     phase: "OPC project · work in progress",
   },
   "outdoor-living": {
@@ -67,8 +67,8 @@ export const SERVICE_CONTENT_V2 = {
     tag: "Groundwork with a defined purpose",
     body: "Concrete and paver scopes are planned around access, drainage, grading, base preparation and the connection between driveways, walkways, patios and the home.",
     bullets: ["Driveways, walkways and patios", "Interlocking pavers and concrete finishes", "Drainage, grading and base preparation", "Planters, edging and site walls"],
-    image: "/images/opc/concrete-progress.jpg",
-    imageAlt: "Fresh residential concrete slab being finished",
+    image: "/images/opc/concrete-driveway-finished-v1.jpg",
+    imageAlt: "Finished residential concrete driveway and walkway",
     phase: "OPC project · work in progress",
   },
 };

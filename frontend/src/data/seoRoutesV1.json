@@ -56,7 +56,7 @@
  "/services/shell-construction": {
   "title": "Residential Shell Construction | Oak Park Construction",
   "description": "Residential shell construction for South Florida projects, including foundations, reinforced slabs, masonry walls, columns, beams and roof systems.",
-  "image": "/images/opc/sitework-progress.jpg",
+  "image": "/images/opc/shell-construction-residential-v1.jpg",
   "imageAlt": "Residential shell construction in progress",
   "type": "service",
   "serviceName": "Residential Shell Construction"
@@ -72,7 +72,7 @@
  "/services/concrete-pavers": {
   "title": "Concrete and Pavers | Oak Park Construction",
   "description": "Residential concrete and paver work across Broward, Palm Beach and Miami-Dade, including driveways, walkways, patios, grading and base preparation.",
-  "image": "/images/opc/concrete-progress.jpg",
+  "image": "/images/opc/concrete-driveway-finished-v1.jpg",
   "imageAlt": "Fresh residential concrete slab being finished",
   "type": "service",
   "serviceName": "Residential Concrete and Pavers"
