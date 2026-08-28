@@ -22,11 +22,11 @@ export const PORTFOLIO_PROJECTS = [
     "cat": "COMMERCIAL",
     "phase": "Finished",
     "detail": "Commercial Build-Out",
-    "intro": "2 verified photographs from this project, in order: Before \u2192 Finished.",
+    "intro": "10 verified photographs from this project, in order: Before \u2192 Finished.",
     "cover": {
       "id": "opc-photo-201",
       "src": "/images/opc/portfolio/commercial/boutique-buildout/boutique-buildout__commercial__AFTER__hero__seq02__img-5704",
-      "w": 1768,
+      "w": 2048,
       "h": 1365,
       "widths": [
         480,
@@ -68,7 +68,7 @@ export const PORTFOLIO_PROJECTS = [
           {
             "id": "opc-photo-201",
             "src": "/images/opc/portfolio/commercial/boutique-buildout/boutique-buildout__commercial__AFTER__hero__seq02__img-5704",
-            "w": 1768,
+            "w": 2048,
             "h": 1365,
             "widths": [
               480,
@@ -81,6 +81,142 @@ export const PORTFOLIO_PROJECTS = [
             "seq": 2,
             "orientation": "landscape",
             "role": "hero"
+          },
+          {
+            "id": "opc-photo-202",
+            "src": "/images/opc/portfolio/commercial/boutique-buildout/boutique-buildout__commercial__AFTER__card__seq03__img-5686",
+            "w": 2048,
+            "h": 1365,
+            "widths": [
+              480,
+              768,
+              1200,
+              1600
+            ],
+            "alt": "Completed-work view at the Boutique Buildout project.",
+            "phase": "AFTER",
+            "seq": 3,
+            "orientation": "landscape",
+            "role": "card"
+          },
+          {
+            "id": "opc-photo-203",
+            "src": "/images/opc/portfolio/commercial/boutique-buildout/boutique-buildout__commercial__AFTER__card__seq04__img-5683",
+            "w": 2048,
+            "h": 1365,
+            "widths": [
+              480,
+              768,
+              1200,
+              1600
+            ],
+            "alt": "Completed-work view at the Boutique Buildout project.",
+            "phase": "AFTER",
+            "seq": 4,
+            "orientation": "landscape",
+            "role": "card"
+          },
+          {
+            "id": "opc-photo-204",
+            "src": "/images/opc/portfolio/commercial/boutique-buildout/boutique-buildout__commercial__AFTER__card__seq05__img-5689",
+            "w": 2048,
+            "h": 1365,
+            "widths": [
+              480,
+              768,
+              1200,
+              1600
+            ],
+            "alt": "Completed-work view at the Boutique Buildout project.",
+            "phase": "AFTER",
+            "seq": 5,
+            "orientation": "landscape",
+            "role": "card"
+          },
+          {
+            "id": "opc-photo-205",
+            "src": "/images/opc/portfolio/commercial/boutique-buildout/boutique-buildout__commercial__AFTER__card__seq06__img-5695",
+            "w": 2048,
+            "h": 1365,
+            "widths": [
+              480,
+              768,
+              1200,
+              1600
+            ],
+            "alt": "Completed-work view at the Boutique Buildout project.",
+            "phase": "AFTER",
+            "seq": 6,
+            "orientation": "landscape",
+            "role": "card"
+          },
+          {
+            "id": "opc-photo-206",
+            "src": "/images/opc/portfolio/commercial/boutique-buildout/boutique-buildout__commercial__AFTER__card__seq07__img-5710",
+            "w": 2048,
+            "h": 1365,
+            "widths": [
+              480,
+              768,
+              1200,
+              1600
+            ],
+            "alt": "Completed-work view at the Boutique Buildout project.",
+            "phase": "AFTER",
+            "seq": 7,
+            "orientation": "landscape",
+            "role": "card"
+          },
+          {
+            "id": "opc-photo-207",
+            "src": "/images/opc/portfolio/commercial/boutique-buildout/boutique-buildout__commercial__AFTER__card__seq08__img-5711",
+            "w": 2048,
+            "h": 1365,
+            "widths": [
+              480,
+              768,
+              1200,
+              1600
+            ],
+            "alt": "Completed-work view at the Boutique Buildout project.",
+            "phase": "AFTER",
+            "seq": 8,
+            "orientation": "landscape",
+            "role": "card"
+          },
+          {
+            "id": "opc-photo-208",
+            "src": "/images/opc/portfolio/commercial/boutique-buildout/boutique-buildout__commercial__AFTER__card__seq09__img-5674",
+            "w": 2048,
+            "h": 1365,
+            "widths": [
+              480,
+              768,
+              1200,
+              1600
+            ],
+            "alt": "Completed-work view at the Boutique Buildout project.",
+            "phase": "AFTER",
+            "seq": 9,
+            "orientation": "landscape",
+            "role": "card"
+          },
+          {
+            "id": "opc-photo-209",
+            "src": "/images/opc/portfolio/commercial/boutique-buildout/boutique-buildout__commercial__AFTER__card__seq10__img-5677",
+            "w": 2048,
+            "h": 1365,
+            "widths": [
+              480,
+              768,
+              1200,
+              1600
+            ],
+            "alt": "Completed-work view at the Boutique Buildout project.",
+            "phase": "AFTER",
+            "seq": 10,
+            "orientation": "landscape",
+            "role": "card"
           }
         ]
       }
