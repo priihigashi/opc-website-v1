@@ -8,7 +8,10 @@ const read = (path) => readFile(new URL(path, import.meta.url), "utf8");
 const launchModule = await import(new URL("../data/portfolioProjectsLaunchV1.js", import.meta.url));
 const { PORTFOLIO_PROJECTS } = launchModule;
 
-const expectedIds = ["salon-buildout", "pergola-outdoor-kitchen", "matte-black-bathroom"];
+// Priscila added the Boutique Buildout on 2026-08-28: the black-marble commercial
+// fit-out. Her words: "those are the main commercial place… that one is way better
+// than the one we are highlighting right now."
+const expectedIds = ["boutique-buildout", "salon-buildout", "pergola-outdoor-kitchen", "matte-black-bathroom"];
 const heldIds = [
   "victoria-park-residence",
   "harbor-court-residence",

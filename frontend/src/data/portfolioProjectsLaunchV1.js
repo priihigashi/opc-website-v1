@@ -14,6 +14,79 @@ export const PORTFOLIO_FILTERS = [
 
 export const PORTFOLIO_PROJECTS = [
   {
+    "id": "boutique-buildout",
+    "title": "Boutique Buildout",
+    "tags": [
+      "COMMERCIAL"
+    ],
+    "cat": "COMMERCIAL",
+    "phase": "Finished",
+    "detail": "Commercial Build-Out",
+    "intro": "2 verified photographs from this project, in order: Before \u2192 Finished.",
+    "cover": {
+      "id": "opc-photo-201",
+      "src": "/images/opc/portfolio/commercial/boutique-buildout/boutique-buildout__commercial__AFTER__hero__seq02__img-5704",
+      "w": 1768,
+      "h": 1365,
+      "widths": [
+        480,
+        768,
+        1200,
+        1600
+      ],
+      "alt": "Completed reception and retail fit-out at the Boutique Buildout project.",
+      "phase": "AFTER",
+      "seq": 2,
+      "orientation": "landscape",
+      "role": "hero"
+    },
+    "rows": [
+      {
+        "label": "Before \u2192 Finished",
+        "phases": [
+          "BEFORE",
+          "AFTER"
+        ],
+        "images": [
+          {
+            "id": "opc-photo-200",
+            "src": "/images/opc/portfolio/commercial/boutique-buildout/boutique-buildout__commercial__BEFORE__gallery__seq01__img-2ea7",
+            "w": 1485,
+            "h": 1110,
+            "widths": [
+              480,
+              768,
+              1200,
+              1600
+            ],
+            "alt": "Interior before the Boutique Buildout began.",
+            "phase": "BEFORE",
+            "seq": 1,
+            "orientation": "landscape",
+            "role": "gallery"
+          },
+          {
+            "id": "opc-photo-201",
+            "src": "/images/opc/portfolio/commercial/boutique-buildout/boutique-buildout__commercial__AFTER__hero__seq02__img-5704",
+            "w": 1768,
+            "h": 1365,
+            "widths": [
+              480,
+              768,
+              1200,
+              1600
+            ],
+            "alt": "Completed reception and retail fit-out at the Boutique Buildout project.",
+            "phase": "AFTER",
+            "seq": 2,
+            "orientation": "landscape",
+            "role": "hero"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "salon-buildout",
     "title": "Salon Buildout",
     "tags": [
