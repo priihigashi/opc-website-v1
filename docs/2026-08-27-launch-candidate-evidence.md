@@ -3,6 +3,37 @@
 **Status: READY FOR PRISCILA LAUNCH REVIEW. Not launched. No DNS change, no
 production cutover, no SiteGround change was made.**
 
+## Execution checkpoint — 2026-08-27 (supersedes stale unknowns below)
+
+Council review and live Preview verification closed the highest-risk unknowns.
+The Vercel project `opc-house-elements-review` already has Root Directory set to
+`frontend`; no setting change was required. Git commit
+`14dd5e723db604e72d8163b1dcc78e5139719de2` deployed as Preview
+`dpl_AJ2AJ6aHE1pJVkmFyzkMBdpBPBfX` at
+`https://opc-house-elements-review-57ra2ubnq-priihigashis-projects.vercel.app`.
+Vercel reports that deployment READY, tied to the exact commit, with
+`/api/enquiries` present.
+
+The live endpoint answers `503 {"ok":false,"code":"config_pending"}`, not
+404. Routing is therefore working; SMTP remains deliberately unconfigured and
+still needs a real mailbox test before launch.
+
+The first Preview exposed a different flaw: `trailingSlash: false` canonicalizes
+every slash URL to its bare twin with 308 before Vercel evaluates configured
+redirects. The 289 explicit slash duplicates in the 578-rule map were therefore
+unreachable. Council recommended preserving the canonical URL policy and
+removing the dead duplicates. The map now contains **289 effective rules**.
+All **289 / 289** returned their configured status and `Location` on the exact
+Preview. Contract tests model the extra platform hop for slash input:
+`/legacy/` → 308 `/legacy` → configured 307/308 destination.
+
+Current verified gates: API **54 / 54**, contracts **77 / 77**, production build
+PASS. The branch was pushed and `origin/release/opc-launch-2026-08-27` matched
+the verified code commit. Statements below claiming that Root Directory,
+deployment, build, push credentials, or live redirect behavior were unverified
+are retained only as the pre-execution record and are superseded by this
+checkpoint.
+
 This record exists because the project kept losing to the same failure mode: a
 completion claim written in a chat, believed later, and never re-checked
 against the routed code. Everything below was re-verified from the working tree
@@ -18,7 +49,7 @@ so instead of inheriting an older PASS.
 | Repository | `priihigashi/opc-website-v1` |
 | Base commit | `6b1e0bb652a7248a422872f4c76c2b4edc3a2da9` — `origin/release/banner-scroll-responsive-2026-08-26` |
 | Candidate branch | `release/opc-launch-2026-08-27` |
-| Candidate HEAD | `27cac239d81cffd45085b483bcd9950dcc5deeb1` |
+| Verified code HEAD | `14dd5e723db604e72d8163b1dcc78e5139719de2` |
 | Routed entry | `src/index.js` → `AppV4.js` (single entry; `App.js`/`AppV2.js` deleted 2026-08-24) |
 | Routed surface | `/`, `/services`, `/services/:slug`, `/portfolio`, `/portfolio/:projectId`, `/service-areas`, `/privacy`, `/preview/centered-house` |
 | Platform config | `frontend/vercel.json` — **Vercel Root Directory must be `frontend`** |
@@ -47,15 +78,15 @@ so instead of inheriting an older PASS.
 
 ---
 
-## 2. Test evidence at `27cac23`
+## 2. Test evidence at `14dd5e7`
 
 | Suite | Result |
 |---|---|
 | `node --test api/_tests/*.test.mjs` | **54 / 54 pass** |
-| `node --test src/__contract__/*.test.mjs` | **78 / 78 pass** |
-| Total | **132 / 132** |
+| `node --test src/__contract__/*.test.mjs` | **77 / 77 pass** |
+| Total | **131 / 131** |
 
-29 of those contract tests are new in this candidate (redirect map 10,
+28 of those contract tests are new in this candidate (redirect map 9,
 analytics 6, SEO 9, security headers 4).
 
 `eslint-plugin-jsx-a11y` **strict** ruleset across the 20 routed components and
@@ -87,9 +118,10 @@ a route that exists. That is what is applied here.
 | 9 category + 14 tag archives | → `/blog` | → `/services` |
 | Entries | 510 | 510 |
 
-Merged into the existing map: **578 redirects**, against Vercel's 1024 ceiling.
-The tracker predicted 574; the difference is that `vercel.json` already held 70
-rules, not the 66 assumed.
+Merged and canonicalized into the existing map: **289 effective redirects**.
+The initial 578-entry version included 289 explicit slash duplicates that
+Vercel could never reach while `trailingSlash: false` was active; those dead
+entries were removed after live Preview verification.
 
 **The painting-costs correction is applied.** `bf1ead7` had shipped
 `/budget-friendly-interior-painting-costs-in-2025-for-your-florida-home-remodel`
@@ -100,28 +132,27 @@ only collision with the existing map; the other 33 legacy rules are untouched.
 
 ### Validated before applying, asserted forever after
 
-`src/__contract__/legacyRedirectMap.test.mjs` — 10 assertions:
+`src/__contract__/legacyRedirectMap.test.mjs` asserts:
 
-- 578 ≤ 1024 platform ceiling
+- 289 ≤ 1024 platform ceiling
 - 0 duplicate sources
 - 0 destinations without a route
 - 0 chains, 0 self-loops
-- every path present with **and** without its trailing slash, and the two
-  variants always agree on destination and permanence
+- every configured source is canonical (no trailing slash), while every slash
+  input is modeled as Vercel's 308 canonicalization hop to the configured source
 - painting-costs is 307, not permanent
-- exactly 260 holding redirects (the 130 keepers as pairs)
-- 18 category + 28 tag archive rules, all reachable
+- exactly 130 holding redirects
+- 9 category + 14 tag archive rules, all reachable
 - the pre-existing `/gallery`, `/hub`, `/contact-us`, `/jobgallery/*`,
   `/expertise/*`, `/project-gallery/*` and `/portfolio/1270-harbor-court` rules
   still resolve to the same places
 
-### What is NOT proven
+### Live proof
 
-**Live HTTP status and `Location` headers are unverified.** This environment has
-no route to Vercel, to `oakpark-construction.com`, or to any DNS resolver, and
-there are no push credentials, so no deployment could be produced or probed. The
-map is proven correct *as configuration*; it is not yet proven correct *as
-served bytes*. That check belongs to T-225 and is listed in §7.
+The exact Preview returned the configured status and `Location` for all **289 / 289**
+canonical sources. The preceding Preview exhaustively demonstrated the platform
+308 canonicalization for all 289 slash inputs; representative slash inputs were
+rechecked after the dead rules were removed. Production remains untouched.
 
 Vercel semantics assumed and documented in the test header: `permanent: true`
 ⇒ **308**, `permanent: false` ⇒ **307**. The tracker's 2026-08-21 live probe of
@@ -220,9 +251,8 @@ served only when `REACT_APP_PORTFOLIO_HERO=full`; `portfolio-hero-intro.mp4`
 (1.37 MB) is referenced only by unrouted `PortfolioV5`. ~8.8 MB of unused video
 is deployed — worth pruning later, costs a visitor nothing today.
 
-**A production build was not run.** `yarn install` died mid-download on this
-network. Bundle sizes and Lighthouse/Core Web Vitals are therefore **not
-measured**, and no earlier measurement was inherited. Parked, §7.
+**The production build passes.** Bundle sizes and Lighthouse/Core Web Vitals are
+still not measured and remain launch-review work.
 
 **Accessibility (T-221).** 0 violations under the strict `jsx-a11y` ruleset
 across the routed surface, with the ruleset proved live first. Keyboard, focus
@@ -258,26 +288,22 @@ re-verified — `npm audit` needs a lockfile this repo does not use.
 | Hosting | **SiteGround stays paid and untouched.** Not cancelled. | standing instruction |
 | Restore procedure | leave SiteGround serving; if cut over, revert A to `34.174.8.45` | tracker |
 
-**Not verified from here and not inherited:** live A / NS / MX / TXT records, the
-SiteGround backup's existence and date, and the Vercel project's environment and
-Root Directory setting. This sandbox has no DNS resolver and no route to Vercel
-or SiteGround, and authenticated SiteGround access needs Priscila. Recorded as
-open rather than assumed.
+**Not verified from here and not inherited:** live A / NS / MX / TXT records and
+the SiteGround backup's existence and date. Authenticated SiteGround access needs
+Priscila. The Vercel Root Directory and Preview environment are verified in the
+execution checkpoint above.
 
 ### Open items that need a deployment
 
-1. Live HTTP status and `Location` for representative Keep/Fix, Drop, Duplicate,
-   category-archive, tag-archive, trailing-slash and non-trailing-slash URLs,
-   plus the 33 pre-existing legacy rules.
+1. ~~Live HTTP status and `Location` for the redirect map.~~ **Closed:** 289 / 289
+   canonical rules plus platform slash canonicalization were verified on Preview.
 2. Production build, bundle sizes, Core Web Vitals on a throttled phone.
 3. Browser accessibility pass — keyboard traversal, focus visibility, screen
    reader, contrast.
 4. CSP Report-Only violation review, then the enforcing switch.
-5. Confirmation that **Vercel Root Directory is `frontend`**. This is the single
-   highest-risk unknown: if it is not, `vercel.json` is never read and *all* 578
-   redirects and the entire `/api` surface silently do not exist. The
-   2026-08-26 audit observed `/api/enquiries` returning 404 on the review alias,
-   which is consistent with exactly this misconfiguration.
+5. ~~Confirmation that Vercel Root Directory is `frontend`.~~ **Closed:** the
+   project setting is `frontend`, the exact Preview reads `vercel.json`, and the
+   API route responds 503 `config_pending` rather than 404.
 
 ---
 
@@ -289,10 +315,8 @@ open rather than assumed.
    enquiry and have Mike confirm it arrived at
    `contact@oakpark-construction.com`. Until a human confirms receipt, T-213 is
    not green. No mailbox or credential was invented here.
-2. **Confirm or set Vercel Root Directory = `frontend`** (§7 item 5).
-3. **Push this branch and deploy it to the isolated review URL.** There are no
-   git push credentials in this environment, so the commits exist locally only
-   (§9).
+2. ~~Confirm or set Vercel Root Directory = `frontend`.~~ Closed; already set.
+3. ~~Push and deploy the isolated review branch.~~ Closed; exact Preview above.
 4. **Search Console** verification and sitemap submission — needs her account.
 5. **Authenticated SiteGround access** to capture the backup date and confirm
    the restore path.
@@ -305,6 +329,7 @@ open rather than assumed.
 The commits are on `release/opc-launch-2026-08-27`, built on `6b1e0bb`:
 
 ```
+14dd5e7  T-208-F: remove unreachable trailing-slash rules
 27cac23  T-222: report-only CSP + header contract
 4c087a9  T-215/216/217: sitemap / route table / redirect map bound together
 63e38ea  T-214: fire the phone-tap and CTA conversions
@@ -321,7 +346,7 @@ Re-run the evidence with:
 ```
 cd frontend
 node --test api/_tests/*.test.mjs        # 54/54
-node --test src/__contract__/*.test.mjs  # 78/78
+node --test src/__contract__/*.test.mjs  # 77/77
 ```
 
 `nodemailer` must be installed or five API tests will report 503 instead of 502.
@@ -330,11 +355,10 @@ node --test src/__contract__/*.test.mjs  # 78/78
 
 ## 10. Verdict
 
-**READY FOR FINAL REVIEW.** Configuration-level work is complete and asserted by
-tests. Three things stand between this and a launch recommendation, and none of
-them can be closed from here: a deployment that proves the redirect map and the
-build, a real enquiry received by Mike, and confirmation that Vercel is reading
-`frontend/vercel.json` at all.
+**READY FOR FINAL REVIEW.** The Preview proves the redirect map, build, Root
+Directory, and API routing. A real enquiry received by Mike after SMTP variables
+are set is still required before launch. Browser accessibility, performance and
+CSP follow-ups remain as listed above.
 
 The site is not live. No DNS record was changed. SiteGround is untouched and
 still paid.
