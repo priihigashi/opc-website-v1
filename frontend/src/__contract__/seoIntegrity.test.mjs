@@ -1,7 +1,7 @@
 // SEO integrity contract — T-215 / T-216 / T-217.
 //
 // WHY THIS EXISTS: the three moving parts of this site's SEO (the route
-// metadata table, the sitemap, and a 578-rule redirect map) are maintained in
+// metadata table, the sitemap, and a 289-rule effective redirect map) are maintained in
 // three different files by three different processes. Nothing stopped them
 // drifting apart, and the failure is silent: a URL that is advertised in the
 // sitemap and simultaneously redirected away is a self-inflicted crawl error
