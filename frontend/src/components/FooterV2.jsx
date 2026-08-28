@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { trackPhoneClick } from "@/lib/analytics";
 
 export default function FooterV2() {
   return (
@@ -21,7 +22,7 @@ export default function FooterV2() {
           <div className="col-span-6 md:col-span-3">
             <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#A1A1AA]">Contact</p>
             <ul className="mt-4 space-y-2 text-sm text-[#FAFAFA]">
-              <li><a className="transition-colors hover:text-[#CBCC10]" href="tel:+19542586769">(954) 258-6769</a></li>
+              <li><a data-testid="footer-phone" onClick={() => trackPhoneClick("footer")} className="transition-colors hover:text-[#CBCC10]" href="tel:+19542586769">(954) 258-6769</a></li>
               <li><a className="break-words transition-colors hover:text-[#CBCC10]" href="mailto:contact@oakpark-construction.com">contact@oakpark-construction.com</a></li>
               <li><Link className="transition-colors hover:text-[#CBCC10]" to="/service-areas">Broward · Palm Beach · Miami-Dade</Link></li>
             </ul>

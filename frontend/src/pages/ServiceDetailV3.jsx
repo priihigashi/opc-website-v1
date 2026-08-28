@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { SERVICE_AREA_LINE, SERVICE_CONTENT_V3, SERVICE_PROCESS } from "./serviceContentV3";
+import { trackCtaClick } from "@/lib/analytics";
 
 export default function ServiceDetailV3() {
   const { slug } = useParams();
@@ -37,7 +38,7 @@ export default function ServiceDetailV3() {
               </li>
             ))}
           </ul>
-          <a href="/#contact" data-testid="service-cta" className="mt-10 inline-flex items-center gap-3 bg-[#CBCC10] px-6 py-4 font-mono text-xs uppercase tracking-[0.25em] text-[#09090B] transition-colors hover:bg-[#b5b80e]">
+          <a href="/#contact" data-testid="service-cta" onClick={() => trackCtaClick("service-detail")} className="mt-10 inline-flex items-center gap-3 bg-[#CBCC10] px-6 py-4 font-mono text-xs uppercase tracking-[0.25em] text-[#09090B] transition-colors hover:bg-[#b5b80e]">
             Discuss this project <ArrowRight className="h-4 w-4" />
           </a>
         </motion.div>

@@ -36,6 +36,7 @@ export default function PrivacyV3() {
               <>
                 <p className="mt-3">We use Google Analytics to understand how the website is used overall — which pages people read, and which of them lead to an enquiry. It helps us see what is useful and what is not.</p>
                 <p className="mt-3"><strong className="text-white">We never send your enquiry to analytics.</strong> Your name, email address, phone number and the message you write are not shared with Google or any analytics provider. When an enquiry is sent we record only two things: which service was selected, and which page it was sent from.</p>
+                <p className="mt-3">We also count two anonymous interactions: tapping our phone number, and clicking a &ldquo;start a project&rdquo; button. For each we record only where on the site it was tapped and which page you were on — never who tapped it.</p>
                 <p className="mt-3">Advertising storage, advertising personalisation and advertising user data are switched off by default, so this data is not used to build an advertising profile of you or to follow you to other websites.</p>
               </>
             ) : (

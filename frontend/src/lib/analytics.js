@@ -65,11 +65,36 @@ export const CONVERSIONS = {
   LEAD_SUBMITTED: "generate_lead",
   LEAD_FALLBACK: "lead_mail_app_fallback",
   PHONE_CLICK: "phone_click",
+  CTA_CLICK: "cta_click",
 };
 
 export function trackConversion(name, params = {}) {
   if (!analyticsEnabled) return;
   push("event", name, params);
+}
+
+// PRIVACY BOUNDARY: the helpers below are the only way a click event is
+// reported, and they accept a fixed `placement` label plus the current path.
+// Nothing typed into the form can reach analytics through them. Do not widen
+// the signature to take arbitrary params — that is how message bodies and email
+// addresses end up in a GA4 property.
+const here = () =>
+  typeof window === "undefined" ? "" : window.location.pathname;
+
+/** A phone tap. `placement` is where the number was tapped, e.g. "footer". */
+export function trackPhoneClick(placement) {
+  trackConversion(CONVERSIONS.PHONE_CLICK, {
+    placement,
+    source_page: here(),
+  });
+}
+
+/** A primary call-to-action click, e.g. the nav "Start a project" pill. */
+export function trackCtaClick(placement) {
+  trackConversion(CONVERSIONS.CTA_CLICK, {
+    placement,
+    source_page: here(),
+  });
 }
 
 /** Called by a cookie banner if one is added later. */

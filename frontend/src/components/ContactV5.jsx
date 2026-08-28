@@ -9,7 +9,7 @@ import {
   networkFallback,
   readAttribution,
 } from "./contactSubmit";
-import { CONVERSIONS, trackConversion } from "@/lib/analytics";
+import { CONVERSIONS, trackConversion, trackPhoneClick } from "@/lib/analytics";
 
 const ENDPOINT = "/api/enquiries";
 
@@ -164,7 +164,7 @@ export default function ContactV5(props) {
             backyard. One call, one crew, one plan.
           </p>
           <div className={`mt-10 space-y-3 font-mono text-sm ${metaClassName}`}>
-            <p data-testid="contact-phone" className={phoneClassName}><a className="text-[#09090B] transition-colors hover:text-[#7B7C00]" href="tel:+19542586769">(954) 258-6769</a></p>
+            <p data-testid="contact-phone" className={phoneClassName}><a onClick={() => trackPhoneClick("contact-section")} className="text-[#09090B] transition-colors hover:text-[#7B7C00]" href="tel:+19542586769">(954) 258-6769</a></p>
             <p data-testid="contact-email"><a className="text-[#09090B] transition-colors hover:text-[#7B7C00]" href={`mailto:${FALLBACK_MAILBOX}`}>{FALLBACK_MAILBOX}</a></p>
             <p data-testid="contact-address" className={addressClassName}>Broward · Palm Beach · Miami-Dade</p>
             <p>English · Português · Español</p>
