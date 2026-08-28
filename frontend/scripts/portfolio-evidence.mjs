@@ -72,6 +72,17 @@ for (const vp of [{ n: "desktop-1440", width: 1440, height: 900 }, { n: "phone-3
   p.on("response", (r) => { if (r.status() >= 400 && /\.(jpg|jpeg|png|webp|avif)(\?|$)/i.test(r.url())) broken.push(`${r.status()} ${r.url()}`); });
   p.on("requestfailed", (r) => broken.push(`REQUEST FAILED ${r.failure()?.errorText || "?"} ${r.url()}`));
   p.on("pageerror", (e) => softFailures.push(`page error: ${String(e).slice(0, 120)}`));
+  // Console errors are real defects unless they are known-benign noise.
+  const CONSOLE_ALLOWLIST = [
+    /Download the React DevTools/i,
+    /favicon\.ico/i
+  ];
+  p.on("console", (msg) => {
+    if (msg.type() !== "error") return;
+    const text = msg.text();
+    if (CONSOLE_ALLOWLIST.some((rx) => rx.test(text))) return;
+    softFailures.push(`console error: ${text.slice(0, 140)}`);
+  });
 
   await p.goto("http://localhost:4321/portfolio/", { waitUntil: "load" });
   await settle(p);

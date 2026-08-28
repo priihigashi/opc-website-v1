@@ -13,8 +13,11 @@ for (const p of manifest.paths) {
   try {
     const res = await fetch(base + p, { redirect: "manual" });
     const body = await res.text();
-    if (res.status === 200 && body.length > 20000 && !body.includes('id="root"')) ok++;
-    else bad.push({ p, status: res.status, bytes: body.length });
+    // "200 and big" would also accept a soft-404 or the WRONG article. Require
+    // the page to canonicalise to the path we actually asked for.
+    const identity = body.includes(`<link rel="canonical" href="https://oakpark-construction.com${p}"`);
+    if (res.status === 200 && body.length > 20000 && !body.includes('id="root"') && identity) ok++;
+    else bad.push({ p, status: res.status, bytes: body.length, identity });
   } catch (e) { bad.push({ p, status: "ERR", bytes: 0, e: String(e).slice(0, 60) }); }
   if (i % 50 === 0) console.log(`  ...${i}/${manifest.paths.length}`);
 }
