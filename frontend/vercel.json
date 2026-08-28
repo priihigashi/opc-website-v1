@@ -313,16 +313,6 @@
       "permanent": true
     },
     {
-      "source": "/budget-friendly-interior-painting-costs-in-2025-for-your-florida-home-remodel",
-      "destination": "/services/full-renovation",
-      "permanent": true
-    },
-    {
-      "source": "/budget-friendly-interior-painting-costs-in-2025-for-your-florida-home-remodel/",
-      "destination": "/services/full-renovation",
-      "permanent": true
-    },
-    {
       "source": "/portfolio/kitchen-collection",
       "destination": "/portfolio",
       "permanent": true
@@ -464,6 +454,946 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/10-tips-for-a-perfect-bathroom-remodel",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/2025-home-remodel-in-florida-trends-tips-and-the-ultimate-renovation-punch-list",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/a-dollar-tree-decor-hack-that-will-transform-your-home",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/a-luxurious-90s-catskills-kitchen-gets-a-high-end-makeover",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/accent-wall-renovation-south-florida-how-to-elevate-your-space",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/affordable-storage-solutions-for-your-home-remodel-in-florida",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/all-weather-summer-fun-in-florida-your-comprehensive-guide",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/bathroom-lighting-guide-tips-techniques-and-options-for-your-home-remodel-in-florida",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/beat-the-heat-effective-cooling-strategies-for-your-florida-home-and-garage",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/best-creamy-interior-whites-exterior-whites-florida-sun",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/best-remodeling-contractor-fort-lauderdale-real-guide",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/blog",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/brownfield-development-florida-construction-what-to-know",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/budget-friendly-interior-painting-costs-in-2025-for-your-florida-home-remodel",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/building-permit-requirements-broward-full-guide",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/celebrate-summer-with-marshalls-vibrant-citrus-themed-cup-collection",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/choosing-the-best-fragrant-laundry-detergent-for-your-florida-home-remodel-an-ultimate-guide",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/cleaning-secrets-for-busy-parents-essential-tips-for-a-spotless-home",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/coffee-table-transformation-how-to-upgrade-your-living-room-on-a-budget",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/commercial-construction-broward-county-what-an-82m-deal-signals",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/commercial-construction-broward-what-82m-means",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/commercial-construction-broward-what-82m-means-2",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/commercial-construction-quality-control-key-lessons",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/commercial-renovation-contractor-south-florida-oak-park",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/compact-comfort-discover-the-perfect-summer-chair-for-your-small-outdoor-space",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/concrete-company-plantation-fl-finish-guide",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/concrete-construction-for-south-florida-businesses-why-it-works",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/concrete-contractor-fort-lauderdale-your-complete-guide",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/concrete-contractor-south-florida-a-full-homeowner-guide",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/concrete-patio-fort-lauderdale-design-cost-guide",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/concrete-patio-fort-lauderdale-full-cost-design-guide",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/concrete-porch-installation-in-south-florida-full-guide",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/concrete-pouring-mistakes-florida-homeowners-must-avoid",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/concrete-pouring-mistakes-south-florida-avoid-costly-errors",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/concrete-services-south-florida-what-to-know",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/concrete-services-south-florida-what-to-know-2",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/concrete-services-south-florida-your-full-guide",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/concrete-slab-contractor-south-florida-why-diy-fails-here",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/concrete-slab-contractors-why-diy-fails-in-florida",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/concrete-slab-contractors-why-diy-fails-in-florida-2",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/concrete-slab-preparation-avoid-diy-fails",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/construction-financing-south-florida-a-real-guide-for-investors",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/construction-project-delays-south-florida-real-impacts",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/construction-project-delays-south-florida-what-to-know",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/construction-workforce-disruptions-how-to-protect-projects",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/contractor-broward-county-fl-how-to-choose-wisely",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/contractor-negligence-florida-lessons-from-fort-lauderdale",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/cooking-with-induction-cooktops-a-comprehensive-guide",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/crafting-the-perfect-outdoor-space-for-your-1930s-brooklyn-apartment",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/creating-a-fine-dining-experience-at-home-with-crate-barrel-michelin-kitchen-collaboration",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/creating-a-luxurious-bathroom-on-a-budget-with-costco-spa-products",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/creating-a-luxurious-bathroom-the-ultimate-guide",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/creating-your-dream-outdoor-oasis-a-comprehensive-guide-to-patio-design-in-florida",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/creative-storage-solutions-for-your-home-remodel-in-florida",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/dated-bathroom-makeover-transforming-your-small-bathroom-into-a-spacious-oasis",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/decoding-the-renovation-punch-list-your-final-quality-check",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/dining-room-makeover-transform-your-space-with-a-2500-renovation",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/discover-the-most-affordable-cities-for-rent-in-florida",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/discovering-unexpected-mackenzie-childs-deals-for-your-home-remodel",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/diy-furniture-makeover-transform-your-old-dresser-into-an-elegant-white-dresser",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/diy-home-cooling-affordable-tips-for-beating-the-summer-heat-in-florida",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/diy-outdoor-lights-upcycling-thrift-store-finds-for-unique-lighting-solutions",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/diy-sideboard-ideas-transform-your-home-on-a-budget",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/dramatic-paint-colors-transform-your-home-with-these-interior-design-trends",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/drywall-renovation-tips-what-south-florida-pros-do-differently",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/effective-dishwashing-tips-and-tricks-for-busy-parents",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/efficient-home-design-compact-living-in-manila",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/elevate-your-childs-bedroom-with-quality-bed-sheets-and-home-remodel-services-from-mcfolling-general-contracting",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/elevate-your-florida-home-remodel-with-martha-stewart-approved-roses",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/elevate-your-florida-home-remodel-with-parachute-towels",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/elevate-your-home-experience-with-mcfolling-general-contractings-home-fragrance-products",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/elevate-your-home-with-mcfolling-general-contracting-premier-home-remodel-services-in-florida",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/elevate-your-outdoor-living-with-anthropologie-a-guide-by-mcfolling-general-contracting",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/elevate-your-summer-parties-with-homegoods-cups-and-trust-your-home-remodel-to-mcfolling-general-contracting",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/elevate-your-summer-with-pottery-barns-towel-storage-solutions",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/embracing-cottagecore-unique-decor-finds-for-your-florida-home-remodel",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/essential-guide-to-your-florida-home-remodel-from-punch-lists-to-2025-trends",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/essential-steps-for-a-successful-home-remodel-in-florida",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/european-style-finds-for-your-home-remodel-in-florida",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/expert-tips-from-nate-berkus-how-to-save-money-on-your-kitchen-remodel",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/florida-brownfield-development-what-contractors-need",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/florida-brownfield-development-what-to-know",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/fort-lauderdale-construction-company-what-sets-the-best-apart",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/fourth-of-july-home-deals-editor-approved-sales-for-your-home-remodel-in-florida",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/funky-furniture-trends-embrace-the-unique-and-eclectic",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/general-contractor-broward-county-fl-full-hiring-guide",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/general-contractor-fort-lauderdale-your-guide",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/get-ready-for-the-fourth-of-july-mattress-sale",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/gorgeous-design-trends-for-tropical-wall-decor",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/hiring-a-contractor-in-broward-county-12-questions-to-ask",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/home-addition-cost-south-florida-full-breakdown",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/home-addition-cost-south-florida-honest-breakdown",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/home-addition-cost-south-florida-real-breakdown",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/home-flip-renovation-broward-county-what-really-goes-in",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/home-flip-renovation-south-florida-real-costs-timelines",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/home-remodeling-in-florida-transforming-your-space-with-ombre-cups",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/home-renovation-contractor-fort-lauderdale-planning-guide",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/house-demolition-fort-lauderdale-what-to-know",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/how-commercial-construction-in-south-florida-works",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/how-much-does-a-home-addition-cost-in-broward-county",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/how-to-choose-home-renovation-contractors-fort-lauderdale",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/how-to-create-more-counter-space-in-your-florida-home-with-affordable-ikea-finds",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/how-to-hire-a-concrete-contractor-in-fort-lauderdale",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/how-to-make-the-most-of-prime-day-2021-a-guide-from-mcfolling-general-contracting",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/hurricane-resistant-construction-in-south-florida-what-to-build",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/ikea-storage-finds-for-your-budget-friendly-home-remodel-in-broward-county",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/ikeas-new-billy-bookcase-the-game-changer-for-small-space-solutions",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/illuminating-possibilities-how-colored-lighting-can-transform-your-home",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/innovative-house-hunting-techniques-unconventional-home-searching-methods-for-finding-your-dream-home-in-florida",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/invisible-storage-solutions-for-a-clutter-free-home",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/kitchen-tile-trends-2025-whats-in-and-whats-out",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/led-cove-lighting-renovation-the-south-florida-upgrade-guide",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/life-after-children-downsizing-and-organizing-your-empty-nest",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/long-lasting-home-trends-color-in-interior-design",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/luxury-bistro-porch-makeover-ideas-and-inspiration",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/luxury-new-construction-in-south-florida-what-to-know",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/mansion-demolition-south-florida-cost-guide",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/manufactured-homes-vs-site-built-florida-guide",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/manufactured-homes-vs-site-built-florida-guide-2",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/master-the-art-of-dining-room-staging-a-guide-to-decluttering-and-rearranging",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/master-the-art-of-hosting-expert-tips-for-a-successful-event",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/master-the-art-of-minimalist-interior-design-with-mcfolling-general-contracting",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/master-the-art-of-organizing-your-travel-essentials-a-comprehensive-guide",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/mastering-your-home-remodel-in-florida-from-vision-to-completion",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/maximize-your-small-space-with-dysons-compact-solutions",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/maximizing-home-value-through-strategic-architectural-styles",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/maximizing-small-outdoor-spaces-the-power-of-ikea-storage-solutions",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/maximizing-space-with-a-costco-king-sized-bed",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/maximizing-storage-space-in-your-florida-home",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/maximizing-your-outdoor-oasis-with-affordable-gardening-supplies",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/miami-development-site-what-it-means-for-south-florida",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/moving-into-a-new-home-in-florida-budgeting-for-relocation-expenses-and-ac-unit-installation",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/msi-calacatta-quartz-countertops-for-south-florida-kitchens",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/navigating-home-renovations-and-toy-shopping-with-mcfolling-general-contracting",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/new-construction-homes-fort-lauderdale-full-guide",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/new-construction-vs-existing-home-south-florida-guide",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/paint-colors-regret-how-to-avoid-common-mistakes",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/patio-paver-installation-south-florida-diy-vs-contractor",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/patio-paver-installation-south-florida-why-diy-fails",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/patio-paver-installation-south-florida-why-diy-fails-2",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/peach-kitchen-makeover-a-fresh-approach-to-kitchen-remodeling",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/peel-and-stick-wallpaper-the-clever-diy-solution-for-your-home-remodel-in-florida",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/preparing-your-renovation-punch-list-a-guide-for-your-home-remodel-in-florida",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/pro-organizer-tips-how-to-declutter-your-chaotic-spaces",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/pros-and-cons-of-manufactured-homes-vs-traditional-construction-florida",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/protecting-your-family-from-mosquitoes-and-bug-bites-in-florida",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/quartz-that-looks-like-marble-no-gray-warm-picks",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/quartz-vs-granite-countertops-broward-honest-guide",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/redecorate-with-animalcore-the-next-viral-design-trend",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/reducing-everyday-stress-a-viral-stress-management-method-for-home-remodeling",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/remodeling-contractor-fort-lauderdale-how-to-choose-right",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/removing-stains-from-granite-countertops-tips-from-a-florida-contractor",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/rental-renovation-crafting-a-creative-sanctuary-in-sydney",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/residential-additions-fort-lauderdale-full-guide",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/residential-additions-fort-lauderdale-full-guide-2",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/residential-additions-fort-lauderdale-full-guide-for-homeowners",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/revamp-your-closets-innovative-storage-solutions-for-every-home",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/revamp-your-home-storage-with-costcos-all-in-one-storage-cart",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/revamp-your-home-with-an-innovative-ikea-lamp-a-comprehensive-guide-by-mcfolling-general-contracting",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/revamp-your-home-with-west-elms-fourth-of-july-sale",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/revamp-your-home-with-wood-drenching-the-hottest-trend-in-interior-design",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/revamp-your-kitchen-with-ikeas-affordable-summer-glassware-collection",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/revamp-your-space-a-diy-guide-to-peel-and-stick-wallpaper",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/revamping-your-kitchen-on-a-budget-discovering-affordable-kitchenware-at-dollar-tree",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/revamping-your-rental-no-paint-diy-home-makeover-ideas",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/revolutionize-your-kitchen-with-u-rule-the-ultimate-guide-to-easy-vegetable-preparation",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/roaches-in-drawers-preventing-infestations-with-the-drawers-rule",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/ruby-colored-bathroom-makeover-transforming-your-old-bathroom-in-broward-county",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/score-free-gardening-supplies-this-summer-your-ultimate-guide",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/shell-construction-south-florida-licensed-contractor",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/sleep-healthier-your-comprehensive-guide-to-washing-pillows",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/small-bathroom-storage-maximizing-space-in-your-florida-home-remodel",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/south-florida-composite-decking-built-for-heat-salt-storms",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/south-florida-real-estate-construction-demand-what-it-means",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/space-saving-solutions-dollar-tree-organizers-for-fridge-organization",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/stay-cool-without-ac-summer-cooling-tips-for-florida-homeowners",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/summer-2025-home-trends-a-look-into-the-future-of-home-design",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/summer-cooling-tips-how-to-beat-the-heat-without-breaking-the-bank",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/summer-home-comfort-affordable-solutions-for-your-apartment",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/surprising-kitchen-trends-for-2025",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/tackling-common-rental-problems-brilliant-solutions-for-apartment-issues",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/the-battle-of-stain-removers-a-comparative-review",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/the-cost-of-retiling-your-bathroom-what-you-need-to-know",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/the-dark-alcove-workspace-an-affordable-transformation-for-your-favorite-spot-to-work",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/the-evolution-of-home-touring-a-journey-from-tradition-to-innovation",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/the-game-changing-fhifho-method-for-home-decluttering",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/the-hidden-costs-of-luxury-home-amenities-health-and-financial-impacts",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/the-perfect-trampoline-alternative-for-your-home",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/the-ultimate-2025-miami-kitchen-remodel-guide-budgeting-trends-and-tips",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/the-ultimate-guide-to-choosing-a-renter-friendly-dishwasher-for-your-home-remodel",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/the-ultimate-guide-to-creating-an-outdoor-movie-setup",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/the-ultimate-guide-to-finding-affordable-luxury-benches",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/the-ultimate-guide-to-home-remodeling-in-florida",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/the-ultimate-kitchen-renovation-guide-for-florida-homeowners",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/this-89-bathroom-makeover-blew-my-mind",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/top-3-renovation-mistakes-in-south-florida-and-how-to-avoid-them",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/transform-your-backyard-with-the-home-depot-elegance-set",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/transform-your-bathroom-into-a-luxurious-spa-retreat",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/transform-your-bedroom-into-a-cozy-oasis-with-these-minimalist-bedroom-makeover-ideas",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/transform-your-bedroom-with-an-ikea-hemnes-makeover",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/transform-your-home-with-a-color-drenched-sf-apartment-remodel",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/transform-your-home-with-affordable-ikea-lighting",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/transform-your-home-with-an-ikea-tabletop-greenhouse",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/transform-your-home-with-designer-approved-ikea-pieces",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/transform-your-home-with-mcfolling-general-contracting",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/transform-your-home-with-target-throw-pillows",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/transform-your-home-with-these-budget-friendly-ikea-furniture-hacks",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/transform-your-home-with-tropical-summer-vibes-from-costco-plants",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/transform-your-home-with-unique-furniture-pieces-from-mcfolling-general-contracting",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/transform-your-kitchen-with-these-bold-paint-colors",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/transform-your-kitchen-with-these-budget-friendly-ideas",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/transform-your-next-party-with-these-affordable-host-gifts-from-trader-joes",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/transform-your-outdoor-space-with-west-elm-outdoor-dining-chairs",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/transform-your-patio-with-these-ikea-hacks-for-summer",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/transform-your-patio-with-west-elm-2-in-1-rug-the-ultimate-summer-essential",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/transform-your-rental-kitchen-with-these-budget-friendly-diy-cabinet-upgrades",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/transform-your-small-patio-with-these-space-saving-furniture-ideas",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/transform-your-tiny-kitchen-with-these-studio-kitchen-ideas",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/transforming-a-century-old-apartment-a-netflix-inspired-renovation-journey",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/transforming-an-old-illinois-home-into-a-thoughtful-and-stylish-space",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/transforming-your-florida-home-top-remodeling-trends-and-finishing-touches-for-2025",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/transforming-your-hopeless-room-interior-design-tips-from-mcfolling-general-contracting",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/trex-deck-build-for-south-florida-clean-lines-low-maintenance",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/unearthing-hidden-treasures-estate-sales-for-your-diy-remodel",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/unleash-the-power-of-3-in-1-gardening-with-the-outdoor-find-tool",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/unlock-savings-on-your-home-remodel-with-aldi-a-florida-homeowners-guide",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/updating-a-century-old-house-kitchen-renovation-ideas",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/welcome-to-mcfolling-general-contracting-the-top-choice-for-your-home-remodel-in-florida",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/whole-house-renovation-south-florida-a-real-flip-story",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/why-ikea-plant-pots-are-the-perfect-addition-to-your-home-remodel-in-florida",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/why-top-general-contractors-in-broward-excel",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/youll-never-guess-whats-hiding-here",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/your-culinary-adventure-at-the-qvc-foodie-fest-with-mcfolling-gc",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/wp-content/:path*",
+      "destination": "/api/legacy"
+    },
+    {
+      "source": "/wp-includes/:path*",
+      "destination": "/api/legacy"
+    },
     {
       "source": "/services",
       "destination": "/services/index.html"

@@ -147,7 +147,7 @@ export const PORTFOLIO_PROJECTS = [
     "cat": "OUTDOOR LIVING",
     "phase": "Finished",
     "detail": "Outdoor Living",
-    "intro": "5 verified photographs from this project, in order: During Construction → Finished.",
+    "intro": "3 verified photographs from this project, in order: During Construction → Finished.",
     "cover": {
       "id": "opc-photo-056",
       "src": "/images/opc/portfolio/outdoor-living/pergola-outdoor-living/pergola-outdoor-living__outdoor-living__AFTER__hero__seq05__img-4626",
@@ -189,40 +189,6 @@ export const PORTFOLIO_PROJECTS = [
             "seq": 1,
             "orientation": "portrait",
             "role": "gallery"
-          },
-          {
-            "id": "opc-photo-058",
-            "src": "/images/opc/portfolio/outdoor-living/pergola-outdoor-living/pergola-outdoor-living__outdoor-living__AFTER__card__seq02__img-0020",
-            "w": 1800,
-            "h": 1350,
-            "widths": [
-              480,
-              768,
-              1200,
-              1800
-            ],
-            "alt": "Completed-work view at the Pergola Outdoor Living project.",
-            "phase": "AFTER",
-            "seq": 2,
-            "orientation": "landscape",
-            "role": "card"
-          },
-          {
-            "id": "opc-photo-059",
-            "src": "/images/opc/portfolio/outdoor-living/pergola-outdoor-living/pergola-outdoor-living__outdoor-living__AFTER__card__seq03__img-0022",
-            "w": 1800,
-            "h": 1350,
-            "widths": [
-              480,
-              768,
-              1200,
-              1800
-            ],
-            "alt": "Completed-work view at the Pergola Outdoor Living project.",
-            "phase": "AFTER",
-            "seq": 3,
-            "orientation": "landscape",
-            "role": "card"
           },
           {
             "id": "opc-photo-060",
