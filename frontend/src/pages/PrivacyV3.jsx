@@ -1,4 +1,4 @@
-import FooterV2 from "@/components/FooterV2";
+import FooterV3 from "@/components/FooterV3";
 import { analyticsEnabled } from "@/lib/analytics";
 
 // V3 corrects the Contact Enquiries section. V2 described a mail-app-only form,
@@ -58,7 +58,7 @@ export default function PrivacyV3() {
           <p className="border-t border-white/10 pt-6 font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">Last updated August 25, 2026</p>
         </div>
       </main>
-      <FooterV2 />
+      <FooterV3 />
     </div>
   );
 }

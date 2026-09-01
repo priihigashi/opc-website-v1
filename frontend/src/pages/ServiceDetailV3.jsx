@@ -1,4 +1,4 @@
-import FooterV2 from "@/components/FooterV2";
+import FooterV3 from "@/components/FooterV3";
 import { Link, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -77,7 +77,7 @@ export default function ServiceDetailV3() {
           </ol>
         </div>
       </section>
-      <FooterV2 />
+      <FooterV3 />
     </div>
   );
 }
