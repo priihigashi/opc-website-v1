@@ -2,11 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "@/index.css";
-// AppV4 is the ONLY application entry. The orphaned App.js / AppV2.js files were
+// AppV5 is the ONLY application entry. AppV4 remains the exact launch rollback;
 // removed on 2026-08-24 (launch audit item 1) so no future change can land on a
 // file the bundle does not use. If you fork the app, update this import AND the
 // feature contract tests in src/__contract__/.
-import App from "@/AppV4";
+import App from "@/AppV5";
 
 const queryClient = new QueryClient({
   defaultOptions: {
