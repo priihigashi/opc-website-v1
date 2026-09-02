@@ -4,7 +4,7 @@ import Lenis from "lenis";
 import "@/App.css";
 import { Toaster } from "@/components/ui/sonner";
 import { scrollStore } from "@/lib/scrollStore";
-import DeferredHouseStageV9 from "@/components/DeferredHouseStageV9";
+import DeferredHouseStageV10 from "@/components/DeferredHouseStageV10";
 import HouseSceneV28 from "@/three/HouseSceneV28";
 import NavV4 from "@/components/NavV4";
 import StoryV21 from "@/components/StoryV21";
@@ -47,16 +47,16 @@ function Landing({ Stage = null }) {
     const timer = setTimeout(() => { const element = document.querySelector(location.state.scrollTo); if (element) { if (scrollStore.lenis) scrollStore.lenis.scrollTo(element, { offset: 0 }); else element.scrollIntoView(); } }, 400);
     return () => clearTimeout(timer);
   }, [location.state]);
-  return <div className="bg-[#09090B] font-body text-[#FAFAFA] antialiased"><div className="noise-overlay" aria-hidden />{Stage ? <Stage /> : <DeferredHouseStageV9 />}<main className="relative z-10"><StoryV21 storyRef={storyRef} /><div className="relative border-t border-white/10 bg-[#09090B]"><MarqueeV2 /><AboutV3 /><GalleryV4 /><TestimonialsV3 /><ContactV7 /><FooterV3 /></div></main></div>;
+  return <div className="bg-[#09090B] font-body text-[#FAFAFA] antialiased"><div className="noise-overlay" aria-hidden />{Stage ? <Stage /> : <DeferredHouseStageV10 />}<main className="relative z-10"><StoryV21 storyRef={storyRef} /><div className="relative border-t border-white/10 bg-[#09090B]"><MarqueeV2 /><AboutV3 /><GalleryV4 /><TestimonialsV3 /><ContactV7 /><FooterV3 /></div></main></div>;
 }
 
 function ServicesStageGate() {
   const { pathname } = useLocation(); const active = pathname.startsWith("/services"); const [show, setShow] = useState(active);
   useEffect(() => { if (active) { setShow(true); return undefined; } const id = setTimeout(() => setShow(false), 800); return () => clearTimeout(id); }, [active]);
-  return show ? <DeferredHouseStageV9 scene="services" /> : null;
+  return show ? <DeferredHouseStageV10 scene="services" /> : null;
 }
 
-// V14 preserves AppV13 and applies only the versioned normal-phone Bones treatment.
+// V14 preserves AppV13, applies the versioned normal-phone Bones treatment, and routes the house through the reversible V10 fallback correction.
 export default function AppV14() {
   return (
     <BrowserRouter>

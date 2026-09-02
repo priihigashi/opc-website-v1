@@ -7,9 +7,9 @@ const read = (relativePath) => readFileSync(fileURLToPath(new URL(relativePath, 
 
 test("the active app uses the versioned phone composition scale chain", () => {
   assert.match(read("../index.js"), /AppV14/);
-  assert.match(read("../AppV14.js"), /DeferredHouseStageV9/);
-  assert.match(read("../components/DeferredHouseStageV9.jsx"), /HouseSceneV32/);
-  assert.match(read("../three/HouseSceneV32.jsx"), /HouseModelV30/);
+  assert.match(read("../AppV14.js"), /DeferredHouseStageV10/);
+  assert.match(read("../components/DeferredHouseStageV10.jsx"), /HouseSceneV33/);
+  assert.match(read("../three/HouseSceneV33.jsx"), /HouseModelV30/);
 });
 
 test("only normal phones receive the conservative outer-scene increase", () => {
