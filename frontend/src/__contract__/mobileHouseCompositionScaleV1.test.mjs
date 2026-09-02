@@ -6,14 +6,14 @@ import { fileURLToPath } from "node:url";
 const read = (relativePath) => readFileSync(fileURLToPath(new URL(relativePath, import.meta.url)), "utf8");
 
 test("the active app uses the versioned phone composition scale chain", () => {
-  assert.match(read("../index.js"), /AppV13/);
-  assert.match(read("../AppV13.js"), /DeferredHouseStageV8/);
-  assert.match(read("../components/DeferredHouseStageV8.jsx"), /HouseSceneV31/);
-  assert.match(read("../three/HouseSceneV31.jsx"), /HouseModelV29/);
+  assert.match(read("../index.js"), /AppV14/);
+  assert.match(read("../AppV14.js"), /DeferredHouseStageV9/);
+  assert.match(read("../components/DeferredHouseStageV9.jsx"), /HouseSceneV32/);
+  assert.match(read("../three/HouseSceneV32.jsx"), /HouseModelV30/);
 });
 
 test("only normal phones receive the conservative outer-scene increase", () => {
-  const model = read("../three/HouseModelV29.jsx");
+  const model = read("../three/HouseModelV30.jsx");
   assert.match(model, /phone: \{ f: 0\.04, s: 0\.52, y: 2\.8 \}/);
   assert.match(model, /SHORT_PHONE_VIEW = \{ \.\.\.VIEW, phone: \{ f: 0\.04, s: 0\.5, y: 4\.2 \} \}/);
   assert.match(model, /width < 360 \|\| height < 650/);

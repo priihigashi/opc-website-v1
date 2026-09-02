@@ -34,6 +34,7 @@ const ROT = [[0, -0.28], [0.07, 0.08], [0.1, 0.08], [0.19, 0.85], [0.26, 0.85], 
 const POSX = [[0, 1.3], [0.1, 1.3], [0.17, -2.3], [0.27, -2.3], [0.33, 2.3], [0.43, 2.3], [0.5, -2.3], [0.58, -2.3], [0.65, 2.3], [0.74, 2.3], [0.83, -2.0], [0.93, -2.0], [1, 0]];
 const POSY = [[0, 0], [0.15, 0], [0.25, -0.3], [0.92, -0.3], [1, 0]];
 const SCL = [[0, 0.85], [0.1, 0.85], [0.2, 0.92], [0.9, 0.92], [1, 1.05]];
+const DEFAULT_SHELL_FINISH_CONFIG = { facadeFade: 0.55, facadeSeparation: 1.2 };
 
 const BLUEPRINT = new THREE.Color("#5A8FD0");
 const LIME = new THREE.Color("#CBCC10");
@@ -63,6 +64,7 @@ export default function HouseModel({
   materialConfig = {},
   previewStore = null,
   scopedRoomHighlights = false,
+  shellFinishConfig = DEFAULT_SHELL_FINISH_CONFIG,
 }) {
   const r = useRef({}).current;
   const reg = (name) => (el) => {
@@ -71,6 +73,7 @@ export default function HouseModel({
 
   // responsive staging: phones center the house, tablets soften the shifts
   const view = useRef({ f: 1, s: 1, y: 0 });
+  const { facadeFade, facadeSeparation } = shellFinishConfig;
   useEffect(() => {
     const upd = () => {
       const w = window.innerWidth;
@@ -330,6 +333,9 @@ export default function HouseModel({
       conc,
       rotY: g.rotation.y,
       shellOp: mats.shell.opacity,
+      facadeFade,
+      facadeSeparation,
+      facadeOpacity: mats.stuccoFront.opacity,
       addVis: !!r.additionGroup && r.additionGroup.visible,
       addScale: r.additionGroup ? r.additionGroup.scale.x : -1,
     };
@@ -352,8 +358,8 @@ export default function HouseModel({
     if (r.shellGroup) r.shellGroup.visible = shellOp > 0.004;
 
     // exterior finishes
-    const frontMul = solid * (1 - shell * 0.55) * (1 - cut * 0.985) * buildFinish; // T-265: facade stays present but translucent so bones read through
-    const sideMul = solid * (1 - shell * 0.55) * (1 - cut * 0.4) * buildFinish;
+    const frontMul = solid * (1 - shell * facadeFade) * (1 - cut * 0.985) * buildFinish; // T-265: facade stays present but translucent so bones read through
+    const sideMul = solid * (1 - shell * facadeFade) * (1 - cut * 0.4) * buildFinish;
     const roofMul = solid * (1 - shell * 0.42) * (1 - cut * 0.85) * buildFinish; // T-230: was *0.8 -> 20% at Bones, roof vanished and planes read detached
     mats.stuccoFront.opacity = frontMul;
     mats.woodScreenFront.opacity = frontMul;
@@ -373,13 +379,13 @@ export default function HouseModel({
     const setPos = (k, x, y, z) => {
       if (r[k]) r[k].position.set(x, y, z);
     };
-    setPos("finFrontA", -3.5, 0.5 - cut * 5.35, 3 + shell * 1.2);
-    setPos("finFrontB", 0, 0.5 - cut * 5.0, 2.5 + shell * 1.2);
-    setPos("finBackA", -3.5, 0.5, -3 - shell * 1.2);
-    setPos("finBackB", 0, 0.5, -2.5 - shell * 1.2);
-    setPos("finWestA", -6 - shell * 1.2, 0.5, 0);
-    setPos("finEastA", shell * 1.2, 0, 0);
-    setPos("finEastB", 6 + shell * 1.2, 0.5, 0);
+    setPos("finFrontA", -3.5, 0.5 - cut * 5.35, 3 + shell * facadeSeparation);
+    setPos("finFrontB", 0, 0.5 - cut * 5.0, 2.5 + shell * facadeSeparation);
+    setPos("finBackA", -3.5, 0.5, -3 - shell * facadeSeparation);
+    setPos("finBackB", 0, 0.5, -2.5 - shell * facadeSeparation);
+    setPos("finWestA", -6 - shell * facadeSeparation, 0.5, 0);
+    setPos("finEastA", shell * facadeSeparation, 0, 0);
+    setPos("finEastB", 6 + shell * facadeSeparation, 0.5, 0);
     // T-230 (2026-08-25): the roof planes lifted 1.6/1.3 units during Bones, which read
     // as two dark slabs floating detached above the house rather than a roof being lifted
     // off a structure. Reduced so they separate enough to show the roof as its own layer

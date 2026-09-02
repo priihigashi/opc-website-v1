@@ -5,8 +5,8 @@ import test from "node:test";
 const read = (path) => fs.readFileSync(new URL(path, import.meta.url), "utf8");
 
 test("active story uses the persistent versioned chapter navigation", () => {
-  assert.match(read("../index.js"), /AppV13/);
-  assert.match(read("../AppV13.js"), /StoryV21/);
+  assert.match(read("../index.js"), /AppV14/);
+  assert.match(read("../AppV14.js"), /StoryV21/);
   assert.match(read("../components/StoryV21.jsx"), /ChapterRailV2 chapters=\{chapters\}/);
   assert.match(read("../components/StoryV21.jsx"), /StoryBannerRailV4/);
 });
