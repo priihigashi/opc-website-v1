@@ -6,8 +6,8 @@ import { fileURLToPath } from "node:url";
 const read = (relativePath) => readFileSync(fileURLToPath(new URL(relativePath, import.meta.url)), "utf8");
 
 test("the active app uses the versioned mobile scroll cue composition", () => {
-  assert.match(read("../index.js"), /AppV12/);
-  assert.match(read("../AppV12.js"), /StoryV21/);
+  assert.match(read("../index.js"), /AppV13/);
+  assert.match(read("../AppV13.js"), /StoryV21/);
   assert.match(read("../components/StoryV21.jsx"), /ScrollDownCueV5/);
 });
 
