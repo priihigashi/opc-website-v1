@@ -21,7 +21,7 @@ const chapterContent = [
   },
   {
     id: "ch-02", num: "02", side: "left", overline: "Kitchen + Bathroom Remodels",
-    title: ["Rooms,", "reimagined"],
+    title: ["Rooms", "reimagined"],
     body: "The same house opens through a clean cutaway. Inside, we reimagine the rooms you live in most — kitchens planned around how you cook and bathrooms rebuilt as quiet retreats — without losing the home around them.",
     bullets: ["Custom cabinetry & stone counters", "Showers, tubs, tile & fixtures", "Plumbing, electrical & ventilation coordination"],
     portfolioHref: "/portfolio?category=KITCHENS%20%2B%20BATHROOMS#portfolio-projects", portfolioLabel: "View Remodel Projects",
@@ -44,7 +44,7 @@ const chapterContent = [
   },
   {
     id: "ch-04", num: "04", side: "left", overline: "Outdoor Living",
-    title: ["The backyard,", "built in"],
+    title: ["The backyard", "built in"],
     body: "The house turns, and the backyard becomes a connected outdoor room. Pergolas, cooking areas, patios and lighting are planned around circulation, shade and how the space will be used.",
     bullets: ["Pergolas, shade structures & decks", "Built-in barbecue & outdoor kitchens", "Lighting, seating & fire features"],
     portfolioHref: "/portfolio?category=OUTDOOR%20LIVING#portfolio-projects", portfolioLabel: "View Outdoor Living Projects",
@@ -94,6 +94,5 @@ export default function StoryV22({ storyRef }) {
     </div>
   );
 }
-
 
 

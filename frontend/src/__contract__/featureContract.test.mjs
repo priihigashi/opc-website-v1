@@ -163,6 +163,14 @@ test("display headlines carry no trailing period (testimonials exempt)", () => {
   }
 });
 
+test("Rooms and Backyard story headlines carry no comma", () => {
+  const story = read(`components/${storyName}.jsx`);
+  assert.ok(story.includes('title: ["Rooms", "reimagined"]'));
+  assert.ok(story.includes('title: ["The backyard", "built in"]'));
+  assert.ok(!story.includes('title: ["Rooms,",'));
+  assert.ok(!story.includes('title: ["The backyard,",'));
+});
+
 test("every routed component file actually exists", () => {
   for (const p of ["/services"].map((r) => `pages/${routedComponent(r)}.jsx`)
     .concat(["Portfolio", "Privacy", "ServiceAreas", "ServiceDetail"].map((c) => `pages/${lazyTarget(c)}.jsx`))) {
