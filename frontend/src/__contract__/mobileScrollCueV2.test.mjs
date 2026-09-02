@@ -6,13 +6,13 @@ import { fileURLToPath } from "node:url";
 const read = (relativePath) => readFileSync(fileURLToPath(new URL(relativePath, import.meta.url)), "utf8");
 
 test("the active app uses the versioned mobile scroll cue composition", () => {
-  assert.match(read("../index.js"), /AppV10/);
-  assert.match(read("../AppV10.js"), /StoryV19/);
-  assert.match(read("../components/StoryV19.jsx"), /ScrollDownCueV3/);
+  assert.match(read("../index.js"), /AppV11/);
+  assert.match(read("../AppV11.js"), /StoryV20/);
+  assert.match(read("../components/StoryV20.jsx"), /ScrollDownCueV4/);
 });
 
 test("the cue adds a white first-fold label, stays longer, and preserves its placement", () => {
-  const cue = read("../components/ScrollDownCueV3.jsx");
+  const cue = read("../components/ScrollDownCueV4.jsx");
   assert.match(cue, /max-width: 767px/);
   assert.match(cue, /orientation: portrait/);
   assert.match(cue, /top: 76svh/);
@@ -22,5 +22,8 @@ test("the cue adds a white first-fold label, stays longer, and preserves its pla
   assert.match(cue, /font-mono/);
   assert.match(cue, /text-\[#EEEDE9\]/);
   assert.match(cue, /transition-opacity duration-500/);
+  assert.match(cue, /opc-scroll-cue-v4_3\.4s_ease-in-out_infinite/);
+  assert.match(cue, /0%, 100% \{ opacity: \.28; \}/);
+  assert.doesNotMatch(cue, /translateY/);
   assert.match(cue, /prefers-reduced-motion: reduce/);
 });

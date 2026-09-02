@@ -5,12 +5,12 @@ import test from "node:test";
 const read = (path) => fs.readFileSync(new URL(path, import.meta.url), "utf8");
 
 test("active homepage uses the versioned recent-project story", () => {
-  assert.match(read("../index.js"), /AppV10/);
-  assert.match(read("../AppV10.js"), /StoryV19/);
+  assert.match(read("../index.js"), /AppV11/);
+  assert.match(read("../AppV11.js"), /StoryV20/);
 });
 
 test("every service card keeps one Recent Project image between link and bullets", () => {
-  const story = read("../components/StoryV19.jsx");
+  const story = read("../components/StoryV20.jsx");
   const chapter = read("../components/ChapterV6.jsx");
   assert.equal((story.match(/recentProject:/g) || []).length, 5);
   assert.match(chapter, /portfolio-link[\s\S]*RecentProjectV1[\s\S]*<ul/);

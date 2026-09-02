@@ -5,10 +5,10 @@ import test from "node:test";
 const read = (path) => fs.readFileSync(new URL(path, import.meta.url), "utf8");
 
 test("active story uses the persistent versioned chapter navigation", () => {
-  assert.match(read("../index.js"), /AppV10/);
-  assert.match(read("../AppV10.js"), /StoryV19/);
-  assert.match(read("../components/StoryV19.jsx"), /ChapterRailV2 chapters=\{chapters\}/);
-  assert.match(read("../components/StoryV19.jsx"), /StoryBannerRailV3/);
+  assert.match(read("../index.js"), /AppV11/);
+  assert.match(read("../AppV11.js"), /StoryV20/);
+  assert.match(read("../components/StoryV20.jsx"), /ChapterRailV2 chapters=\{chapters\}/);
+  assert.match(read("../components/StoryV20.jsx"), /StoryBannerRailV3/);
 });
 
 test("five semantic anchors support active state and smooth chapter focus", () => {
