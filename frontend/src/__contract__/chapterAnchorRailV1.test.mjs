@@ -5,10 +5,10 @@ import test from "node:test";
 const read = (path) => fs.readFileSync(new URL(path, import.meta.url), "utf8");
 
 test("active story uses the persistent versioned chapter navigation", () => {
-  assert.match(read("../index.js"), /AppV11/);
-  assert.match(read("../AppV11.js"), /StoryV20/);
-  assert.match(read("../components/StoryV20.jsx"), /ChapterRailV2 chapters=\{chapters\}/);
-  assert.match(read("../components/StoryV20.jsx"), /StoryBannerRailV3/);
+  assert.match(read("../index.js"), /AppV12/);
+  assert.match(read("../AppV12.js"), /StoryV21/);
+  assert.match(read("../components/StoryV21.jsx"), /ChapterRailV2 chapters=\{chapters\}/);
+  assert.match(read("../components/StoryV21.jsx"), /StoryBannerRailV4/);
 });
 
 test("five semantic anchors support active state and smooth chapter focus", () => {
@@ -27,13 +27,13 @@ test("five semantic anchors support active state and smooth chapter focus", () =
 
 test("desktop rail and compact dock are mutually exclusive and card travel reserves dock space", () => {
   const nav = read("../components/ChapterRailV2.jsx");
-  const banner = read("../components/StoryBannerRailV3.jsx");
+  const banner = read("../components/StoryBannerRailV4.jsx");
   assert.match(nav, /chapter-rail-desktop[\s\S]*xl:block/);
   assert.match(nav, /chapter-dock-compact[\s\S]*xl:hidden/);
   assert.match(banner, /compactDock = window\.innerWidth < 1280/);
-  assert.match(banner, /safeBottom = 52/);
-  assert.match(banner, /compactDock \? 48 : 8/);
-  assert.match(banner, /bottom-12[\s\S]*overflow-hidden/);
+  assert.match(banner, /safeBottom = 96/);
+  assert.match(banner, /compactDock \? 92 : 8/);
+  assert.match(banner, /bottom-24[\s\S]*overflow-hidden/);
   assert.match(banner, /xl:col-start-7 xl:mr-5/);
 });
 
