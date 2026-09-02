@@ -2,11 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "@/index.css";
-// AppV9 is the ONLY application entry. AppV8 remains the exact pre-project-image rollback;
+// AppV10 is the ONLY application entry. AppV9 remains the exact pre-anchor-navigation rollback;
 // removed on 2026-08-24 (launch audit item 1) so no future change can land on a
 // file the bundle does not use. If you fork the app, update this import AND the
 // feature contract tests in src/__contract__/.
-import App from "@/AppV9";
+import App from "@/AppV10";
 
 const queryClient = new QueryClient({
   defaultOptions: {
