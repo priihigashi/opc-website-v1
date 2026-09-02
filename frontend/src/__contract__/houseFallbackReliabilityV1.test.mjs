@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 const read = (relativePath) => readFileSync(fileURLToPath(new URL(relativePath, import.meta.url)), "utf8");
 
 test("a slow startup is observable but never latched as a hard failure", () => {
-  const stage = read("../components/DeferredHouseStageV10.jsx");
+  const stage = read("../components/DeferredHouseStageV11.jsx");
   assert.match(stage, /const STARTUP_DELAY_MS = 4000/);
   assert.match(stage, /setStartupDelayed\(true\)/);
   assert.doesNotMatch(stage, /STARTUP_DELAY_MS[\s\S]{0,500}setInteractiveFailed\(true\)/);
@@ -14,8 +14,8 @@ test("a slow startup is observable but never latched as a hard failure", () => {
   assert.match(stage, /setInteractiveReady\(true\)/);
 });
 
-test("the complete phone fallback and honest recovery control are isolated to V10", () => {
-  const stage = read("../components/DeferredHouseStageV10.jsx");
+test("the complete phone fallback and honest recovery control remain active in V11", () => {
+  const stage = read("../components/DeferredHouseStageV11.jsx");
   assert.match(stage, /house-static-fallback-mobile-v2\.png/);
   assert.match(stage, /object-contain object-center/);
   assert.match(stage, /interactiveFailed && isHome/);
@@ -24,15 +24,16 @@ test("the complete phone fallback and honest recovery control are isolated to V1
   assert.match(stage, /focus-visible:ring-1/);
   assert.match(stage, /recoveryPromptInHero/);
   assert.match(stage, /onContextLost=\{failInteractive\}/);
-  const scene = read("../three/HouseSceneV33.jsx");
+  const scene = read("../three/HouseSceneV34.jsx");
   assert.match(scene, /gl\.domElement/);
   assert.match(scene, /addEventListener\("webglcontextlost", handleContextLost, false\)/);
   assert.match(scene, /removeEventListener\("webglcontextlost", handleContextLost, false\)/);
   assert.match(scene, /event\.preventDefault\(\)/);
 });
 
-test("the active app keeps V9 as a one-import rollback", () => {
-  const app = read("../AppV14.js");
-  assert.match(app, /DeferredHouseStageV10/);
+test("the active app retains the prior fallback stages as rollback files", () => {
+  const app = read("../AppV15.js");
+  assert.match(app, /DeferredHouseStageV11/);
+  assert.match(read("../components/DeferredHouseStageV10.jsx"), /HouseSceneV33/);
   assert.match(read("../components/DeferredHouseStageV9.jsx"), /FIRST_FRAME_FAILSAFE_MS = 4000/);
 });

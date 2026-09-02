@@ -65,6 +65,10 @@ export default function HouseModel({
   previewStore = null,
   scopedRoomHighlights = false,
   shellFinishConfig = DEFAULT_SHELL_FINISH_CONFIG,
+  desktopXBias = 0,
+  desktopXBiasBreakpoint = 1280,
+  desktopChapterScale = 1,
+  desktopPositionFactor = 1,
 }) {
   const r = useRef({}).current;
   const reg = (name) => (el) => {
@@ -340,9 +344,15 @@ export default function HouseModel({
       addScale: r.additionGroup ? r.additionGroup.scale.x : -1,
     };
     g.rotation.y = THREE.MathUtils.damp(g.rotation.y, track(p, rotationTrack), 5, dt);
-    g.position.x = THREE.MathUtils.damp(g.position.x, track(p, positionXTrack) * view.current.f, 5, dt);
+    const viewportBiasX = window.innerWidth >= desktopXBiasBreakpoint ? desktopXBias : 0;
+    const viewportPositionFactor = window.innerWidth >= desktopXBiasBreakpoint ? desktopPositionFactor : 1;
+    g.position.x = THREE.MathUtils.damp(g.position.x, track(p, positionXTrack) * view.current.f * viewportPositionFactor + viewportBiasX, 5, dt);
     g.position.y = THREE.MathUtils.damp(g.position.y, track(p, positionYTrack) + view.current.y * seg(p, 0.06, 0.14), 5, dt);
-    const s = THREE.MathUtils.damp(g.scale.x || 1, track(p, scaleTrack) * view.current.s, 5, dt);
+    const chapterWindow = seg(p, 0.08, 0.14) * (1 - seg(p, 0.912, 0.98));
+    const desktopScale = window.innerWidth >= desktopXBiasBreakpoint
+      ? 1 + (desktopChapterScale - 1) * chapterWindow
+      : 1;
+    const s = THREE.MathUtils.damp(g.scale.x || 1, track(p, scaleTrack) * view.current.s * desktopScale, 5, dt);
     g.scale.setScalar(s);
 
     // shell: blueprint wireframe -> lime members + concrete bones (T-230)

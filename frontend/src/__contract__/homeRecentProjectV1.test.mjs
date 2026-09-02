@@ -5,13 +5,13 @@ import test from "node:test";
 const read = (path) => fs.readFileSync(new URL(path, import.meta.url), "utf8");
 
 test("active homepage uses the versioned recent-project story", () => {
-  assert.match(read("../index.js"), /AppV14/);
-  assert.match(read("../AppV14.js"), /StoryV21/);
+  assert.match(read("../index.js"), /AppV15/);
+  assert.match(read("../AppV15.js"), /StoryV22/);
 });
 
 test("every service card keeps one Recent Project image between link and bullets", () => {
-  const story = read("../components/StoryV21.jsx");
-  const chapter = read("../components/ChapterV7.jsx");
+  const story = read("../components/StoryV22.jsx");
+  const chapter = read("../components/ChapterV8.jsx");
   assert.equal((story.match(/recentProject:/g) || []).length, 5);
   assert.match(chapter, /portfolio-link[\s\S]*RecentProjectV1[\s\S]*<ul/);
   assert.match(chapter, /Recent Project/);
@@ -20,7 +20,7 @@ test("every service card keeps one Recent Project image between link and bullets
 });
 
 test("the fixed rail measures and moves the whole card", () => {
-  const rail = read("../components/StoryBannerRailV4.jsx");
+  const rail = read("../components/StoryBannerRailV5.jsx");
   assert.match(rail, /ResizeObserver/);
   assert.match(rail, /panelHeight/);
   assert.match(rail, /ChapterCardV3/);

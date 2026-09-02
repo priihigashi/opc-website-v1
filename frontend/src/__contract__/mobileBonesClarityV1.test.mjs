@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 const read = (relativePath) => readFileSync(fileURLToPath(new URL(relativePath, import.meta.url)), "utf8");
 
 test("normal phones alone opt into the bounded Bones finish treatment", () => {
-  const model = read("../three/HouseModelV30.jsx");
+  const model = read("../three/HouseModelV31.jsx");
   assert.match(model, /DEFAULT_SHELL_FINISH = \{ facadeFade: 0\.55, facadeSeparation: 1\.2 \}/);
   assert.match(model, /PHONE_SHELL_FINISH = \{ facadeFade: 0\.6, facadeSeparation: 1\.35 \}/);
   assert.match(model, /stage\.phone && !stage\.shortPhone \? PHONE_SHELL_FINISH : DEFAULT_SHELL_FINISH/);

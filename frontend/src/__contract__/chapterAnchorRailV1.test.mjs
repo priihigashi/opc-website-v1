@@ -5,14 +5,14 @@ import test from "node:test";
 const read = (path) => fs.readFileSync(new URL(path, import.meta.url), "utf8");
 
 test("active story uses the persistent versioned chapter navigation", () => {
-  assert.match(read("../index.js"), /AppV14/);
-  assert.match(read("../AppV14.js"), /StoryV21/);
-  assert.match(read("../components/StoryV21.jsx"), /ChapterRailV2 chapters=\{chapters\}/);
-  assert.match(read("../components/StoryV21.jsx"), /StoryBannerRailV4/);
+  assert.match(read("../index.js"), /AppV15/);
+  assert.match(read("../AppV15.js"), /StoryV22/);
+  assert.match(read("../components/StoryV22.jsx"), /ChapterRailV3 chapters=\{chapters\}/);
+  assert.match(read("../components/StoryV22.jsx"), /StoryBannerRailV5/);
 });
 
 test("five semantic anchors support active state and smooth chapter focus", () => {
-  const rail = read("../components/ChapterRailV2.jsx");
+  const rail = read("../components/ChapterRailV3.jsx");
   for (const num of ["01", "02", "03", "04", "05"]) assert.match(rail, new RegExp(`\\[\\"${num}\\"`));
   assert.match(rail, /<nav ref=\{navRef\} aria-label="Build chapters"/);
   assert.match(rail, /href=\{`#ch-\$\{num\}`\}/);
@@ -26,15 +26,15 @@ test("five semantic anchors support active state and smooth chapter focus", () =
 });
 
 test("desktop rail and compact dock are mutually exclusive and card travel reserves dock space", () => {
-  const nav = read("../components/ChapterRailV2.jsx");
-  const banner = read("../components/StoryBannerRailV4.jsx");
+  const nav = read("../components/ChapterRailV3.jsx");
+  const banner = read("../components/StoryBannerRailV5.jsx");
   assert.match(nav, /chapter-rail-desktop[\s\S]*xl:block/);
   assert.match(nav, /chapter-dock-compact[\s\S]*xl:hidden/);
   assert.match(banner, /compactDock = window\.innerWidth < 1280/);
   assert.match(banner, /safeBottom = 96/);
   assert.match(banner, /compactDock \? 92 : 8/);
   assert.match(banner, /bottom-24[\s\S]*overflow-hidden/);
-  assert.match(banner, /xl:col-start-7 xl:mr-5/);
+  assert.match(banner, /xl:col-start-7 xl:mr-2/);
 });
 
 test("AppV9 remains intact as the one-step rollback", () => {
