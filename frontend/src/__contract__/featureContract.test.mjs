@@ -88,7 +88,7 @@ const REQUIRED = [
     check: (s) => s.includes("[0.27, -2.3]") && s.includes("[0.912, 0.92]") },
   { route: "/", file: () => `components/${storyName}.jsx`,
     name: "all five chapters use the deterministic banner timeline",
-    check: (s) => s.includes("HOME_STORY_BANNER_TIMELINE_V1") && s.includes("ChapterV4") },
+    check: (s) => s.includes("HOME_STORY_BANNER_TIMELINE_V2") && s.includes("ChapterV4") },
   { route: "/", file: () => "components/StoryBannerRailV1.jsx",
     name: "one story rail travels by scroll progress without opacity gating",
     check: (s) => s.includes("bannerTravelY") && s.includes("requestAnimationFrame") && s.includes("activeIndexFor") && !s.includes("whileInView") },
