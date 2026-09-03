@@ -31,6 +31,13 @@ const sitemapPaths = [...sitemapXml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(
   (m) => m[1].replace(ORIGIN, "") || "/",
 );
 const redirectSources = new Set(vercel.redirects.map((r) => r.source));
+// The 233 preserved WordPress posts are legitimate sitemap entries that deliberately
+// have no SPA route — they are served by the legacy pass-through. Without this the
+// sitemap check reports every one of them as an "unknown route".
+const legacyPaths = new Set(
+  JSON.parse(readFileSync(new URL("../data/legacyBlogPaths.json", import.meta.url), "utf8")).paths,
+);
+const isLegacy = (p) => legacyPaths.has(p.replace(/\/+$/, "")) || legacyPaths.has(p);
 const indexable = (path) => !(routes[path].robots || "").includes("noindex");
 
 test("the sitemap and the route table describe the same site", () => {
@@ -38,7 +45,7 @@ test("the sitemap and the route table describe the same site", () => {
   const shouldBeListed = Object.keys(routes).filter(indexable);
   const missing = shouldBeListed.filter((p) => !advertised.has(p));
   assert.deepEqual(missing, [], `indexable routes absent from sitemap: ${missing}`);
-  const unknown = sitemapPaths.filter((p) => !(p in routes));
+  const unknown = sitemapPaths.filter((p) => !(p in routes) && !isLegacy(p));
   assert.deepEqual(unknown, [], `sitemap advertises unknown routes: ${unknown}`);
 });
 

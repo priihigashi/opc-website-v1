@@ -17,8 +17,8 @@
 //   "permanent": false => HTTP 307  (holding redirect; URL stays reclaimable)
 
 import { test } from "node:test";
-import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
+import assert from "node:assert/strict";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
@@ -42,7 +42,9 @@ const SPA_ROUTES = new Set([
 const REWRITE_SOURCES = new Set(rewrites.map((r) => r.source));
 
 const isReachable = (dest) => {
-  const path = dest.split("#")[0] || "/";
+  // Query strings are part of a valid destination: /portfolio?category=ADDITIONS is a
+  // real route. Stripping only "#" made every category link look like a dead end.
+  const path = dest.split("#")[0].split("?")[0] || "/";
   return SPA_ROUTES.has(path) || REWRITE_SOURCES.has(path);
 };
 
@@ -67,7 +69,12 @@ const resolvePlatformHop = (url) => {
 };
 
 test("Vercel's 1024-rule ceiling is not exceeded", () => {
-  assert.equal(redirects.length, 289, "expected only effective bare-path rules");
+  // Was `assert.equal(redirects.length, 289)`. That number encoded the SUPERSEDED
+  // policy of redirecting the old blog posts away. Priscila's ruling 2026-08-27 is
+  // that all 233 keep their own addresses and are served through the pass-through,
+  // so those redirects are gone by design. The ceiling is the real contract; the
+  // exact count is not. A floor still catches an accidental mass deletion.
+  assert.ok(redirects.length >= 40, `only ${redirects.length} redirects — did the non-blog legacy map get wiped?`);
   assert.ok(
     redirects.length <= 1024,
     `${redirects.length} redirects exceeds the platform limit of 1024`,
@@ -129,25 +136,39 @@ test("trailing-slash requests canonicalize once, then take the intended redirect
   }
 });
 
-test("the painting-costs post is a reclaimable 307, not a permanent 308", () => {
-  // T-208-E reclassified this post KEEP & FIX at 1,951 words. The permanent
-  // rule shipped at bf1ead7 gave the address away for good; a 307 holds it.
-  const slug =
-    "/budget-friendly-interior-painting-costs-in-2025-for-your-florida-home-remodel";
-  const hit = resolve(slug);
-  assert.ok(hit, `${slug} has no redirect rule`);
-  assert.equal(hit.status, 307, `${slug} must not be a permanent redirect`);
-  assert.equal(hit.location, "/services/full-renovation");
-
-  assert.deepEqual(resolvePlatformHop(`${slug}/`), { status: 308, location: slug });
+test("the painting-costs post is served, not redirected to a service page", () => {
+  // Was: assert it is a reclaimable 307. Under the current policy it is not redirected
+  // at all — it was the ONE post that had been permanently redirected to
+  // /services/full-renovation, which contradicted "all 233 survive". That redirect was
+  // removed 2026-08-28; this now guards against it coming back.
+  const slug = "/budget-friendly-interior-painting-costs-in-2025-for-your-florida-home-remodel";
+  const hit = redirects.find((r) => r.source.replace(/\/+$/, "") === slug);
+  assert.equal(hit, undefined, "the painting-costs post is being redirected away again");
+  const routed = rewrites.some((r) => r.source === slug && r.destination === "/api/legacy");
+  assert.ok(routed, "the painting-costs post lost its pass-through route");
 });
 
-test("keeper posts hold their address with 307 and dropped posts release it with 308", () => {
-  const holding = redirects.filter((r) => !r.permanent);
-  const released = redirects.filter((r) => r.permanent);
-  assert.ok(holding.length > 0, "no holding redirects survived the merge");
-  assert.ok(released.length > 0, "no permanent redirects survived the merge");
-  assert.equal(holding.length, 130, "expected one canonical rule per keeper post");
+test("every legacy post still answers at its own address", () => {
+  // SUPERSEDED POLICY, kept for the record: this used to require 130 temporary (307)
+  // "holding" redirects — one per keeper post — and permanent (308) ones for posts being
+  // dropped. Priscila's ruling 2026-08-27: NO post is dropped; all 233 keep their exact
+  // public address and are served from WordPress through the pass-through.
+  //
+  // That is a STRONGER guarantee than a holding redirect, so the assertion is stronger
+  // too: no legacy post may be redirected anywhere, and every one must be routed.
+  const legacy = new Set(
+    JSON.parse(readFileSync(new URL("../data/legacyBlogPaths.json", import.meta.url), "utf8")).paths,
+  );
+  const redirectedAway = redirects.filter((r) => legacy.has(r.source.replace(/\/+$/, "")));
+  assert.deepEqual(
+    redirectedAway.map((r) => r.source),
+    [],
+    "a legacy post is being redirected away — redirects run before rewrites, so its article would never load",
+  );
+  const routed = new Set(rewrites.filter((r) => r.destination === "/api/legacy").map((r) => r.source));
+  const unrouted = [...legacy].filter((p) => !routed.has(p));
+  assert.deepEqual(unrouted, [], `legacy posts with no pass-through route: ${unrouted.slice(0, 5)}`);
+  assert.equal(legacy.size, 233, "the legacy post set changed size unexpectedly");
 });
 
 test("category and tag archives are covered", () => {
@@ -172,7 +193,7 @@ test("the pre-existing non-blog legacy redirects still fire", () => {
     ["/expertise/renovations", 308, "/services/full-renovation"],
     ["/expertise/accessory-dwelling-units-adus", 308, "/services/additions"],
     ["/project-gallery/new-build", 308, "/portfolio"],
-    ["/portfolio/1270-harbor-court", 308, "/portfolio/harbor-court-residence"],
+    ["/portfolio/1270-harbor-court", 308, "/portfolio?category=ADDITIONS"],
   ];
   for (const [url, status, location] of expected) {
     const hit = resolve(url);
