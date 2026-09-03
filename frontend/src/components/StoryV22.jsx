@@ -14,9 +14,9 @@ const chapterContent = [
     bullets: ["Foundations & reinforced slabs", "Structural walls, columns & beams", "Roof systems & weather dry-in"],
     portfolioHref: "/portfolio?category=SHELL%20%2B%20NEW%20BUILD#portfolio-projects", portfolioLabel: "View Shell Projects",
     recentProject: {
-      src: "/images/opc/portfolio/shell-concrete/kinney-shell-build/kinney-shell-build__shell-concrete__AFTER__card__seq08__img-5901",
+      src: "/images/opc/shell-construction-residential-v1",
       w: 1350, h: 1800, widths: [360, 576, 900, 1350],
-      alt: "Completed shell construction at the Kinney project.", phase: "AFTER", orientation: "portrait",
+      alt: "Residential shell and structural work on a South Florida home", phase: "AFTER", orientation: "portrait",
     },
   },
   {
@@ -35,11 +35,11 @@ const chapterContent = [
     title: ["Grow without", "moving"],
     body: "A new volume joins the same house — a bedroom, an office or a family room — planned to connect with the existing structure, roofline, circulation and finishes.",
     bullets: ["Bedroom, office & family room wings", "Structural tie-in coordination", "Permit, engineering & inspection coordination"],
-    portfolioHref: "/portfolio/harbor-court-residence", portfolioLabel: "View Addition Project",
+    portfolioHref: "/portfolio?category=ADDITIONS", portfolioLabel: "View Addition Project",
     recentProject: {
-      src: "/images/opc/portfolio/addition/harbor-court/harbor-court__addition__AFTER__card__seq04__img-3370",
+      src: "/images/opc/addition-progress",
       w: 1800, h: 1350, widths: [480, 768, 1200, 1800],
-      alt: "Completed residential addition at the Harbor Court project.", phase: "AFTER", orientation: "landscape",
+      alt: "Residential addition under construction in South Florida", phase: "AFTER", orientation: "landscape",
     },
   },
   {
@@ -60,9 +60,9 @@ const chapterContent = [
     bullets: ["Driveways, walkways & patios", "Interlocking pavers & concrete finishes", "Drainage, grading & base preparation"],
     portfolioHref: "/portfolio?category=CONCRETE#portfolio-projects", portfolioLabel: "View Concrete Projects",
     recentProject: {
-      src: "/images/opc/portfolio/shell-concrete/rio-vista-concrete/rio-vista-concrete__shell-concrete__AFTER__card__seq01__img-3721",
+      src: "/images/opc/concrete-driveway-finished-v1",
       w: 1800, h: 1350, widths: [480, 768, 1200, 1800],
-      alt: "Finished curved paver driveway at the Rio Vista project.", phase: "AFTER", orientation: "landscape",
+      alt: "Finished residential concrete driveway and walkway", phase: "AFTER", orientation: "landscape",
     },
   },
 ];

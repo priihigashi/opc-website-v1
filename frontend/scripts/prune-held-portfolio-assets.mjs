@@ -55,3 +55,24 @@ if (JSON.stringify(remaining) !== JSON.stringify(expected)) {
 }
 
 console.log(`Portfolio build contains ${remaining.length} approved derivatives across ${PORTFOLIO_PROJECTS.length} projects.`);
+
+// The build also ships a SECOND held-asset tree that this script never touched:
+// build/images/opc/projects/. On 2026-09-03 it still contained clark-pergola (a client
+// surname), harbor-court-residence, concrete-work and shell-construction — all held.
+// Anything here whose directory is not a cleared project is removed from the OUTPUT only;
+// nothing under public/ or src/ is deleted.
+const CLEARED = new Set(PORTFOLIO_PROJECTS.map((p) => p.id));
+const projectsRoot = join(frontendDir, "build", "images", "opc", "projects");
+try {
+  const dirs = await readdir(projectsRoot, { withFileTypes: true });
+  for (const d of dirs) {
+    if (!d.isDirectory()) continue;
+    const keep = CLEARED.has(d.name) || /-collection$/.test(d.name);
+    if (!keep) {
+      await rm(join(projectsRoot, d.name), { recursive: true, force: true });
+      console.log(`pruned held project assets: images/opc/projects/${d.name}`);
+    }
+  }
+} catch (e) {
+  if (e.code !== "ENOENT") throw e;
+}
