@@ -15,8 +15,8 @@ const chapterContent = [
     portfolioHref: "/portfolio?category=SHELL%20%2B%20NEW%20BUILD#portfolio-projects", portfolioLabel: "View Shell Projects",
     recentProject: {
       src: "/images/opc/shell-construction-residential-v1",
-      w: 1350, h: 1800, widths: [360, 576, 900, 1350],
-      alt: "Residential shell and structural work on a South Florida home", phase: "AFTER", orientation: "portrait",
+      w: 1800, h: 1350, widths: [360, 576, 900, 1350],
+      alt: "Residential shell and structural work on a South Florida home", phase: "DURING", orientation: "landscape",
     },
   },
   {
@@ -94,5 +94,4 @@ export default function StoryV22({ storyRef }) {
     </div>
   );
 }
-
 

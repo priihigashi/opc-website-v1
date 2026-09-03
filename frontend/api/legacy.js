@@ -22,6 +22,37 @@ const HOP_BY_HOP = new Set([
 
 const MAX_HTML_BYTES = 3 * 1024 * 1024;   // a WordPress article is ~270KB
 const ASSET_EXT = /\.(css|js|mjs|jpe?g|png|gif|webp|avif|svg|ico|woff2?|ttf|eot|mp4|webm)$/i;
+const FALLBACK_LOCATION = "/services";
+const CHALLENGE_MARKERS = ["sg-captcha", "/.well-known/sgcaptcha/", "siteground captcha"];
+
+// SiteGround sometimes answers proxy traffic with a small HTTP 202 challenge
+// page instead of the requested article. Never publish or CDN-cache that page
+// as if it were OPC content. The blog is not a launch dependency, so a clean
+// temporary redirect to the live Services page is safer than a broken article.
+const isUsableArticle = (status, contentType, html) => {
+  const lower = html.toLowerCase();
+  return status === 200 &&
+    contentType.toLowerCase().includes("text/html") &&
+    Buffer.byteLength(html) > 10000 &&
+    !CHALLENGE_MARKERS.some((marker) => lower.includes(marker)) &&
+    !lower.includes('id="root"');
+};
+
+const sendBlogFallback = (res) => {
+  res.statusCode = 307;
+  res.setHeader("Location", FALLBACK_LOCATION);
+  res.setHeader("Cache-Control", "private, no-store");
+  res.setHeader("x-opc-legacy", "origin-fallback");
+  res.setHeader("Content-Type", "text/plain; charset=utf-8");
+  res.removeHeader("content-length");
+  res.end("Legacy article temporarily unavailable");
+};
+
+const copyUpstreamHeaders = (up, res) => {
+  for (const [key, value] of Object.entries(up.headers)) {
+    if (!HOP_BY_HOP.has(key.toLowerCase())) res.setHeader(key, value);
+  }
+};
 
 const normalise = (p) => (p.length > 1 ? p.replace(/\/+$/, "") : p);
 
@@ -98,59 +129,69 @@ module.exports = (req, res) => {
           return res.end("Origin redirect loop suppressed");
         }
       }
-      res.statusCode = up.statusCode;
-      for (const [k, v] of Object.entries(up.headers)) {
-        if (!HOP_BY_HOP.has(k.toLowerCase())) res.setHeader(k, v);
-      }
-      res.setHeader("x-opc-legacy", "wordpress-origin");
-      // These pages come from the OLD WordPress install and are served under the
-      // NEW site's origin. Without this, any legacy plugin script would execute
-      // with full same-origin authority over the React site — cookies, storage,
-      // the lot. The articles are server-rendered and use native lazy loading,
-      // so blocking scripts costs nothing visible.
-      res.setHeader(
-        "Content-Security-Policy",
-        "default-src 'self'; script-src 'none'; object-src 'none'; frame-ancestors 'none'; " +
-          "form-action 'none'; base-uri 'none'; img-src 'self' data: https:; " +
-          "style-src 'self' 'unsafe-inline' https:; font-src 'self' data: https:"
-      );
-      res.setHeader("X-Content-Type-Options", "nosniff");
-      // These articles change rarely. Let the CDN hold them so a burst of blog
-      // traffic does not become a burst of requests against SiteGround.
-      res.setHeader("Cache-Control", "public, s-maxage=3600, stale-while-revalidate=86400");
-      res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
       // The site sets trailingSlash:false, so Vercel serves these at /post while
       // WordPress still self-canonicalises to /post/. Left alone that is a
       // canonical pointing at a URL that redirects — an avoidable mixed signal
       // on exactly the 233 URLs we are trying to protect. Rewrite the self
       // references in the HTML to the URL actually being served.
       const type = String(up.headers["content-type"] || "");
-      if (isPost && type.includes("text/html")) {
+      if (isPost) {
         const served = `https://${originHost}${normalise(safePath)}`;
         const slashed = served + "/";
         const chunks = [];
         let bytes = 0;
+        let finished = false;
         up.on("data", (c) => {
+          if (finished) return;
           bytes += c.length;
-          if (bytes > MAX_HTML_BYTES) { up.destroy(); res.statusCode = 502; return res.end("Legacy page too large"); }
+          if (bytes > MAX_HTML_BYTES) {
+            finished = true;
+            up.destroy();
+            return sendBlogFallback(res);
+          }
           chunks.push(c);
         });
         up.on("end", () => {
-          const html = Buffer.concat(chunks)
-            .toString("utf8")
+          if (finished) return;
+          finished = true;
+          const rawHtml = Buffer.concat(chunks).toString("utf8");
+          if (!isUsableArticle(up.statusCode, type, rawHtml)) {
+            return sendBlogFallback(res);
+          }
+          const html = rawHtml
             // plain attributes: canonical, og:url, hreflang
             .split(`"${slashed}"`).join(`"${served}"`)
             // JSON-LD escapes its slashes, so the plain replace misses every
             // @id / url / mainEntityOfPage and leaves them pointing at a
             // URL that now redirects.
             .split(slashed.replace(/\//g, "\\/")).join(served.replace(/\//g, "\\/"));
+          res.statusCode = up.statusCode;
+          copyUpstreamHeaders(up, res);
+          res.setHeader("x-opc-legacy", "wordpress-origin");
+          // Legacy plugin scripts must not execute with authority on the new origin.
+          res.setHeader(
+            "Content-Security-Policy",
+            "default-src 'self'; script-src 'none'; object-src 'none'; frame-ancestors 'none'; " +
+              "form-action 'none'; base-uri 'none'; img-src 'self' data: https:; " +
+              "style-src 'self' 'unsafe-inline' https:; font-src 'self' data: https:"
+          );
+          res.setHeader("X-Content-Type-Options", "nosniff");
+          res.setHeader("Cache-Control", "public, s-maxage=3600, stale-while-revalidate=86400");
+          res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
           res.removeHeader("content-length");
           res.setHeader("content-length", Buffer.byteLength(html));
           res.end(html);
         });
-        up.on("error", () => res.end());
+        up.on("error", () => {
+          if (finished) return;
+          finished = true;
+          sendBlogFallback(res);
+        });
         return;
       }
+      res.statusCode = up.statusCode;
+      copyUpstreamHeaders(up, res);
+      res.setHeader("x-opc-legacy", "wordpress-origin");
       up.pipe(res);
     }
   );
@@ -162,3 +203,5 @@ module.exports = (req, res) => {
   });
   upstream.end();
 };
+
+module.exports.isUsableArticle = isUsableArticle;
