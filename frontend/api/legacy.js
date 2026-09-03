@@ -38,14 +38,24 @@ const isUsableArticle = (status, contentType, html) => {
     !lower.includes('id="root"');
 };
 
-const sendBlogFallback = (res) => {
+const isUsableArticleHead = (status, contentType, headers = {}) => {
+  const headerText = Object.entries(headers)
+    .map(([key, value]) => `${key}:${String(value)}`)
+    .join("\n")
+    .toLowerCase();
+  return status === 200 &&
+    contentType.toLowerCase().includes("text/html") &&
+    !CHALLENGE_MARKERS.some((marker) => headerText.includes(marker));
+};
+
+const sendBlogFallback = (res, headOnly = false) => {
   res.statusCode = 307;
   res.setHeader("Location", FALLBACK_LOCATION);
   res.setHeader("Cache-Control", "private, no-store");
   res.setHeader("x-opc-legacy", "origin-fallback");
   res.setHeader("Content-Type", "text/plain; charset=utf-8");
   res.removeHeader("content-length");
-  res.end("Legacy article temporarily unavailable");
+  res.end(headOnly ? undefined : "Legacy article temporarily unavailable");
 };
 
 const copyUpstreamHeaders = (up, res) => {
@@ -136,6 +146,29 @@ module.exports = (req, res) => {
       // references in the HTML to the URL actually being served.
       const type = String(up.headers["content-type"] || "");
       if (isPost) {
+        // HEAD intentionally has no response body, so the GET body validator
+        // cannot be used for it. Validate the status/type and any challenge
+        // markers exposed in headers, then preserve normal HEAD semantics.
+        if (req.method === "HEAD") {
+          if (!isUsableArticleHead(up.statusCode, type, up.headers)) {
+            up.resume();
+            return sendBlogFallback(res, true);
+          }
+          res.statusCode = up.statusCode;
+          copyUpstreamHeaders(up, res);
+          res.setHeader("x-opc-legacy", "wordpress-origin");
+          res.setHeader(
+            "Content-Security-Policy",
+            "default-src 'self'; script-src 'none'; object-src 'none'; frame-ancestors 'none'; " +
+              "form-action 'none'; base-uri 'none'; img-src 'self' data: https:; " +
+              "style-src 'self' 'unsafe-inline' https:; font-src 'self' data: https:"
+          );
+          res.setHeader("X-Content-Type-Options", "nosniff");
+          res.setHeader("Cache-Control", "public, s-maxage=3600, stale-while-revalidate=86400");
+          res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+          up.resume();
+          return res.end();
+        }
         const served = `https://${originHost}${normalise(safePath)}`;
         const slashed = served + "/";
         const chunks = [];
@@ -205,3 +238,4 @@ module.exports = (req, res) => {
 };
 
 module.exports.isUsableArticle = isUsableArticle;
+module.exports.isUsableArticleHead = isUsableArticleHead;
