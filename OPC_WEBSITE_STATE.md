@@ -1,6 +1,6 @@
 # OPC Website — Current Official Release Candidate
 
-Last verified: 2026-09-03 (America/New_York)
+Last verified: 2026-09-03 13:43 EDT (America/New_York)
 
 ## Canonical source
 
@@ -9,6 +9,15 @@ Last verified: 2026-09-03 (America/New_York)
 - The unified rollback point is `release/opc-unified-2026-09-03` at `6945faa`.
 - Do not resume either older line as the current website; they are retained only for history and rollback.
 - Vercel project root: `frontend/`.
+
+## Verified release artifact
+
+- Deployed code commit: `8adc02f92923434b50463d8b5400d121ba93cb71`.
+- Protected preview: `https://opc-house-elements-review-adldlza0x-priihigashis-projects.vercel.app`.
+- Vercel deployment: `dpl_Eo4896SWJDiuXZs8Nfpvdr3ssH8u` (`READY`, preview target).
+- Automated verification: 59/59 API tests, 128/128 site contract tests, and the production build passed.
+- Browser verification: all five chapter photos loaded with non-zero dimensions; the Shell/Bones photo loaded from its AVIF derivative with no broken images.
+- Deployment verification: healthy legacy article GET and HEAD both returned 200; held Clark asset and JavaScript source map both returned 404.
 
 ## Launch-candidate repairs
 
