@@ -1,0 +1,4 @@
+/* Preserve ScrollDownCueV5 while ensuring every z-20 story card paints above it. */
+.opc-story-scroll-cue-v5 {
+  z-index: 15 !important;
+}

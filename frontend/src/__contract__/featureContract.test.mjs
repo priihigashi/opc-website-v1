@@ -88,11 +88,11 @@ const REQUIRED = [
     check: (s) => s.includes("[0.27, -2.3]") && s.includes("[0.912, 0.92]") },
   { route: "/", file: () => `components/${storyName}.jsx`,
     name: "all five chapters use the deterministic banner timeline",
-    check: (s) => s.includes("HOME_STORY_BANNER_TIMELINE_V1") && s.includes("ChapterV4") },
-  { route: "/", file: () => "components/StoryBannerRailV1.jsx",
+    check: (s) => s.includes("HOME_STORY_BANNER_TIMELINE_V2") && s.includes("ChapterV8") },
+  { route: "/", file: () => "components/StoryBannerRailV5.jsx",
     name: "one story rail travels by scroll progress without opacity gating",
     check: (s) => s.includes("bannerTravelY") && s.includes("requestAnimationFrame") && s.includes("activeIndexFor") && !s.includes("whileInView") },
-  { route: "/", file: () => "components/ChapterV4.jsx",
+  { route: "/", file: () => "components/ChapterV8.jsx",
     name: "offscreen chapter links leave the accessibility tree and tab order",
     check: (s) => s.includes('aria-hidden={interactive ? undefined : "true"}') && s.includes("tabIndex={interactive ? 0 : -1}") },
   // T-259/T-261 — filtered grid balance: spans respond to the result set.
@@ -158,6 +158,14 @@ test("display headlines carry no trailing period (testimonials exempt)", () => {
       assert.ok(!/\.",|\."\s*$/.test(t), `display headline still ends in a period in ${p}: ${t}`);
     }
   }
+});
+
+test("Rooms and Backyard story headlines carry no comma", () => {
+  const story = read(`components/${storyName}.jsx`);
+  assert.ok(story.includes('title: ["Rooms", "reimagined"]'));
+  assert.ok(story.includes('title: ["The backyard", "built in"]'));
+  assert.ok(!story.includes('title: ["Rooms,",'));
+  assert.ok(!story.includes('title: ["The backyard,",'));
 });
 
 test("every routed component file actually exists", () => {

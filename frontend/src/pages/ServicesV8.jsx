@@ -121,7 +121,7 @@ export default function ServicesV8() {
       <section className="mx-auto flex min-h-[100svh] w-full max-w-[110rem] flex-col px-4 pb-5 pt-20 sm:px-6 md:px-8 md:pb-8 md:pt-24 xl:px-12">
         <div className="services-heading-v3 pointer-events-auto mx-auto w-full max-w-5xl text-center">
           <p className="font-mono text-[9px] uppercase tracking-[0.32em] text-[#CBCC10] sm:text-[10px]">
-            Oak Park Construction
+            Oak Park Construction · CBC1263425
           </p>
           <h1 className="mt-1.5 flex items-baseline justify-center gap-2.5 whitespace-nowrap text-[#FAFAFA] sm:gap-4">
             <span className="font-head text-[clamp(1.65rem,6.2vw,4.5rem)] uppercase leading-[0.9] tracking-[-0.025em]">

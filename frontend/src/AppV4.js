@@ -13,7 +13,7 @@ import AboutV3 from "@/components/AboutV3";
 import GalleryV4 from "@/components/GalleryV4";
 import TestimonialsV3 from "@/components/TestimonialsV3";
 import ContactV7 from "@/components/ContactV7";
-import FooterV2 from "@/components/FooterV2";
+import FooterV3 from "@/components/FooterV3";
 import SeoV1 from "@/components/SeoV1";
 import TitleCaseAuditV1 from "@/components/TitleCaseAuditV1";
 import PortfolioRouteBoundaryV1 from "@/components/PortfolioRouteBoundaryV1";
@@ -103,7 +103,7 @@ function Landing({ Stage = null }) {
           <GalleryV4 />
           <TestimonialsV3 />
           <ContactV7 />
-          <FooterV2 />
+          <FooterV3 />
         </div>
       </main>
     </div>

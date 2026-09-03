@@ -89,8 +89,10 @@ test("the live stage publishes its state to the shared policy", () => {
     assert.match(hook, /setHouseStageFailed/, "the registration hook must publish failure state");
     assert.match(hook, /unregisterHouseStage/, "a stage must deregister on unmount or its record leaks");
   }
-  assert.match(src, /setHouseStageFailed/,
-    "the stage itself must still report the first-frame failsafe failure");
+  assert.match(src, /setInteractiveFailed/,
+    "the stage must retain an explicit hard-failure path for render and WebGL errors");
+  assert.doesNotMatch(src, /STARTUP_DELAY_MS[\s\S]{0,500}setInteractiveFailed\(true\)/,
+    "a slow first frame is recoverable and must not be published as a permanent stage failure");
 });
 
 test("a stage confirms readiness from its OWN frames, never the shared window.__dbg", () => {

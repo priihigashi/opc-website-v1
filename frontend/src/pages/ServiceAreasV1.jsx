@@ -1,6 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import FooterV2 from "@/components/FooterV2";
+import FooterV3 from "@/components/FooterV3";
 
 const counties = [
   {
@@ -68,7 +68,7 @@ export default function ServiceAreasV1() {
           </div>
         </section>
       </main>
-      <FooterV2 />
+      <FooterV3 />
     </div>
   );
 }
