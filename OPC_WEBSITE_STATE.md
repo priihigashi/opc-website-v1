@@ -1,39 +1,50 @@
 # OPC Website — Current Official Release Candidate
 
-Last verified: 2026-09-03 13:43 EDT (America/New_York)
+Last updated: 2026-09-04 17:00 EDT (America/New_York)
 
-## Canonical source
+## Canonical release line
 
-- Use branch `release/opc-unified-ready-2026-09-03` for every next website change.
-- It contains both prior lines of work: ChatGPT story/mobile updates (`aa056d3`) and Claude portfolio/blog safety work (`834108c`).
-- The unified rollback point is `release/opc-unified-2026-09-03` at `6945faa`.
-- Do not resume either older line as the current website; they are retained only for history and rollback.
+- Current numbered release: **Candidate 2 — Unified Launch Review**.
+- Canonical branch: `release/opc-launch-today-2026-09-04`.
+- Frozen website code commit: `045100b15e8baf2ce8a9b47bc861ced9863d850d`.
+- Exact immutable preview: `https://opc-house-elements-review-czvsjg97m-priihigashis-projects.vercel.app`.
+- Vercel deployment: `dpl_GfFUUMPRDbof7sR33Jb1iKNVwKAv` (`READY`, preview target).
 - Vercel project root: `frontend/`.
 
-## Verified release artifact
+This branch descends from both required lines of work: content/story commit `9dc66409` and repair/portfolio commit `a6e5e154`, joined in merge commit `3bec6b8b`. The excluded owner-editor branch is not an ancestor.
 
-- Deployed code commit: `8adc02f92923434b50463d8b5400d121ba93cb71`.
-- Protected preview: `https://opc-house-elements-review-adldlza0x-priihigashis-projects.vercel.app`.
-- Vercel deployment: `dpl_Eo4896SWJDiuXZs8Nfpvdr3ssH8u` (`READY`, preview target).
-- Automated verification: 59/59 API tests, 128/128 site contract tests, and the production build passed.
-- Browser verification: all five chapter photos loaded with non-zero dimensions; the Shell/Bones photo loaded from its AVIF derivative with no broken images.
-- Deployment verification: healthy legacy article GET and HEAD both returned 200; held Clark asset and JavaScript source map both returned 404.
+## Version rule
 
-## Launch-candidate repairs
+- Priscila reviews only the one candidate named above. Older preview URLs are historical evidence, not competing choices.
+- Any code change creates Candidate 2, Candidate 3, and so on. A new candidate must descend from the preceding candidate.
+- If an approved item is intentionally removed, the candidate record must name it explicitly before review.
+- Never label a preview **Final** until all approved changes are in the same frozen commit and Priscila has approved appearance, the contact-delivery decision, and the exact words **go live**.
 
-- Restored all missing responsive files for the Shell, Addition, and Groundwork Recent Project images.
-- Corrected the Shell/Bones image dimensions and orientation metadata.
-- Added a contract test that fails if an advertised homepage image derivative is absent or empty.
-- Legacy blog articles are served only when SiteGround returns a substantial real article. CAPTCHA, error, tiny, or app-shell responses now fail safely to `/services` and are never cached as content.
-- No held project folders, client-name strings, or browser source maps are present in the production build.
+## Candidate 1 contents
 
-## Deliberate constraints
+- Homepage Groundwork uses the privacy-cropped Rio Vista curved paver entry with the finished home behind it.
+- Homepage Bones uses the stronger active concrete-block wall and roof tie-in construction image; Addition is correctly labeled `DURING`.
+- Mobile hero spacing and scroll-cue collision behavior were repaired; the long mobile dead-scroll tail was reduced.
+- Portfolio shows the 10 approved projects, preserves per-photo phase metadata, computes badge counts from displayed galleries, and keeps one reversible category menu hidden.
+- Portfolio mobile video explicitly selects the mobile H.264 file, requests muted inline playback, and exposes a visible Play video recovery control if autoplay stalls.
+- Contact submission is truthfully gated. Without a configured Web3Forms key, the site uses the mail-app fallback and does not claim delivery.
+- Candidate 2 adds one hosted-test repair on top of Candidate 1: invalid fields and the honeypot are checked before the missing-delivery-configuration fallback.
+- Legacy article recovery, security headers, held-asset pruning, and source-map blocking are inherited from the repair line.
 
-- The Shell/Bones photo is the existing privacy-safe image. It is not a perfect exposed-framing image. Do not replace it with Kinney, Harbor Court, Rio Vista, Clark, or any other held-client material without explicit approval.
-- Blog recovery is best-effort while the old SiteGround origin challenges automated requests. The blog is not a launch dependency; the temporary safe fallback is intentional.
-- SMTP delivery still depends on production environment variables. The contact page's mail-app fallback remains available, but a real server-delivered message must be verified before anyone claims email delivery works.
-- The public Oak Park domain, DNS, and production alias remain untouched until the owner explicitly approves cutover.
+## Verification status
 
-## Required release gate
+- Automated: 63/63 API tests, 134/134 site contract tests, production build, and whitespace checks pass.
+- Merge ancestry: both required branch tips are ancestors; the owner-editor branch is excluded.
+- Hosted runtime verification is in progress for mobile/tablet/desktop layout, portfolio video, galleries, legacy routes, privacy identifiers, headers, and excluded artifacts.
 
-Before public cutover, verify the exact deployed candidate on mobile and desktop: five Recent Project images, all chapter cards and navigation, portfolio visibility, representative blog routes, contact validation/fallback, held-asset 404s, and no source maps. Record the branch, exact commit, preview URL, and rollback target in the handoff.
+## Unresolved launch gates
+
+- Priscila must approve the Candidate 1 appearance.
+- Vercel currently has no `REACT_APP_WEB3FORMS_KEY`; choose and prove either Web3Forms delivery with working Reply-To or the mail-app fallback.
+- Production domain, DNS, and production alias remain untouched until Priscila says the exact words **go live**.
+
+## Rollback
+
+- Current production deployment: `dpl_DtGd3fFS6wPxNyoZLYKYTMvmqtqY`.
+- Previous unified release branch: `release/opc-unified-ready-2026-09-03`.
+- Pre-today unified source line: `release/opc-unified-2026-09-03` at `9dc66409`.
