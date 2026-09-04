@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { Link, useSearchParams } from "react-router-dom";
 import { PORTFOLIO_FILTERS, PORTFOLIO_PROJECTS } from "@/data/portfolioProjectsLaunchV1";
-import { PORTFOLIO_HERO_VIDEO, PORTFOLIO_HERO_POSTER } from "./portfolioHeroMedia";
+import { PORTFOLIO_HERO_VIDEO, PORTFOLIO_HERO_VIDEO_MOBILE, PORTFOLIO_HERO_POSTER } from "./portfolioHeroMedia";
 import PortfolioPicture from "@/components/PortfolioPicture";
 
 // T-259/T-261: card geometry responds to the RESULT SET, not the global featured flag.
@@ -87,7 +87,11 @@ export default function PortfolioV8() {
   return <div data-testid="portfolio-page" className="min-h-screen bg-[#09090B] pt-16 text-[#FAFAFA]">
     <header className="relative min-h-[calc(100svh-4rem)] overflow-hidden border-b border-white/10">
       <img src={PORTFOLIO_HERO_POSTER} alt="Oak Park Construction completed interior work" width="1280" height="720" fetchPriority="high" className="absolute inset-0 h-full w-full object-cover" />
-      <video data-testid="portfolio-hero-video" aria-hidden autoPlay muted loop playsInline preload="metadata" poster={PORTFOLIO_HERO_POSTER} className="absolute inset-0 hidden h-full w-full object-cover motion-reduce:hidden sm:block">
+      <video data-testid="portfolio-hero-video" aria-hidden autoPlay muted loop playsInline preload="metadata" poster={PORTFOLIO_HERO_POSTER} className="absolute inset-0 h-full w-full object-cover motion-reduce:hidden">
+        {/* Phones get the 2 MB 540p encode, larger screens the 5.6 MB one. The browser
+            picks by media query and downloads only the source it chooses. Reduced-motion
+            visitors still get the poster and no video at all. */}
+        <source src={PORTFOLIO_HERO_VIDEO_MOBILE} type="video/mp4" media="(max-width: 640px)" />
         <source src={PORTFOLIO_HERO_VIDEO} type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(9,9,11,0.58)_0%,rgba(9,9,11,0.20)_48%,rgba(9,9,11,0.06)_100%)]" />

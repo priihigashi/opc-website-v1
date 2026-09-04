@@ -14,6 +14,16 @@ export const PORTFOLIO_HERO_VIDEO = FULL
   ? "/video/portfolio-hero-intro-v2.mp4"
   : "/video/portfolio-hero-intro-v5.mp4";
 
+// A phone-sized encode of the SAME reviewed cut - 960x540, no audio track, 2.0 MB
+// against the desktop 5.6 MB. Phones used to get a frozen poster instead of the
+// video; that was never her decision ("I never decided that I was gonna be frozen
+// in the portfolio because otherwise I would have put an image there"), it was a
+// data-saving call made for her. The small file is how she gets the video without
+// the cost.
+export const PORTFOLIO_HERO_VIDEO_MOBILE = FULL
+  ? "/video/portfolio-hero-intro-v2.mp4"
+  : "/video/portfolio-hero-intro-v5-mobile.mp4";
+
 // A clean kitchen frame, verified free of both issues. This is what phones and
 // reduced-motion visitors see, so it is deliberately not pulled from the video.
 export const PORTFOLIO_HERO_POSTER = "/video/portfolio-hero-poster-v2.jpg";
