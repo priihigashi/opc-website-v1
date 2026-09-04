@@ -10,7 +10,7 @@ test("the active app preserves V15 and places the cue below moving story cards",
   const layer = read("../styles/storyCueLayerV1.css");
   const rail = read("../components/StoryBannerRailV5.jsx");
 
-  assert.match(entry, /AppV16/);
+  assert.match(entry, /AppV17/);
   assert.match(entry, /storyCueLayerV1\.css/);
   assert.match(layer, /opc-story-scroll-cue-v5/);
   assert.match(layer, /z-index: 15 !important/);

@@ -5,8 +5,8 @@ import test from "node:test";
 const read = (path) => fs.readFileSync(new URL(path, import.meta.url), "utf8");
 
 test("active homepage uses the versioned recent-project story", () => {
-  assert.match(read("../index.js"), /AppV16/);
-  assert.match(read("../AppV16.js"), /StoryV22/);
+  assert.match(read("../index.js"), /AppV17/);
+  assert.match(read("../AppV17.js"), /StoryV22/);
 });
 
 test("every service card keeps one Recent Project image between link and bullets", () => {

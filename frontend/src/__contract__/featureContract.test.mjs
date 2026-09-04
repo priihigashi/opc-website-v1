@@ -50,6 +50,12 @@ function lazyTarget(constName) {
   const m = app.match(new RegExp(`const ${constName} = lazy\\(\\(\\) => import\\("@\\/pages\\/([A-Za-z0-9_]+)"\\)\\)`));
   return m ? m[1] : null;
 }
+function projectGalleryImplementation() {
+  const routed = `pages/${lazyTarget("ProjectGallery")}.jsx`;
+  const wrapper = read(routed);
+  const delegated = /import ProjectGalleryV\d+ from "@\/pages\/(ProjectGalleryV\d+)"/.exec(wrapper)?.[1];
+  return delegated ? `pages/${delegated}.jsx` : routed;
+}
 
 // ---------------------------------------------------------------- REQUIRED --
 // Every entry must hold on the CURRENTLY ROUTED component. A route swap that
@@ -107,10 +113,10 @@ const REQUIRED = [
   { route: "/portfolio/:projectId", file: () => "data/portfolioProjectsLaunchV1.js",
     name: "projects carry phase-ordered rows (T-242 restored)",
     check: (s) => s.includes('"phases"') && s.includes('"BEFORE"') && s.includes('"rows"') },
-  { route: "/portfolio/:projectId", file: () => `pages/${lazyTarget("ProjectGallery")}.jsx`,
+  { route: "/portfolio/:projectId", file: () => projectGalleryImplementation(),
     name: "gallery slides label Before/During/Finished (T-242 restored)",
     check: (s) => s.includes('image.phase === "AFTER" ? "Finished"') },
-  { route: "/portfolio/:projectId", file: () => `pages/${lazyTarget("ProjectGallery")}.jsx`,
+  { route: "/portfolio/:projectId", file: () => projectGalleryImplementation(),
     name: "gallery phase sequence stays on one line with a display-only short label",
     check: (s) => s.includes('replaceAll("During Construction", "During")')
       && s.includes('aria-label={row.label}')
@@ -173,7 +179,7 @@ test("Rooms and Backyard story headlines carry no comma", () => {
 
 test("every routed component file actually exists", () => {
   for (const p of ["/services"].map((r) => `pages/${routedComponent(r)}.jsx`)
-    .concat(["Portfolio", "Privacy", "ServiceAreas", "ServiceDetail"].map((c) => `pages/${lazyTarget(c)}.jsx`))) {
+    .concat(["Portfolio", "ProjectGallery", "Privacy", "ServiceAreas", "ServiceDetail"].map((c) => `pages/${lazyTarget(c)}.jsx`))) {
     assert.doesNotThrow(() => read(p), `App.js routes to a file that does not exist: ${p}`);
   }
 });

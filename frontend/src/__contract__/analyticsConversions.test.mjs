@@ -29,6 +29,7 @@ const ROUTED = {
   "pages/ServiceDetailV3.jsx": src("pages", "ServiceDetailV3.jsx"),
   "pages/ServicesV8.jsx": src("pages", "ServicesV8.jsx"),
   "pages/PortfolioV8.jsx": src("pages", "PortfolioV8.jsx"),
+  "pages/ProjectGalleryV5.jsx": src("pages", "ProjectGalleryV5.jsx"),
   "pages/ProjectGalleryV4.jsx": src("pages", "ProjectGalleryV4.jsx"),
   "pages/ServiceAreasV1.jsx": src("pages", "ServiceAreasV1.jsx"),
   "pages/PrivacyV3.jsx": src("pages", "PrivacyV3.jsx"),
