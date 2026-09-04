@@ -16,7 +16,7 @@ This branch descends from both required lines of work: content/story commit `9dc
 ## Version rule
 
 - Priscila reviews only the one candidate named above. Older preview URLs are historical evidence, not competing choices.
-- Any code change creates Candidate 2, Candidate 3, and so on. A new candidate must descend from the preceding candidate.
+- The next code change creates Candidate 3, then Candidate 4, and so on. A new candidate must descend from the preceding candidate.
 - If an approved item is intentionally removed, the candidate record must name it explicitly before review.
 - Never label a preview **Final** until all approved changes are in the same frozen commit and Priscila has approved appearance, the contact-delivery decision, and the exact words **go live**.
 
@@ -39,7 +39,7 @@ This branch descends from both required lines of work: content/story commit `9dc
 
 ## Unresolved launch gates
 
-- Priscila must approve the Candidate 1 appearance.
+- Priscila must approve the Candidate 2 appearance.
 - Vercel currently has no `REACT_APP_WEB3FORMS_KEY`; choose and prove either Web3Forms delivery with working Reply-To or the mail-app fallback.
 - Production domain, DNS, and production alias remain untouched until Priscila says the exact words **go live**.
 
