@@ -35,7 +35,8 @@ This branch descends from both required lines of work: content/story commit `9dc
 
 - Automated: 63/63 API tests, 134/134 site contract tests, production build, and whitespace checks pass.
 - Merge ancestry: both required branch tips are ancestors; the owner-editor branch is excluded.
-- Hosted runtime verification is in progress for mobile/tablet/desktop layout, portfolio video, galleries, legacy routes, privacy identifiers, headers, and excluded artifacts.
+- Hosted runtime: phone/tablet/desktop hero layouts pass; all five chapter images load; Groundwork identifiers are unreadable at rendered card size; Portfolio shows 10 approved projects and the filtered Commercial route shows 2 plus View All; the phone video selects the mobile MP4 and advances muted/inline; a legacy article GET and HEAD return 200; invalid contact data returns 400; honeypot returns opaque 200; held Clark media and source maps return 404.
+- Fresh browser smoke: Portfolio is clean on desktop with no console messages or horizontal overflow. Mobile homepage/contact has no errors or overflow; the current Three.js dependency emits known deprecation warnings only. No production behavior is affected, but replace the deprecated timer/shadow-map APIs in a future post-launch maintenance candidate.
 
 ## Unresolved launch gates
 
