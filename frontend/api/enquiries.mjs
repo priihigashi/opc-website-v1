@@ -94,12 +94,7 @@ export default async function handler(req, res) {
 
   const body = await readBody(req);
   if (body === null) return send(res, 400, { ok: false, code: "malformed_json" });
-  const config = readConfig(process.env);
   const web3formsRequested = body?.deliveryProvider === "web3forms";
-  if (!web3formsRequested && !config.ready) {
-    console.warn(`[enquiries] config_pending missing=${config.missing.join(",")}`);
-    return send(res, 503, { ok: false, code: "config_pending" });
-  }
 
   const ip =
     (req.headers["x-forwarded-for"] || "").split(",")[0].trim() ||
@@ -138,6 +133,14 @@ export default async function handler(req, res) {
   if (web3formsRequested) {
     console.info(`[enquiries] validated ip=${tag} service=${enquiry.service}`);
     return send(res, 200, { ok: true, code: "validated" });
+  }
+
+  // Validation and bot screening must remain truthful even while delivery is
+  // unconfigured. Only a legitimate SMTP-bound lead reaches this gate.
+  const config = readConfig(process.env);
+  if (!config.ready) {
+    console.warn(`[enquiries] config_pending missing=${config.missing.join(",")}`);
+    return send(res, 503, { ok: false, code: "config_pending" });
   }
 
   let transport;

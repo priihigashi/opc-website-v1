@@ -83,6 +83,20 @@ test("a partial configuration is still config_pending, not a half-working send",
   assert.equal(res.body.code, "config_pending");
 });
 
+test("validation remains available while delivery configuration is pending", async () => {
+  const res = await call("POST", { ...valid(), name: "", email: "nope" }, { env: {} });
+  assert.equal(res.statusCode, 400);
+  assert.equal(res.body.code, "invalid");
+  assert.ok(res.body.errors.name);
+  assert.ok(res.body.errors.email);
+});
+
+test("the honeypot remains opaque while delivery configuration is pending", async () => {
+  const res = await call("POST", { ...valid(), company: "Acme SEO" }, { env: {} });
+  assert.equal(res.statusCode, 200);
+  assert.equal(res.body.code, "received");
+});
+
 test("a valid Web3Forms enquiry is screened then cleared for browser delivery", async () => {
   const res = await call("POST", { ...valid(), deliveryProvider: "web3forms" }, { env: {} });
   assert.equal(res.statusCode, 200);
