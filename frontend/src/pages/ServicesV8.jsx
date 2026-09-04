@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { houseStageStatus, whenHouseStageSettled, HOUSE_FAILED, HOUSE_PENDING } from "@/lib/houseRenderPolicy";
+import { houseStageStatus, whenHouseStageSettled, HOUSE_FAILED, HOUSE_PENDING, HOUSE_READY, HOUSE_STATIC } from "@/lib/houseRenderPolicy";
 import { scrollStore } from "@/lib/scrollStore";
 import { SERVICES_V5, SERVICES_V5_RESTING_PROGRESS } from "./servicesDataV5";
 import { servicesPreviewStoreV3 as previewStore } from "./servicesPreviewStoreV3";
@@ -93,7 +93,7 @@ export default function ServicesV8() {
 
     import("./ServiceDetailV3");
     const status = houseStageStatus();
-    if (status === HOUSE_FAILED) {
+    if (status === HOUSE_FAILED || status === HOUSE_STATIC) {
       navigate(`/services/${service.slug}`);
       return;
     }
@@ -102,8 +102,8 @@ export default function ServicesV8() {
       whenHouseStageSettled().then((settled) => {
         if (!mountedRef.current) return;
         setPreparing(null);
-        if (settled === HOUSE_FAILED) navigate(`/services/${service.slug}`);
-        else play(service);
+        if (settled === HOUSE_READY) play(service);
+        else navigate(`/services/${service.slug}`);
       });
       return;
     }

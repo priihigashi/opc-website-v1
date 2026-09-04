@@ -42,7 +42,7 @@ test("the static-house policy has exactly one definition site", () => {
     "lib/houseRenderPolicy.js must be the definition site");
   assert.match(policy, /export const canPlayInteractivePreview/,
     "the policy must also answer the LIVE stage question, not just device preference");
-  for (const token of ["HOUSE_PENDING", "HOUSE_READY", "HOUSE_FAILED"]) {
+  for (const token of ["HOUSE_PENDING", "HOUSE_READY", "HOUSE_FAILED", "HOUSE_STATIC"]) {
     assert.ok(policy.includes(token),
       `the policy needs THREE states: a boolean cannot separate "still loading" from "gone" (${token})`);
   }

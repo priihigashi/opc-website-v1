@@ -21,7 +21,7 @@ export const shouldUseStaticHouse = () => {
 };
 
 /**
- * THREE states, not two. A boolean cannot express the difference between
+ * FOUR states, not two. A boolean cannot express the difference between
  * "the healthy scene has not finished loading yet" and "the scene is gone", and
  * collapsing them makes an early click on a healthy device skip the preview
  * entirely — a regression of T-188/T-262. PENDING must make the caller WAIT.
@@ -29,6 +29,7 @@ export const shouldUseStaticHouse = () => {
 export const HOUSE_PENDING = "pending";
 export const HOUSE_READY = "ready";
 export const HOUSE_FAILED = "failed";
+export const HOUSE_STATIC = "static-preference";
 
 /**
  * Per-stage records, keyed by an identity handed out at mount.
@@ -63,11 +64,12 @@ export const _resetHouseStages = () => { stages.clear(); nextStageId = 0; };
 /**
  * Aggregate state across every mounted stage.
  * READY   - at least one live stage is rendering.
- * FAILED  - the device refuses 3D, or every mounted stage has failed.
+ * STATIC  - the visitor's device or accessibility preference requests no 3D.
+ * FAILED  - every mounted stage has reported a real rendering failure.
  * PENDING - stages exist but none has confirmed a frame yet. Callers must wait.
  */
 export const houseStageStatus = () => {
-  if (shouldUseStaticHouse()) return HOUSE_FAILED;
+  if (shouldUseStaticHouse()) return HOUSE_STATIC;
   const records = [...stages.values()];
   if (records.length === 0) return HOUSE_PENDING;
   if (records.some((r) => r.ready && !r.failed)) return HOUSE_READY;
@@ -79,8 +81,8 @@ export const houseStageStatus = () => {
 export const canPlayInteractivePreview = () => houseStageStatus() === HOUSE_READY;
 
 /**
- * Wait out a PENDING stage instead of guessing. Resolves READY or FAILED.
- * Bounded by the same failsafe the stage itself uses, so a caller can never hang.
+ * Wait out a PENDING stage instead of guessing. A timeout remains PENDING: time
+ * alone is never evidence that WebGL failed.
  */
 export const whenHouseStageSettled = (timeoutMs = 4500) => new Promise((resolve) => {
   const immediate = houseStageStatus();
@@ -89,7 +91,7 @@ export const whenHouseStageSettled = (timeoutMs = 4500) => new Promise((resolve)
   const poll = () => {
     const status = houseStageStatus();
     if (status !== HOUSE_PENDING) { resolve(status); return; }
-    if (performance.now() - startedAt >= timeoutMs) { resolve(HOUSE_FAILED); return; }
+    if (performance.now() - startedAt >= timeoutMs) { resolve(HOUSE_PENDING); return; }
     window.setTimeout(poll, 90);
   };
   window.setTimeout(poll, 90);

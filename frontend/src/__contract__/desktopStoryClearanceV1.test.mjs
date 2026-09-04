@@ -6,10 +6,10 @@ import { fileURLToPath } from "node:url";
 const read = (relativePath) => readFileSync(fileURLToPath(new URL(relativePath, import.meta.url)), "utf8");
 
 test("the active app uses the reversible desktop clearance chain", () => {
-  assert.match(read("../index.js"), /AppV15/);
-  assert.match(read("../AppV15.js"), /StoryV22/);
-  assert.match(read("../AppV15.js"), /DeferredHouseStageV11/);
-  assert.match(read("../components/DeferredHouseStageV11.jsx"), /HouseSceneV34/);
+  assert.match(read("../index.js"), /AppV16/);
+  assert.match(read("../AppV16.js"), /StoryV22/);
+  assert.match(read("../AppV16.js"), /DeferredHouseStageV12/);
+  assert.match(read("../components/DeferredHouseStageV12.jsx"), /HouseSceneV34/);
   assert.match(read("../three/HouseSceneV34.jsx"), /HouseModelV31/);
 });
 
