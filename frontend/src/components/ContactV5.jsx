@@ -48,7 +48,41 @@ function FormStatus({ status, notice, successMessage }) {
   );
 }
 
+// Web3Forms is the route she already has an account for. It needs ONE public access
+// key and no server, no SMTP host and no Gmail app password — which is what made the
+// old path stall. When the key is absent this is skipped entirely and the original
+// /api/enquiries route runs exactly as before, so nothing regresses while it is unset.
+const WEB3FORMS_KEY = process.env.REACT_APP_WEB3FORMS_KEY || "";
+
+async function postViaWeb3Forms(payload) {
+  const res = await fetch("https://api.web3forms.com/submit", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Accept: "application/json" },
+    body: JSON.stringify({
+      access_key: WEB3FORMS_KEY,
+      subject: `New enquiry — ${payload.service || "Oak Park Construction"}`,
+      from_name: "Oak Park Construction website",
+      name: payload.name,
+      email: payload.email,
+      phone: payload.phone || "",
+      service: payload.service || "",
+      message: payload.message || "",
+      page: typeof window !== "undefined" ? window.location.pathname : "",
+    }),
+  });
+  const body = await res.json().catch(() => ({}));
+  if (res.ok && body.success) return { status: "sent" };
+  throw new Error(body.message || `web3forms ${res.status}`);
+}
+
 async function postEnquiry(payload) {
+  if (WEB3FORMS_KEY) {
+    try {
+      return await postViaWeb3Forms(payload);
+    } catch {
+      // fall through to the server route, then to the mail-app fallback
+    }
+  }
   let response;
   try {
     response = await fetch(ENDPOINT, {
