@@ -26,10 +26,20 @@ test("launch Portfolio contains exactly the Council-cleared review batch", () =>
   const ids = PORTFOLIO_PROJECTS.map(({ id }) => id);
   const leaked = ids.filter((id) => HELD_IDS.includes(id));
   assert.deepEqual(leaked, [], `a HELD project is published: ${leaked}`);
-  assert.ok(ids.length >= 4, `only ${ids.length} projects published — did the portfolio get pruned again?`);
+  assert.equal(ids.length, 10, `expected the 10-project launch set, found ${ids.length}`);
+  assert.equal(PORTFOLIO_PROJECTS.flatMap((project) => project.rows.flatMap((row) => row.images)).length, 69);
   const blob = JSON.stringify(PORTFOLIO_PROJECTS).toLowerCase();
   const words = HELD_WORDS.filter((w) => blob.includes(w));
   assert.deepEqual(words, [], `a client surname or street address is public: ${words}`);
+});
+
+test("Portfolio hides the reversible filter menu and gives every filtered result a way back to all projects", async () => {
+  const page = await read("../pages/PortfolioV8.jsx");
+  assert.match(page, /const SHOW_CATEGORY_MENU = false/);
+  assert.match(page, /SHOW_CATEGORY_MENU && <nav/);
+  assert.match(page, /filter !== "ALL"[\s\S]*View all projects/);
+  assert.match(page, /projectPhotoCount\(project\)/);
+  assert.doesNotMatch(page, /\{project\.phase\} · \{project\.imageCount\}/);
 });
 
 test("launch Portfolio exposes no private source fields or Drive-style IDs", async () => {

@@ -10,12 +10,11 @@ the published `/privacy` page promises.
 
 ## The configuration gate
 
-Delivery needs `OPC_LEAD_TO`, `OPC_SMTP_USER` and `OPC_SMTP_PASS` in the Vercel
-environment (see `../.env.example`). Until all three exist the endpoint answers
-`503 {"code":"config_pending"}` and the browser opens the visitor's mail app
-pre-filled — the behaviour the site has today. **The site is therefore never
-worse than before, and flips to real delivery the moment the variables are set.
-No redeploy of code is required, only a redeploy to pick up the env.**
+The approved launch path uses the public `REACT_APP_WEB3FORMS_KEY` in the browser,
+but only after this endpoint validates the fields, honeypot and rate limit. SMTP
+remains a supported alternative through `OPC_LEAD_TO`, `OPC_SMTP_USER` and
+`OPC_SMTP_PASS`. If neither delivery path is available, the browser opens the
+visitor's mail app pre-filled so a lead is never silently swallowed.
 
 ## Responses
 
@@ -23,6 +22,7 @@ No redeploy of code is required, only a redeploy to pick up the env.**
 |---|---|---|---|
 | 200 | `sent` | Delivered | Success message |
 | 200 | `received` | Rejected as spam | Success message — a bot must not learn it was caught |
+| 200 | `validated` | Cleared for browser-side Web3Forms delivery | Submits to Web3Forms |
 | 400 | `invalid` | Field errors in `errors` | Inline field errors |
 | 400 | `malformed_json` | Unparseable body | Falls back to the mail app |
 | 405 | `method_not_allowed` | Not a POST | — |

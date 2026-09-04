@@ -48,10 +48,9 @@ function FormStatus({ status, notice, successMessage }) {
   );
 }
 
-// Web3Forms is the route she already has an account for. It needs ONE public access
-// key and no server, no SMTP host and no Gmail app password — which is what made the
-// old path stall. When the key is absent this is skipped entirely and the original
-// /api/enquiries route runs exactly as before, so nothing regresses while it is unset.
+// Web3Forms uses a public access key, but the browser never skips our own endpoint.
+// /api/enquiries first applies the existing validation, honeypot and rate limit; only
+// a `validated` response permits this component to hand the same payload to Web3Forms.
 const WEB3FORMS_KEY = process.env.REACT_APP_WEB3FORMS_KEY || "";
 
 async function postViaWeb3Forms(payload) {
@@ -76,24 +75,28 @@ async function postViaWeb3Forms(payload) {
 }
 
 async function postEnquiry(payload) {
-  if (WEB3FORMS_KEY) {
-    try {
-      return await postViaWeb3Forms(payload);
-    } catch {
-      // fall through to the server route, then to the mail-app fallback
-    }
-  }
   let response;
   try {
     response = await fetch(ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
+      body: JSON.stringify({
+        ...payload,
+        deliveryProvider: WEB3FORMS_KEY ? "web3forms" : "smtp",
+      }),
     });
   } catch {
     return networkFallback();
   }
   const body = await response.json().catch(() => ({}));
+  if (response.ok && body.code === "validated") {
+    if (!WEB3FORMS_KEY) return networkFallback();
+    try {
+      return await postViaWeb3Forms(payload);
+    } catch {
+      return { kind: "fallback", message: "We could not send that just now, so we've opened your email app instead." };
+    }
+  }
   return interpretResponse(response.status, body);
 }
 
@@ -103,7 +106,7 @@ export default function ContactV5(props) {
     metaClassName,
     phoneClassName,
     addressClassName,
-    successMessage = "Thank you — your enquiry is on its way. We reply within one business day.",
+    successMessage = "Thank you — your enquiry was sent to Oak Park Construction.",
   } = { ...DEFAULT_STYLES, ...props };
   const [form, setForm] = useState(EMPTY);
   const [status, setStatus] = useState("idle"); // idle | sending | sent | error | fallback

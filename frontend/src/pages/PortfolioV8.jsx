@@ -1,11 +1,66 @@
 import FooterV3 from "@/components/FooterV3";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { Link, useSearchParams } from "react-router-dom";
 import { PORTFOLIO_FILTERS, PORTFOLIO_PROJECTS } from "@/data/portfolioProjectsLaunchV1";
 import { PORTFOLIO_HERO_VIDEO, PORTFOLIO_HERO_VIDEO_MOBILE, PORTFOLIO_HERO_POSTER } from "./portfolioHeroMedia";
 import PortfolioPicture from "@/components/PortfolioPicture";
+
+// Launch choice: category links still work, but the horizontal selector is hidden.
+// Switching this flag restores the same controls without rebuilding the data model.
+const SHOW_CATEGORY_MENU = false;
+
+export const projectPhotoCount = (project) =>
+  (project.rows || []).reduce((total, row) => total + (row.images?.length || 0), 0);
+
+function PortfolioHeroVideo() {
+  const videoRef = useRef(null);
+  const [reduced] = useState(() => window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  const [mobile, setMobile] = useState(() => window.matchMedia("(max-width: 640px)").matches);
+  const [needsPlay, setNeedsPlay] = useState(false);
+  const src = mobile ? PORTFOLIO_HERO_VIDEO_MOBILE : PORTFOLIO_HERO_VIDEO;
+
+  useEffect(() => {
+    const query = window.matchMedia("(max-width: 640px)");
+    const update = () => setMobile(query.matches);
+    query.addEventListener?.("change", update);
+    return () => query.removeEventListener?.("change", update);
+  }, []);
+
+  useEffect(() => {
+    if (reduced) return undefined;
+    const video = videoRef.current;
+    if (!video) return undefined;
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    const play = () => video.play().then(() => setNeedsPlay(false)).catch(() => setNeedsPlay(true));
+    const confirmPlayback = window.setTimeout(() => {
+      if (video.paused || video.currentTime < 0.1) setNeedsPlay(true);
+    }, 1800);
+    const resumeVisible = () => { if (!document.hidden) play(); };
+    video.addEventListener("loadeddata", play);
+    video.addEventListener("error", () => setNeedsPlay(true), { once: true });
+    document.addEventListener("visibilitychange", resumeVisible);
+    play();
+    return () => {
+      window.clearTimeout(confirmPlayback);
+      video.removeEventListener("loadeddata", play);
+      document.removeEventListener("visibilitychange", resumeVisible);
+    };
+  }, [reduced, src]);
+
+  if (reduced) return null;
+  return (
+    <>
+      <video ref={videoRef} src={src} data-testid="portfolio-hero-video" aria-hidden autoPlay muted loop playsInline preload="auto" poster={PORTFOLIO_HERO_POSTER} onPlay={() => setNeedsPlay(false)} onError={() => setNeedsPlay(true)} className="absolute inset-0 h-full w-full object-cover">
+        Your browser does not support background video.
+      </video>
+      {needsPlay && <button type="button" onClick={() => videoRef.current?.play().then(() => setNeedsPlay(false)).catch(() => {})} className="absolute right-5 top-5 z-10 rounded-full border border-white/25 bg-black/60 px-4 py-2 font-mono text-[9px] uppercase tracking-[0.18em] text-white backdrop-blur" data-testid="portfolio-video-play">Play video</button>}
+    </>
+  );
+}
 
 // T-259/T-261: card geometry responds to the RESULT SET, not the global featured flag.
 // Returns one span per shown project: "single" | "wide" | "std".
@@ -47,7 +102,7 @@ function ProjectCard({ project, index, span = "std" }) {
         <div className={`relative overflow-hidden aspect-[4/3] ${wide ? "md:aspect-[16/8]" : ""}`}>
           <PortfolioPicture image={project.cover} eager={index < 2} sizes={pictureSizes} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.025]" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
-          <div className="absolute left-5 top-5 rounded-full border border-white/15 bg-black/55 px-3 py-2 font-mono text-[9px] uppercase tracking-[0.2em] text-white backdrop-blur-md"><span className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-[#CBCC10]" />{project.phase} · {project.imageCount} photos</div>
+          <div className="absolute left-5 top-5 rounded-full border border-white/15 bg-black/55 px-3 py-2 font-mono text-[9px] uppercase tracking-[0.2em] text-white backdrop-blur-md"><span className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-[#CBCC10]" />{project.cat} · {projectPhotoCount(project)} photos</div>
           <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5 sm:p-7">
             <div><p className="font-mono text-[9px] uppercase tracking-[0.28em] text-[#CBCC10]">{project.cat}</p><h2 className="mt-2 font-head text-2xl uppercase text-white sm:text-4xl">{project.title}</h2></div>
             <ArrowUpRight aria-hidden className="h-6 w-6 flex-none text-white transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
@@ -87,13 +142,7 @@ export default function PortfolioV8() {
   return <div data-testid="portfolio-page" className="min-h-screen bg-[#09090B] pt-16 text-[#FAFAFA]">
     <header className="relative min-h-[calc(100svh-4rem)] overflow-hidden border-b border-white/10">
       <img src={PORTFOLIO_HERO_POSTER} alt="Oak Park Construction completed interior work" width="1280" height="720" fetchPriority="high" className="absolute inset-0 h-full w-full object-cover" />
-      <video data-testid="portfolio-hero-video" aria-hidden autoPlay muted loop playsInline preload="metadata" poster={PORTFOLIO_HERO_POSTER} className="absolute inset-0 h-full w-full object-cover motion-reduce:hidden">
-        {/* Phones get the 2 MB 540p encode, larger screens the 5.6 MB one. The browser
-            picks by media query and downloads only the source it chooses. Reduced-motion
-            visitors still get the poster and no video at all. */}
-        <source src={PORTFOLIO_HERO_VIDEO_MOBILE} type="video/mp4" media="(max-width: 640px)" />
-        <source src={PORTFOLIO_HERO_VIDEO} type="video/mp4" />
-      </video>
+      <PortfolioHeroVideo />
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(9,9,11,0.58)_0%,rgba(9,9,11,0.20)_48%,rgba(9,9,11,0.06)_100%)]" />
       <div className="absolute inset-0 bg-gradient-to-t from-[#09090B]/65 via-transparent to-black/10" />
       <div className="relative mx-auto flex min-h-[calc(100svh-4rem)] max-w-7xl flex-col justify-end px-6 pb-20 pt-14 md:px-10 md:pb-24">
@@ -104,8 +153,8 @@ export default function PortfolioV8() {
         <a href="#portfolio-projects" className="absolute bottom-5 left-1/2 flex -translate-x-1/2 flex-col items-center gap-1 font-mono text-[9px] uppercase tracking-[0.24em] text-white/85 transition-colors hover:text-[#CBCC10]"><span>View Projects</span><ChevronDown aria-hidden className="h-4 w-4" /></a>
       </div>
     </header>
-    <nav id="portfolio-projects" aria-label="Portfolio categories" className="sticky top-16 z-30 scroll-mt-16 border-y border-white/15 bg-[linear-gradient(90deg,rgba(9,9,11,0.96),rgba(18,18,19,0.92),rgba(9,9,11,0.96))] shadow-[0_12px_32px_rgba(0,0,0,0.24)] backdrop-blur-xl"><div className="no-scrollbar mx-auto flex max-w-7xl gap-2 overflow-x-auto px-6 py-4 md:px-10">{PORTFOLIO_FILTERS.map((item) => <button key={item} type="button" aria-pressed={filter === item} onClick={() => selectFilter(item)} className={`flex-none rounded-full border px-4 py-2 font-mono text-[9px] uppercase tracking-[0.18em] transition-colors duration-300 ${filter === item ? "border-[#CBCC10] bg-[#CBCC10] text-[#09090B]" : "border-white/25 bg-black/10 text-white/75 hover:border-white/45 hover:text-white"}`}>{item}</button>)}</div></nav>
-    {shown.length > 0 ? <main data-testid="portfolio-grid" className="mx-auto grid max-w-7xl scroll-mt-32 grid-cols-1 gap-5 px-6 py-10 md:grid-cols-2 md:px-10 md:py-14">{shown.map((project, index) => <ProjectCard key={project.id} project={project} index={index} span={spans[index]} />)}</main> : <main data-testid="portfolio-grid-empty" className="mx-auto max-w-7xl px-6 py-20 text-center md:px-10"><p className="font-mono text-[10px] uppercase tracking-[0.24em] text-white/60">No documented projects in this category yet.</p><button type="button" onClick={() => selectFilter("ALL")} className="mt-6 inline-flex rounded-full border border-[#CBCC10] px-6 py-3 font-mono text-[10px] uppercase tracking-[0.2em] text-[#CBCC10]">View all projects</button></main>}
+    {SHOW_CATEGORY_MENU && <nav aria-label="Portfolio categories" className="sticky top-16 z-30 border-y border-white/15 bg-[linear-gradient(90deg,rgba(9,9,11,0.96),rgba(18,18,19,0.92),rgba(9,9,11,0.96))] shadow-[0_12px_32px_rgba(0,0,0,0.24)] backdrop-blur-xl"><div className="no-scrollbar mx-auto flex max-w-7xl gap-2 overflow-x-auto px-6 py-4 md:px-10">{PORTFOLIO_FILTERS.map((item) => <button key={item} type="button" aria-pressed={filter === item} onClick={() => selectFilter(item)} className={`flex-none rounded-full border px-4 py-2 font-mono text-[9px] uppercase tracking-[0.18em] transition-colors duration-300 ${filter === item ? "border-[#CBCC10] bg-[#CBCC10] text-[#09090B]" : "border-white/25 bg-black/10 text-white/75 hover:border-white/45 hover:text-white"}`}>{item}</button>)}</div></nav>}
+    {shown.length > 0 ? <main id="portfolio-projects" data-testid="portfolio-grid" className="mx-auto grid max-w-7xl scroll-mt-32 grid-cols-1 gap-5 px-6 py-10 md:grid-cols-2 md:px-10 md:py-14">{shown.map((project, index) => <ProjectCard key={project.id} project={project} index={index} span={spans[index]} />)}{filter !== "ALL" && <div className="md:col-span-2 pt-4 text-center"><button type="button" onClick={() => selectFilter("ALL")} className="inline-flex rounded-full border border-white/25 px-5 py-2.5 font-mono text-[9px] uppercase tracking-[0.2em] text-white/70 transition-colors hover:border-[#CBCC10] hover:text-[#CBCC10]">View all projects</button></div>}</main> : <main id="portfolio-projects" data-testid="portfolio-grid-empty" className="mx-auto max-w-7xl scroll-mt-32 px-6 py-20 text-center md:px-10"><p className="font-mono text-[10px] uppercase tracking-[0.24em] text-white/60">No documented projects in this category yet.</p><button type="button" onClick={() => selectFilter("ALL")} className="mt-6 inline-flex rounded-full border border-[#CBCC10] px-6 py-3 font-mono text-[10px] uppercase tracking-[0.2em] text-[#CBCC10]">View all projects</button></main>}
     <footer className="mx-auto max-w-7xl px-6 pb-24 pt-10 text-center md:px-10"><div className="rounded-[22px] border border-white/10 bg-white/[0.045] px-6 py-14"><p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#CBCC10]">Built with one accountable team</p><h2 className="mx-auto mt-5 max-w-3xl font-head text-4xl uppercase sm:text-5xl">Your Project Can Be the Next Documented Transformation</h2><a href="/#contact" className="mt-8 inline-flex rounded-full bg-[#CBCC10] px-7 py-4 font-mono text-[10px] uppercase tracking-[0.22em] text-[#09090B]">Start a Project</a></div></footer>
     <FooterV3 />
   </div>;

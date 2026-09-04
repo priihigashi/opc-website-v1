@@ -17,8 +17,12 @@ test("every service card keeps one Recent Project image between link and bullets
   assert.match(chapter, /Recent Project/);
   assert.match(chapter, /aspect-video/);
   assert.match(chapter, /loading="lazy"/);
-  assert.match(story, /w: 1800, h: 1350, widths: \[360, 576, 900, 1350\]/);
+  assert.match(story, /shell-concrete-construction__shell-concrete__DURING__gallery__seq02__img-5462/);
+  assert.match(story, /w: 1800, h: 1350, widths: \[480, 768, 1200, 1800\]/);
   assert.match(story, /phase: "DURING", orientation: "landscape"/);
+  assert.match(story, /addition-progress[\s\S]*phase: "DURING"/);
+  assert.match(story, /rio-vista-groundwork-safe-v1/);
+  assert.doesNotMatch(story, /src: "\/images\/opc\/concrete-driveway-finished-v1"/);
 });
 
 test("the fixed rail measures and moves the whole card", () => {
@@ -31,9 +35,9 @@ test("the fixed rail measures and moves the whole card", () => {
 
 test("every responsive homepage project image has every advertised derivative", () => {
   const variants = [
-    ["shell-construction-residential-v1", [360, 576, 900, 1350]],
+    ["portfolio/shell-concrete/shell-concrete-construction/shell-concrete-construction__shell-concrete__DURING__gallery__seq02__img-5462", [480, 768, 1200, 1800]],
     ["addition-progress", [480, 768, 1200, 1800]],
-    ["concrete-driveway-finished-v1", [480, 768, 1200, 1800]],
+    ["rio-vista-groundwork-safe-v1", [480, 768, 1200, 1600]],
   ];
   for (const [name, widths] of variants) {
     for (const width of widths) {

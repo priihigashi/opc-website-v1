@@ -23,7 +23,7 @@ export default function PrivacyV3() {
         <div className="mt-12 space-y-9 rounded-[22px] border border-white/10 bg-white/[0.045] p-6 text-base leading-relaxed text-white/75 backdrop-blur-xl sm:p-10">
           <section>
             <h2 className="font-head text-2xl uppercase text-white">Contact Enquiries</h2>
-            <p className="mt-3">When you send the enquiry form, it goes to our website's own contact service, which emails it to us. This website does not store your message, name, email address, or phone number in a database or account. The email remains in our business inbox like any other message you send us. We use what you send only to answer you, and we do not sell it or share it for advertising.</p>
+            <p className="mt-3">When you send the enquiry form, it first goes through our website's validation and spam controls and is then delivered to us by Web3Forms, our contact-form delivery provider. Web3Forms receives the name, email address, phone number, service choice, message, and page details needed to deliver the enquiry. This website does not store those details in a database or account. The delivered email remains in our business inbox like any other message you send us. We use what you send only to answer you, and we do not sell it or share it for advertising.</p>
             <p className="mt-3">If our contact service is unavailable, the form opens your own email application with the details filled in instead, so nothing is lost. In that case your message is sent to us only if you choose to send it.</p>
           </section>
           <section>
@@ -55,7 +55,7 @@ export default function PrivacyV3() {
             <h2 className="font-head text-2xl uppercase text-white">Questions</h2>
             <p className="mt-3">For privacy questions, email <a className="text-[#CBCC10] underline-offset-4 hover:underline" href="mailto:contact@oakpark-construction.com">contact@oakpark-construction.com</a>.</p>
           </section>
-          <p className="border-t border-white/10 pt-6 font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">Last updated August 25, 2026</p>
+          <p className="border-t border-white/10 pt-6 font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">Last updated September 4, 2026</p>
         </div>
       </main>
       <FooterV3 />

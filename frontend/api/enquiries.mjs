@@ -5,10 +5,9 @@
 // and scrubbed error codes), then discards the request after delivery. There is
 // no customer database or account.
 //
-// CONFIGURATION GATE: delivery requires SMTP credentials in the environment.
-// When they are absent the endpoint answers 503 `config_pending` and the
-// browser falls back to the existing mail-app behaviour, so a missing
-// configuration can never silently swallow a lead.
+// CONFIGURATION GATE: delivery requires either the approved Web3Forms access
+// key or SMTP credentials. Web3Forms delivery stays browser-side (as required
+// by that provider), but only after this endpoint validates and screens the lead.
 
 import { validateEnquiry, scoreSpam, extractAttribution } from "./_lib/validate.mjs";
 import { renderSubject, renderText, renderHtml, headerSafe } from "./_lib/render.mjs";
@@ -45,8 +44,10 @@ function readConfig(env) {
   if (!to) missing.push("OPC_LEAD_TO");
   if (!user) missing.push("OPC_SMTP_USER");
   if (!pass) missing.push("OPC_SMTP_PASS");
+  const smtpReady = missing.length === 0;
   return {
-    ready: missing.length === 0,
+    ready: smtpReady,
+    smtpReady,
     missing,
     to,
     user,
@@ -91,15 +92,14 @@ export default async function handler(req, res) {
     return send(res, 405, { ok: false, code: "method_not_allowed" });
   }
 
+  const body = await readBody(req);
+  if (body === null) return send(res, 400, { ok: false, code: "malformed_json" });
   const config = readConfig(process.env);
-  // Answered before any parsing so the browser can fall back immediately.
-  if (!config.ready) {
+  const web3formsRequested = body?.deliveryProvider === "web3forms";
+  if (!web3formsRequested && !config.ready) {
     console.warn(`[enquiries] config_pending missing=${config.missing.join(",")}`);
     return send(res, 503, { ok: false, code: "config_pending" });
   }
-
-  const body = await readBody(req);
-  if (body === null) return send(res, 400, { ok: false, code: "malformed_json" });
 
   const ip =
     (req.headers["x-forwarded-for"] || "").split(",")[0].trim() ||
@@ -132,6 +132,13 @@ export default async function handler(req, res) {
 
   const enquiry = parsed.value;
   const attribution = extractAttribution(body);
+
+  // Web3Forms documents client-side submission as its supported default. This
+  // response proves our controls ran; the browser then submits to the provider.
+  if (web3formsRequested) {
+    console.info(`[enquiries] validated ip=${tag} service=${enquiry.service}`);
+    return send(res, 200, { ok: true, code: "validated" });
+  }
 
   let transport;
   try {

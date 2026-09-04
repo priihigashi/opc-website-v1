@@ -14,3 +14,15 @@ test("the routed contact version makes no unverified response-time promise", asy
   assert.match(contact, /enquiry was sent to Oak Park Construction/);
   assert.doesNotMatch(contact, /business day/i);
 });
+
+test("Web3Forms never bypasses the first-party validation and spam endpoint", async () => {
+  const [contact, privacy] = await Promise.all([
+    read("../components/ContactV5.jsx"),
+    read("../pages/PrivacyV3.jsx"),
+  ]);
+  assert.match(contact, /fetch\(ENDPOINT/);
+  assert.match(contact, /body\.code === "validated"[\s\S]*postViaWeb3Forms/);
+  assert.doesNotMatch(contact, /if \(WEB3FORMS_KEY\) \{[\s\S]*return await postViaWeb3Forms\(payload\);[\s\S]*fetch\(ENDPOINT/);
+  assert.match(privacy, /Web3Forms/);
+  assert.doesNotMatch(contact, /business day/i);
+});

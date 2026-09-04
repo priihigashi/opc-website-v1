@@ -8,17 +8,24 @@ export default function ScrollDownCueV5() {
   );
 
   useEffect(() => {
+    let raf = 0;
     const update = () => {
       const story = document.querySelector('[data-testid="story"]');
-      setVisible(Boolean(story && story.getBoundingClientRect().bottom > 0));
+      const panel = document.querySelector('[data-testid="story-banner-rail"] > div');
+      const panelRect = panel?.getBoundingClientRect();
+      const reservedBottom = window.innerWidth < 1280 ? 56 : 20;
+      const cueTop = window.innerHeight - reservedBottom - 24;
+      // The cue belongs to an active chapter card. Keeping it out of the hero
+      // prevents it colliding with “Scroll down through one house”, and checking
+      // the live panel edge makes it fade before a moving card can overlap it.
+      setVisible(Boolean(
+        story && story.getBoundingClientRect().bottom > 0 &&
+        panelRect && panelRect.top >= 0 && panelRect.bottom <= cueTop - 8
+      ));
+      raf = window.requestAnimationFrame(update);
     };
     update();
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    return () => {
-      window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
-    };
+    return () => window.cancelAnimationFrame(raf);
   }, []);
 
   return (
@@ -27,7 +34,7 @@ export default function ScrollDownCueV5() {
       data-testid="story-scroll-cue"
       data-version="5"
       data-visible={visible ? "true" : "false"}
-      className={`opc-story-scroll-cue-v5 pointer-events-none fixed inset-x-0 z-30 flex flex-col items-center justify-center gap-0.5 text-[#EEEDE9] transition-opacity duration-500 ${visible ? "opacity-70" : "opacity-0"}`}
+      className={`opc-story-scroll-cue-v5 pointer-events-none fixed inset-x-0 z-30 flex flex-col items-center justify-center gap-0.5 text-[#EEEDE9] transition-opacity duration-300 ${visible ? "opacity-70" : "opacity-0"}`}
     >
       <span className="font-mono text-[8px] uppercase leading-none tracking-[0.24em]">Scroll</span>
       <ChevronDown

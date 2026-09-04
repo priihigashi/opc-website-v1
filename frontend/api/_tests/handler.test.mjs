@@ -83,6 +83,21 @@ test("a partial configuration is still config_pending, not a half-working send",
   assert.equal(res.body.code, "config_pending");
 });
 
+test("a valid Web3Forms enquiry is screened then cleared for browser delivery", async () => {
+  const res = await call("POST", { ...valid(), deliveryProvider: "web3forms" }, { env: {} });
+  assert.equal(res.statusCode, 200);
+  assert.equal(res.body.code, "validated");
+});
+
+test("Web3Forms configuration preserves field validation and honeypot handling", async () => {
+  const invalid = await call("POST", { ...valid(), email: "nope", deliveryProvider: "web3forms" }, { env: {} });
+  assert.equal(invalid.statusCode, 400);
+  assert.equal(invalid.body.code, "invalid");
+  const spam = await call("POST", { ...valid(), company: "Acme SEO", deliveryProvider: "web3forms" }, { env: {} });
+  assert.equal(spam.statusCode, 200);
+  assert.equal(spam.body.code, "received");
+});
+
 test("malformed JSON is a 400, not a crash", async () => {
   const res = await call("POST", "{oops");
   assert.equal(res.statusCode, 400);

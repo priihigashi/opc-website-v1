@@ -77,7 +77,7 @@ export default function HeroV8({
         variants={fade}
         initial="hidden"
         animate="show"
-        className="relative z-[2] mx-auto flex w-full max-w-7xl items-end justify-between gap-8 px-5 pb-10 sm:px-7 md:px-10 md:pb-16"
+        className="relative z-[2] mx-auto flex w-full max-w-7xl items-end justify-between gap-8 px-5 pb-20 sm:px-7 sm:pb-16 md:px-10"
       >
         <div className="flex items-end gap-3">
           <p

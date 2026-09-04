@@ -14,9 +14,9 @@ const chapterContent = [
     bullets: ["Foundations & reinforced slabs", "Structural walls, columns & beams", "Roof systems & weather dry-in"],
     portfolioHref: "/portfolio?category=SHELL%20%2B%20NEW%20BUILD#portfolio-projects", portfolioLabel: "View Shell Projects",
     recentProject: {
-      src: "/images/opc/shell-construction-residential-v1",
-      w: 1800, h: 1350, widths: [360, 576, 900, 1350],
-      alt: "Residential shell and structural work on a South Florida home", phase: "DURING", orientation: "landscape",
+      src: "/images/opc/portfolio/shell-concrete/shell-concrete-construction/shell-concrete-construction__shell-concrete__DURING__gallery__seq02__img-5462",
+      w: 1800, h: 1350, widths: [480, 768, 1200, 1800],
+      alt: "Concrete block walls and structural roof tie-in during shell construction", phase: "DURING", orientation: "landscape",
     },
   },
   {
@@ -39,7 +39,7 @@ const chapterContent = [
     recentProject: {
       src: "/images/opc/addition-progress",
       w: 1800, h: 1350, widths: [480, 768, 1200, 1800],
-      alt: "Residential addition under construction in South Florida", phase: "AFTER", orientation: "landscape",
+      alt: "Residential addition under construction in South Florida", phase: "DURING", orientation: "landscape",
     },
   },
   {
@@ -60,9 +60,9 @@ const chapterContent = [
     bullets: ["Driveways, walkways & patios", "Interlocking pavers & concrete finishes", "Drainage, grading & base preparation"],
     portfolioHref: "/portfolio?category=CONCRETE#portfolio-projects", portfolioLabel: "View Concrete Projects",
     recentProject: {
-      src: "/images/opc/concrete-driveway-finished-v1",
-      w: 1800, h: 1350, widths: [480, 768, 1200, 1800],
-      alt: "Finished residential concrete driveway and walkway", phase: "AFTER", orientation: "landscape",
+      src: "/images/opc/rio-vista-groundwork-safe-v1",
+      w: 1600, h: 1200, widths: [480, 768, 1200, 1600],
+      alt: "Curved paver entry leading to a South Florida home", phase: "AFTER", orientation: "landscape",
     },
   },
 ];
@@ -82,7 +82,9 @@ export default function StoryV22({ storyRef }) {
       <StoryBannerRailV5 chapters={chapters} />
       <HeroV10 />
       {chapters.map((chapter) => <ChapterV8 key={chapter.id} {...chapter} />)}
-      <section data-testid="story-outro" className="pointer-events-none relative flex min-h-[120vh] items-center justify-center">
+      {/* Phones no longer carry a spare 20–30% viewport after the last card exits.
+          Desktop keeps the reviewed 120vh breathing room. */}
+      <section data-testid="story-outro" className="pointer-events-none relative flex min-h-[92svh] items-center justify-center min-[768px]:min-h-[120vh]">
         <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-30%" }} transition={{ duration: 0.9, ease: "easeOut" }} className="story-copy-panel pointer-events-auto mx-6 px-8 py-12 text-center sm:px-14">
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#CBCC10]">The complete scope</p>
           <p className="mt-4 text-[#EEEDE9]">
@@ -94,4 +96,3 @@ export default function StoryV22({ storyRef }) {
     </div>
   );
 }
-
