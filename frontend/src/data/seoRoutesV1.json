@@ -99,36 +99,84 @@
   "type": "privacy",
   "robots": "noindex,follow"
  },
+ "/portfolio/boutique-buildout": {
+  "title": "Boutique Buildout | Oak Park Construction",
+  "description": "Boutique Buildout — Commercial Build-Out. Residential construction in Broward, Palm Beach and Miami-Dade.",
+  "image": "/images/opc/portfolio/commercial/boutique-buildout/boutique-buildout__commercial__AFTER__hero__seq02__img-5704-1200w.jpg",
+  "imageAlt": "Completed commercial salon buildout by Oak Park Construction.",
+  "type": "project",
+  "projectId": "salon-buildout"
+ },
  "/portfolio/salon-buildout": {
-  "title": "Salon Buildout | Oak Park Construction Portfolio",
-  "description": "Five verified finished photographs from a commercial salon buildout in South Florida.",
-  "image": "/images/opc/portfolio/commercial/salon-buildout/salon-buildout__commercial__AFTER__card__seq07__img-1001-900w.jpg",
+  "title": "Salon Buildout | Oak Park Construction",
+  "description": "Salon Buildout — Commercial Build-Out. Residential construction in Broward, Palm Beach and Miami-Dade.",
+  "image": "/images/opc/portfolio/commercial/salon-buildout/salon-buildout__commercial__AFTER__hero__seq06__img-1008-1200w.jpg",
   "imageAlt": "Completed commercial salon buildout by Oak Park Construction.",
   "type": "project",
   "projectId": "salon-buildout"
  },
  "/portfolio/pergola-outdoor-kitchen": {
-  "title": "Pergola + Outdoor Kitchen | Oak Park Construction Portfolio",
-  "description": "Five verified Oak Park Construction photographs from an outdoor pergola and kitchen project in South Florida, shown during construction and finished.",
+  "title": "Pergola + Outdoor Kitchen | Oak Park Construction",
+  "description": "Pergola + Outdoor Kitchen — Outdoor Living. Residential construction in Broward, Palm Beach and Miami-Dade.",
   "image": "/images/opc/portfolio/outdoor-living/pergola-outdoor-living/pergola-outdoor-living__outdoor-living__AFTER__hero__seq05__img-4626-1200w.jpg",
-  "imageAlt": "Completed pergola and outdoor kitchen by Oak Park Construction.",
+  "imageAlt": "Completed commercial salon buildout by Oak Park Construction.",
   "type": "project",
-  "projectId": "pergola-outdoor-kitchen"
+  "projectId": "salon-buildout"
  },
  "/portfolio/matte-black-bathroom": {
-  "title": "Matte Black Bathroom | Oak Park Construction Portfolio",
-  "description": "Three verified Oak Park Construction photographs from a bathroom remodel in South Florida, shown before, during construction and finished.",
-  "image": "/images/opc/portfolio/kitchen-bath/matte-black-bathroom/matte-black-bathroom__kitchen-bath__AFTER__card__seq03__img-6595-900w.jpg",
-  "imageAlt": "Completed matte-black bathroom remodel by Oak Park Construction.",
+  "title": "Matte Black Bathroom | Oak Park Construction",
+  "description": "Matte Black Bathroom — Bathroom Remodel. Residential construction in Broward, Palm Beach and Miami-Dade.",
+  "image": "/images/opc/portfolio/kitchen-bath/matte-black-bathroom/matte-black-bathroom__kitchen-bath__AFTER__card__seq03__img-6595-1200w.jpg",
+  "imageAlt": "Completed commercial salon buildout by Oak Park Construction.",
   "type": "project",
-  "projectId": "matte-black-bathroom"
+  "projectId": "salon-buildout"
  },
- "/portfolio/boutique-buildout": {
-  "title": "Boutique Buildout | Oak Park Construction Portfolio",
-  "description": "Before and after photographs of a commercial boutique build-out in South Florida by Oak Park Construction.",
-  "image": "/images/opc/portfolio/commercial/boutique-buildout/boutique-buildout__commercial__AFTER__hero__seq02__img-5704-1200w.jpg",
-  "imageAlt": "Completed commercial boutique buildout by Oak Park Construction.",
+ "/portfolio/victoria-park-whole-home-remodel": {
+  "title": "Victoria Park Whole-Home Remodel | Oak Park Construction",
+  "description": "Victoria Park Whole-Home Remodel — Kitchen + Bath · New Build. Residential construction in Broward, Palm Beach and Miami-Dade.",
+  "image": "/images/opc/portfolio/kitchen-bath/victoria-park/victoria-park__kitchen-bath__AFTER__hero__seq10__img-2837-1200w.jpg",
+  "imageAlt": "Completed commercial salon buildout by Oak Park Construction.",
   "type": "project",
-  "projectId": "boutique-buildout"
+  "projectId": "salon-buildout"
+ },
+ "/portfolio/home-addition-outdoor-living": {
+  "title": "Home Addition + Outdoor Living | Oak Park Construction",
+  "description": "Home Addition + Outdoor Living — Addition · Outdoor Living. Residential construction in Broward, Palm Beach and Miami-Dade.",
+  "image": "/images/opc/portfolio/addition/home-addition-outdoor-living/home-addition-outdoor-living__addition__AFTER__card__seq04__img-3370-1200w.jpg",
+  "imageAlt": "Completed commercial salon buildout by Oak Park Construction.",
+  "type": "project",
+  "projectId": "salon-buildout"
+ },
+ "/portfolio/dockside-full-home-remodel": {
+  "title": "Dockside Full-Home Remodel | Oak Park Construction",
+  "description": "Dockside Full-Home Remodel — Full Home Remodel. Residential construction in Broward, Palm Beach and Miami-Dade.",
+  "image": "/images/opc/portfolio/full-home-remodel/dockside-full-home-remodel/dockside-full-home-remodel__full-home-remodel__AFTER__hero__seq08__img-7844-1200w.jpg",
+  "imageAlt": "Completed commercial salon buildout by Oak Park Construction.",
+  "type": "project",
+  "projectId": "salon-buildout"
+ },
+ "/portfolio/shell-concrete-construction": {
+  "title": "Shell + Concrete Construction | Oak Park Construction",
+  "description": "Shell + Concrete Construction — Shell + Concrete. Residential construction in Broward, Palm Beach and Miami-Dade.",
+  "image": "/images/opc/portfolio/shell-concrete/shell-concrete-construction/shell-concrete-construction__shell-concrete__AFTER__card__seq08__img-5901-1200w.jpg",
+  "imageAlt": "Completed commercial salon buildout by Oak Park Construction.",
+  "type": "project",
+  "projectId": "salon-buildout"
+ },
+ "/portfolio/pompano-kitchen-remodel": {
+  "title": "Pompano Kitchen Remodel | Oak Park Construction",
+  "description": "Pompano Kitchen Remodel — Kitchen + Bath. Residential construction in Broward, Palm Beach and Miami-Dade.",
+  "image": "/images/opc/portfolio/kitchen-bath/pompano-kitchen-remodel/pompano-kitchen-remodel__kitchen-bath__AFTER__card__seq03__img-4493-1200w.jpg",
+  "imageAlt": "Completed commercial salon buildout by Oak Park Construction.",
+  "type": "project",
+  "projectId": "salon-buildout"
+ },
+ "/portfolio/rio-vista-concrete": {
+  "title": "Rio Vista Concrete | Oak Park Construction",
+  "description": "Rio Vista Concrete — Shell + Concrete. Residential construction in Broward, Palm Beach and Miami-Dade.",
+  "image": "/images/opc/portfolio/shell-concrete/rio-vista-concrete/rio-vista-concrete__shell-concrete__AFTER__card__seq03__img-5291-1200w.jpg",
+  "imageAlt": "Completed commercial salon buildout by Oak Park Construction.",
+  "type": "project",
+  "projectId": "salon-buildout"
  }
 }

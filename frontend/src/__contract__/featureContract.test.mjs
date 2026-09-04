@@ -116,9 +116,12 @@ const REQUIRED = [
       && s.includes('aria-label={row.label}')
       && s.includes('whitespace-nowrap') },
   { route: "/portfolio", file: () => "data/portfolioProjectsLaunchV1.js",
-    name: "launch Portfolio contains only the Council-cleared review batch",
-    check: (s) => ["salon-buildout", "pergola-outdoor-kitchen", "matte-black-bathroom"].every((id) => s.includes(`\"id\": \"${id}\"`))
-      && !["victoria-park-residence", "pompano-kitchen-remodel", "harbor-court-residence"].some((id) => s.includes(`\"id\": \"${id}\"`)) },
+    name: "launch Portfolio publishes no held project and no client identity",
+    // Was an allowlist of 3 ids. Her ruling 2026-09-03 restored the real portfolio, so the
+    // contract now guards identity and held-status instead of freezing which projects exist.
+    check: (s) => !["miami-new-build","weston-new-build","pompano-patio-slab","opa-locka-airport"]
+                    .some((id) => s.includes(`\"id\": \"${id}\"`))
+      && !/clark|kinney|harbor.court/i.test(s) },
   { route: "/portfolio", file: () => "data/portfolioProjectsLaunchV1.js",
     name: "launch Portfolio excludes private photo source fields and source-style IDs",
     check: (s) => !s.includes('"source":') && !/1[A-Za-z0-9_-]{24,}/.test(s) },

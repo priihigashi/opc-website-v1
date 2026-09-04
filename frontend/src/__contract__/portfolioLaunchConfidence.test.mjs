@@ -11,22 +11,25 @@ const { PORTFOLIO_PROJECTS } = launchModule;
 // Priscila added the Boutique Buildout on 2026-08-28: the black-marble commercial
 // fit-out. Her words: "those are the main commercial place… that one is way better
 // than the one we are highlighting right now."
-const expectedIds = ["boutique-buildout", "salon-buildout", "pergola-outdoor-kitchen", "matte-black-bathroom"];
-const heldIds = [
-  "victoria-park-residence",
-  "harbor-court-residence",
-  "dockside-full-home-remodel",
-  "shell-construction",
-  "miami-new-build",
-  "opa-locka-airport",
-  "pompano-kitchen-remodel",
-  "pompano-patio-slab",
-  "concrete-work",
-  "weston-new-build",
-];
+// Was a hardcoded 4-project allowlist from the confidence review. Her ruling 2026-09-03:
+// "I never asked for three projects only." The published set is now whatever the dataset
+// declares — so this contract guards the thing that actually matters (no HELD project may
+// appear, every category a filter offers must be real) rather than freezing a count.
+const expectedIds = PORTFOLIO_PROJECTS.map(({ id }) => id);
+// Only FOUR projects are genuinely held now, and only because they have no finished
+// photograph. The old ids of RENAMED projects are not held — they redirect to the new slug.
+const HELD_IDS = ["miami-new-build", "weston-new-build", "pompano-patio-slab", "opa-locka-airport"];
+const HELD_WORDS = ["clark", "kinney", "harbor court", "harbor-court"];
+const heldIds = HELD_IDS;
 
 test("launch Portfolio contains exactly the Council-cleared review batch", () => {
-  assert.deepEqual(PORTFOLIO_PROJECTS.map(({ id }) => id).sort(), expectedIds.sort());
+  const ids = PORTFOLIO_PROJECTS.map(({ id }) => id);
+  const leaked = ids.filter((id) => HELD_IDS.includes(id));
+  assert.deepEqual(leaked, [], `a HELD project is published: ${leaked}`);
+  assert.ok(ids.length >= 4, `only ${ids.length} projects published — did the portfolio get pruned again?`);
+  const blob = JSON.stringify(PORTFOLIO_PROJECTS).toLowerCase();
+  const words = HELD_WORDS.filter((w) => blob.includes(w));
+  assert.deepEqual(words, [], `a client surname or street address is public: ${words}`);
 });
 
 test("launch Portfolio exposes no private source fields or Drive-style IDs", async () => {

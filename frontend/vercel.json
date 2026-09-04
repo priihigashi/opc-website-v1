@@ -3,6 +3,11 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/portfolio/kinney-shell-build",
+      "destination": "/portfolio/shell-concrete-construction",
+      "permanent": true
+    },
+    {
       "source": "/gallery",
       "destination": "/portfolio",
       "permanent": true
@@ -289,27 +294,22 @@
     },
     {
       "source": "/portfolio/1270-harbor-court",
-      "destination": "/portfolio?category=ADDITIONS",
+      "destination": "/portfolio/home-addition-outdoor-living",
       "permanent": true
     },
     {
       "source": "/portfolio/harbor-court-residence",
-      "destination": "/portfolio?category=ADDITIONS",
+      "destination": "/portfolio/home-addition-outdoor-living",
       "permanent": true
     },
     {
       "source": "/portfolio/victoria-park-residence",
-      "destination": "/portfolio?category=FULL%20HOME%20REMODELS",
-      "permanent": true
-    },
-    {
-      "source": "/portfolio/dockside-full-home-remodel",
-      "destination": "/portfolio?category=FULL%20HOME%20REMODELS",
+      "destination": "/portfolio/victoria-park-whole-home-remodel",
       "permanent": true
     },
     {
       "source": "/portfolio/shell-construction",
-      "destination": "/portfolio?category=SHELL%20%2B%20NEW%20BUILD",
+      "destination": "/portfolio/shell-concrete-construction",
       "permanent": true
     },
     {
@@ -334,12 +334,7 @@
     },
     {
       "source": "/portfolio/concrete-work",
-      "destination": "/portfolio?category=CONCRETE",
-      "permanent": true
-    },
-    {
-      "source": "/portfolio/pompano-kitchen-remodel",
-      "destination": "/portfolio?category=KITCHENS%20%2B%20BATHROOMS",
+      "destination": "/portfolio/rio-vista-concrete",
       "permanent": true
     }
   ],

@@ -18,6 +18,7 @@
 
 import { test } from "node:test";
 import { readFileSync } from "node:fs";
+import { PORTFOLIO_PROJECTS } from "../data/portfolioProjectsLaunchV1.js";
 import assert from "node:assert/strict";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
@@ -32,12 +33,17 @@ const rewrites = config.rewrites ?? [];
 
 // Routes the SPA itself owns (AppV4.js <Route path=...>), plus the static
 // rewrite targets. A redirect destination must land on one of these.
+// Individual project pages are real SPA routes too — the router serves /portfolio/:id.
+// Deriving them from the live dataset means a restored project can never look "unreachable"
+// to this contract again, which is exactly what happened on 2026-09-03.
+const PROJECT_ROUTES = PORTFOLIO_PROJECTS.map((p) => `/portfolio/${p.id}`);
 const SPA_ROUTES = new Set([
   "/",
   "/services",
   "/portfolio",
   "/service-areas",
   "/privacy",
+  ...PROJECT_ROUTES,
 ]);
 const REWRITE_SOURCES = new Set(rewrites.map((r) => r.source));
 
@@ -193,7 +199,9 @@ test("the pre-existing non-blog legacy redirects still fire", () => {
     ["/expertise/renovations", 308, "/services/full-renovation"],
     ["/expertise/accessory-dwelling-units-adus", 308, "/services/additions"],
     ["/project-gallery/new-build", 308, "/portfolio"],
-    ["/portfolio/1270-harbor-court", 308, "/portfolio?category=ADDITIONS"],
+    // Now that the addition project is published again, the old address goes to the project
+    // itself rather than to a category listing. That is a better redirect, not a regression.
+    ["/portfolio/1270-harbor-court", 308, "/portfolio/home-addition-outdoor-living"],
   ];
   for (const [url, status, location] of expected) {
     const hit = resolve(url);
