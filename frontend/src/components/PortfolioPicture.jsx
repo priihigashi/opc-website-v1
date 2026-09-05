@@ -23,8 +23,8 @@ export default function PortfolioPicture({ image, sizes, className = "", eager =
   // container is what gives h-full something real to resolve against.
   return (
     <picture className={pictureClassName}>
-      <source type="image/avif" srcSet={srcSet(image, "avif")} sizes={sizes} />
-      <source type="image/webp" srcSet={srcSet(image, "webp")} sizes={sizes} />
+      {image.formats?.includes("avif") !== false && <source type="image/avif" srcSet={srcSet(image, "avif")} sizes={sizes} />}
+      {image.formats?.includes("webp") !== false && <source type="image/webp" srcSet={srcSet(image, "webp")} sizes={sizes} />}
       <img
         src={fallbackSrc(image)}
         srcSet={srcSet(image, "jpg")}

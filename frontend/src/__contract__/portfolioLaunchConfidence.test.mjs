@@ -50,7 +50,7 @@ test("launch Portfolio exposes no private source fields or Drive-style IDs", asy
 test("every cover is finished or explicitly disclosed as an existing progress-only project; derivatives exist", () => {
   const publicRoot = fileURLToPath(new URL("../../public", import.meta.url));
   for (const project of PORTFOLIO_PROJECTS) {
-    const allowedProgress = ["dockside-full-home-remodel", "shell-concrete-construction", "pompano-kitchen-remodel", "opa-locka-airport", "pompano-patio-slab"];
+    const allowedProgress = ["dockside-full-home-remodel", "shell-concrete-construction", "opa-locka-airport", "pompano-patio-slab"];
     if (allowedProgress.includes(project.id)) {
       assert.equal(project.cover.phase, "DURING");
       assert.equal(project.progressOnly, true);
@@ -58,7 +58,7 @@ test("every cover is finished or explicitly disclosed as an existing progress-on
     } else assert.equal(project.cover.phase, "AFTER", `${project.id} needs a verified finished cover`);
     for (const image of project.rows.flatMap(({ images }) => images)) {
       for (const width of image.widths) {
-        for (const format of ["avif", "webp", "jpg"]) {
+        for (const format of (image.formats || ["avif", "webp", "jpg"])) {
           assert.ok(existsSync(`${publicRoot}${image.src}-${width}w.${format}`), `missing ${project.id}: ${image.src}-${width}w.${format}`);
         }
       }

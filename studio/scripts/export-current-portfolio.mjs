@@ -38,7 +38,7 @@ for (const [projectIndex, project] of context.result.PORTFOLIO_PROJECTS.entries(
       _type: "image",
       _key: key(`${project.id}:${sequenceIndex}:${image.id || imageIndex}`),
       legacyPath: image.src,
-      sourceMetadata: { _type: "object", id: image.id, w: image.w, h: image.h, widths: image.widths, seq: image.seq, orientation: image.orientation, originalRole: image.role },
+      sourceMetadata: { _type: "object", id: image.id, w: image.w, h: image.h, widths: image.widths, formats: image.formats, seq: image.seq, orientation: image.orientation, originalRole: image.role },
       alt: image.alt,
       phase: image.phase,
       role: image.src === project.cover.src ? "cover" : "gallery",

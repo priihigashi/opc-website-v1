@@ -9,6 +9,7 @@ export const galleryImageFields = [
       defineField({ name: "id", type: "string" }),
       defineField({ name: "w", type: "number" }), defineField({ name: "h", type: "number" }),
       defineField({ name: "widths", type: "array", of: [{ type: "number" }] }),
+      defineField({ name: "formats", type: "array", of: [{ type: "string" }] }),
       defineField({ name: "seq", type: "number" }), defineField({ name: "orientation", type: "string" }),
       defineField({ name: "originalRole", type: "string" }),
     ],

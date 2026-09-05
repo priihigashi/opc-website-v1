@@ -504,7 +504,7 @@ export const PORTFOLIO_PROJECTS = [
     "cat": "OUTDOOR LIVING",
     "phase": "Finished",
     "detail": "Outdoor Living",
-    "intro": "3 documented photographs from this project.",
+    "intro": "3 documented photographs from this project. Using the updated edited outdoor-living hero on file.",
     "featured": false,
     "progressOnly": false,
     "cover": {
@@ -597,7 +597,7 @@ export const PORTFOLIO_PROJECTS = [
     "cat": "KITCHENS + BATHROOMS",
     "phase": "Finished",
     "detail": "Bathroom Remodel",
-    "intro": "3 documented photographs from this project.",
+    "intro": "3 documented photographs from this project. Final finish details for this bath remain pending.",
     "featured": false,
     "progressOnly": false,
     "cover": {
@@ -1130,7 +1130,7 @@ export const PORTFOLIO_PROJECTS = [
       "FULL HOME REMODELS"
     ],
     "cat": "FULL HOME REMODELS",
-    "phase": "Construction progress",
+    "phase": "Before, during & final kitchen",
     "detail": "Full Home Remodel",
     "intro": "10 documented photographs from this project.",
     "featured": false,
@@ -1504,29 +1504,33 @@ export const PORTFOLIO_PROJECTS = [
     "cat": "FULL HOME REMODELS",
     "phase": "Construction progress",
     "detail": "Whole-Home Remodel",
-    "intro": "3 documented construction photographs from this whole-home remodel.",
+    "intro": "Three verified views from the Pompano Whole-Home Remodel: before, construction, and the final kitchen.",
     "featured": false,
-    "progressOnly": true,
+    "progressOnly": false,
     "cover": {
       "id": "opc-photo-331",
-      "src": "/images/opc/portfolio/kitchen-bath/pompano-kitchen-remodel/pompano-kitchen-remodel__kitchen-bath__AFTER__card__seq03__img-4493",
-      "w": 1800,
-      "h": 1350,
+      "src": "/images/opc/portfolio/kitchen-bath/pompano-kitchen-remodel/pompano-kitchen-remodel__kitchen-bath__AFTER__gallery__seq03__finished-kitchen-may-2025",
+      "w": 4032,
+      "h": 3024,
       "widths": [
         480,
         768,
         1200,
         1800
       ],
+      "formats": [
+        "webp",
+        "jpg"
+      ],
       "seq": 3,
       "orientation": "landscape",
       "role": "card",
-      "alt": "Construction progress at the Pompano Whole-Home Remodel project.",
-      "phase": "DURING"
+      "alt": "Final kitchen and dining area at the Pompano Whole-Home Remodel.",
+      "phase": "AFTER"
     },
     "rows": [
       {
-        "label": "During Construction",
+        "label": "Construction → Final Kitchen",
         "images": [
           {
             "id": "opc-photo-332",
@@ -1564,24 +1568,29 @@ export const PORTFOLIO_PROJECTS = [
           },
           {
             "id": "opc-photo-333",
-            "src": "/images/opc/portfolio/kitchen-bath/pompano-kitchen-remodel/pompano-kitchen-remodel__kitchen-bath__AFTER__card__seq03__img-4493",
-            "w": 1800,
-            "h": 1350,
+            "src": "/images/opc/portfolio/kitchen-bath/pompano-kitchen-remodel/pompano-kitchen-remodel__kitchen-bath__AFTER__gallery__seq03__finished-kitchen-may-2025",
+            "w": 4032,
+            "h": 3024,
             "widths": [
               480,
               768,
               1200,
               1800
             ],
+            "formats": [
+              "webp",
+              "jpg"
+            ],
             "seq": 3,
             "orientation": "landscape",
-            "role": "card",
-            "alt": "Construction progress at the Pompano Whole-Home Remodel project.",
-            "phase": "DURING"
+            "role": "gallery",
+            "alt": "Final kitchen and dining area at the Pompano Whole-Home Remodel.",
+            "phase": "AFTER"
           }
         ],
         "phases": [
-          "DURING"
+          "DURING",
+          "AFTER"
         ]
       }
     ],
@@ -1705,7 +1714,7 @@ export const PORTFOLIO_PROJECTS = [
     "cat": "CONCRETE",
     "phase": "During Construction",
     "detail": "Shell + Concrete",
-    "intro": "3 verified photographs from this project, in order: During Construction.",
+    "intro": "3 verified photographs from this project, in order: During Construction. A dry/final patio slab finish photo is still pending.",
     "featured": false,
     "progressOnly": true,
     "cover": {

@@ -1612,35 +1612,35 @@ export const PORTFOLIO_PROJECTS = [
   },
   {
     "id": "pompano-kitchen-remodel",
-    "title": "Pompano Kitchen Remodel",
+    "title": "Pompano Whole-Home Remodel",
     "tags": [
       "KITCHENS + BATHROOMS"
     ],
-    "cat": "KITCHENS + BATHROOMS",
-    "phase": "Finished",
-    "detail": "Kitchen + Bath",
-    "intro": "3 verified photographs from this project, in order: Before → During Construction → Finished.",
+    "cat": "FULL HOME REMODELS",
+    "phase": "Before, during & final kitchen",
+    "detail": "Whole-Home Remodel",
+    "intro": "Three verified views from the Pompano Whole-Home Remodel: before, construction, and the final kitchen.",
     "cover": {
       "id": "1aPkXI7u_VoM_h7xhutcFefOZTyrXmI5v",
-      "src": "/images/opc/portfolio/kitchen-bath/pompano-kitchen-remodel/pompano-kitchen-remodel__kitchen-bath__AFTER__card__seq03__img-4493",
-      "w": 1800,
-      "h": 1350,
+      "src": "/images/opc/portfolio/kitchen-bath/pompano-kitchen-remodel/pompano-kitchen-remodel__kitchen-bath__AFTER__gallery__seq03__finished-kitchen-may-2025",
+      "w": 4032,
+      "h": 3024,
       "widths": [
         480,
         768,
         1200,
         1800
       ],
-      "alt": "Completed-work view at the Pompano Kitchen Remodel project.",
+      "alt": "Final kitchen and dining area at the Pompano Whole-Home Remodel.",
       "phase": "AFTER",
       "seq": 3,
       "orientation": "landscape",
       "role": "card",
-      "source": "IMG_4493.jpeg"
+      "source": "1 — BASE — the finished kitchen — upload this one.jpeg"
     },
     "rows": [
       {
-        "label": "Before → During Construction → Finished",
+        "label": "Before → During Construction → Final Kitchen",
         "phases": [
           "BEFORE",
           "DURING",
@@ -1685,21 +1685,21 @@ export const PORTFOLIO_PROJECTS = [
           },
           {
             "id": "1aPkXI7u_VoM_h7xhutcFefOZTyrXmI5v",
-            "src": "/images/opc/portfolio/kitchen-bath/pompano-kitchen-remodel/pompano-kitchen-remodel__kitchen-bath__AFTER__card__seq03__img-4493",
-            "w": 1800,
-            "h": 1350,
+            "src": "/images/opc/portfolio/kitchen-bath/pompano-kitchen-remodel/pompano-kitchen-remodel__kitchen-bath__AFTER__gallery__seq03__finished-kitchen-may-2025",
+            "w": 4032,
+            "h": 3024,
             "widths": [
               480,
               768,
               1200,
               1800
             ],
-            "alt": "Completed-work view at the Pompano Kitchen Remodel project.",
+            "alt": "Final kitchen and dining area at the Pompano Whole-Home Remodel.",
             "phase": "AFTER",
             "seq": 3,
             "orientation": "landscape",
-            "role": "card",
-            "source": "IMG_4493.jpeg"
+            "role": "gallery",
+            "source": "1 — BASE — the finished kitchen — upload this one.jpeg"
           }
         ]
       }

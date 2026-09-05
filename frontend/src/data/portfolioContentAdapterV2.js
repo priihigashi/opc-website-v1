@@ -83,7 +83,7 @@ export function normalizeStudioDocumentsV2(documents) {
         if (photo.asset || !photo.legacyPath) fail("uploaded photo needs authenticated asset preparation");
         const meta = photo.sourceMetadata || {};
         const image = { id: meta.id, src: photo.legacyPath, w: meta.w, h: meta.h, widths: meta.widths,
-          seq: meta.seq, orientation: meta.orientation, role: meta.originalRole,
+          ...(meta.formats ? { formats: meta.formats } : {}), seq: meta.seq, orientation: meta.orientation, role: meta.originalRole,
           alt: photo.alt, phase: photo.phase };
         if (photo.role === "cover") covers.push(image);
         return image;

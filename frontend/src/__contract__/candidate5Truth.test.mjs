@@ -17,7 +17,7 @@ test('documented unfinished photographs cannot regain Finished labels', () => {
   assert.deepEqual(r.phases,[...new Set(r.images.map(i=>i.phase))]);
   for(const i of r.images) if(unfinished.has(i.src.match(/img-(\d+)$/)?.[1])) assert.equal(i.phase,'DURING');
  }
- assert.deepEqual(projects.filter(p=>p.progressOnly).map(p=>p.id).sort(),['dockside-full-home-remodel','opa-locka-airport','pompano-kitchen-remodel','pompano-patio-slab','shell-concrete-construction']);
+ assert.deepEqual(projects.filter(p=>p.progressOnly).map(p=>p.id).sort(),['dockside-full-home-remodel','opa-locka-airport','pompano-patio-slab','shell-concrete-construction']);
  assert.match(read('../pages/PortfolioV10.jsx'),/project.progressOnly \? "Construction progress/);
 });
 test('current gallery has one identity, contained 16:9 photographs and the Candidate 4 navigation owner',()=>{

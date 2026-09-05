@@ -13,7 +13,7 @@ const allowed = new Set(
     project.rows.flatMap((row) =>
       row.images.flatMap((image) =>
         image.widths.flatMap((width) =>
-          ["avif", "webp", "jpg"].map((format) => `${image.src.slice(1)}-${width}w.${format}`),
+          (image.formats || ["avif", "webp", "jpg"]).map((format) => `${image.src.slice(1)}-${width}w.${format}`),
         ),
       ),
     ),
