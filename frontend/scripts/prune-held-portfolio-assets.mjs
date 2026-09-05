@@ -76,3 +76,21 @@ try {
 } catch (e) {
   if (e.code !== "ENOENT") throw e;
 }
+
+// Candidate 5: preserve unpublished source cuts for rollback, never deploy them.
+if (process.env.REACT_APP_PORTFOLIO_HERO === "full") {
+  throw new Error("The unreviewed full portfolio montage cannot ship in the launch build.");
+}
+const videoRoot = join(frontendDir, "build", "video");
+const clearedVideos = new Set(["portfolio-hero-intro-v5.mp4", "portfolio-hero-intro-v5-mobile.mp4", "portfolio-hero-poster-v2.jpg"]);
+for (const name of await readdir(videoRoot)) {
+  if (!clearedVideos.has(name)) await rm(join(videoRoot, name), { recursive: true, force: true });
+}
+if (JSON.stringify((await readdir(videoRoot)).sort()) !== JSON.stringify([...clearedVideos].sort())) {
+  throw new Error("Reviewed portfolio video output is incomplete.");
+}
+const deployedFiles = await listFiles(join(frontendDir, "build"));
+if (deployedFiles.some(file => /img-(0277|3721)(?:-|\.)/.test(file))) {
+  throw new Error("Private house-number photographs remain in deployment output.");
+}
+console.log("Private house-number photos and unpublished video cuts are absent from deployment output.");

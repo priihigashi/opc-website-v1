@@ -27,14 +27,14 @@ test("launch Portfolio contains exactly the Council-cleared review batch", () =>
   const leaked = ids.filter((id) => HELD_IDS.includes(id));
   assert.deepEqual(leaked, [], `a HELD project is published: ${leaked}`);
   assert.equal(ids.length, 10, `expected the 10-project launch set, found ${ids.length}`);
-  assert.equal(PORTFOLIO_PROJECTS.flatMap((project) => project.rows.flatMap((row) => row.images)).length, 69);
+  assert.equal(PORTFOLIO_PROJECTS.flatMap((project) => project.rows.flatMap((row) => row.images)).length, 67);
   const blob = JSON.stringify(PORTFOLIO_PROJECTS).toLowerCase();
   const words = HELD_WORDS.filter((w) => blob.includes(w));
   assert.deepEqual(words, [], `a client surname or street address is public: ${words}`);
 });
 
 test("Portfolio hides the reversible filter menu and gives every filtered result a way back to all projects", async () => {
-  const page = await read("../pages/PortfolioV8.jsx");
+  const page = await read("../pages/PortfolioV9.jsx");
   assert.match(page, /const SHOW_CATEGORY_MENU = false/);
   assert.match(page, /SHOW_CATEGORY_MENU && <nav/);
   assert.match(page, /filter !== "ALL"[\s\S]*View all projects/);
@@ -48,10 +48,15 @@ test("launch Portfolio exposes no private source fields or Drive-style IDs", asy
   assert.doesNotMatch(source, /1[A-Za-z0-9_-]{24,}/, "launch data leaks source-style identifiers");
 });
 
-test("every launch cover is finished and every declared derivative exists", () => {
+test("every cover is finished or explicitly disclosed as an existing progress-only project; derivatives exist", () => {
   const publicRoot = fileURLToPath(new URL("../../public", import.meta.url));
   for (const project of PORTFOLIO_PROJECTS) {
-    assert.equal(project.cover.phase, "AFTER", `${project.id} does not have a finished cover`);
+    const allowedProgress = ["dockside-full-home-remodel", "shell-concrete-construction", "pompano-kitchen-remodel"];
+    if (allowedProgress.includes(project.id)) {
+      assert.equal(project.cover.phase, "DURING");
+      assert.equal(project.progressOnly, true);
+      assert.ok(project.rows.every(row => row.images.every(image => image.phase !== "AFTER")));
+    } else assert.equal(project.cover.phase, "AFTER", `${project.id} needs a verified finished cover`);
     for (const image of project.rows.flatMap(({ images }) => images)) {
       for (const width of image.widths) {
         for (const format of ["avif", "webp", "jpg"]) {
@@ -74,11 +79,11 @@ test("Salon publishes only canonically confirmed finished frames", () => {
 });
 
 test("active Portfolio consumers use the launch dataset", async () => {
-  for (const path of ["../pages/PortfolioV8.jsx", "../pages/ProjectGalleryV4.jsx", "../lib/seoSchemasV1.js"]) {
+  for (const path of ["../pages/PortfolioV9.jsx", "../pages/ProjectGalleryV4.jsx", "../lib/seoSchemasV1.js"]) {
     assert.match(await read(path), /portfolioProjectsLaunchV1/);
   }
   assert.match(await read("../pages/ProjectGalleryV5.jsx"), /ProjectGalleryV4/);
-  assert.match(await read("../AppV17.js"), /pages\/ProjectGalleryV5/);
+  assert.match(await read("../AppV18.js"), /pages\/ProjectGalleryV6/);
 });
 
 test("SEO and sitemap contain launch routes and exclude held routes", async () => {

@@ -35,7 +35,7 @@ test("pending startup uses the discreet loader and real failure keeps contained 
 });
 
 test("the active app retains prior visual files while exact rollback stays commit-level", () => {
-  const app = read("../AppV17.js");
+  const app = read("../AppV18.js");
   assert.match(app, /DeferredHouseStageV12/);
   assert.match(read("../AppV15.js"), /DeferredHouseStageV11/);
   assert.match(read("../components/DeferredHouseStageV10.jsx"), /HouseSceneV33/);

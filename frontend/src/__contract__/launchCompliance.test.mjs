@@ -8,7 +8,7 @@ const src = (path) => readFileSync(`${root}/${path}`, "utf8");
 
 const routedFooterConsumers = [
   "AppV4.js",
-  "pages/PortfolioV8.jsx",
+  "pages/PortfolioV9.jsx",
   "pages/PrivacyV3.jsx",
   "pages/ProjectGalleryV4.jsx",
   "pages/ServiceAreasV1.jsx",

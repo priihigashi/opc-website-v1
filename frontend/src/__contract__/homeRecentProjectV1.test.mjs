@@ -5,20 +5,20 @@ import test from "node:test";
 const read = (path) => fs.readFileSync(new URL(path, import.meta.url), "utf8");
 
 test("active homepage uses the versioned recent-project story", () => {
-  assert.match(read("../index.js"), /AppV17/);
-  assert.match(read("../AppV17.js"), /StoryV22/);
+  assert.match(read("../index.js"), /AppV18/);
+  assert.match(read("../AppV18.js"), /StoryV23/);
 });
 
 test("every service card keeps one Recent Project image between link and bullets", () => {
-  const story = read("../components/StoryV22.jsx");
+  const story = read("../components/StoryV23.jsx");
   const chapter = read("../components/ChapterV8.jsx");
   assert.equal((story.match(/recentProject:/g) || []).length, 5);
   assert.match(chapter, /portfolio-link[\s\S]*RecentProjectV1[\s\S]*<ul/);
   assert.match(chapter, /Recent Project/);
   assert.match(chapter, /aspect-video/);
   assert.match(chapter, /loading="lazy"/);
-  assert.match(story, /shell-concrete-construction__shell-concrete__DURING__gallery__seq02__img-5462/);
-  assert.match(story, /w: 1800, h: 1350, widths: \[480, 768, 1200, 1800\]/);
+  assert.match(story, /bones-framing-v1/);
+  assert.match(story, /w: 1600, h: 1200, widths: \[480, 768, 1200, 1600\]/);
   assert.match(story, /phase: "DURING", orientation: "landscape"/);
   assert.match(story, /addition-progress[\s\S]*phase: "DURING"/);
   assert.match(story, /rio-vista-groundwork-safe-v1/);
@@ -35,7 +35,7 @@ test("the fixed rail measures and moves the whole card", () => {
 
 test("every responsive homepage project image has every advertised derivative", () => {
   const variants = [
-    ["portfolio/shell-concrete/shell-concrete-construction/shell-concrete-construction__shell-concrete__DURING__gallery__seq02__img-5462", [480, 768, 1200, 1800]],
+    ["bones-framing-v1", [480, 768, 1200, 1600]],
     ["addition-progress", [480, 768, 1200, 1800]],
     ["rio-vista-groundwork-safe-v1", [480, 768, 1200, 1600]],
   ];

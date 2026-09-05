@@ -54,7 +54,7 @@ function projectGalleryImplementation() {
   const routed = `pages/${lazyTarget("ProjectGallery")}.jsx`;
   const wrapper = read(routed);
   const delegated = /import ProjectGalleryV\d+ from "@\/pages\/(ProjectGalleryV\d+)"/.exec(wrapper)?.[1];
-  return delegated ? `pages/${delegated}.jsx` : routed;
+  return wrapper.includes("function GalleryRow") ? routed : delegated ? `pages/${delegated}.jsx` : routed;
 }
 
 // ---------------------------------------------------------------- REQUIRED --

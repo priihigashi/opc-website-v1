@@ -34,7 +34,7 @@ export default function PortfolioPicture({ image, sizes, className = "", eager =
         alt={image.alt}
         loading={eager ? "eager" : "lazy"}
         decoding="async"
-        fetchpriority={eager ? "high" : undefined}
+        fetchPriority={eager ? "high" : undefined}
         className={className}
         style={style}
         data-testid="portfolio-picture"

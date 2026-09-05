@@ -16,7 +16,7 @@ This branch descends from both required lines of work: content/story commit `9dc
 ## Version rule
 
 - Priscila reviews only the one candidate named above. Older preview URLs are historical evidence, not competing choices.
-- The next code change creates Candidate 4, then Candidate 5, and so on. A new candidate must descend from the preceding candidate.
+- The next accepted code change creates Candidate 5, then Candidate 6, and so on. A new candidate must descend from the preceding candidate.
 - If an approved item is intentionally removed, the candidate record must name it explicitly before review.
 - Never label a preview **Final** until all approved changes are in the same frozen commit and Priscila has approved appearance, the contact-delivery decision, and the exact words **go live**.
 

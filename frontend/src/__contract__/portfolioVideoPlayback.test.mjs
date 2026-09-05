@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 const read = (relativePath) => readFileSync(fileURLToPath(new URL(relativePath, import.meta.url)), "utf8");
 
 test("the portfolio hero selects the mobile encode directly and retries blocked autoplay", () => {
-  const page = read("../pages/PortfolioV8.jsx");
+  const page = read("../pages/PortfolioV9.jsx");
   assert.match(page, /mobile \? PORTFOLIO_HERO_VIDEO_MOBILE : PORTFOLIO_HERO_VIDEO/);
   assert.match(page, /video\.muted = true/);
   assert.match(page, /video\.defaultMuted = true/);
