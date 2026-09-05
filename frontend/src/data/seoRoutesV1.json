@@ -172,12 +172,20 @@
     "projectId": "shell-concrete-construction"
   },
   "/portfolio/pompano-kitchen-remodel": {
-    "title": "Pompano Whole-Home Remodel | Oak Park Construction",
-    "description": "Pompano Whole-Home Remodel — Whole-Home Remodel. South Florida construction project documentation.",
-    "image": "/images/opc/portfolio/kitchen-bath/pompano-kitchen-remodel/pompano-kitchen-remodel__kitchen-bath__AFTER__gallery__seq03__finished-kitchen-may-2025-1200w.jpg",
-    "imageAlt": "Final kitchen and dining area at the Pompano Whole-Home Remodel.",
+    "title": "Pompano Full-Home Remodel | Oak Park Construction",
+    "description": "Pompano Full-Home Remodel — Whole-Home Remodel. South Florida construction project documentation.",
+    "image": "/images/opc/portfolio/kitchen-bath/pompano-kitchen-remodel/pompano-kitchen-remodel__whole-home__AFTER__gallery__seq11__living-built-ins-1200w.jpg",
+    "imageAlt": "Finished living area with custom walnut built-ins at the Pompano Full-Home Remodel.",
     "type": "project",
     "projectId": "pompano-kitchen-remodel"
+  },
+  "/portfolio/pompano-kitchen-bathroom-remodel": {
+    "title": "Pompano Kitchen + Bathroom Remodel | Oak Park Construction",
+    "description": "Pompano Kitchen + Bathroom Remodel. South Florida construction project documentation.",
+    "image": "/images/opc/portfolio/kitchen-bath/pompano-kitchen-remodel/pompano-kitchen-remodel__whole-home__AFTER__gallery__seq04__kitchen-wide-1200w.jpg",
+    "imageAlt": "Finished kitchen with full-height walnut cabinetry at the Pompano Kitchen and Bathroom Remodel.",
+    "type": "project",
+    "projectId": "pompano-kitchen-bathroom-remodel"
   },
   "/portfolio/opa-locka-airport": {
     "title": "Opa Locka Airport | Oak Park Construction",

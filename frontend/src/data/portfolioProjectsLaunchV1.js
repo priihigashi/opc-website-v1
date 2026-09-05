@@ -1497,21 +1497,21 @@ export const PORTFOLIO_PROJECTS = [
   },
   {
     "id": "pompano-kitchen-remodel",
-    "title": "Pompano Whole-Home Remodel",
+    "title": "Pompano Full-Home Remodel",
     "tags": [
       "FULL HOME REMODELS"
     ],
     "cat": "FULL HOME REMODELS",
     "phase": "Construction progress",
     "detail": "Whole-Home Remodel",
-    "intro": "Eleven verified views from the Pompano Whole-Home Remodel, including construction progress and finished kitchen, bathroom, living, and built-in details.",
+    "intro": "Three verified progress and final-kitchen views from the Pompano Full-Home Remodel. More finished rooms will be added as they are provided.",
     "featured": false,
     "progressOnly": false,
     "cover": {
-      "id": "opc-photo-331",
-      "src": "/images/opc/portfolio/kitchen-bath/pompano-kitchen-remodel/pompano-kitchen-remodel__kitchen-bath__AFTER__gallery__seq03__finished-kitchen-may-2025",
-      "w": 4032,
-      "h": 3024,
+      "id": "opc-photo-355",
+      "src": "/images/opc/portfolio/kitchen-bath/pompano-kitchen-remodel/pompano-kitchen-remodel__whole-home__AFTER__gallery__seq11__living-built-ins",
+      "w": 5712,
+      "h": 4284,
       "widths": [
         480,
         768,
@@ -1522,10 +1522,10 @@ export const PORTFOLIO_PROJECTS = [
         "webp",
         "jpg"
       ],
-      "seq": 3,
+      "seq": 11,
       "orientation": "landscape",
       "role": "card",
-      "alt": "Final kitchen and dining area at the Pompano Whole-Home Remodel.",
+      "alt": "Finished living area with custom walnut built-ins at the Pompano Full-Home Remodel.",
       "phase": "AFTER"
     },
     "rows": [
@@ -1586,119 +1586,7 @@ export const PORTFOLIO_PROJECTS = [
             "role": "gallery",
             "alt": "Final kitchen and dining area at the Pompano Whole-Home Remodel.",
             "phase": "AFTER"
-          }
-        ],
-        "phases": [
-          "DURING",
-          "AFTER"
-        ]
-      },
-      {
-        "label": "Finished Kitchen",
-        "images": [
-          {
-            "id": "opc-photo-347",
-            "src": "/images/opc/portfolio/kitchen-bath/pompano-kitchen-remodel/pompano-kitchen-remodel__whole-home__AFTER__gallery__seq04__kitchen-wide",
-            "w": 5712,
-            "h": 4284,
-            "widths": [480, 768, 1200, 1800],
-            "formats": ["webp", "jpg"],
-            "seq": 4,
-            "orientation": "landscape",
-            "role": "gallery",
-            "alt": "Finished kitchen with full-height walnut cabinetry at the Pompano Whole-Home Remodel.",
-            "phase": "AFTER"
           },
-          {
-            "id": "opc-photo-348",
-            "src": "/images/opc/portfolio/kitchen-bath/pompano-kitchen-remodel/pompano-kitchen-remodel__whole-home__AFTER__gallery__seq05__kitchen-island",
-            "w": 5712,
-            "h": 4284,
-            "widths": [480, 768, 1200, 1800],
-            "formats": ["webp", "jpg"],
-            "seq": 5,
-            "orientation": "landscape",
-            "role": "gallery",
-            "alt": "Finished kitchen island and dining area at the Pompano Whole-Home Remodel.",
-            "phase": "AFTER"
-          }
-        ],
-        "phases": ["AFTER"]
-      },
-      {
-        "label": "Finished Bathroom",
-        "images": [
-          {
-            "id": "opc-photo-349",
-            "src": "/images/opc/portfolio/kitchen-bath/pompano-kitchen-remodel/pompano-kitchen-remodel__whole-home__AFTER__gallery__seq06__bath-tub-shower",
-            "w": 4032,
-            "h": 3024,
-            "widths": [480, 768, 1200, 1800],
-            "formats": ["webp", "jpg"],
-            "seq": 6,
-            "orientation": "landscape",
-            "role": "gallery",
-            "alt": "Finished tub and shower tile installation at the Pompano Whole-Home Remodel.",
-            "phase": "AFTER"
-          },
-          {
-            "id": "opc-photo-350",
-            "src": "/images/opc/portfolio/kitchen-bath/pompano-kitchen-remodel/pompano-kitchen-remodel__whole-home__AFTER__gallery__seq07__bath-shower-niche",
-            "w": 4032,
-            "h": 3024,
-            "widths": [480, 768, 1200, 1800],
-            "formats": ["webp", "jpg"],
-            "seq": 7,
-            "orientation": "landscape",
-            "role": "gallery",
-            "alt": "Finished shower niche and matte black fixtures at the Pompano Whole-Home Remodel.",
-            "phase": "AFTER"
-          },
-          {
-            "id": "opc-photo-351",
-            "src": "/images/opc/portfolio/kitchen-bath/pompano-kitchen-remodel/pompano-kitchen-remodel__whole-home__AFTER__gallery__seq08__walk-in-shower",
-            "w": 4032,
-            "h": 3024,
-            "widths": [480, 768, 1200, 1800],
-            "formats": ["webp", "jpg"],
-            "seq": 8,
-            "orientation": "landscape",
-            "role": "gallery",
-            "alt": "Finished walk-in shower with tiled bench at the Pompano Whole-Home Remodel.",
-            "phase": "AFTER"
-          },
-          {
-            "id": "opc-photo-352",
-            "src": "/images/opc/portfolio/kitchen-bath/pompano-kitchen-remodel/pompano-kitchen-remodel__whole-home__AFTER__gallery__seq09__shower-wall",
-            "w": 5458,
-            "h": 3904,
-            "widths": [480, 768, 1200, 1800],
-            "formats": ["webp", "jpg"],
-            "seq": 9,
-            "orientation": "landscape",
-            "role": "gallery",
-            "alt": "Finished shower wall, niche, and bench at the Pompano Whole-Home Remodel.",
-            "phase": "AFTER"
-          },
-          {
-            "id": "opc-photo-353",
-            "src": "/images/opc/portfolio/kitchen-bath/pompano-kitchen-remodel/pompano-kitchen-remodel__whole-home__AFTER__gallery__seq10__shower-bench",
-            "w": 2882,
-            "h": 3844,
-            "widths": [360, 576, 900, 1350],
-            "formats": ["webp", "jpg"],
-            "seq": 10,
-            "orientation": "portrait",
-            "role": "gallery",
-            "alt": "Finished shower bench and hand shower at the Pompano Whole-Home Remodel.",
-            "phase": "AFTER"
-          }
-        ],
-        "phases": ["AFTER"]
-      },
-      {
-        "label": "Finished Living + Built-Ins",
-        "images": [
           {
             "id": "opc-photo-354",
             "src": "/images/opc/portfolio/kitchen-bath/pompano-kitchen-remodel/pompano-kitchen-remodel__whole-home__AFTER__gallery__seq11__living-built-ins",
@@ -1709,14 +1597,63 @@ export const PORTFOLIO_PROJECTS = [
             "seq": 11,
             "orientation": "landscape",
             "role": "gallery",
-            "alt": "Finished living area with custom walnut built-ins at the Pompano Whole-Home Remodel.",
+            "alt": "Finished living area with custom walnut built-ins at the Pompano Full-Home Remodel.",
             "phase": "AFTER"
           }
+        ],
+        "phases": [
+          "DURING",
+          "AFTER"
+        ]
+      },
+    ],
+    "imageCount": 4
+  },
+  {
+    "id": "pompano-kitchen-bathroom-remodel",
+    "title": "Pompano Kitchen + Bathroom Remodel",
+    "tags": ["KITCHENS + BATHROOMS"],
+    "cat": "KITCHENS + BATHROOMS",
+    "phase": "Finished",
+    "detail": "Kitchen + Bathroom Remodel",
+    "intro": "Seven verified finished views from the Pompano Kitchen + Bathroom Remodel.",
+    "featured": false,
+    "progressOnly": false,
+    "cover": {
+      "id": "opc-photo-356",
+      "src": "/images/opc/portfolio/kitchen-bath/pompano-kitchen-remodel/pompano-kitchen-remodel__whole-home__AFTER__gallery__seq04__kitchen-wide",
+      "w": 5712,
+      "h": 4284,
+      "widths": [480, 768, 1200, 1800],
+      "formats": ["webp", "jpg"],
+      "seq": 4,
+      "orientation": "landscape",
+      "role": "card",
+      "alt": "Finished kitchen with full-height walnut cabinetry at the Pompano Kitchen and Bathroom Remodel.",
+      "phase": "AFTER"
+    },
+    "rows": [
+      {
+        "label": "Finished Kitchen",
+        "images": [
+          {"id":"opc-photo-347","src":"/images/opc/portfolio/kitchen-bath/pompano-kitchen-remodel/pompano-kitchen-remodel__whole-home__AFTER__gallery__seq04__kitchen-wide","w":5712,"h":4284,"widths":[480,768,1200,1800],"formats":["webp","jpg"],"seq":4,"orientation":"landscape","role":"gallery","alt":"Finished kitchen with full-height walnut cabinetry at the Pompano Kitchen and Bathroom Remodel.","phase":"AFTER"},
+          {"id":"opc-photo-348","src":"/images/opc/portfolio/kitchen-bath/pompano-kitchen-remodel/pompano-kitchen-remodel__whole-home__AFTER__gallery__seq05__kitchen-island","w":5712,"h":4284,"widths":[480,768,1200,1800],"formats":["webp","jpg"],"seq":5,"orientation":"landscape","role":"gallery","alt":"Finished kitchen island and dining area at the Pompano Kitchen and Bathroom Remodel.","phase":"AFTER"}
+        ],
+        "phases": ["AFTER"]
+      },
+      {
+        "label": "Finished Bathroom",
+        "images": [
+          {"id":"opc-photo-349","src":"/images/opc/portfolio/kitchen-bath/pompano-kitchen-remodel/pompano-kitchen-remodel__whole-home__AFTER__gallery__seq06__bath-tub-shower","w":4032,"h":3024,"widths":[480,768,1200,1800],"formats":["webp","jpg"],"seq":6,"orientation":"landscape","role":"gallery","alt":"Finished tub and shower tile installation at the Pompano Kitchen and Bathroom Remodel.","phase":"AFTER"},
+          {"id":"opc-photo-350","src":"/images/opc/portfolio/kitchen-bath/pompano-kitchen-remodel/pompano-kitchen-remodel__whole-home__AFTER__gallery__seq07__bath-shower-niche","w":4032,"h":3024,"widths":[480,768,1200,1800],"formats":["webp","jpg"],"seq":7,"orientation":"landscape","role":"gallery","alt":"Finished shower niche and matte black fixtures at the Pompano Kitchen and Bathroom Remodel.","phase":"AFTER"},
+          {"id":"opc-photo-351","src":"/images/opc/portfolio/kitchen-bath/pompano-kitchen-remodel/pompano-kitchen-remodel__whole-home__AFTER__gallery__seq08__walk-in-shower","w":4032,"h":3024,"widths":[480,768,1200,1800],"formats":["webp","jpg"],"seq":8,"orientation":"landscape","role":"gallery","alt":"Finished walk-in shower with tiled bench at the Pompano Kitchen and Bathroom Remodel.","phase":"AFTER"},
+          {"id":"opc-photo-352","src":"/images/opc/portfolio/kitchen-bath/pompano-kitchen-remodel/pompano-kitchen-remodel__whole-home__AFTER__gallery__seq09__shower-wall","w":5458,"h":3904,"widths":[480,768,1200,1800],"formats":["webp","jpg"],"seq":9,"orientation":"landscape","role":"gallery","alt":"Finished shower wall, niche, and bench at the Pompano Kitchen and Bathroom Remodel.","phase":"AFTER"},
+          {"id":"opc-photo-353","src":"/images/opc/portfolio/kitchen-bath/pompano-kitchen-remodel/pompano-kitchen-remodel__whole-home__AFTER__gallery__seq10__shower-bench","w":2882,"h":3844,"widths":[360,576,900,1350],"formats":["webp","jpg"],"seq":10,"orientation":"portrait","role":"gallery","alt":"Finished shower bench and hand shower at the Pompano Kitchen and Bathroom Remodel.","phase":"AFTER"}
         ],
         "phases": ["AFTER"]
       }
     ],
-    "imageCount": 11
+    "imageCount": 7
   },
   {
     "id": "opa-locka-airport",
