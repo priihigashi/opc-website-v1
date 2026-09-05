@@ -1,4 +1,5 @@
-import { readdir, rm } from "node:fs/promises";
+import { hasGpsMetadata } from "./image-location-privacy.mjs";
+import { readdir, readFile, rm } from "node:fs/promises";
 import { dirname, join, relative, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { PORTFOLIO_PROJECTS } from "../src/data/portfolioProjectsLaunchV1.js";
@@ -94,3 +95,12 @@ if (deployedFiles.some(file => /img-(0277|3721)(?:-|\.)/.test(file))) {
   throw new Error("Private house-number photographs remain in deployment output.");
 }
 console.log("Private house-number photos and unpublished video cuts are absent from deployment output.");
+
+// Candidate 6: no GPS location metadata may enter the public image output.
+let privacyCheckedImages = 0;
+for (const file of deployedFiles) {
+  if (!/\.(jpe?g|png|webp|avif)$/i.test(file)) continue;
+  privacyCheckedImages += 1;
+  if (hasGpsMetadata(await readFile(file))) throw new Error(`GPS image metadata blocked: ${relative(frontendDir, file)}`);
+}
+console.log(`Location privacy passed for ${privacyCheckedImages} deployed raster images.`);

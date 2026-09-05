@@ -1,0 +1,80 @@
+[
+  {
+    "file": "public/images/opc/bathroom-wide.jpg",
+    "removedBytes": 4072,
+    "pixelsUnchanged": true,
+    "orientationPreserved": 1
+  },
+  {
+    "file": "public/images/opc/concrete-progress.jpg",
+    "removedBytes": 798,
+    "pixelsUnchanged": true,
+    "orientationPreserved": 1
+  },
+  {
+    "file": "public/images/opc/sitework-progress.jpg",
+    "removedBytes": 4188,
+    "pixelsUnchanged": true,
+    "orientationPreserved": 1
+  },
+  {
+    "file": "public/images/opc/bathroom-alt.jpg",
+    "removedBytes": 5583,
+    "pixelsUnchanged": true,
+    "orientationPreserved": 1
+  },
+  {
+    "file": "public/images/opc/kitchen-walnut.jpg",
+    "removedBytes": 4150,
+    "pixelsUnchanged": true,
+    "orientationPreserved": 1
+  },
+  {
+    "file": "public/images/opc/addition-progress.jpg",
+    "removedBytes": 3961,
+    "pixelsUnchanged": true,
+    "orientationPreserved": 1
+  },
+  {
+    "file": "public/images/opc/kitchen-wide.jpg",
+    "removedBytes": 4052,
+    "pixelsUnchanged": true,
+    "orientationPreserved": 1
+  },
+  {
+    "file": "public/images/opc/projects/kitchen-collection/kitchen-01.jpg",
+    "removedBytes": 2692,
+    "pixelsUnchanged": true,
+    "orientationPreserved": 1
+  },
+  {
+    "file": "public/images/opc/projects/kitchen-collection/kitchen-02.jpg",
+    "removedBytes": 4963,
+    "pixelsUnchanged": true,
+    "orientationPreserved": 1
+  },
+  {
+    "file": "public/images/opc/projects/kitchen-collection/kitchen-03.jpg",
+    "removedBytes": 5583,
+    "pixelsUnchanged": true,
+    "orientationPreserved": 1
+  },
+  {
+    "file": "public/images/opc/projects/bathroom-collection/bathroom-01.jpg",
+    "removedBytes": 5583,
+    "pixelsUnchanged": true,
+    "orientationPreserved": 1
+  },
+  {
+    "file": "public/images/opc/projects/bathroom-collection/bathroom-02.jpg",
+    "removedBytes": 2668,
+    "pixelsUnchanged": true,
+    "orientationPreserved": 1
+  },
+  {
+    "file": "public/images/opc/projects/bathroom-collection/bathroom-03.jpg",
+    "removedBytes": 2820,
+    "pixelsUnchanged": true,
+    "orientationPreserved": 6
+  }
+]

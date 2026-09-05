@@ -1,14 +1,16 @@
 # OPC Website — Current Official Release Candidate
 
-Last updated: 2026-09-04 18:06 EDT (America/New_York)
+**Candidate 5 is rejected for launch: a final scan found GPS metadata in 13 older image files. Candidate 6 is the bounded privacy correction; its exact deployment will be recorded below after hosted verification.**
+
+Last updated: 2026-09-04 — Candidate 5 hosted verification (America/New_York)
 
 ## Canonical release line
 
-- Current numbered release: **Candidate 4 — Project Galleries Open at Top**.
+- Current numbered release: **Candidate 5 — Clearer Galleries and Verified Photos**.
 - Canonical branch: `release/opc-launch-today-2026-09-04`.
-- Frozen website code commit: `f4a5f700c56e4ba5736e85ee45a907b29eddc070`.
-- Exact immutable preview: `https://opc-house-elements-review-foja4tbka-priihigashis-projects.vercel.app`.
-- Vercel deployment: `dpl_7n8WG2awxKY1jFG8MhCBfwDW2FZ2` (`READY`, preview target).
+- Frozen website code commit: `712e4e2b26f7396a879c23d1be94dd364b722348`.
+- Exact immutable preview: `https://opc-house-elements-review-mbjj2aekt-priihigashis-projects.vercel.app`.
+- Vercel deployment: `dpl_8Qivn1PrmKQJFyh9bJmjzTy6WNq1` (`READY`, preview target).
 - Vercel project root: `frontend/`.
 
 This branch descends from both required lines of work: content/story commit `9dc66409` and repair/portfolio commit `a6e5e154`, joined in merge commit `3bec6b8b`. The excluded owner-editor branch is not an ancestor.
@@ -16,7 +18,7 @@ This branch descends from both required lines of work: content/story commit `9dc
 ## Version rule
 
 - Priscila reviews only the one candidate named above. Older preview URLs are historical evidence, not competing choices.
-- The next accepted code change creates Candidate 5, then Candidate 6, and so on. A new candidate must descend from the preceding candidate.
+- Candidate 4 already exists and Candidate 5 now descends from it. The next accepted code change creates Candidate 6. A new candidate must descend from the preceding candidate.
 - If an approved item is intentionally removed, the candidate record must name it explicitly before review.
 - Never label a preview **Final** until all approved changes are in the same frozen commit and Priscila has approved appearance, the contact-delivery decision, and the exact words **go live**.
 
@@ -43,11 +45,14 @@ This branch descends from both required lines of work: content/story commit `9dc
 
 ## Unresolved launch gates
 
-- Priscila must approve the Candidate 4 appearance.
+- Priscila must approve Candidate 5 appearance, proposed Bones photograph, and the three explicitly labeled construction-progress cards. Exact Victoria addition wording remains optional and unapproved; no project title was changed.
 - Vercel currently has no `REACT_APP_WEB3FORMS_KEY`; choose and prove either Web3Forms delivery with working Reply-To or the mail-app fallback.
 - Production domain, DNS, and production alias remain untouched until Priscila says the exact words **go live**.
 
 ## Rollback
+
+- Exact Candidate 4 code: `f4a5f700c56e4ba5736e85ee45a907b29eddc070`.
+- Exact Candidate 4 preview: `https://opc-house-elements-review-foja4tbka-priihigashis-projects.vercel.app` (`dpl_7n8WG2awxKY1jFG8MhCBfwDW2FZ2`). Historical rollback only; it contains photos/video assets removed for privacy in Candidate 5, so do not promote it without considering those exclusions.
 
 - Exact Candidate 3 website code: `50b7bbd6338dccf86562ef2844f7c5f07a299f2b`.
 - Exact Candidate 3 preview: `https://opc-house-elements-review-chfvxisjr-priihigashis-projects.vercel.app` (`dpl_6jBBZGuCYy4pr7ZisRyVqosdyMpj`).
@@ -56,3 +61,27 @@ This branch descends from both required lines of work: content/story commit `9dc
 - Current production deployment: `dpl_DtGd3fFS6wPxNyoZLYKYTMvmqtqY`.
 - Previous unified release branch: `release/opc-unified-ready-2026-09-03`.
 - Pre-today unified source line: `release/opc-unified-2026-09-03` at `9dc66409`.
+
+## Candidate 5 execution checkpoint
+
+Code 712e4e2b26f7396a879c23d1be94dd364b722348 was committed and pushed directly on the canonical release branch, descending from Candidate 4 through the documentation HEAD. Git-triggered deployment is READY, preview target, correct project/root. Hosted main.1034aed1.js matches the verified local build. Documentation commits after this point do not redefine the frozen website code or the one current immutable URL.
+
+Current entry: index.js → AppV18; StoryV23, PortfolioV9, ProjectGalleryV6 inside the preserved ProjectGalleryV5 navigation wrapper; PrivacyV4; ContactV7 → ContactV5. No owner-editor code merged. Historical V-number files are not authority.
+
+Changes: one gallery identity, obvious back link, 44px previous/next controls and photo counter adjacent to contained 16:9 photos. First photograph y274/291/310 at 390/820/1440 widths versus Candidate4 y387/410/444. Same ten approved projects, 67 displayed photos, exact counts. Sixteen verified unfinished images are now DURING; historical filenames can still say AFTER and must not override actual image metadata. Correct-property finished covers and intentional ordering; Home Addition + Outdoor Living is in both truthful filters and remains one All Projects card. Three projects without verified after images remain explicitly labeled Construction progress pending owner choice.
+
+Intentional privacy exclusions: IMG0277 and IMG3721 (readable house numbers;0277 also reflection) removed from public selection and all deployment derivatives. Unpublished original video cuts and obsolete poster removed from deployment output; REACT_APP_PORTFOLIO_HERO=full now fails the build. Historical source files remain for traceability; only the reviewed v5 desktop/mobile montage and clean v2 poster ship. Internal /preview/centered-house route removed.
+
+Bones: real OPC IMG5402, Photo Catalog row22, Shell Construction DURING, source Drive1JDHzj8TCXSI_MOPqaBAG0U894vt0RAq4. Recognizable framing/temporary supports; full landscape image retained; 12 metadata-free responsive derivatives. Owner visual approval pending. Groundwork privacy-safe Rio Vista curved entry preserved and actual hosted card verified at all3 viewports.
+
+Contact truth: configured Web3Forms runs browser-side after API validation/spam screening. Otherwise existing SMTP path requires server configuration; unconfigured release honestly offers the visitor’s own mail app, which requires Send there and may not work without a configured app. No direct delivery credential exists for this release; no delivery success claim. PrivacyV4 matches the build’s provider. SMTP-only tracker wording is superseded. Owner enters REACT_APP_WEB3FORMS_KEY in the existing Vercel project’s Preview and Production environment settings without branch restriction, then rebuild/receipt/Reply-To proof; alternatively owner explicitly accepts mail-app fallback. No response-time promise added.
+
+Verification: API63/63; contracts141/141; production build; targeted lint and diff check pass. Output804 allowed portfolio derivatives, no excluded photos or source maps, only3 reviewed video/poster files. All10 galleries at3 sizes:30 journeys,201 successful image loads, correct counters/controls, zero horizontal overflow/page errors. Hosted listing→detail at top and browser Back preserve useful listing position at all3 sizes. Eight service details×3 and all homepage sections checked in reduced-motion mode; normal forward/reverse chapter choreography checked separately. Home pending/delayed/ready/failure at all3 sizes and Services state cases at phone pass; reduced-motion poster/static behavior and visible media recovery control pass. Hosted portfolio video readyState4, correct mobile/desktop currentSrc, muted/inline/autoplay, advancing currentTime with no media errors at all3 sizes. Hosted Bones/Groundwork correct assets and natural widths.
+
+Hosted security: exact bundle identity;25 initial probes pass including private image URLs,3 removed video files,debug/admin/editor/maps/config404; legacy article GET200 with WordPress article content, HEAD200 correct headers and empty body; enquiries GET/OPTIONS405 no permissive CORS, invalidPOST400 no-store. Repeated controlled POST checks additionally exercised rate limiting429; extended contact confirmation recorded separately. Legacy origin failure/challenge/cache protections covered by passing API tests. Production/SiteGround untouched.
+
+Council independent source/build audit: VERIFIED WITH REQUIRED FOLLOW-UP; output-video/privacy follow-up implemented. Final independent engineering audit: VERIFIED for frozen Candidate 5, after hosted identity/probes, three-view navigation/media/image checks and tracker/TaskQ readbacks. Gallery30/201 evidence uses the local production build at http://localhost:3012; hosted identity matches and separate hosted smoke covers changed images/navigation/video. Owner decisions are not engineering approval. Guided review notes tested for note-only typing/reload, partial summary, copy path and exact downloaded text; localStorage does not transmit notes to Codex. Owner must copy/download answers. Optional video fallback prototype is playable and default-off.
+
+Records: updated existing tracker T248,T254,T275–T281,T290,T295–T297 and read back; added T901 only to reconcile existing Bones TaskQ t_bc912e6647, no duplicate TaskQ; image provenance row21. TaskQ five verified completions and seven existing-task notes read back. No unrelated editor or project work changed.
+
+Council execution checkpoint appended and read back in the existing Verdict + Method Log: https://docs.google.com/document/d/1MH2JHUUThofJVV0NvVjLRqgeGv6yzr4Af0b_pMfmL9o/edit .
