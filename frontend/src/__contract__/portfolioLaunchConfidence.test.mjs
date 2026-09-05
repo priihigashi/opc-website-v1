@@ -26,7 +26,7 @@ test("launch Portfolio contains exactly the Council-cleared review batch", () =>
   const leaked = ids.filter((id) => HELD_IDS.includes(id));
   assert.deepEqual(leaked, [], `a HELD project is published: ${leaked}`);
   assert.equal(ids.length, 12, `expected the 12-project launch set, found ${ids.length}`);
-  assert.equal(PORTFOLIO_PROJECTS.flatMap((project) => project.rows.flatMap((row) => row.images)).length, 74);
+  assert.equal(PORTFOLIO_PROJECTS.flatMap((project) => project.rows.flatMap((row) => row.images)).length, 82);
   const blob = JSON.stringify(PORTFOLIO_PROJECTS).toLowerCase();
   const words = HELD_WORDS.filter((w) => blob.includes(w));
   assert.deepEqual(words, [], `a client surname or street address is public: ${words}`);

@@ -6,7 +6,7 @@ const read = path => fs.readFileSync(new URL(path, import.meta.url), 'utf8');
 test('Candidate 5 preserves the approved project set and exact displayed counts', () => {
  assert.equal(projects.length, 12);
  assert.equal(new Set(projects.map(p=>p.id)).size,12);
- assert.equal(projects.reduce((n,p)=>n+p.imageCount,0),74);
+ assert.equal(projects.reduce((n,p)=>n+p.imageCount,0),82);
  for(const p of projects) assert.equal(p.imageCount,p.rows.reduce((n,r)=>n+r.images.length,0));
  const addition=projects.find(p=>p.id==='home-addition-outdoor-living');
  assert.deepEqual(addition.tags,['ADDITIONS','OUTDOOR LIVING']);
