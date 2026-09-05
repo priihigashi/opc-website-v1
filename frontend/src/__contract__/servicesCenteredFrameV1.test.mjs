@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import test from 'node:test';
 const read = p => readFileSync(new URL(p, import.meta.url), 'utf8');
 test('Services index isolates its house, loading and fallback in the measured layout gap',()=>{
- const app=read('../AppV19.js');
+ const app=read('../AppV20.js');
  assert.match(app,/<ServicesStageFrameV1><DeferredHouseStageV13 scene="services" \/><\/ServicesStageFrameV1>/);
  assert.match(app,/lastFramed/);
  assert.match(read('../components/ServicesStageFrameV1.jsx'),/ResizeObserver/);

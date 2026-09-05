@@ -82,7 +82,7 @@ test("active Portfolio consumers use the launch dataset", async () => {
     assert.match(await read(path), /portfolioProjectsLaunchV1/);
   }
   assert.match(await read("../pages/ProjectGalleryV5.jsx"), /ProjectGalleryV4/);
-  assert.match(await read("../AppV19.js"), /pages\/ProjectGalleryV7/);
+  assert.match(await read("../AppV20.js"), /pages\/ProjectGalleryV7/);
 });
 
 test("SEO and sitemap contain launch routes and exclude held routes", async () => {

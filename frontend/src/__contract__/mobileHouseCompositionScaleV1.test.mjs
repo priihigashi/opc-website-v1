@@ -6,8 +6,8 @@ import { fileURLToPath } from "node:url";
 const read = (relativePath) => readFileSync(fileURLToPath(new URL(relativePath, import.meta.url)), "utf8");
 
 test("the active app uses the versioned phone composition scale chain", () => {
-  assert.match(read("../index.js"), /AppV19/);
-  assert.match(read("../AppV19.js"), /DeferredHouseStageV12/);
+  assert.match(read("../index.js"), /AppV20/);
+  assert.match(read("../AppV20.js"), /DeferredHouseStageV12/);
   assert.match(read("../components/DeferredHouseStageV12.jsx"), /HouseSceneV34/);
   assert.match(read("../three/HouseSceneV34.jsx"), /HouseModelV31/);
 });

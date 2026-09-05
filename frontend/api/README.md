@@ -4,9 +4,12 @@
 
 ## What it does
 
-Validates the submission, screens it for spam, emails it to the business, and
-**stores nothing**. There is no database and no retention window, which is what
-the published `/privacy` page promises.
+Validates the submission and screens it for spam. The Oak Park endpoint does
+not persist the form contents in a database or account. Delivery may then occur
+through SMTP or through browser-side Web3Forms. Web3Forms may store the submitted
+fields under its own privacy policy. Its published maximum is three years unless a
+shorter plan period applies or the information is deleted earlier. The published
+`/privacy` page discloses that separate provider handling.
 
 ## The configuration gate
 

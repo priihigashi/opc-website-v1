@@ -63,7 +63,7 @@ test("gallery preview shares the real renderer without opening a public editor r
   assert.match(gallery, /export function ProjectGalleryContent\(\{ project \}\)/);
   assert.match(gallery, /<ProjectGalleryV5><RoutedGalleryContent \/><\/ProjectGalleryV5>/);
   assert.match(gallery, /getPortfolioProject\(projectId\)/);
-  assert.doesNotMatch(read("frontend/src/AppV19.js"), /path=["'][^"']*(studio|editor|admin)/i);
+  assert.doesNotMatch(read("frontend/src/AppV20.js"), /path=["'][^"']*(studio|editor|admin)/i);
 });
 test("isolated owner workspace stays test-first and cannot overwrite imported documents", () => {
   assert.match(read("studio/sanity.config.ts"), /SANITY_STUDIO_DATASET \|\| "portfolio-test"/);

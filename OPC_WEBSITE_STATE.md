@@ -2,7 +2,15 @@
 
 **Candidate 7 is the one current review. Photo refinement and the owner editor are nonblocking under Priscila's latest request. Contact handling and explicit GO LIVE remain owner gates.**
 
-Last updated: 2026-09-04 — Candidate 7 closure (America/New_York)
+Last updated: 2026-09-05 — Candidate 8 configured contact preparation; Candidate 7 remains deployed (America/New_York)
+
+## Contact setup delegation — prepared, not deployed
+
+Priscila explicitly authorized free Web3Forms setup using her email and computer, and then specifically approved its Terms and Privacy Policy. On September 5, Codex verified the business inbox login, accepted those approved terms, selected the Free Forever plan (250 monthly submissions), and created the Oak Park Construction website enquiry form. The public form ID is configured as REACT_APP_WEB3FORMS_KEY in this existing Vercel project's Preview and Production environments without a branch restriction. No paid subscription or payment information was used. Receipt and Reply-To verification remain pending the configured preview.
+
+Candidate 8 source is prepared locally: ContactV8/V9 fixes the configured-provider success outcome, forwards the real honeypot value, and prevents duplicate submissions. AppV20 selects that contact page and PrivacyV5, which distinguishes the validation endpoint from provider storage and describes the provider's maximum three-year retention subject to a shorter plan or earlier deletion. Independent Council review found no material source defect. Build, 164 contracts, 63 API tests, and the 981-image privacy guard pass.
+
+This preparation has not been pushed or deployed. Candidate 7 below remains the sole official review. Build the configured next preview and verify actual delivery and Reply-To. Production and DNS still require explicit GO LIVE.
 
 ## Canonical release line
 

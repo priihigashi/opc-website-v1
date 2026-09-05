@@ -7,10 +7,10 @@ const read = (relativePath) => readFileSync(fileURLToPath(new URL(relativePath, 
 
 test("the active app routes project details through the local top-entry wrapper", () => {
   const entry = read("../index.js");
-  const app = read("../AppV19.js");
+  const app = read("../AppV20.js");
   const gallery = read("../pages/ProjectGalleryV5.jsx");
 
-  assert.match(entry, /AppV19/);
+  assert.match(entry, /AppV20/);
   assert.match(app, /pages\/ProjectGalleryV7/);
   assert.match(gallery, /useLayoutEffect/);
   assert.match(gallery, /window\.scrollTo\(\{ top: 0, left: 0, behavior: "auto" \}\)/);

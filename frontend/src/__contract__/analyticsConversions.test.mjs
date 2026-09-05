@@ -24,8 +24,8 @@ const analytics = src("lib", "analytics.js");
 const ROUTED = {
   "components/NavV4.jsx": src("components", "NavV4.jsx"),
   "components/FooterV2.jsx": src("components", "FooterV2.jsx"),
-  "components/ContactV5.jsx": src("components", "ContactV5.jsx"),
-  "components/ContactV7.jsx": src("components", "ContactV7.jsx"),
+  "components/ContactV8.jsx": src("components", "ContactV8.jsx"),
+  "components/ContactV9.jsx": src("components", "ContactV9.jsx"),
   "pages/ServiceDetailV3.jsx": src("pages", "ServiceDetailV3.jsx"),
   "pages/ServicesV8.jsx": src("pages", "ServicesV8.jsx"),
   "pages/PortfolioV10.jsx": src("pages", "PortfolioV10.jsx"),
@@ -69,7 +69,7 @@ test("every conversion name is declared once, in analytics.js", () => {
 });
 
 test("a form success reports a conversion", () => {
-  const contact = ROUTED["components/ContactV5.jsx"];
+  const contact = ROUTED["components/ContactV8.jsx"];
   assert.match(contact, /CONVERSIONS\.LEAD_SUBMITTED/);
   assert.match(contact, /CONVERSIONS\.LEAD_FALLBACK/);
 });

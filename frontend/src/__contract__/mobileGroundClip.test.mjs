@@ -6,10 +6,10 @@ const read = (path) => readFileSync(new URL(path, import.meta.url), "utf8");
 
 test("the active app routes home through the versioned mobile ground clip", () => {
   const entry = read("../index.js");
-  const app = read("../AppV19.js");
+  const app = read("../AppV20.js");
   const stage = read("../components/DeferredHouseStageV12.jsx");
   const model = read("../three/HouseModelV31.jsx");
-  assert.match(entry, /AppV19/);
+  assert.match(entry, /AppV20/);
   assert.match(app, /DeferredHouseStageV12/);
   assert.match(stage, /HouseSceneV34/);
   assert.match(model, /EnvelopeV10/);

@@ -28,11 +28,16 @@ test('current gallery has one identity, contained 16:9 photographs and the Candi
  assert.match(gallery,/<ProjectGalleryV5><RoutedGalleryContent \/><\/ProjectGalleryV5>/);
  assert.match(read('../pages/ProjectGalleryV5.jsx'),/useLayoutEffect/);
  assert.match(read('../pages/ProjectGalleryV5.jsx'),/return children \|\| <ProjectGalleryV4 \/>/);
- assert.doesNotMatch(read('../AppV19.js'),/preview\/centered-house/);
+ assert.doesNotMatch(read('../AppV20.js'),/preview\/centered-house/);
 });
 test('privacy selects its provider disclosure from the configured build, and React image priority is valid',()=>{
- assert.match(read('../pages/PrivacyV4.jsx'),/process.env.REACT_APP_WEB3FORMS_KEY \?/);
- assert.match(read('../pages/PrivacyV4.jsx'),/preparing it does not send a message/);
+ const privacy = read('../pages/PrivacyV5.jsx');
+ assert.match(privacy,/process.env.REACT_APP_WEB3FORMS_KEY \?/);
+ assert.match(privacy,/validation endpoint does not save your message or contact details/);
+ assert.match(privacy,/may store those submitted details under its privacy policy/);
+ assert.match(privacy,/published maximum is three years unless a shorter plan period applies or the information is deleted earlier/);
+ assert.match(privacy,/https:\/\/web3forms\.com\/privacy/);
+ assert.match(privacy,/preparing it does not send a message/);
  assert.match(read('../components/PortfolioPicture.jsx'),/fetchPriority=/);
  assert.doesNotMatch(read('../components/PortfolioPicture.jsx'),/fetchpriority=/);
 });
