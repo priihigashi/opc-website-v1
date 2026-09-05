@@ -25,11 +25,7 @@ if (!Array.isArray(PORTFOLIO_PROJECTS) || PORTFOLIO_PROJECTS.length === 0) {
 const IDS = PORTFOLIO_PROJECTS.map((p) => p.id);
 console.log(`capturing ${IDS.length} published projects: ${IDS.join(", ")}`);
 
-const HELD = [
-  "victoria-park", "victoria-park-residence", "harbor-court", "dockside-full-home-remodel",
-  "kinney-shell-build", "miami-new-build", "opa-locka-airport", "pompano-kitchen-remodel",
-  "pompano-patio-slab", "rio-vista-concrete", "weston-new-build"
-];
+const HELD = ["victoria-park", "victoria-park-residence", "harbor-court", "kinney-shell-build", "miami-new-build", "weston-new-build"];
 const leaked = IDS.filter((id) => HELD.includes(id));
 if (leaked.length) {
   console.error(`FAIL: held project(s) present in the launch dataset: ${leaked.join(", ")}`);

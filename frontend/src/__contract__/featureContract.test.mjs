@@ -94,11 +94,11 @@ const REQUIRED = [
     check: (s) => s.includes("[0.27, -2.3]") && s.includes("[0.912, 0.92]") },
   { route: "/", file: () => `components/${storyName}.jsx`,
     name: "all five chapters use the deterministic banner timeline",
-    check: (s) => s.includes("HOME_STORY_BANNER_TIMELINE_V2") && s.includes("ChapterV8") },
-  { route: "/", file: () => "components/StoryBannerRailV5.jsx",
+    check: (s) => s.includes("HOME_STORY_BANNER_TIMELINE_V2") && s.includes("ChapterV9") },
+  { route: "/", file: () => "components/StoryBannerRailV6.jsx",
     name: "one story rail travels by scroll progress without opacity gating",
     check: (s) => s.includes("bannerTravelY") && s.includes("requestAnimationFrame") && s.includes("activeIndexFor") && !s.includes("whileInView") },
-  { route: "/", file: () => "components/ChapterV8.jsx",
+  { route: "/", file: () => "components/ChapterV9.jsx",
     name: "offscreen chapter links leave the accessibility tree and tab order",
     check: (s) => s.includes('aria-hidden={interactive ? undefined : "true"}') && s.includes("tabIndex={interactive ? 0 : -1}") },
   // T-259/T-261 — filtered grid balance: spans respond to the result set.
@@ -125,7 +125,7 @@ const REQUIRED = [
     name: "launch Portfolio publishes no held project and no client identity",
     // Was an allowlist of 3 ids. Her ruling 2026-09-03 restored the real portfolio, so the
     // contract now guards identity and held-status instead of freezing which projects exist.
-    check: (s) => !["miami-new-build","weston-new-build","pompano-patio-slab","opa-locka-airport"]
+    check: (s) => !["miami-new-build","weston-new-build"]
                     .some((id) => s.includes(`\"id\": \"${id}\"`))
       && !/clark|kinney|harbor.court/i.test(s) },
   { route: "/portfolio", file: () => "data/portfolioProjectsLaunchV1.js",

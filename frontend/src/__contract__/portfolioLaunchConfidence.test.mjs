@@ -16,9 +16,8 @@ const { PORTFOLIO_PROJECTS } = launchModule;
 // declares — so this contract guards the thing that actually matters (no HELD project may
 // appear, every category a filter offers must be real) rather than freezing a count.
 const expectedIds = PORTFOLIO_PROJECTS.map(({ id }) => id);
-// Only FOUR projects are genuinely held now, and only because they have no finished
-// photograph. The old ids of RENAMED projects are not held — they redirect to the new slug.
-const HELD_IDS = ["miami-new-build", "weston-new-build", "pompano-patio-slab", "opa-locka-airport"];
+// Only two projects remain held for privacy/completeness review.
+const HELD_IDS = ["miami-new-build", "weston-new-build"];
 const HELD_WORDS = ["clark", "kinney", "harbor court", "harbor-court"];
 const heldIds = HELD_IDS;
 
@@ -26,16 +25,16 @@ test("launch Portfolio contains exactly the Council-cleared review batch", () =>
   const ids = PORTFOLIO_PROJECTS.map(({ id }) => id);
   const leaked = ids.filter((id) => HELD_IDS.includes(id));
   assert.deepEqual(leaked, [], `a HELD project is published: ${leaked}`);
-  assert.equal(ids.length, 10, `expected the 10-project launch set, found ${ids.length}`);
-  assert.equal(PORTFOLIO_PROJECTS.flatMap((project) => project.rows.flatMap((row) => row.images)).length, 67);
+  assert.equal(ids.length, 12, `expected the 12-project launch set, found ${ids.length}`);
+  assert.equal(PORTFOLIO_PROJECTS.flatMap((project) => project.rows.flatMap((row) => row.images)).length, 74);
   const blob = JSON.stringify(PORTFOLIO_PROJECTS).toLowerCase();
   const words = HELD_WORDS.filter((w) => blob.includes(w));
   assert.deepEqual(words, [], `a client surname or street address is public: ${words}`);
 });
 
-test("Portfolio hides the reversible filter menu and gives every filtered result a way back to all projects", async () => {
-  const page = await read("../pages/PortfolioV9.jsx");
-  assert.match(page, /const SHOW_CATEGORY_MENU = false/);
+test("Portfolio restores the category filter menu and gives every filtered result a way back to all projects", async () => {
+  const page = await read("../pages/PortfolioV10.jsx");
+  assert.match(page, /const SHOW_CATEGORY_MENU = true/);
   assert.match(page, /SHOW_CATEGORY_MENU && <nav/);
   assert.match(page, /filter !== "ALL"[\s\S]*View all projects/);
   assert.match(page, /projectPhotoCount\(project\)/);
@@ -51,7 +50,7 @@ test("launch Portfolio exposes no private source fields or Drive-style IDs", asy
 test("every cover is finished or explicitly disclosed as an existing progress-only project; derivatives exist", () => {
   const publicRoot = fileURLToPath(new URL("../../public", import.meta.url));
   for (const project of PORTFOLIO_PROJECTS) {
-    const allowedProgress = ["dockside-full-home-remodel", "shell-concrete-construction", "pompano-kitchen-remodel"];
+    const allowedProgress = ["dockside-full-home-remodel", "shell-concrete-construction", "pompano-kitchen-remodel", "opa-locka-airport", "pompano-patio-slab"];
     if (allowedProgress.includes(project.id)) {
       assert.equal(project.cover.phase, "DURING");
       assert.equal(project.progressOnly, true);
@@ -79,11 +78,11 @@ test("Salon publishes only canonically confirmed finished frames", () => {
 });
 
 test("active Portfolio consumers use the launch dataset", async () => {
-  for (const path of ["../pages/PortfolioV9.jsx", "../pages/ProjectGalleryV4.jsx", "../lib/seoSchemasV1.js"]) {
+  for (const path of ["../pages/PortfolioV10.jsx", "../pages/ProjectGalleryV4.jsx", "../lib/seoSchemasV1.js"]) {
     assert.match(await read(path), /portfolioProjectsLaunchV1/);
   }
   assert.match(await read("../pages/ProjectGalleryV5.jsx"), /ProjectGalleryV4/);
-  assert.match(await read("../AppV18.js"), /pages\/ProjectGalleryV6/);
+  assert.match(await read("../AppV19.js"), /pages\/ProjectGalleryV7/);
 });
 
 test("SEO and sitemap contain launch routes and exclude held routes", async () => {
@@ -143,4 +142,28 @@ test("Vercel permanently redirects renamed and held project URLs before the catc
   }
   const catchAll = config.rewrites.findIndex((entry) => entry.source === "/portfolio/:path*");
   assert.ok(catchAll >= 0, "Portfolio SPA catch-all is missing");
+});
+
+function jpegDimensions(buffer) {
+  const sofMarkers = new Set([0xc0, 0xc1, 0xc2, 0xc3, 0xc5, 0xc6, 0xc7, 0xc9, 0xca, 0xcb, 0xcd, 0xce, 0xcf]);
+  for (let offset = 2; offset + 8 < buffer.length;) {
+    while (buffer[offset] === 0xff) offset += 1;
+    const marker = buffer[offset++];
+    if (marker === 0xd8 || marker === 0xd9) continue;
+    const length = buffer.readUInt16BE(offset);
+    if (sofMarkers.has(marker)) return { w: buffer.readUInt16BE(offset + 5), h: buffer.readUInt16BE(offset + 3) };
+    offset += length;
+  }
+  throw new Error("JPEG dimensions unavailable");
+}
+
+test("approved wide Pergola metadata matches its largest public derivative", async () => {
+  const project = PORTFOLIO_PROJECTS.find(({ id }) => id === "pergola-outdoor-kitchen");
+  const gallery = project.rows.flatMap((row) => row.images).find((image) => image.id === "opc-photo-056");
+  assert.deepEqual(project.cover, gallery, "cover metadata must match the verified gallery record");
+  const largest = Math.max(...gallery.widths);
+  const publicRoot = fileURLToPath(new URL("../../public", import.meta.url));
+  const dimensions = jpegDimensions(await readFile(`${publicRoot}${gallery.src}-${largest}w.jpg`));
+  assert.deepEqual(dimensions, { w: gallery.w, h: gallery.h });
+  assert.deepEqual(dimensions, { w: 1600, h: 900 });
 });

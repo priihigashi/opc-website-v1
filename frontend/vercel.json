@@ -323,16 +323,6 @@
       "permanent": true
     },
     {
-      "source": "/portfolio/opa-locka-airport",
-      "destination": "/portfolio?category=CONCRETE",
-      "permanent": true
-    },
-    {
-      "source": "/portfolio/pompano-patio-slab",
-      "destination": "/portfolio?category=CONCRETE",
-      "permanent": true
-    },
-    {
       "source": "/portfolio/concrete-work",
       "destination": "/portfolio/rio-vista-concrete",
       "permanent": true

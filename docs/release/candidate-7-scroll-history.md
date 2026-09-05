@@ -1,0 +1,39 @@
+# OPC desktop/mobile scroll cue — recovered history
+
+Date reviewed: 2026-09-04 (America/New_York)
+
+## Direct owner wording retained in local Codex sessions
+
+- **2026-09-02 12:18 EDT** — “I think that arrow will need to keep it for longer … add the word scroll with the same font that we have on the first fold but not lime this time … white and make it … disappear like the arrow does.” Source: `/Users/priscilahigashi/.codex/sessions/2026/09/02/rollout-2026-09-02T12-18-26-01a062ea-223c-7772-9377-950e3452badf.jsonl`, retained transcript at line 10, message 49.
+- **2026-09-02 13:18 EDT** — “the arrow should flashing slow motion and be minimalistic like first one from your”. Source: `/Users/priscilahigashi/.codex/sessions/2026/09/02/rollout-2026-09-02T11-15-37-01a062b0-a026-7490-a119-62b6be459e6f.jsonl`, line 2201.
+- **2026-09-02 13:21 EDT** — “I wouldn't mind having it at all the time all the way to the end, but it needs to be below the banner all the banners”. Source: same session file, line 2259.
+- **2026-09-04 20:38 EDT** — “read all the information I asked about the scroll button in the desktop view and in the mobile … I may have changed my mind multiple times … find the best one with the help of the council … it's not acting the best right now”. Source: `/Users/priscilahigashi/.codex/sessions/2026/09/04/rollout-2026-09-04T19-32-34-01a06ec4-4f8a-7f51-96bb-b3130a77efc9.jsonl`, line 1084.
+
+## Dated repository and task records
+
+- **2026-08-17** — The hero simplification removed competing controls and used a quiet keyboard-accessible “Scroll to explore ↓” link on tablet/desktop; mobile used body-copy guidance. This was hero-specific and later superseded. Source: `docs/t169-hero-message-simplification-2026-08-17.md`, feedback and changes sections.
+- **2026-08-18** — The lower-left hero instruction became two lines with lime `SCROLL DOWN` and a small white arrow using a restrained 1.55-second vertical/opacity pulse. It remains separate from the story cue. Source: `docs/t169-hero-scroll-cue-v8-2026-08-18.md`, feedback and implementation sections.
+- **2026-08-26** — The responsive research contract described a decorative cue shown for the first two viewport folds. The later September persistence direction supersedes this duration. Source: `docs/2026-08-26-story-banner-responsive-research-v1.md`, lines 69–94.
+- **2026-09-01** — The retained ledger records a requested “small softly animated arrow on phones” below the house. V2 used a 76svh phone anchor, a restrained 3px/2.2s drift, and the old two-fold duration. Source: `/Users/priscilahigashi/ClaudeWorkspace/opc-website/OPC_WEBSITE_STATE.md`, line 653 entry.
+- **2026-09-03 20:43 EDT** — Task Q recovery item: “P1 MOBILE: keep the scroll cue just below the land and above the chapter menu the whole way down, until the last banner.” Source: `/Users/priscilahigashi/Documents/Codex/2026-09-04/files-pasted-by-the-user-oak/work/taskq-launch.json`, body near line 6192; source key `opc-website-launch-2026-08-27::0903r…`.
+
+## Reconciliation applied to Candidate 7
+
+The governing story-cue behavior is one decorative, non-clickable white mono `SCROLL` label and minimal white chevron; slow 3.4-second opacity-only pulse; static for reduced motion; present continuously across the five chapter range through the final banner; below the banner lane; and, on compact layouts, above the fixed chapter dock. Calling it a “button” on September 4 does not itself establish a click action, especially because all detailed September requests call it an arrow or cue and chapter navigation already exists.
+
+Candidate 6's V5 cue measured the moving banner every animation frame and hid unless a panel was fully onscreen and safely above it. That produced repeated gaps between banners and contradicted “all the time all the way to the end.” Candidate 7 uses one `IntersectionObserver` on the complete chapter range, so visibility changes only at the story boundaries. The observer uses a two-pixel band immediately below the 72px navigation, with viewport-height pixel margins recreated on resize; percentage margins are width-based in the W3C standard (https://www.w3.org/TR/intersection-observer/). The existing banner rail reserves 92–96px at compact sizes, while the cue sits above the 40px dock at a 56px-plus-safe-area bottom offset. Its z-index remains below the moving banner as collision protection. Visual checks must confirm that this stable compact lane also reads as below the rendered land across short and standard phones.
+
+## Access limits
+
+The review searched retained local Codex sessions from August 17 through September 4, both current and historical OPC ledgers, repository history and cue versions V1–V5, Council/research docs, current source/contracts, and the local Task Q export/board. Exact raw August 17–18 owner messages were not present in the retained session payloads found, so those entries rely on dated repository documentation. No external Builder Tracker mutation or production action was performed.
+
+## Final Candidate 7 verification
+
+- The final observer uses a two-pixel horizontal band immediately below the fixed 72px navigation. Its pixel margins are recalculated on resize. The cue begins only after the normal-flow hero and its lower-left instruction have left that band, remains continuously active across the five-chapter range, and stops before the regular homepage content.
+- A reduced-motion persistence audit sampled 31 positions forward and 31 in reverse at each of 390×844, 320×568, 1440×900 and 1726×650: **248 states total**. It found no internal cue-visibility gap, forward/reverse mismatch, hero/cue duplicate, compact-dock overlap, horizontal overflow or page error. This audit proves the cue boundary and persistence behavior; reduced motion renders chapter cards in normal flow, so it does not prove animated-rail geometry.
+- Normal-motion animated-rail checks covered the first and last chapters plus reverse return at 390×844 and 1440×900, and all five chapters plus reverse return at 320×568 and 1726×650. Every checked card was complete and readable, and the cue remained below the card and above the compact dock. Representative first/last and tallest-middle screenshots were inspected for both short-height sizes.
+- At 320×568, final card bottoms measured 470.07–471.96px. The cue occupied 490–512px and the dock 524–564px, leaving at least 18px between card and cue and 12px between cue and dock. All five active project links, plus Chapter 01 after reverse navigation, had `tabIndex=0`; no active card retained `aria-hidden`; horizontal overflow and page errors were zero.
+- At 1726×650, all five short-height cards passed. Measured card bottoms were 521.23–528.12px and the cue occupied 606–630px, leaving at least 77px separation. Standard 390×844 and 1440×900 layouts also passed without adopting the short-height presentation.
+- `ChapterCardV5` retains every heading, paragraph, project link, project image and bullet. Only viewports at most 700px tall receive tighter spacing/type and a 4rem–5rem `object-contain` project image. `StoryBannerRailV6` includes the 96px compact or 56px desktop cue lane in focus and readability calculations. Its one-pixel readability tolerance accounts for integer `offsetHeight` versus fractional transformed bounds; it changes accessibility state without changing layout or the measured safe gaps.
+
+Evidence files: `work/candidate7/scroll-cue-v6-results.json`, `work/candidate7/scroll-cue-v6-final-results.json`, `work/candidate7/scroll-cue-v6-320-accessibility-final.json`, and the adjacent `scroll-cue-v6-*.png` captures. Browser checks ran with GPU rendering disabled to keep the shared test machine stable. DOM geometry, accessibility state and rendered card/cue screenshots are in scope; WebGL house fidelity is not claimed by this cue audit and was verified separately by the retained Candidate 6 and Candidate 7 Services evidence.
