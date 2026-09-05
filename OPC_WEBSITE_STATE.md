@@ -1,16 +1,16 @@
 # OPC Website — Current Official Release Candidate
 
-**Candidate 5 is rejected for launch: a final scan found GPS metadata in 13 older image files. Candidate 6 is the bounded privacy correction; its exact deployment will be recorded below after hosted verification.**
+**Candidate 6 is the current review. Candidate 5 is rejected for launch because its older image files contained GPS metadata. Candidate 6 removes it without changing their appearance.**
 
-Last updated: 2026-09-04 — Candidate 5 hosted verification (America/New_York)
+Last updated: 2026-09-04 — Candidate 6 hosted verification (America/New_York)
 
 ## Canonical release line
 
-- Current numbered release: **Candidate 5 — Clearer Galleries and Verified Photos**.
+- Current numbered release: **Candidate 6 — Clearer Galleries and Location Privacy**.
 - Canonical branch: `release/opc-launch-today-2026-09-04`.
-- Frozen website code commit: `712e4e2b26f7396a879c23d1be94dd364b722348`.
-- Exact immutable preview: `https://opc-house-elements-review-mbjj2aekt-priihigashis-projects.vercel.app`.
-- Vercel deployment: `dpl_8Qivn1PrmKQJFyh9bJmjzTy6WNq1` (`READY`, preview target).
+- Frozen website code commit: `05cd713aa3550a888b8a5550a45640647a44a8c9`.
+- Exact immutable preview: `https://opc-house-elements-review-fd2r106d0-priihigashis-projects.vercel.app`.
+- Vercel deployment: `dpl_2R14tqNmEzyT5EwS3bxk2w83cy5v` (`READY`, preview target).
 - Vercel project root: `frontend/`.
 
 This branch descends from both required lines of work: content/story commit `9dc66409` and repair/portfolio commit `a6e5e154`, joined in merge commit `3bec6b8b`. The excluded owner-editor branch is not an ancestor.
@@ -18,7 +18,7 @@ This branch descends from both required lines of work: content/story commit `9dc
 ## Version rule
 
 - Priscila reviews only the one candidate named above. Older preview URLs are historical evidence, not competing choices.
-- Candidate 4 already exists and Candidate 5 now descends from it. The next accepted code change creates Candidate 6. A new candidate must descend from the preceding candidate.
+- Candidate 6 descends directly from Candidate 5, which descends from Candidate 4. The next accepted code change creates Candidate 7. A new candidate must descend from the preceding candidate.
 - If an approved item is intentionally removed, the candidate record must name it explicitly before review.
 - Never label a preview **Final** until all approved changes are in the same frozen commit and Priscila has approved appearance, the contact-delivery decision, and the exact words **go live**.
 
@@ -33,7 +33,7 @@ This branch descends from both required lines of work: content/story commit `9dc
 - Candidate 2 adds one hosted-test repair on top of Candidate 1: invalid fields and the honeypot are checked before the missing-delivery-configuration fallback.
 - Legacy article recovery, security headers, held-asset pruning, and source-map blocking are inherited from the repair line.
 
-## Verification status
+## Historical verification through Candidate 4
 
 - Automated: 63/63 API tests, 134/134 site contract tests, production build, and whitespace checks pass.
 - Merge ancestry: both required branch tips are ancestors; the owner-editor branch is excluded.
@@ -45,7 +45,7 @@ This branch descends from both required lines of work: content/story commit `9dc
 
 ## Unresolved launch gates
 
-- Priscila must approve Candidate 5 appearance, proposed Bones photograph, and the three explicitly labeled construction-progress cards. Exact Victoria addition wording remains optional and unapproved; no project title was changed.
+- Priscila must approve Candidate 6 appearance, proposed Bones photograph, and the three explicitly labeled construction-progress cards. Exact Victoria addition wording remains optional and unapproved; no project title was changed.
 - Vercel currently has no `REACT_APP_WEB3FORMS_KEY`; choose and prove either Web3Forms delivery with working Reply-To or the mail-app fallback.
 - Production domain, DNS, and production alias remain untouched until Priscila says the exact words **go live**.
 
@@ -85,3 +85,13 @@ Council independent source/build audit: VERIFIED WITH REQUIRED FOLLOW-UP; output
 Records: updated existing tracker T248,T254,T275–T281,T290,T295–T297 and read back; added T901 only to reconcile existing Bones TaskQ t_bc912e6647, no duplicate TaskQ; image provenance row21. TaskQ five verified completions and seven existing-task notes read back. No unrelated editor or project work changed.
 
 Council execution checkpoint appended and read back in the existing Verdict + Method Log: https://docs.google.com/document/d/1MH2JHUUThofJVV0NvVjLRqgeGv6yzr4Af0b_pMfmL9o/edit .
+
+## Candidate 6 privacy correction and current evidence
+
+Frozen code05cd713aa3550a888b8a5550a45640647a44a8c9; deployment dpl_2R14tqNmEzyT5EwS3bxk2w83cy5v READY, preview, same project/root. This is the only current review URL above. Candidate5 is rejected for launch, even though its earlier engineering review passed before the broader metadata discovery.
+
+A complete output metadata scan identified GPS tags in13 pre-existing JPEGs. Their ancillary metadata was removed losslessly: all13 decodedpixel hashes are identical; one bathroom image retains orientation6-only EXIF to prevent rotation. No routed application, component, layout, photo selection, contact behavior or3D code changed. New build guard checks standard EXIF GPS pointers in both byte orders and common XMP GPS/location fields in all897 deployed raster images. All pass. Three focused contracts cover GPS, XMP, orientation preservation and malformed data; total144/144 contracts,63/63 API, production build pass. Main bundle remains1034aed1, so Candidate5 full gallery/service/loading/nav behavior evidence remains applicable; Candidate6 adds direct hosted verification of13 corrected images and fresh route/media probes.
+
+Proof: docs/release/candidate-6-metadata-proof.json. Candidate4/Candidate5 are historical code checkpoints and are not privacy-cleared launch rollbacks. Actual unchanged production rollback remains dpl_DtGd3fFS6wPxNyoZLYKYTMvmqtqY with existingDNS. No production authority granted.
+
+Final Candidate 6 closure: independent Conselho engineering verdict VERIFIED for the frozen SHA/deployment. Downloaded all13 corrected hostedJPEGs: HTTP200, noGPS, byte-identical to pixel/orientation-verified safe source. Fresh hosted three-view home/gallery/media checks and25 security/legacy probes pass; validcontact503 config_pending, honeypot200, invalid400, methods405. No receipt/Reply-To claim: owner contact decision remains open. Existing Council checkpoint appended/readback; tracker existingrows andInFlight current6, T902 metadata closure, TaskQ14 existingrecord readbacks (7 completions total across this task,7 owner-gated records retained), no newTaskQ items. Guide samefile/storagekey survives update; no competing review artifact created.

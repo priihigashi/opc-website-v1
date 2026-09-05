@@ -1,0 +1,181 @@
+{
+  "candidate": 6,
+  "sha": "05cd713aa3550a888b8a5550a45640647a44a8c9",
+  "deployment": "dpl_2R14tqNmEzyT5EwS3bxk2w83cy5v",
+  "url": "https://opc-house-elements-review-fd2r106d0-priihigashis-projects.vercel.app",
+  "mainBundle": "main.1034aed1.js",
+  "tests": {
+    "contracts": 144,
+    "api": 63,
+    "productionBuild": "pass",
+    "imagePrivacyGuard": 897
+  },
+  "galleryEvidence": {
+    "origin": "http://localhost:3012",
+    "projects": 10,
+    "viewports": [
+      390,
+      820,
+      1440
+    ],
+    "journeys": 30,
+    "imageLoads": 201,
+    "errors": 0
+  },
+  "metadataHosted": {
+    "base": "https://opc-house-elements-review-fd2r106d0-priihigashis-projects.vercel.app",
+    "metadata": [
+      {
+        "path": "/images/opc/bathroom-wide.jpg",
+        "status": 200,
+        "noGps": true,
+        "servedBytesMatchVerifiedSource": true,
+        "orientation": 1,
+        "sha256": "97e1a7a27e909d3ca798cea2e55fa7fc67ed34433ee4f18b45d39265cc3e8a86"
+      },
+      {
+        "path": "/images/opc/concrete-progress.jpg",
+        "status": 200,
+        "noGps": true,
+        "servedBytesMatchVerifiedSource": true,
+        "orientation": 1,
+        "sha256": "84f7db4ef238152b3df4891293274c9adc73fe6f3973b381d0d563b0d53884de"
+      },
+      {
+        "path": "/images/opc/sitework-progress.jpg",
+        "status": 200,
+        "noGps": true,
+        "servedBytesMatchVerifiedSource": true,
+        "orientation": 1,
+        "sha256": "7250a26ad31d9f226d82459c390b1bd9f0dd90543e65f0d7c12a7381f16ee03c"
+      },
+      {
+        "path": "/images/opc/bathroom-alt.jpg",
+        "status": 200,
+        "noGps": true,
+        "servedBytesMatchVerifiedSource": true,
+        "orientation": 1,
+        "sha256": "0c9e36039e506a1050755dade3bc36f5d6170cec4e987d6fb025c287c50deb32"
+      },
+      {
+        "path": "/images/opc/kitchen-walnut.jpg",
+        "status": 200,
+        "noGps": true,
+        "servedBytesMatchVerifiedSource": true,
+        "orientation": 1,
+        "sha256": "49c7eb1bf772c6ee2c106be5404910581f5fe8440b2bb7379981f40491934e60"
+      },
+      {
+        "path": "/images/opc/addition-progress.jpg",
+        "status": 200,
+        "noGps": true,
+        "servedBytesMatchVerifiedSource": true,
+        "orientation": 1,
+        "sha256": "6207cd4e3002c26b402781900759ad986bc25de2a506ca2bbf489bf78bd7127d"
+      },
+      {
+        "path": "/images/opc/kitchen-wide.jpg",
+        "status": 200,
+        "noGps": true,
+        "servedBytesMatchVerifiedSource": true,
+        "orientation": 1,
+        "sha256": "1e04803572db2da80d23e9d5e86983ce61f431ced7fab4a898240f0bfa39666b"
+      },
+      {
+        "path": "/images/opc/projects/kitchen-collection/kitchen-01.jpg",
+        "status": 200,
+        "noGps": true,
+        "servedBytesMatchVerifiedSource": true,
+        "orientation": 1,
+        "sha256": "dcb8633c58f240ed26421453fd07ff238f661efde67304e2d4fc8b63b5a7d477"
+      },
+      {
+        "path": "/images/opc/projects/kitchen-collection/kitchen-02.jpg",
+        "status": 200,
+        "noGps": true,
+        "servedBytesMatchVerifiedSource": true,
+        "orientation": 1,
+        "sha256": "dcb8633c58f240ed26421453fd07ff238f661efde67304e2d4fc8b63b5a7d477"
+      },
+      {
+        "path": "/images/opc/projects/kitchen-collection/kitchen-03.jpg",
+        "status": 200,
+        "noGps": true,
+        "servedBytesMatchVerifiedSource": true,
+        "orientation": 1,
+        "sha256": "dcb8633c58f240ed26421453fd07ff238f661efde67304e2d4fc8b63b5a7d477"
+      },
+      {
+        "path": "/images/opc/projects/bathroom-collection/bathroom-01.jpg",
+        "status": 200,
+        "noGps": true,
+        "servedBytesMatchVerifiedSource": true,
+        "orientation": 1,
+        "sha256": "dcb8633c58f240ed26421453fd07ff238f661efde67304e2d4fc8b63b5a7d477"
+      },
+      {
+        "path": "/images/opc/projects/bathroom-collection/bathroom-02.jpg",
+        "status": 200,
+        "noGps": true,
+        "servedBytesMatchVerifiedSource": true,
+        "orientation": 1,
+        "sha256": "5bdbf9f631c2ad9d75fd910f117da4eb93606376dfb8c2758f1a042c53718871"
+      },
+      {
+        "path": "/images/opc/projects/bathroom-collection/bathroom-03.jpg",
+        "status": 200,
+        "noGps": true,
+        "servedBytesMatchVerifiedSource": true,
+        "orientation": 6,
+        "sha256": "75d9c97b9af3b42e834e617a999fd7efef7c4b438e7ad10d8309c5aa4d5128d4"
+      }
+    ],
+    "bundle": "main.1034aed1.js",
+    "surfaces": [
+      {
+        "w": 390,
+        "changedHomepageImagesLoad": true,
+        "gallery": true,
+        "errors": []
+      },
+      {
+        "w": 820,
+        "changedHomepageImagesLoad": true,
+        "gallery": true,
+        "errors": []
+      },
+      {
+        "w": 1440,
+        "changedHomepageImagesLoad": true,
+        "gallery": true,
+        "errors": []
+      }
+    ]
+  },
+  "contact": {
+    "valid": {
+      "status": 503,
+      "body": {
+        "ok": false,
+        "code": "config_pending"
+      }
+    },
+    "honeypot": {
+      "status": 200,
+      "body": {
+        "ok": true,
+        "code": "received"
+      }
+    }
+  },
+  "council": "VERIFIED",
+  "productionAuthority": false,
+  "remainingOwnerGates": [
+    "appearance",
+    "Bones image",
+    "progress cards",
+    "optional Victoria wording",
+    "contact path or receipt/Reply-To",
+    "exact GO LIVE"
+  ]
+}
