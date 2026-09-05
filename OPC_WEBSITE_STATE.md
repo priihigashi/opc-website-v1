@@ -1,33 +1,32 @@
 # OPC Website — Current Official Release Candidate
 
-**Candidate 7 is the one current review. Photo refinement and the owner editor are nonblocking under Priscila's latest request. Contact handling and explicit GO LIVE remain owner gates.**
+**Candidate 8 is the one current review. Free contact delivery is verified. Explicit GO LIVE remains the launch gate; photo refinement and the owner editor remain nonblocking.**
 
-Last updated: 2026-09-05 — Candidate 8 configured contact preparation; Candidate 7 remains deployed (America/New_York)
-
-## Contact setup delegation — prepared, not deployed
-
-Priscila explicitly authorized free Web3Forms setup using her email and computer, and then specifically approved its Terms and Privacy Policy. On September 5, Codex verified the business inbox login, accepted those approved terms, selected the Free Forever plan (250 monthly submissions), and created the Oak Park Construction website enquiry form. The public form ID is configured as REACT_APP_WEB3FORMS_KEY in this existing Vercel project's Preview and Production environments without a branch restriction. No paid subscription or payment information was used. Receipt and Reply-To verification remain pending the configured preview.
-
-Candidate 8 source is prepared locally: ContactV8/V9 fixes the configured-provider success outcome, forwards the real honeypot value, and prevents duplicate submissions. AppV20 selects that contact page and PrivacyV5, which distinguishes the validation endpoint from provider storage and describes the provider's maximum three-year retention subject to a shorter plan or earlier deletion. Independent Council review found no material source defect. Build, 164 contracts, 63 API tests, and the 981-image privacy guard pass.
-
-This preparation has not been pushed or deployed. Candidate 7 below remains the sole official review. Build the configured next preview and verify actual delivery and Reply-To. Production and DNS still require explicit GO LIVE.
+Last updated: September 5, 2026 (America/New_York)
 
 ## Canonical release line
 
-- Current numbered release: **Candidate 7 — Persistent Scroll, Centered Services and Recovered Portfolio**.
+- Current numbered release: **Candidate 8 — Verified Free Contact Delivery**.
 - Canonical branch: `release/opc-launch-today-2026-09-04`.
-- Frozen website code commit: `809040aed36ab3c71616abbb684458458a723753`.
-- Exact immutable preview: `https://opc-house-elements-review-nu2yviphh-priihigashis-projects.vercel.app`.
-- Vercel deployment: `dpl_9GN4xnwtYBxNC6v2YgwaisxZ2qst` (`READY`, preview target).
-- Project: `opc-house-elements-review`, `prj_AEwEFwtR5l3bH6uMKWWxFV9OBKeQ`, root `frontend/`.
-- Hosted main bundle: `/static/js/main.7644ab49.js`. All shipped JS/CSS and the12 new Pergola derivatives are byte-identical to the verified local build.
+- Frozen website code: `5d4d5892e24edb5dc61394d323cc9dbf8d561218`.
+- Exact immutable preview: https://opc-house-elements-review-qtkt1gt1u-priihigashis-projects.vercel.app
+- Deployment: `dpl_9KjLUjzAaLABgqi3Z36pNuBnpnyB`, READY preview, existing project `opc-house-elements-review`, root `frontend`.
+- Main bundle: `/static/js/main.46ed080f.js`. All 12 hosted scripts/styles match the configured local build using authenticated Vercel reads. Anonymous requests return the preview sign-in page, so mobile review may require the owner's Vercel login.
+
+## Candidate 8 acceptance evidence
+
+The owner delegated free setup and specifically approved Web3Forms Terms/Privacy. Free Forever account/form created; 250 monthly submissions; no payment information. The existing project's Preview and Production environments contain the build-time form configuration without a branch restriction. No production deployment or DNS change was made.
+
+The actual hosted form sent one clearly labeled test. Receipt was confirmed in the business inbox at 16:28 UTC on September 5; Reply-To matched the address entered in the form. Visible success and empty/reset fields verified. The mobile form at390×844 has no horizontal overflow and the success message is readable. The configured privacy page correctly describes provider retention; its September4 date reflects the disclosure's authoring date.
+
+ContactV9/V8 and AppV20 fix successful provider outcomes, duplicate submissions and real honeypot forwarding. Independent Council source review found no material defect. 164 contract tests,63 API tests, configured build and981-image privacy checks pass. Vendor failure/invalid response/no-key fallback are covered by behavioral tests; a live provider outage was not induced. All Candidate7 page/photo/scroll/service/editor boundaries are preserved.
 
 This branch contains both required original work lines, joined in3bec6b8b, and descends from Candidate6 through its documentation checkpoint. The owner-editor branch is not an ancestor; Candidate7 selectively recovers its private source under the owner's renewed request, outside the public frontend. There is no public editor route or working authenticated editor claim.
 
 ## Version rule
 
 - Only the immutable candidate above is current. Older previews are historical evidence or rollback checkpoints.
-- The next accepted code change creates **Candidate 8**, descending from Candidate7. Documentation-only checkpoints do not change the frozen website code or review authority.
+- The next accepted code change creates **Candidate 9**, descending from Candidate8. Documentation-only checkpoints do not change the frozen website code or review authority.
 - Explicitly document intentional removals; preserve approved work.
 - Never label a preview Final until the owner approves it, contact handling is settled, and exact **GO LIVE** authority is received.
 
@@ -54,7 +53,7 @@ This branch contains both required original work lines, joined in3bec6b8b, and d
 
 ## Unresolved launch gates
 
-- Contact: configure Web3Forms securely and prove receipt/Reply-To, or obtain explicit acceptance of the honest visitor-mail-app fallback. This branch has no delivery configuration; a variable on an unrelated branch is not sufficient.
+- Contact delivery gate CLOSED: free Web3Forms configuration, actual receipt, Reply-To and visible success verified for Candidate8.
 - Priscila's final candidate approval and exact **GO LIVE** authorization are required by her original brief before production/domain/DNS changes.
 - Photo polish, unrecovered Pompano finals/Lightroom edits and the unfinished authenticated owner editor are nonblocking under the latest owner direction. No aesthetic approval is fabricated.
 
