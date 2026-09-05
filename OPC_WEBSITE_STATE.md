@@ -1,26 +1,27 @@
 # OPC Website — Current Official Release Candidate
 
-**Candidate 6 is the current review. Candidate 5 is rejected for launch because its older image files contained GPS metadata. Candidate 6 removes it without changing their appearance.**
+**Candidate 7 is the one current review. Photo refinement and the owner editor are nonblocking under Priscila's latest request. Contact handling and explicit GO LIVE remain owner gates.**
 
-Last updated: 2026-09-04 — Candidate 6 hosted verification (America/New_York)
+Last updated: 2026-09-04 — Candidate 7 closure (America/New_York)
 
 ## Canonical release line
 
-- Current numbered release: **Candidate 6 — Clearer Galleries and Location Privacy**.
+- Current numbered release: **Candidate 7 — Persistent Scroll, Centered Services and Recovered Portfolio**.
 - Canonical branch: `release/opc-launch-today-2026-09-04`.
-- Frozen website code commit: `05cd713aa3550a888b8a5550a45640647a44a8c9`.
-- Exact immutable preview: `https://opc-house-elements-review-fd2r106d0-priihigashis-projects.vercel.app`.
-- Vercel deployment: `dpl_2R14tqNmEzyT5EwS3bxk2w83cy5v` (`READY`, preview target).
-- Vercel project root: `frontend/`.
+- Frozen website code commit: `809040aed36ab3c71616abbb684458458a723753`.
+- Exact immutable preview: `https://opc-house-elements-review-nu2yviphh-priihigashis-projects.vercel.app`.
+- Vercel deployment: `dpl_9GN4xnwtYBxNC6v2YgwaisxZ2qst` (`READY`, preview target).
+- Project: `opc-house-elements-review`, `prj_AEwEFwtR5l3bH6uMKWWxFV9OBKeQ`, root `frontend/`.
+- Hosted main bundle: `/static/js/main.7644ab49.js`. All shipped JS/CSS and the12 new Pergola derivatives are byte-identical to the verified local build.
 
-This branch descends from both required lines of work: content/story commit `9dc66409` and repair/portfolio commit `a6e5e154`, joined in merge commit `3bec6b8b`. The excluded owner-editor branch is not an ancestor.
+This branch contains both required original work lines, joined in3bec6b8b, and descends from Candidate6 through its documentation checkpoint. The owner-editor branch is not an ancestor; Candidate7 selectively recovers its private source under the owner's renewed request, outside the public frontend. There is no public editor route or working authenticated editor claim.
 
 ## Version rule
 
-- Priscila reviews only the one candidate named above. Older preview URLs are historical evidence, not competing choices.
-- Candidate 6 descends directly from Candidate 5, which descends from Candidate 4. The next accepted code change creates Candidate 7. A new candidate must descend from the preceding candidate.
-- If an approved item is intentionally removed, the candidate record must name it explicitly before review.
-- Never label a preview **Final** until all approved changes are in the same frozen commit and Priscila has approved appearance, the contact-delivery decision, and the exact words **go live**.
+- Only the immutable candidate above is current. Older previews are historical evidence or rollback checkpoints.
+- The next accepted code change creates **Candidate 8**, descending from Candidate7. Documentation-only checkpoints do not change the frozen website code or review authority.
+- Explicitly document intentional removals; preserve approved work.
+- Never label a preview Final until the owner approves it, contact handling is settled, and exact **GO LIVE** authority is received.
 
 ## Candidate 1 contents
 
@@ -45,9 +46,9 @@ This branch descends from both required lines of work: content/story commit `9dc
 
 ## Unresolved launch gates
 
-- Priscila must approve Candidate 6 appearance, proposed Bones photograph, and the three explicitly labeled construction-progress cards. Exact Victoria addition wording remains optional and unapproved; no project title was changed.
-- Vercel currently has no `REACT_APP_WEB3FORMS_KEY`; choose and prove either Web3Forms delivery with working Reply-To or the mail-app fallback.
-- Production domain, DNS, and production alias remain untouched until Priscila says the exact words **go live**.
+- Contact: configure Web3Forms securely and prove receipt/Reply-To, or obtain explicit acceptance of the honest visitor-mail-app fallback. This branch has no delivery configuration; a variable on an unrelated branch is not sufficient.
+- Priscila's final candidate approval and exact **GO LIVE** authorization are required by her original brief before production/domain/DNS changes.
+- Photo polish, unrecovered Pompano finals/Lightroom edits and the unfinished authenticated owner editor are nonblocking under the latest owner direction. No aesthetic approval is fabricated.
 
 ## Rollback
 
@@ -86,7 +87,7 @@ Records: updated existing tracker T248,T254,T275–T281,T290,T295–T297 and rea
 
 Council execution checkpoint appended and read back in the existing Verdict + Method Log: https://docs.google.com/document/d/1MH2JHUUThofJVV0NvVjLRqgeGv6yzr4Af0b_pMfmL9o/edit .
 
-## Candidate 6 privacy correction and current evidence
+## Candidate 6 privacy correction — historical evidence
 
 Frozen code05cd713aa3550a888b8a5550a45640647a44a8c9; deployment dpl_2R14tqNmEzyT5EwS3bxk2w83cy5v READY, preview, same project/root. This is the only current review URL above. Candidate5 is rejected for launch, even though its earlier engineering review passed before the broader metadata discovery.
 
@@ -95,3 +96,27 @@ A complete output metadata scan identified GPS tags in13 pre-existing JPEGs. The
 Proof: docs/release/candidate-6-metadata-proof.json. Candidate4/Candidate5 are historical code checkpoints and are not privacy-cleared launch rollbacks. Actual unchanged production rollback remains dpl_DtGd3fFS6wPxNyoZLYKYTMvmqtqY with existingDNS. No production authority granted.
 
 Final Candidate 6 closure: independent Conselho engineering verdict VERIFIED for the frozen SHA/deployment. Downloaded all13 corrected hostedJPEGs: HTTP200, noGPS, byte-identical to pixel/orientation-verified safe source. Fresh hosted three-view home/gallery/media checks and25 security/legacy probes pass; validcontact503 config_pending, honeypot200, invalid400, methods405. No receipt/Reply-To claim: owner contact decision remains open. Existing Council checkpoint appended/readback; tracker existingrows andInFlight current6, T902 metadata closure, TaskQ14 existingrecord readbacks (7 completions total across this task,7 owner-gated records retained), no newTaskQ items. Guide samefile/storagekey survives update; no competing review artifact created.
+
+## Candidate 7 execution and final Council checkpoint
+
+Frozen code `809040aed36ab3c71616abbb684458458a723753`, deployment `dpl_9GN4xnwtYBxNC6v2YgwaisxZ2qst`, READY preview at `https://opc-house-elements-review-nu2yviphh-priihigashis-projects.vercel.app`. Commit and push verified equal to origin before deployment; source was frozen before hosted verification. Destination linkage and root frontend verified. Later documentation commits do not supersede this exact preview.
+
+Entry index→AppV19; StoryV24/ChapterV9/StoryBannerRailV6 and ScrollDownCueV6; PortfolioV10; GalleryV7 inside preserved GalleryV5 top-reset wrapper; ServicesV9 with ServicesStageFrameV1/DeferredHouseStageV13 only on Services index. Home remains on accepted DeferredHouseStageV12. No public editor/admin/debug surface.
+
+Recovered history: dated Aug17–Sep4 repository, Task Q and retained raw owner requests distinguish earlier fade from latest continuous white minimal SCROLL through final banner. One stable chapter range replaces panel-by-panel hiding. Slow3.4s opacity pulse and static reduced-motion treatment. Complete short-height card content retained;1px numerical readability allowance accounts for offsetHeight rounding. Local248 reduced-motion samples have no visibility holes/direction mismatch/hero duplicate/dock overlap/errors. Normal first/last/reverse390/1440 and all-five/reverse320/1726 pass. Final320 accessibility: all active links tabIndex0, no aria-hidden; minimum18px card-to-cue and12px cue-to-dock gap. Captures verify banner content; GPU-disabled cue checks do not claim a separate house-render audit.
+
+Services house uses centered tracks, stable0.56 outer scale and aspect-aware camera, retaining service yaw/reveals and original timing. Measured frame contains canvas/loading/static/error together. All32 ordinary journeys (eight services×four widths) pass, with all-four loading/delayed/reduced/context-loss/recovery containment tests.28 valid completed views;10 original captures crossed handoff, six replaced and four excluded. Do not call all32 originals completed-view proof.
+
+Portfolio12 projects/74 photographs/888 derivatives. Category menu restored. All74 visuals inspected. Approved homepage Pergola V2 reused in cover and gallery, metadata-free, true1600×900 dimensions; Addition IMG4755 and Salon IMG0998 chosen. Owner-confirmed Pompano Whole-Home Remodel preserves existing route and three DURING photos, including liked history. Restored four Airport concrete-repair and three patio-slab DURING photos with truthful identities; no fictional grouping or duplicate All cards. Five projects accurately show Construction progress. Clean Pompano finals remain unrecovered: Photos libraries confirmed but search/metadata access failed. Lightroom originals not recovered. No new AI reconstruction or perspective correction claimed.
+
+Owner editor: selected newer Studio source34cb71c recovered, migration roundtrip12/74/888 passes, pure adapter and exact gallery renderer prepared. Safari Sanity Manage requires sign-in. Authenticated project, private durable uploads/drafts, exact-template authenticated preview and publishing/rollback remain unfinished and nonblocking. No CMS writes or public developer button.
+
+Verification:160/160 contracts,63/63 API, production build, targeted lint, diff check. Location-privacy guard passes all981 raster files; C6 lossless metadata correction retained. Hosted proof: Hosted: 36 gallery journeys / 222 image loads; all 12 covers/titles and eight filters at phone/tablet/desktop; exact deep Back restoration and normal muted inline video advance; representative Services house/Kitchen handoff and Home first/last cue/photos at all three sizes. 25 security/legacy/API probes and 24 exact JS/CSS/new-image byte comparisons pass. Local: 32 Services journeys with four-width state/recovery checks; 248 reduced-motion cue samples plus normal/short-screen and link-accessibility checks. Portfolio behavior checks passed; Chromium emitted two inherited report-only CSP diagnostics per viewport, retained separately from runtime failures.
+
+Contact: current release still returns503 config_pending for a valid inquiry, opaque200 honeypot,400 invalid,405 methods with no permissive CORS. No real delivery/Reply-To proof claimed. Web3Forms setup or explicit mail-app fallback choice remains; production/DNS/nameservers/Google mail/SiteGround unchanged.
+
+Conselho final verdict: VERIFIED for the exact frozen Candidate 7 code and deployment. Only owner contact choice/proof and explicit GO LIVE remain launch gates. Photo/editor gaps are nonblocking.
+
+Rollback: privacy-cleared Candidate6 code05cd713aa3550a888b8a5550a45640647a44a8c9, deploymentdpl_2R14tqNmEzyT5EwS3bxk2w83cy5v; current unchanged productiondpl_DtGd3fFS6wPxNyoZLYKYTMvmqtqY and existingDNS. Candidate4/5 are historical and not privacy-cleared launch rollbacks.
+
+Records closure:18 existing Build Tracker rows and In Flight C2 updated/read back;37 existing Task Q records updated/read back (three completions,34 notes; no new tasks or requeues). Existing Council Verdict + Method Log checkpoint appended/read back. The same optional review file and local notes storage key were retained; photo/editor review is nonblocking. Exact evidence is in docs/release/candidate-7-verification.json.

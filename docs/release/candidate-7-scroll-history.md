@@ -25,7 +25,7 @@ Candidate 6's V5 cue measured the moving banner every animation frame and hid un
 
 ## Access limits
 
-The review searched retained local Codex sessions from August 17 through September 4, both current and historical OPC ledgers, repository history and cue versions V1–V5, Council/research docs, current source/contracts, and the local Task Q export/board. Exact raw August 17–18 owner messages were not present in the retained session payloads found, so those entries rely on dated repository documentation. No external Builder Tracker mutation or production action was performed.
+The review searched retained local Codex sessions from August 17 through September 4, both current and historical OPC ledgers, repository history and cue versions V1–V5, Council/research docs, current source/contracts, and the local Task Q export/board. Exact raw August 17–18 owner messages were not present in the retained session payloads found, so those entries rely on dated repository documentation. The history extraction was read-only. Subsequent release-record updates are documented in the Candidate 7 closure; production remained unchanged.
 
 ## Final Candidate 7 verification
 

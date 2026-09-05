@@ -1,0 +1,571 @@
+{
+  "candidate": 7,
+  "sha": "809040aed36ab3c71616abbb684458458a723753",
+  "deployment": "dpl_9GN4xnwtYBxNC6v2YgwaisxZ2qst",
+  "url": "https://opc-house-elements-review-nu2yviphh-priihigashis-projects.vercel.app",
+  "mainBundle": "/static/js/main.7644ab49.js",
+  "contracts": 160,
+  "apiTests": 63,
+  "privacyImages": 981,
+  "portfolioDerivatives": 888,
+  "galleryJourneys": 36,
+  "galleryImageLoads": 222,
+  "portfolioCoverage": {
+    "source": "gallery-hosted-coverage/results.json",
+    "allBehaviorAssertionsPassed": true,
+    "runtimePageOrMediaFailures": 0,
+    "inheritedDiagnostics": {
+      "perViewport": 2,
+      "text": "console:error:The Content Security Policy directive 'upgrade-insecure-requests' is ignored when delivered in a report-only policy.",
+      "source": "frontend/vercel.json report-only policy unchanged from Candidate 6"
+    },
+    "rawRunnerExit": 1,
+    "reason": "Generic console-error classification treated inherited policy diagnostics as failures; independent Council verified these are nonblocking. Raw output is retained.",
+    "viewports": [
+      {
+        "viewport": [
+          390,
+          844
+        ],
+        "projects": 12,
+        "filters": 8,
+        "historyProject": "pompano-patio-slab",
+        "listingY": 4350,
+        "restoredY": 4350,
+        "visibleReturnProject": "opa-locka-airport",
+        "video": {
+          "before": {
+            "time": 0.338008,
+            "muted": true,
+            "inline": true,
+            "currentSrc": "https://opc-house-elements-review-nu2yviphh-priihigashis-projects.vercel.app/video/portfolio-hero-intro-v5-mobile.mp4"
+          },
+          "after": {
+            "time": 1.04393,
+            "muted": true,
+            "inline": true,
+            "currentSrc": "https://opc-house-elements-review-nu2yviphh-priihigashis-projects.vercel.app/video/portfolio-hero-intro-v5-mobile.mp4"
+          }
+        },
+        "errors": [
+          "console:error:The Content Security Policy directive 'upgrade-insecure-requests' is ignored when delivered in a report-only policy.",
+          "console:error:The Content Security Policy directive 'upgrade-insecure-requests' is ignored when delivered in a report-only policy."
+        ]
+      },
+      {
+        "viewport": [
+          820,
+          1180
+        ],
+        "projects": 12,
+        "filters": 8,
+        "historyProject": "pompano-patio-slab",
+        "listingY": 3128,
+        "restoredY": 3128,
+        "visibleReturnProject": "opa-locka-airport",
+        "video": {
+          "before": {
+            "time": 0.314004,
+            "muted": true,
+            "inline": true,
+            "currentSrc": "https://opc-house-elements-review-nu2yviphh-priihigashis-projects.vercel.app/video/portfolio-hero-intro-v5.mp4"
+          },
+          "after": {
+            "time": 1.021311,
+            "muted": true,
+            "inline": true,
+            "currentSrc": "https://opc-house-elements-review-nu2yviphh-priihigashis-projects.vercel.app/video/portfolio-hero-intro-v5.mp4"
+          }
+        },
+        "errors": [
+          "console:error:The Content Security Policy directive 'upgrade-insecure-requests' is ignored when delivered in a report-only policy.",
+          "console:error:The Content Security Policy directive 'upgrade-insecure-requests' is ignored when delivered in a report-only policy."
+        ]
+      },
+      {
+        "viewport": [
+          1440,
+          900
+        ],
+        "projects": 12,
+        "filters": 8,
+        "historyProject": "pompano-patio-slab",
+        "listingY": 4175,
+        "restoredY": 4175,
+        "visibleReturnProject": "opa-locka-airport",
+        "video": {
+          "before": {
+            "time": 0.297239,
+            "muted": true,
+            "inline": true,
+            "currentSrc": "https://opc-house-elements-review-nu2yviphh-priihigashis-projects.vercel.app/video/portfolio-hero-intro-v5.mp4"
+          },
+          "after": {
+            "time": 1.002063,
+            "muted": true,
+            "inline": true,
+            "currentSrc": "https://opc-house-elements-review-nu2yviphh-priihigashis-projects.vercel.app/video/portfolio-hero-intro-v5.mp4"
+          }
+        },
+        "errors": [
+          "console:error:The Content Security Policy directive 'upgrade-insecure-requests' is ignored when delivered in a report-only policy.",
+          "console:error:The Content Security Policy directive 'upgrade-insecure-requests' is ignored when delivered in a report-only policy."
+        ]
+      }
+    ]
+  },
+  "servicesHomeSmoke": {
+    "sha": "809040aed36ab3c71616abbb684458458a723753",
+    "deployment": "dpl_9GN4xnwtYBxNC6v2YgwaisxZ2qst",
+    "url": "https://opc-house-elements-review-nu2yviphh-priihigashis-projects.vercel.app",
+    "bundle": "/static/js/main.7644ab49.js",
+    "viewports": [
+      {
+        "size": [
+          390,
+          844
+        ],
+        "errors": [],
+        "home": [
+          {
+            "path": "/",
+            "frame": null,
+            "space": null,
+            "canvas": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 844,
+              "bottom": 844
+            },
+            "cue": {
+              "x": 0,
+              "y": 766,
+              "width": 390,
+              "height": 22,
+              "bottom": 788
+            },
+            "cueVisible": "true",
+            "rail": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 748,
+              "bottom": 748
+            },
+            "overflow": false,
+            "scrollY": 1650,
+            "chapter": "01",
+            "image": {
+              "src": "https://opc-house-elements-review-nu2yviphh-priihigashis-projects.vercel.app/images/opc/bones-framing-v1-480w.avif",
+              "naturalWidth": 326,
+              "naturalHeight": 244,
+              "rect": {
+                "x": 50,
+                "y": 495.65875244140625,
+                "width": 290,
+                "height": 162.25
+              }
+            },
+            "panel": {
+              "x": 32,
+              "y": 183.44000244140625,
+              "width": 326,
+              "height": 563.90625
+            }
+          },
+          {
+            "path": "/",
+            "frame": null,
+            "space": null,
+            "canvas": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 844,
+              "bottom": 844
+            },
+            "cue": {
+              "x": 0,
+              "y": 766,
+              "width": 390,
+              "height": 22,
+              "bottom": 788
+            },
+            "cueVisible": "true",
+            "rail": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 748,
+              "bottom": 748
+            },
+            "overflow": false,
+            "scrollY": 6917,
+            "chapter": "05",
+            "image": {
+              "src": "https://opc-house-elements-review-nu2yviphh-priihigashis-projects.vercel.app/images/opc/rio-vista-groundwork-safe-v1-480w.avif",
+              "naturalWidth": 326,
+              "naturalHeight": 244,
+              "rect": {
+                "x": 50,
+                "y": 495.87750244140625,
+                "width": 290,
+                "height": 162.25
+              }
+            },
+            "panel": {
+              "x": 32,
+              "y": 200.69000244140625,
+              "width": 326,
+              "height": 546.875
+            }
+          }
+        ],
+        "servicesResting": {
+          "path": "/services",
+          "frame": {
+            "x": 24,
+            "y": 133.8125,
+            "width": 342,
+            "height": 374.1875,
+            "bottom": 508
+          },
+          "space": {
+            "x": 16,
+            "y": 125.8125,
+            "width": 358,
+            "height": 390.1875,
+            "bottom": 516
+          },
+          "canvas": {
+            "x": 24,
+            "y": 133.8125,
+            "width": 342,
+            "height": 374.1875,
+            "bottom": 508
+          },
+          "cue": null,
+          "cueVisible": null,
+          "rail": null,
+          "overflow": false,
+          "scrollY": 0
+        },
+        "selectedKitchen": {
+          "path": "/services",
+          "kind": "kitchen",
+          "t": 0.1383581609651572
+        },
+        "serviceHandoffHeading": "Kitchen Remodels",
+        "status": "PASS"
+      },
+      {
+        "size": [
+          820,
+          1180
+        ],
+        "errors": [],
+        "home": [
+          {
+            "path": "/",
+            "frame": null,
+            "space": null,
+            "canvas": {
+              "x": 0,
+              "y": 0,
+              "width": 820,
+              "height": 1180,
+              "bottom": 1180
+            },
+            "cue": {
+              "x": 0,
+              "y": 1100,
+              "width": 820,
+              "height": 24,
+              "bottom": 1124
+            },
+            "cueVisible": "true",
+            "rail": {
+              "x": 0,
+              "y": 0,
+              "width": 820,
+              "height": 1084,
+              "bottom": 1084
+            },
+            "overflow": false,
+            "scrollY": 2375,
+            "chapter": "01",
+            "image": {
+              "src": "https://opc-house-elements-review-nu2yviphh-priihigashis-projects.vercel.app/images/opc/bones-framing-v1-480w.avif",
+              "naturalWidth": 295,
+              "naturalHeight": 221,
+              "rect": {
+                "x": 522.8125,
+                "y": 668.4937744140625,
+                "width": 251.1875,
+                "height": 140.40625
+              }
+            },
+            "panel": {
+              "x": 500.8125,
+              "y": 324.6499938964844,
+              "width": 295.1875,
+              "height": 577.6875305175781
+            }
+          },
+          {
+            "path": "/",
+            "frame": null,
+            "space": null,
+            "canvas": {
+              "x": 0,
+              "y": 0,
+              "width": 820,
+              "height": 1180,
+              "bottom": 1180
+            },
+            "cue": {
+              "x": 0,
+              "y": 1100,
+              "width": 820,
+              "height": 24,
+              "bottom": 1124
+            },
+            "cueVisible": "true",
+            "rail": {
+              "x": 0,
+              "y": 0,
+              "width": 820,
+              "height": 1084,
+              "bottom": 1084
+            },
+            "overflow": false,
+            "scrollY": 9958,
+            "chapter": "05",
+            "image": {
+              "src": "https://opc-house-elements-review-nu2yviphh-priihigashis-projects.vercel.app/images/opc/rio-vista-groundwork-safe-v1-480w.avif",
+              "naturalWidth": 295,
+              "naturalHeight": 221,
+              "rect": {
+                "x": 522.8125,
+                "y": 659.7137451171875,
+                "width": 251.1875,
+                "height": 140.40625
+              }
+            },
+            "panel": {
+              "x": 500.8125,
+              "y": 333.6199951171875,
+              "width": 295.1875,
+              "height": 559.9375
+            }
+          }
+        ],
+        "servicesResting": {
+          "path": "/services",
+          "frame": {
+            "x": 40,
+            "y": 204.25,
+            "width": 740,
+            "height": 759.75,
+            "bottom": 964
+          },
+          "space": {
+            "x": 32,
+            "y": 196.25,
+            "width": 756,
+            "height": 775.75,
+            "bottom": 972
+          },
+          "canvas": {
+            "x": 40,
+            "y": 204.25,
+            "width": 740,
+            "height": 759.75,
+            "bottom": 964
+          },
+          "cue": null,
+          "cueVisible": null,
+          "rail": null,
+          "overflow": false,
+          "scrollY": 0
+        },
+        "selectedKitchen": {
+          "path": "/services",
+          "kind": "kitchen",
+          "t": 0.1939310322952071
+        },
+        "serviceHandoffHeading": "Kitchen Remodels",
+        "status": "PASS"
+      },
+      {
+        "size": [
+          1440,
+          900
+        ],
+        "errors": [],
+        "home": [
+          {
+            "path": "/",
+            "frame": null,
+            "space": null,
+            "canvas": {
+              "x": 0,
+              "y": 0,
+              "width": 1440,
+              "height": 900,
+              "bottom": 900
+            },
+            "cue": {
+              "x": 0,
+              "y": 856,
+              "width": 1440,
+              "height": 24,
+              "bottom": 880
+            },
+            "cueVisible": "true",
+            "rail": {
+              "x": 80,
+              "y": 0,
+              "width": 1280,
+              "height": 844,
+              "bottom": 844
+            },
+            "overflow": false,
+            "scrollY": 1811,
+            "chapter": "01",
+            "image": {
+              "src": "https://opc-house-elements-review-nu2yviphh-priihigashis-projects.vercel.app/images/opc/bones-framing-v1-480w.avif",
+              "naturalWidth": 403,
+              "naturalHeight": 302,
+              "rect": {
+                "x": 921.203125,
+                "y": 510.00811767578125,
+                "width": 336.796875,
+                "height": 188.5625
+              }
+            },
+            "panel": {
+              "x": 895.203125,
+              "y": 130.67999267578125,
+              "width": 388.796875,
+              "height": 675.515625
+            }
+          },
+          {
+            "path": "/",
+            "frame": null,
+            "space": null,
+            "canvas": {
+              "x": 0,
+              "y": 0,
+              "width": 1440,
+              "height": 900,
+              "bottom": 900
+            },
+            "cue": {
+              "x": 0,
+              "y": 856,
+              "width": 1440,
+              "height": 24,
+              "bottom": 880
+            },
+            "cueVisible": "true",
+            "rail": {
+              "x": 80,
+              "y": 0,
+              "width": 1280,
+              "height": 844,
+              "bottom": 844
+            },
+            "overflow": false,
+            "scrollY": 7595,
+            "chapter": "05",
+            "image": {
+              "src": "https://opc-house-elements-review-nu2yviphh-priihigashis-projects.vercel.app/images/opc/rio-vista-groundwork-safe-v1-480w.avif",
+              "naturalWidth": 403,
+              "naturalHeight": 302,
+              "rect": {
+                "x": 921.203125,
+                "y": 499.4737548828125,
+                "width": 336.796875,
+                "height": 188.5625
+              }
+            },
+            "panel": {
+              "x": 895.203125,
+              "y": 140.1300048828125,
+              "width": 388.796875,
+              "height": 655.53125
+            }
+          }
+        ],
+        "servicesResting": {
+          "path": "/services",
+          "frame": {
+            "x": 56,
+            "y": 224.3125,
+            "width": 1328,
+            "height": 463.6875,
+            "bottom": 688
+          },
+          "space": {
+            "x": 48,
+            "y": 216.3125,
+            "width": 1344,
+            "height": 479.6875,
+            "bottom": 696
+          },
+          "canvas": {
+            "x": 56,
+            "y": 224.3125,
+            "width": 1328,
+            "height": 463.6875,
+            "bottom": 688
+          },
+          "cue": null,
+          "cueVisible": null,
+          "rail": null,
+          "overflow": false,
+          "scrollY": 0
+        },
+        "selectedKitchen": {
+          "path": "/services",
+          "kind": "kitchen",
+          "t": 0.17211300810864777
+        },
+        "serviceHandoffHeading": "Kitchen Remodels",
+        "status": "PASS"
+      }
+    ],
+    "scope": "Representative hosted smoke; local exhaustive Services evidence remains separate."
+  },
+  "tracker": {
+    "sha": "809040aed36ab3c71616abbb684458458a723753",
+    "rows": [
+      247,
+      251,
+      256,
+      267,
+      277,
+      278,
+      279,
+      280,
+      281,
+      282,
+      283,
+      284,
+      285,
+      290,
+      291,
+      292,
+      293,
+      294
+    ],
+    "inFlight": "C2",
+    "readbackVerified": true
+  },
+  "taskQUpdatedExisting": 37,
+  "council": "VERIFIED; existing Council document checkpoint appended and read back.",
+  "productionChanged": false
+}
