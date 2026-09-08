@@ -1,9 +1,9 @@
 // POST /api/enquiries — the Oak Park Construction lead form endpoint.
 //
-// PRIVACY: this endpoint never stores the message or contact details. It emits
-// limited operational logs (event, connection digest, service, spam reasons,
-// and scrubbed error codes), then discards the request after delivery. There is
-// no customer database or account.
+// PRIVACY: valid enquiries may be copied to Oak Park Construction's private
+// Google Sheet when the lead webhook is configured. Operational logs remain
+// limited to event, connection digest, service, spam reasons and scrubbed
+// error codes; they never contain the submitted contact details or message.
 //
 // CONFIGURATION GATE: delivery requires either the approved Web3Forms access
 // key or SMTP credentials. Web3Forms delivery stays browser-side (as required
@@ -57,6 +57,36 @@ function readConfig(env) {
     host: env.OPC_SMTP_HOST || "smtp.gmail.com",
     port: Number(env.OPC_SMTP_PORT || 465),
   };
+}
+
+export async function storeLead(enquiry, attribution, env = process.env, fetchImpl = fetch) {
+  const url = env.OPC_LEADS_WEBHOOK_URL;
+  const secret = env.OPC_LEADS_WEBHOOK_SECRET;
+  if (!url || !secret) return { ok: false, code: "not_configured" };
+
+  try {
+    const response = await fetchImpl(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        secret,
+        name: enquiry.name,
+        email: enquiry.email,
+        phone: enquiry.phone || "",
+        service: enquiry.service,
+        message: enquiry.message,
+        page: attribution.sourcePage || "/",
+      }),
+      signal: AbortSignal.timeout(6000),
+      redirect: "follow",
+    });
+    const result = await response.json().catch(() => null);
+    return response.ok && result?.ok === true
+      ? { ok: true, code: "stored" }
+      : { ok: false, code: "receiver_rejected" };
+  } catch (err) {
+    return { ok: false, code: err?.name === "TimeoutError" ? "timeout" : "unavailable" };
+  }
 }
 
 async function readBody(req) {
@@ -130,9 +160,13 @@ export default async function handler(req, res) {
 
   // Web3Forms documents client-side submission as its supported default. This
   // response proves our controls ran; the browser then submits to the provider.
+  // Sheet storage is best-effort so a temporary Sheets outage never blocks the
+  // working email path and loses the visitor's only notification.
   if (web3formsRequested) {
-    console.info(`[enquiries] validated ip=${tag} service=${enquiry.service}`);
-    return send(res, 200, { ok: true, code: "validated" });
+    const stored = await storeLead(enquiry, attribution);
+    if (!stored.ok) console.error(`[enquiries] sheet_${stored.code} ip=${tag} service=${enquiry.service}`);
+    else console.info(`[enquiries] stored ip=${tag} service=${enquiry.service}`);
+    return send(res, 200, { ok: true, code: "validated", stored: stored.ok });
   }
 
   // Validation and bot screening must remain truthful even while delivery is

@@ -1,8 +1,28 @@
 # OPC Website — Current Official Release Candidate
 
-**Candidate 8 is the one current review. Free contact delivery is verified. Explicit GO LIVE remains the launch gate; photo refinement and the owner editor remain nonblocking.**
+**The approved site is live on the Oak Park Construction domain. Email delivery, private lead logging, and GA4 are configured; photo refinement and the owner editor remain post-launch work.**
 
-Last updated: September 5, 2026 (America/New_York)
+Last updated: September 8, 2026 (America/New_York)
+
+## Live production — September 8, 2026
+
+- Canonical site: https://oakpark-construction.com (with `www` also assigned).
+- Current production deployment: `dpl_29S6nc5FJp1ZbtZdDiUdH5hMfmaa`.
+- Immutable deployment URL: https://opc-house-elements-review-j78x22mrs-priihigashis-projects.vercel.app
+- The approved Vercel project remains `opc-house-elements-review`; the repository root is `frontend`.
+- Web3Forms email delivery remains configured and was previously confirmed by the owner.
+- Valid enquiries are also copied server-side to the private Google Workspace lead log: https://docs.google.com/spreadsheets/d/14iXhPsx3_FCZz0I-NCdVeQFTPQ0C-bhEDN0pR3Vkmrw/edit
+- The sheet is in Oak Park Construction / Leads: https://drive.google.com/drive/folders/1DJSRLRTvE2Ojzz08v__cF8XO-FFxd5q5
+- Production API verification returned HTTP 200 with `stored: true`; the Lead Log contains the labeled test row at September 8, 2026 6:29 PM ET.
+- GA4 uses the existing OPC property and stream with measurement ID `G-LV7LD4S0ND`, preserving its historical analytics. The production bundle contains both that ID and the Google tag loader.
+- The live Privacy page discloses Google Analytics, Web3Forms, and the private Google Workspace lead log without sending enquiry details to Analytics.
+- Relevant verification: API 65/65, focused contact/analytics contracts 35/35, configured production build, live spreadsheet append, live Privacy-page read, and production bundle Analytics check.
+- Secrets are stored only in Vercel and Apps Script configuration. Never place the lead webhook secret in this repository or an audit prompt.
+
+### Rollback after launch
+
+- Vercel retains prior deployments for code rollback.
+- The former WordPress files and database remain in SiteGround. Restoring its prior DNS target (`34.174.8.45`) is a separate infrastructure rollback and must not be done without explicit owner approval.
 
 ## Canonical release line
 
