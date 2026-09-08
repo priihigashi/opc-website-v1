@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import HeroV10 from "./HeroV10";
 import { ChapterV9 } from "./ChapterV9";
 import ChapterRailV3 from "./ChapterRailV3";
-import { StoryCueRangeV1 } from "./ScrollDownCueV6";
+import { StoryCueRangeV1 } from "./ScrollDownCueV7";
 import StoryBannerRailV6 from "./StoryBannerRailV6";
 import { HOME_STORY_BANNER_TIMELINE_V2 } from "@/lib/homeStoryBannerTimelineV2.mjs";
 

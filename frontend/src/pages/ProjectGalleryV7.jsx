@@ -56,13 +56,13 @@ export function ProjectGalleryContent({ project }) {
       <main className="mx-auto w-full max-w-[1040px] px-5 pb-12 pt-5 sm:px-8 sm:pt-7 md:px-10">
         <header className="mb-5 border-b border-white/10 pb-5">
           <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
-            <Link to="/portfolio" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-[#CBCC10]/70 px-4 font-mono text-[10px] uppercase tracking-[0.12em] text-[#CBCC10] transition-colors hover:bg-[#CBCC10] hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#CBCC10]"><MoveLeft className="h-4 w-4" />All Projects</Link>
+            <Link to="/portfolio#portfolio-projects" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-[#CBCC10]/70 px-4 font-mono text-[10px] uppercase tracking-[0.12em] text-[#CBCC10] transition-colors hover:bg-[#CBCC10] hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#CBCC10]"><MoveLeft className="h-4 w-4" />All Projects</Link>
             <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-white/60">{project.cat}</p>
           </div>
           <h1 className="mt-4 font-head text-[clamp(2rem,5vw,3.75rem)] uppercase leading-[1]">{project.title}</h1>
         </header>
         {rows.map((row, index) => <div key={`${project.id}-${index}`}><GalleryRow row={row} rowIndex={index} />{index === 0 && rows.length > 1 && <a href="#project-sequence-2" className="mt-5 flex items-center justify-center gap-2 font-mono text-[10px] uppercase tracking-wider text-white/60">More From This Project<ChevronDown className="h-4 w-4" /></a>}</div>)}
-        <Link to="/portfolio" className="mt-10 inline-flex min-h-11 items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-[#CBCC10]"><MoveLeft className="h-4 w-4" />Return to All Projects</Link>
+        <Link to="/portfolio#portfolio-projects" className="mt-10 inline-flex min-h-11 items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-[#CBCC10]"><MoveLeft className="h-4 w-4" />Return to All Projects</Link>
       </main>
       <FooterV3 />
     </div>

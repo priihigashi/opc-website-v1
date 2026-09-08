@@ -54,6 +54,14 @@ export default function NavV4() {
       goHome(event);
       return;
     }
+    if (to === "/portfolio" && pathname === "/portfolio") {
+      // The primary Portfolio menu always means the page top. Keep the
+      // project-card anchor exclusively for gallery return links.
+      window.history.replaceState({}, "", "/portfolio");
+      if (scrollStore.lenis) scrollStore.lenis.scrollTo(0);
+      else window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
     navigate(to);
   };
 
