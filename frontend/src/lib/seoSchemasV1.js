@@ -75,7 +75,7 @@ export const buildArticleSchemaV1 = ({ headline, description, path, image, dateP
   image: image ? [`${SITE_ORIGIN}${image}`] : undefined,
   datePublished,
   dateModified: dateModified || datePublished,
-  author: authorName ? { "@type": "Person", name: authorName } : { "@id": BUSINESS_ID },
+  author: { "@type": "Organization", name: authorName || "Oak Park Construction", url: SITE_ORIGIN },
   publisher: { "@id": BUSINESS_ID },
 });
 
@@ -91,6 +91,14 @@ const allProjectImages = (project) =>
 
 export const buildRouteSchemasV1 = (path, route) => {
   if (!route) return [];
+
+  if (route.type === "blog") {
+    return [{ "@context": "https://schema.org", "@type": "CollectionPage", name: route.title, description: route.description, url: `${SITE_ORIGIN}${path}` }, buildBreadcrumbSchemaV1([{ name: "Home", path: "/" }, { name: "Blog", path }])];
+  }
+
+  if (route.type === "article") {
+    return [buildArticleSchemaV1({ headline: route.title, description: route.description, path, image: route.image, datePublished: route.datePublished, dateModified: route.dateModified, authorName: route.authorName }), buildBreadcrumbSchemaV1([{ name: "Home", path: "/" }, { name: "Blog", path: "/blog" }, { name: route.title, path }])];
+  }
 
   if (route.type === "home") {
     return [buildBusinessSchemaV1(), buildWebsiteSchemaV1()];

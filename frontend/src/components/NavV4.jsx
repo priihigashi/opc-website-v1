@@ -3,11 +3,13 @@ import { Menu, X } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { scrollStore } from "../lib/scrollStore";
 import { trackCtaClick } from "@/lib/analytics";
+import blogPosts from "@/blog/posts.json";
 
 const pageLinks = [
   { label: "Home", to: "/", exact: true },
   { label: "Services", to: "/services" },
   { label: "Portfolio", to: "/portfolio" },
+  { label: "Blog", to: "/blog" },
 ];
 
 const anchors = [
@@ -17,7 +19,9 @@ const anchors = [
 ];
 
 const isCurrentPage = (pathname, link) =>
-  link.exact ? pathname === link.to : pathname.startsWith(link.to);
+  link.exact ? pathname === link.to : link.to === "/blog"
+    ? pathname === "/blog" || blogPosts.some((post) => pathname === `/${post.slug}`)
+    : pathname.startsWith(link.to);
 
 export default function NavV4() {
   const navigate = useNavigate();
@@ -88,14 +92,14 @@ export default function NavV4() {
             );
           })}
           {anchors.map((link) => (
-            <a key={link.href} href={link.href} onClick={(event) => goAnchor(event, link.href)} className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#A1A1AA] transition-colors duration-300 hover:text-white">
+            <a key={link.href} href={pathname === "/" ? link.href : `/${link.href}`} onClick={(event) => goAnchor(event, link.href)} className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#A1A1AA] transition-colors duration-300 hover:text-white">
               {link.label}
             </a>
           ))}
         </nav>
 
         <div className="flex items-center gap-2">
-          <a href="#contact" data-testid="nav-cta" onClick={(event) => { trackCtaClick("nav-desktop"); goAnchor(event, "#contact"); }} className="luxury-pill hidden border border-[#CBCC10]/70 px-5 py-2.5 font-mono text-[10px] uppercase tracking-[0.2em] text-[#CBCC10] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#CBCC10] hover:text-[#09090B] sm:inline-flex">
+          <a href={pathname === "/" ? "#contact" : "/#contact"} data-testid="nav-cta" onClick={(event) => { trackCtaClick("nav-desktop"); goAnchor(event, "#contact"); }} className="luxury-pill hidden border border-[#CBCC10]/70 px-5 py-2.5 font-mono text-[10px] uppercase tracking-[0.2em] text-[#CBCC10] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#CBCC10] hover:text-[#09090B] sm:inline-flex">
             Start a project
           </a>
           <button type="button" data-testid="mobile-menu-toggle" aria-label={open ? "Close navigation menu" : "Open navigation menu"} aria-expanded={open} aria-controls="mobile-navigation" onClick={() => setOpen((value) => !value)} className="flex h-11 items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-3 text-white lg:hidden">
@@ -123,11 +127,11 @@ export default function NavV4() {
               );
             })}
             {anchors.map((link) => (
-              <a key={link.href} href={link.href} onClick={(event) => goAnchor(event, link.href)} className="rounded-[14px] border border-white/10 bg-white/[0.03] px-4 py-4 font-mono text-[11px] uppercase tracking-[0.22em] text-white">
+              <a key={link.href} href={pathname === "/" ? link.href : `/${link.href}`} onClick={(event) => goAnchor(event, link.href)} className="rounded-[14px] border border-white/10 bg-white/[0.03] px-4 py-4 font-mono text-[11px] uppercase tracking-[0.22em] text-white">
                 {link.label}
               </a>
             ))}
-            <a href="#contact" data-testid="nav-cta-mobile" onClick={(event) => { trackCtaClick("nav-mobile"); goAnchor(event, "#contact"); }} className="mt-2 rounded-full bg-[#CBCC10] px-5 py-4 text-center font-mono text-[10px] uppercase tracking-[0.22em] text-[#09090B] sm:hidden">
+            <a href={pathname === "/" ? "#contact" : "/#contact"} data-testid="nav-cta-mobile" onClick={(event) => { trackCtaClick("nav-mobile"); goAnchor(event, "#contact"); }} className="mt-2 rounded-full bg-[#CBCC10] px-5 py-4 text-center font-mono text-[10px] uppercase tracking-[0.22em] text-[#09090B] sm:hidden">
               Start a project
             </a>
           </div>

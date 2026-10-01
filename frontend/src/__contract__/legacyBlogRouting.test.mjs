@@ -9,15 +9,18 @@ const vercel = JSON.parse(readFileSync("vercel.json", "utf8"));
 const manifest = JSON.parse(readFileSync("src/data/legacyBlogPaths.json", "utf8"));
 const legacy = vercel.rewrites.filter((r) => r.destination === "/api/legacy");
 const legacySources = new Set(legacy.map((r) => r.source));
+const published = JSON.parse(readFileSync("src/blog/posts.json", "utf8"));
+const publishedPaths = new Set(["/blog", ...published.map((post) => `/${post.slug}`)]);
 
 test("the manifest carries exactly the 233 live blog paths", () => {
   assert.equal(manifest.paths.length, 233);
   assert.equal(new Set(manifest.paths).size, 233);
 });
 
-test("every manifest path is routed to the pass-through", () => {
-  const missing = manifest.paths.filter((p) => !legacySources.has(p));
+test("every manifest path remains served at its original URL", () => {
+  const missing = manifest.paths.filter((p) => !legacySources.has(p) && !publishedPaths.has(p));
   assert.deepEqual(missing, [], `unrouted legacy paths: ${missing.slice(0, 5)}`);
+  for (const path of publishedPaths) assert.ok(vercel.rewrites.some((r) => r.source === path && r.destination === `${path}/index.html`), `${path} lost its local article route`);
 });
 
 test("no redirect shadows a legacy path — redirects run before rewrites on Vercel", () => {

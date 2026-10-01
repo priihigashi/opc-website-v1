@@ -105,13 +105,17 @@ test("structured data asserts nothing the site cannot prove", () => {
   assert.ok(!schemas.includes("FAQPage"), "FAQ schema without visible FAQ content");
 });
 
-test("Article schema stays unused until a page has a real author and date", () => {
-  assert.ok(schemas.includes("buildArticleSchemaV1"), "the builder was deleted");
+test("Article schema is used only on six published articles with visible byline and date", () => {
+  assert.ok(schemas.includes("buildArticleSchemaV1"));
+  const posts = JSON.parse(read("blog", "posts.json"));
+  assert.equal(posts.length, 6);
+  for (const post of posts) {
+    assert.equal(post.author, "Oak Park Construction");
+    assert.match(post.date, /^\d{4}-\d{2}-\d{2}$/);
+    assert.ok(post.content.length > 1000);
+  }
   const routed = schemas.slice(schemas.indexOf("export const buildRouteSchemasV1"));
-  assert.ok(
-    !routed.includes("buildArticleSchemaV1"),
-    "Article schema is now emitted for a route — verify a visible author and date exist first",
-  );
+  assert.ok(routed.includes("buildArticleSchemaV1"));
 });
 
 test("the business identity is a single truthful node", () => {

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import seoRoutes from "@/data/seoRoutesV1.json";
+import blogPosts from "@/blog/posts.json";
 import { buildRouteSchemasV1, SITE_ORIGIN } from "@/lib/seoSchemasV1";
 
 const upsertMeta = (selector, attributes) => {
@@ -17,8 +18,23 @@ const normalizePath = (pathname) => {
   return pathname.replace(/\/+$/, "");
 };
 
-const getSeoState = (pathname) => {
-  const path = normalizePath(pathname);
+const getBlogSeoState = (path) => {
+  const slug = path === "/blog" ? null : path.slice(1);
+  const post = blogPosts.find((item) => item.slug === slug);
+  const description = post ? post.content.split(/\n\s*\n/)[0].replace(/\s+/g, " ").slice(0, 158) : "Construction planning guidance from Oak Park Construction in South Florida.";
+  return {
+    path,
+    route: post ? { type: "article", title: post.title, description, image: post.image, imageAlt: post.imageAlt, datePublished: post.date, dateModified: post.modified, authorName: post.author } : { type: "blog", title: "Blog | Oak Park Construction", description },
+    title: post ? `${post.title} | Oak Park Construction` : "Blog | Oak Park Construction",
+    description,
+    robots: "index,follow",
+    canonical: `${SITE_ORIGIN}${path}`,
+    image: `${SITE_ORIGIN}${post?.image || "/images/opc/new-construction-finished-v1.jpg"}`,
+    imageAlt: post?.imageAlt || "Oak Park Construction project",
+  };
+};
+
+const getStandardSeoState = (path) => {
   const route = seoRoutes[path];
   const knownRoute = Boolean(route);
   const resolvedRoute = route || {};
@@ -36,12 +52,17 @@ const getSeoState = (pathname) => {
   };
 };
 
+const getSeoState = (pathname) => {
+  const path = normalizePath(pathname);
+  return path === "/blog" || blogPosts.some((item) => `/${item.slug}` === path) ? getBlogSeoState(path) : getStandardSeoState(path);
+};
+
 const applyMetadata = ({ route, title, description, robots, canonical, image, imageAlt }) => {
   document.title = title;
   document.documentElement.lang = "en";
   upsertMeta('meta[name="description"]', { name: "description", content: description });
   upsertMeta('meta[name="robots"]', { name: "robots", content: robots });
-  upsertMeta('meta[property="og:type"]', { property: "og:type", content: route?.type === "project" ? "article" : "website" });
+  upsertMeta('meta[property="og:type"]', { property: "og:type", content: (route?.type === "project" || route?.type === "article") ? "article" : "website" });
   upsertMeta('meta[property="og:site_name"]', { property: "og:site_name", content: "Oak Park Construction" });
   upsertMeta('meta[property="og:title"]', { property: "og:title", content: title });
   upsertMeta('meta[property="og:description"]', { property: "og:description", content: description });

@@ -17,6 +17,7 @@ export default function FooterV3() {
             <ul className="mt-4 space-y-2 text-sm text-[#FAFAFA]">
               <li><Link className="transition-colors hover:text-[#CBCC10]" to="/services">Services</Link></li>
               <li><Link className="transition-colors hover:text-[#CBCC10]" to="/portfolio">Portfolio</Link></li>
+              <li><Link className="transition-colors hover:text-[#CBCC10]" to="/blog">Blog</Link></li>
               <li><Link className="transition-colors hover:text-[#CBCC10]" to="/service-areas">Service Areas</Link></li>
               <li><Link className="transition-colors hover:text-[#CBCC10]" to="/privacy">Privacy</Link></li>
             </ul>

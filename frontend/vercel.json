@@ -375,7 +375,7 @@
     },
     {
       "source": "/blog",
-      "destination": "/api/legacy"
+      "destination": "/blog/index.html"
     },
     {
       "source": "/brownfield-development-florida-construction-what-to-know",
@@ -587,7 +587,7 @@
     },
     {
       "source": "/drywall-renovation-tips-what-south-florida-pros-do-differently",
-      "destination": "/api/legacy"
+      "destination": "/drywall-renovation-tips-what-south-florida-pros-do-differently/index.html"
     },
     {
       "source": "/effective-dishwashing-tips-and-tricks-for-busy-parents",
@@ -687,7 +687,7 @@
     },
     {
       "source": "/hiring-a-contractor-in-broward-county-12-questions-to-ask",
-      "destination": "/api/legacy"
+      "destination": "/hiring-a-contractor-in-broward-county-12-questions-to-ask/index.html"
     },
     {
       "source": "/home-addition-cost-south-florida-full-breakdown",
@@ -703,7 +703,7 @@
     },
     {
       "source": "/home-flip-renovation-broward-county-what-really-goes-in",
-      "destination": "/api/legacy"
+      "destination": "/home-flip-renovation-broward-county-what-really-goes-in/index.html"
     },
     {
       "source": "/home-flip-renovation-south-florida-real-costs-timelines",
@@ -715,7 +715,7 @@
     },
     {
       "source": "/home-renovation-contractor-fort-lauderdale-planning-guide",
-      "destination": "/api/legacy"
+      "destination": "/home-renovation-contractor-fort-lauderdale-planning-guide/index.html"
     },
     {
       "source": "/house-demolition-fort-lauderdale-what-to-know",
@@ -727,7 +727,7 @@
     },
     {
       "source": "/how-much-does-a-home-addition-cost-in-broward-county",
-      "destination": "/api/legacy"
+      "destination": "/how-much-does-a-home-addition-cost-in-broward-county/index.html"
     },
     {
       "source": "/how-to-choose-home-renovation-contractors-fort-lauderdale",
@@ -1007,7 +1007,7 @@
     },
     {
       "source": "/shell-construction-south-florida-licensed-contractor",
-      "destination": "/api/legacy"
+      "destination": "/shell-construction-south-florida-licensed-contractor/index.html"
     },
     {
       "source": "/sleep-healthier-your-comprehensive-guide-to-washing-pillows",

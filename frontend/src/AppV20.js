@@ -20,12 +20,14 @@ import TitleCaseAuditV1 from "@/components/TitleCaseAuditV1";
 import PortfolioRouteBoundaryV1 from "@/components/PortfolioRouteBoundaryV1";
 import ServicesV9 from "@/pages/ServicesV9";
 import AnalyticsBoundaryV1 from "@/components/AnalyticsBoundaryV1";
+import blogPosts from "@/blog/posts.json";
 
 const ServiceDetail = lazy(() => import("@/pages/ServiceDetailV3"));
 const Portfolio = lazy(() => import("@/pages/PortfolioV10"));
 const ProjectGallery = lazy(() => import("@/pages/ProjectGalleryV7"));
 const Privacy = lazy(() => import("@/pages/PrivacyV6"));
 const ServiceAreas = lazy(() => import("@/pages/ServiceAreasV1"));
+const Blog = lazy(() => import("@/pages/BlogV1"));
 const clamp01 = (value) => Math.min(1, Math.max(0, value));
 
 function Landing({ Stage = null }) {
@@ -73,6 +75,8 @@ export default function AppV20() {
         <Route path="/portfolio/:projectId" element={<PortfolioRouteBoundaryV1><Suspense fallback={<div className="min-h-screen bg-[#09090B]" />}><ProjectGallery /></Suspense></PortfolioRouteBoundaryV1>} />
         <Route path="/service-areas" element={<Suspense fallback={<div className="min-h-screen bg-[#09090B]" />}><ServiceAreas /></Suspense>} />
         <Route path="/privacy" element={<Suspense fallback={<div className="min-h-screen bg-[#09090B]" />}><Privacy /></Suspense>} />
+        <Route path="/blog" element={<Suspense fallback={<div className="min-h-screen bg-[#09090B]" />}><Blog /></Suspense>} />
+        {blogPosts.map((post) => <Route key={post.slug} path={`/${post.slug}`} element={<Suspense fallback={<div className="min-h-screen bg-[#09090B]" />}><Blog /></Suspense>} />)}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes><Toaster position="bottom-right" theme="dark" /></TitleCaseAuditV1>
     </BrowserRouter>
