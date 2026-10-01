@@ -1,12 +1,12 @@
 # Hiring a Contractor in Broward County: 12 Questions to Ask
 
 Hiring a contractor here is not the same as hiring one anywhere else. Broward sits inside a
-hurricane-zone code that most of the country never deals with, permitting runs through your individual
-city rather than one county office, and flood zone can quietly reshape a project before it starts.
+High Velocity Hurricane Zone rules, permit review depends on whether the property is in a city or the
+unincorporated county district, and flood information can affect a project before design starts.
 
 Most homeowners know they should ask questions. Fewer know which ones matter *here*. These twelve do.
 
-## Licence, insurance, and whether they can legally do the work
+## License, insurance, and whether they can legally do the work
 
 ### 1. Does your Florida license cover this work?
 
@@ -30,9 +30,9 @@ use subs. Ask your insurer or adviser what coverage and documentation are approp
 
 ### 3. Will you pull all the required permits yourself?
 
-Permitting in Broward runs through individual cities, not one county office. Pompano Beach, Fort
-Lauderdale and Hollywood each have their own submittal requirements and their own review times. Your
-contractor should know your city's process and handle it start to finish.
+Most Broward cities administer their own building permits; the county Building Code Division serves
+the Broward Municipal Services District. Confirm the permitting authority for your address and ask
+how the contractor will manage the application, revisions, and inspections.
 
 Ask the building department which permits the exact scope requires and who will apply for them. If a
 bidder proposes owner-pulled permits, ask the department what responsibilities that creates before
@@ -70,7 +70,7 @@ work starts?* If the answer is anything other than yes, keep looking.
 Payments should track progress — deposit, then milestones like foundation complete, framing inspected,
 rough-ins done, final walkthrough. That structure protects both sides.
 
-A reasonable deposit is normal. A large lump sum before anyone mobilises is not.
+A reasonable deposit is normal. A large lump sum before anyone mobilizes is not.
 
 ## Structure, code, and the things specific to South Florida
 
@@ -80,8 +80,7 @@ Broward is in the Florida Building Code's High Velocity Hurricane Zone. The proj
 local building department determine the applicable wind requirements, opening protection and structural
 connections for the specific work. Ask how those requirements appear in the drawings and bid.
 
-Ask them to explain, in plain language, how that shapes *your* project. A contractor who has built here
-can do that without notes. One who cannot has probably not built here long.
+Ask them to explain, in plain language, how that shapes *your* project. Ask for a project-specific explanation that you can compare with the plans and permit requirements.
 
 ### 9. Is this property in a flood zone, and what does that change?
 
@@ -91,7 +90,7 @@ requirements apply to your proposal.
 
 Ask whether you need a survey or an elevation certificate before design starts — not after. Broward
 publishes [flood information by property](https://www.broward.org/ENVIRONMENT),
-and FEMA's [flood map service centre](https://msc.fema.gov/portal/search) shows the mapped zone.
+and FEMA's [Flood Map Service Center](https://msc.fema.gov/portal/search) shows the mapped zone.
 
 ### 10. Who is actually on site every day?
 
@@ -100,8 +99,8 @@ Ask who runs your job day to day, how often they are there, and who you call whe
 
 ### 11. Can I see work you finished, and talk to those owners?
 
-Photos prove a job existed. A conversation proves how it went. Ask for owners from projects of a
-similar type and size, and ask them one specific question: *what happened when something went wrong?*
+Ask for completed work of a similar type and, where owners have agreed to be contacted, ask how the
+contractor handled changes and problems. Photos alone cannot establish the scope or client experience.
 
 ### 12. What does the end look like?
 
