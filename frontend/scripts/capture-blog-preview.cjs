@@ -53,7 +53,7 @@ async function capture() {
     let ready = false;
     for (let attempt = 0; attempt < 50 && !ready; attempt += 1) {
       const state = await call("Runtime.evaluate", {
-        expression: "Boolean(document.querySelector('main h1')) && document.fonts.status === 'loaded' && document.querySelector('meta[name=robots]')?.content === 'noindex,nofollow' && Boolean(document.querySelector('link[rel=canonical]')) && [...document.querySelectorAll('main img')].every(i => i.complete && i.naturalWidth > 0)",
+        expression: "Boolean(document.querySelector('main h1')) && document.fonts.status === 'loaded' && document.querySelector('meta[name=robots]')?.content === 'index,follow' && Boolean(document.querySelector('link[rel=canonical]')) && [...document.querySelectorAll('main img')].every(i => i.complete && i.naturalWidth > 0)",
         returnByValue: true,
       });
       ready = Boolean(state.result?.value);
