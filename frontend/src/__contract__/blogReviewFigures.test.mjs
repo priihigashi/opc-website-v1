@@ -34,10 +34,31 @@ test('private HTML preview renders the diagram and escapes editorial text', asyn
     execFileSync(process.execPath, [resolve(import.meta.dirname, '../../scripts/generate-blog-review-preview.mjs'), input, output]);
     const html = await readFile(output, 'utf8');
     assert.match(html, /noindex,nofollow,noarchive/);
-    assert.match(html, /<figure class="review-figure"/);
+    assert.match(html, /<figure class="review-figure decision-flow"/);
     assert.match(html, /Scope &lt;script&gt;alert\(1\)&lt;\/script&gt;/);
     assert.match(html, /OPC planning note/);
     assert.match(html, /Source claim c1 · doe-sizing/);
     assert.doesNotMatch(html, /<script>alert/);
+  } finally { await rm(dir, { recursive: true, force: true }); }
+});
+
+test('scope and evidence maps render unordered nodes with heading-bound labels', async () => {
+  const dir = await mkdtemp(join(tmpdir(), 'opc-blog-map-'));
+  try {
+    const input = join(dir, 'bundle.json');
+    const output = join(dir, 'preview.html');
+    const mapBody = `## Plan <b>scope</b>\n\n${claim.text}\n\n<!-- FIGURE:plan-sequence -->`;
+    for (const type of ['scope-map', 'evidence-map']) {
+      const mapFigure = { ...figure, type, alt: 'A <script>safe</script> map', provenance: 'OPC <script>source</script>', steps: [figure.steps[0], { ...figure.steps[1], label: 'Plan <b>scope</b>' }, figure.steps[2]] };
+      await writeFile(input, JSON.stringify({ article: { title: 'Review', body: mapBody, claims: [claim], figures: [mapFigure] } }));
+      execFileSync(process.execPath, [resolve(import.meta.dirname, '../../scripts/generate-blog-review-preview.mjs'), input, output]);
+      const html = await readFile(output, 'utf8');
+      assert.match(html, new RegExp(`<figure class="review-figure ${type}"[^>]*>[\\s\\S]*?<ul>[\\s\\S]*?<\\/ul>`));
+      assert.doesNotMatch(html, /<ol>/);
+      assert.match(html, /Plan &lt;b&gt;scope&lt;\/b&gt;/);
+      assert.match(html, /aria-label="A &lt;script&gt;safe&lt;\/script&gt; map"/);
+      assert.doesNotMatch(html, /<script>/);
+    }
+    assert.throws(() => reviewFigureBlocks({ body: mapBody, claims: [claim], figures: [{ ...figure, type: 'scope-map', steps: [figure.steps[0], { ...figure.steps[1], label: 'Invented heading' }, figure.steps[2]] }] }), /heading/);
   } finally { await rm(dir, { recursive: true, force: true }); }
 });

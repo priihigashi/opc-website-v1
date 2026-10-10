@@ -7,9 +7,9 @@ export function reviewFigureBlocks(article) {
   const body = String(article.content || article.body || '');
   for (const figure of article.figures || []) {
     if (!/^[a-z0-9-]+$/.test(figure.id || '') || figures.has(figure.id)) throw new Error('Invalid or duplicate review figure ID');
-    if (figure.type !== 'decision-flow' || figure.approved === true) throw new Error(`Figure ${figure.id} must be an unapproved decision flow`);
+    if (!['decision-flow', 'scope-map', 'evidence-map'].includes(figure.type) || figure.approved === true) throw new Error(`Figure ${figure.id} must be an unapproved supported diagram`);
     for (const field of ['title', 'alt', 'caption', 'provenance']) {
-      if (typeof figure[field] !== 'string' || !figure[field].trim()) throw new Error(`Figure ${figure.id} requires ${field}`);
+      if (typeof figure[field] !== 'string' || !figure[field].trim() || figure[field].length > 300) throw new Error(`Figure ${figure.id} requires concise ${field}`);
     }
     if (figure.rights !== 'OPC original diagram') throw new Error(`Figure ${figure.id} requires verified original rights`);
     if (!Array.isArray(figure.steps) || figure.steps.length < 3 || figure.steps.length > 5) {
@@ -18,11 +18,17 @@ export function reviewFigureBlocks(article) {
     for (const step of figure.steps) {
       if (!step || typeof step !== 'object' || typeof step.text !== 'string' || !step.text.trim() || step.text.length > 240) throw new Error(`Figure ${figure.id} requires structured step text`);
       if (step.kind === 'editorial') {
-        if (step.claimId || step.sourceId) throw new Error(`Figure ${figure.id} editorial step cannot cite a source claim`);
+        if (step.claimId || step.sourceId || step.label) throw new Error(`Figure ${figure.id} editorial step cannot cite or label a source claim`);
       } else if (step.kind === 'source') {
         const claim = claims.get(step.claimId);
         if (!claim || !step.sourceId || claim.sourceId !== step.sourceId || claim.text !== step.text || claim.status !== 'verified' || !body.includes(claim.text)) {
           throw new Error(`Figure ${figure.id} source step must match a verified in-body claim and source`);
+        }
+        if (step.label !== undefined) {
+          const headings = [...body.matchAll(/^#{2,3}\s+(.+)$/gm)].map((match) => match[1].trim().toLowerCase());
+          if (typeof step.label !== 'string' || !step.label.trim() || step.label.length > 80 || !headings.some((heading) => heading.includes(step.label.trim().toLowerCase()))) {
+            throw new Error(`Figure ${figure.id} source label must come from an article heading`);
+          }
         }
       } else throw new Error(`Figure ${figure.id} step requires source or editorial kind`);
     }
