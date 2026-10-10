@@ -1,6 +1,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { articleBlocks } from "../src/blog/figureBlocks.mjs";
 
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const frontendDir = dirname(scriptDir);
@@ -77,7 +78,9 @@ const renderInline = (value) => String(value).split(/(\[[^\]]+\]\([^)]+\)|\*\*[^
   if (part.startsWith("*") && part.endsWith("*")) return `<em>${escapeAttribute(part.slice(1, -1))}</em>`;
   return escapeAttribute(part);
 }).join("");
-const renderArticleBody = (content) => content.split(/\n\s*\n/).filter(Boolean).map((block) => {
+const renderArticleBody = (post) => articleBlocks(post).map((item) => {
+  if (item.type === "figure") return `<figure><img src="${escapeAttribute(item.figure.src)}" alt="${escapeAttribute(item.figure.alt)}" loading="lazy" style="max-width:100%;height:auto" /><figcaption>${escapeAttribute(item.figure.caption)}</figcaption></figure>`;
+  const block = item.text;
   if (block.startsWith("### ")) return `<h3>${escapeAttribute(block.slice(4))}</h3>`;
   if (block.startsWith("## ")) return `<h2>${escapeAttribute(block.slice(3))}</h2>`;
   if (block.startsWith("- ")) return `<ul>${block.split(/\n(?=- )/).map((item) => `<li>${renderInline(item.replace(/^- /, "").replace(/\n\s+/g, " "))}</li>`).join("")}</ul>`;
@@ -101,7 +104,7 @@ for (const post of blogPosts) {
   const path = `/${post.slug}`;
   const description = post.content.split(/\n\s*\n/)[0].replace(/\s+/g, " ").slice(0, 158);
   const route = { type: "article", title: `${post.title} | Oak Park Construction`, description, image: post.image, imageAlt: post.imageAlt, robots: "index,follow" };
-  const content = `<p><a href="/blog">← All articles</a></p><h1>${escapeAttribute(post.title)}</h1><p>By ${escapeAttribute(post.author)} · <time datetime="${post.date}">${post.date}</time></p><img src="${escapeAttribute(post.image)}" alt="${escapeAttribute(post.imageAlt)}" width="960" style="max-width:100%;height:auto" /><article style="${articleStyle}">${renderArticleBody(post.content)}</article><p><a href="/blog">All articles</a></p>`;
+  const content = `<p><a href="/blog">← All articles</a></p><h1>${escapeAttribute(post.title)}</h1><p>By ${escapeAttribute(post.author)} · <time datetime="${post.date}">${post.date}</time></p><img src="${escapeAttribute(post.image)}" alt="${escapeAttribute(post.imageAlt)}" width="960" style="max-width:100%;height:auto" /><article style="${articleStyle}">${renderArticleBody(post)}</article><p><a href="/blog">All articles</a></p>`;
   const schema = { "@context": "https://schema.org", "@type": "Article", headline: post.title, description, mainEntityOfPage: `${siteOrigin}${path}`, image: [`${siteOrigin}${post.image}`], datePublished: post.date, dateModified: post.modified, author: organization, publisher: organization };
   const output = join(buildDir, post.slug, "index.html");
   await mkdir(dirname(output), { recursive: true });

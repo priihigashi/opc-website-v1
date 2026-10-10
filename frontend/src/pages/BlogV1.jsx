@@ -7,6 +7,7 @@ import { Fragment, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import FooterV3 from "@/components/FooterV3";
 import posts from "@/blog/posts.json";
+import { articleBlocks } from "@/blog/figureBlocks.mjs";
 
 function Inline({ value }) {
   const parts = value.split(/(\[[^\]]+\]\([^)]+\)|\*\*[^*]+\*\*|\*[^*]+\*)/g);
@@ -22,10 +23,12 @@ function Inline({ value }) {
   });
 }
 
-function ArticleBody({ content }) {
-  const blocks = content.split(/\n\s*\n/).filter(Boolean);
+function ArticleBody({ post }) {
+  const blocks = articleBlocks(post);
   return <div className="space-y-6 text-[16px] leading-[1.85] text-[#4D4D4A] md:text-[17px]">
-    {blocks.map((block, index) => {
+    {blocks.map((item, index) => {
+      if (item.type === "figure") return <figure key={index} className="!my-10"><img src={item.figure.src} alt={item.figure.alt} loading="lazy" className="w-full rounded-[5px]" /><figcaption className="mt-3 text-sm leading-relaxed text-[#66675F]">{item.figure.caption}</figcaption></figure>;
+      const block = item.text;
       if (block.startsWith("## ")) return <h2 key={index} className="!mt-12 font-head text-3xl font-semibold leading-tight text-[#111113]">{block.slice(3)}</h2>;
       if (block.startsWith("### ")) return <h3 key={index} className="!mt-9 font-head text-2xl font-semibold leading-tight text-[#111113]">{block.slice(4)}</h3>;
       if (block.startsWith("- ")) return <ul key={index} className="list-disc space-y-3 pl-6">{block.split(/\n(?=- )/).map((item, i) => <li key={i}><Inline value={item.replace(/^- /, "").replace(/\n\s+/g, " ")} /></li>)}</ul>;
@@ -71,7 +74,7 @@ export default function BlogV1() {
             </div>
           </div>
           <div className="mt-12 grid gap-10 lg:grid-cols-[minmax(0,2fr)_minmax(220px,1fr)]">
-            <article className="min-w-0"><ArticleBody content={post.content} /></article>
+            <article className="min-w-0"><ArticleBody post={post} /></article>
             <aside className="h-fit border-t-2 border-[#CBCC10] bg-white p-7 text-sm leading-relaxed text-[#55564F] lg:sticky lg:top-28"><p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#111113]">About this article</p><p className="mt-5">By Oak Park Construction</p><p className="mt-2">Published {post.date}</p><p className="mt-5">Practical guidance for planning and building in South Florida. Project requirements vary by address and scope.</p><Link to="/portfolio" className="mt-6 inline-block font-mono text-[11px] uppercase tracking-[0.15em] text-[#737500] underline underline-offset-4">See our work</Link></aside>
           </div>
         </div> :
