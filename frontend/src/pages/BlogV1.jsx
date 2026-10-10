@@ -8,6 +8,7 @@ import { Link, useLocation } from "react-router-dom";
 import FooterV3 from "@/components/FooterV3";
 import posts from "@/blog/posts.json";
 import { articleBlocks } from "@/blog/figureBlocks.mjs";
+import { orderedItems, tableRows } from "@/blog/markdownBlocks.mjs";
 
 function Inline({ value }) {
   const parts = value.split(/(\[[^\]]+\]\([^)]+\)|\*\*[^*]+\*\*|\*[^*]+\*)/g);
@@ -31,6 +32,10 @@ function ArticleBody({ post }) {
       const block = item.text;
       if (block.startsWith("## ")) return <h2 key={index} className="!mt-12 font-head text-3xl font-semibold leading-tight text-[#111113]">{block.slice(3)}</h2>;
       if (block.startsWith("### ")) return <h3 key={index} className="!mt-9 font-head text-2xl font-semibold leading-tight text-[#111113]">{block.slice(4)}</h3>;
+      const table = tableRows(block);
+      if (table) return <div key={index} className="overflow-x-auto"><table className="w-full min-w-[560px] border-collapse text-left text-sm"><thead><tr>{table.header.map((cell, i) => <th key={i} className="border-b-2 border-[#CBCC10] p-3 align-top text-[#111113]"><Inline value={cell} /></th>)}</tr></thead><tbody>{table.rows.map((row, i) => <tr key={i}>{row.map((cell, j) => <td key={j} className="border-b border-[#DAD9D2] p-3 align-top"><Inline value={cell} /></td>)}</tr>)}</tbody></table></div>;
+      const ordered = orderedItems(block);
+      if (ordered) return <ol key={index} className="list-decimal space-y-3 pl-6">{ordered.map((item, i) => <li key={i}><Inline value={item} /></li>)}</ol>;
       if (block.startsWith("- ")) return <ul key={index} className="list-disc space-y-3 pl-6">{block.split(/\n(?=- )/).map((item, i) => <li key={i}><Inline value={item.replace(/^- /, "").replace(/\n\s+/g, " ")} /></li>)}</ul>;
       return <p key={index}><Inline value={block.replace(/\n/g, " ")} /></p>;
     })}

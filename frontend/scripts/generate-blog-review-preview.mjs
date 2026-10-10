@@ -2,6 +2,7 @@ import { readFile, mkdir, writeFile, access, stat } from 'node:fs/promises';
 import { resolve, dirname, relative, isAbsolute } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { reviewFigureBlocks } from '../src/blog/reviewFigureBlocks.mjs';
+import { orderedItems, tableRows } from '../src/blog/markdownBlocks.mjs';
 
 // Local review artifact only. This script never writes into the deployable build.
 const [inputArg, outputArg] = process.argv.slice(2);
@@ -37,6 +38,10 @@ const inline = (value) => escape(value).replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_ma
 const renderText = (block) => {
   if (block.startsWith('## ')) return `<h2>${escape(block.slice(3))}</h2>`;
   if (block.startsWith('### ')) return `<h3>${escape(block.slice(4))}</h3>`;
+  const table = tableRows(block);
+  if (table) return `<div class="table-scroll"><table><thead><tr>${table.header.map(cell => `<th>${inline(cell)}</th>`).join('')}</tr></thead><tbody>${table.rows.map(row => `<tr>${row.map(cell => `<td>${inline(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+  const ordered = orderedItems(block);
+  if (ordered) return `<ol>${ordered.map(item => `<li>${inline(item)}</li>`).join('')}</ol>`;
   if (block.startsWith('- ')) return `<ul>${block.split(/\n(?=- )/).map((item) => `<li>${inline(item.replace(/^- /, '').replace(/\n\s+/g, ' '))}</li>`).join('')}</ul>`;
   return `<p>${inline(block.replace(/\n/g, ' '))}</p>`;
 };
@@ -63,6 +68,7 @@ const claims = Array.isArray(article.claims) ? article.claims : [];
 const sourceLedger = claims.length ? `<section class="notice"><h2>Claim and source ledger</h2><ul>${claims.map((claim) => `<li>${escape(claim.text || '')} <small>Source: ${escape(claim.sourceId || 'unknown')}</small></li>`).join('')}</ul></section>` : '';
 const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow,noarchive"><title>Review draft: ${escape(article.title)}</title><style>
 *{box-sizing:border-box}body{margin:0;background:#F0EBE3;color:#0A0A0A;font:17px/1.8 Arial,sans-serif}a{color:#9A9B0C}header{background:#0A0A0A;color:#fff;padding:1rem 1.5rem;font:700 13px/1.5 monospace;letter-spacing:.08em}main{max-width:1120px;margin:auto;padding:2rem 1.5rem 5rem}.notice{padding:1rem 1.3rem;background:#F0EBE3;border-left:5px solid #CBCC10;font:14px/1.6 Arial,sans-serif}.eyebrow{font:12px monospace;text-transform:uppercase;letter-spacing:.12em;color:#7A7267;margin-top:3rem}h1,h2,h3{font-family:Georgia,serif;line-height:1.18}h1{font-size:clamp(2.4rem,6vw,4.5rem);max-width:900px}h2{font-size:2rem;margin-top:2.8rem}h3{font-size:1.5rem;margin-top:2rem}.hero{width:100%;max-height:480px;object-fit:cover;border-radius:5px;margin:1.5rem 0}article{max-width:760px;margin:3rem auto}article p,article li{color:#7A7267}article li{margin:.5rem 0}footer{background:#0A0A0A;color:#fff;padding:2rem;text-align:center;font:12px monospace}@media(max-width:600px){main{padding:1rem 1rem 3rem}article{margin:2rem auto}}
+.table-scroll{overflow-x:auto}.table-scroll table{border-collapse:collapse;width:100%;min-width:560px;font-size:.9rem}.table-scroll th,.table-scroll td{border-bottom:1px solid #C9C5BC;padding:.7rem;text-align:left;vertical-align:top}.table-scroll th{border-bottom:2px solid #CBCC10;color:#0A0A0A}
 .review-figure{margin:2.5rem 0;padding:1.5rem;background:#fff;border:2px solid #CBCC10;border-radius:5px}.diagram-title{font:700 1.3rem Georgia,serif}.review-figure ol{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem;padding:0;list-style:none;counter-reset:step}.review-figure li{margin:0;padding:1rem;background:#F0EBE3;color:#0A0A0A;counter-increment:step}.review-figure li:before{content:counter(step,decimal-leading-zero);display:block;color:#686900;font:700 .85rem monospace}.review-figure figcaption{margin-top:1rem;color:#555;font-size:.9rem}.review-figure small{display:block;color:#777}@media(max-width:600px){.review-figure ol{grid-template-columns:1fr}}
 .review-figure .step-label{display:block;font:700 .72rem monospace;text-transform:uppercase;letter-spacing:.04em;color:#686900;margin:.25rem 0 .5rem}
 .review-figure ul{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem;padding:0;list-style:none}.review-figure ul li:before{content:none}.review-figure .node-title{display:block;font:700 1rem Georgia,serif;margin-bottom:.35rem}@media(max-width:600px){.review-figure ul{grid-template-columns:1fr}}

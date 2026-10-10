@@ -2,6 +2,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { articleBlocks } from "../src/blog/figureBlocks.mjs";
+import { orderedItems, tableRows } from "../src/blog/markdownBlocks.mjs";
 import { verifyBlogRelease } from "./verify-blog-release.mjs";
 
 const scriptDir = dirname(fileURLToPath(import.meta.url));
@@ -85,6 +86,10 @@ const renderArticleBody = (post) => articleBlocks(post).map((item) => {
   const block = item.text;
   if (block.startsWith("### ")) return `<h3>${escapeAttribute(block.slice(4))}</h3>`;
   if (block.startsWith("## ")) return `<h2>${escapeAttribute(block.slice(3))}</h2>`;
+  const table = tableRows(block);
+  if (table) return `<div style="overflow-x:auto"><table style="border-collapse:collapse;width:100%"><thead><tr>${table.header.map(cell => `<th style="border-bottom:2px solid #CBCC10;padding:.7rem;text-align:left;vertical-align:top">${renderInline(cell)}</th>`).join("")}</tr></thead><tbody>${table.rows.map(row => `<tr>${row.map(cell => `<td style="border-bottom:1px solid #DAD9D2;padding:.7rem;vertical-align:top">${renderInline(cell)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+  const ordered = orderedItems(block);
+  if (ordered) return `<ol>${ordered.map(item => `<li>${renderInline(item)}</li>`).join("")}</ol>`;
   if (block.startsWith("- ")) return `<ul>${block.split(/\n(?=- )/).map((item) => `<li>${renderInline(item.replace(/^- /, "").replace(/\n\s+/g, " "))}</li>`).join("")}</ul>`;
   return `<p>${renderInline(block.replace(/\n/g, " "))}</p>`;
 }).join("\n");

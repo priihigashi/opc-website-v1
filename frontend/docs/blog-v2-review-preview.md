@@ -26,7 +26,7 @@ Accepted bundle fields:
 }
 ```
 
-For an audit directory, the script reads `draft.json`, `review.json`, and `receipt.json`; `draft.body` supplies article text. It also accepts a single bundle JSON file. Only a title and body/content are required for rendering. The content renderer handles paragraphs, level 2 and 3 headings, unordered lists, emphasis, and HTTPS or site-local Markdown links, matching the existing published blog conventions. The preview does not determine editorial approval.
+For an audit directory, the script reads `draft.json`, `review.json`, and `receipt.json`; `draft.body` supplies article text. It also accepts a single bundle JSON file. Only a title and body/content are required for rendering. The content renderer handles paragraphs, level 2 and 3 headings, unordered and numbered lists, simple Markdown tables, emphasis, and HTTPS or site-local Markdown links. The React article and static SEO renderer share the table/list parser so the final reader artifacts remain legible across preview and production. The preview does not determine editorial approval.
 
 Approved production articles can insert an explanatory figure with a standalone `<!-- FIGURE:roof-tie-in -->` block in `content` and a matching object in `figures`. Both the React renderer and static HTML generator use the same validator. Every figure requires a local `/images/opc/...` source, meaningful alt text, caption, provenance, rights, and `approved: true`; every declared figure must appear exactly once in the body. These fields document a reviewed asset; setting `approved: true` is part of the later human-approved publication change, not an automation output.
 
