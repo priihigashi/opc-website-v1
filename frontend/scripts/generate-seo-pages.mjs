@@ -2,6 +2,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { articleBlocks } from "../src/blog/figureBlocks.mjs";
+import { verifyBlogRelease } from "./verify-blog-release.mjs";
 
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const frontendDir = dirname(scriptDir);
@@ -66,6 +67,7 @@ for (const [path, route] of Object.entries(routes)) {
 }
 
 const blogPosts = JSON.parse(await readFile(join(frontendDir, "src", "blog", "posts.json"), "utf8"));
+await verifyBlogRelease(frontendDir);
 const blogPaths = ["/blog", ...blogPosts.map((post) => `/${post.slug}`)];
 const renderInline = (value) => String(value).split(/(\[[^\]]+\]\([^)]+\)|\*\*[^*]+\*\*|\*[^*]+\*)/g).map((part) => {
   const link = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
