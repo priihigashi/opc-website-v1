@@ -20,6 +20,11 @@ export async function verifyBlogRelease(frontendDir) {
     if (!approval || approval.postSha256 !== postDigest(post)) { errors.push(`missing-exact-version-approval:${post.slug}`); continue; }
     if (!approval.approvedBy || !Number.isFinite(Date.parse(approval.approvedAt)) || !/^https:\/\//.test(approval.evidenceUrl || '') || !/^[a-f0-9]{64}$/.test(approval.batchReceiptSha256 || '')) errors.push(`incomplete-approval-record:${post.slug}`);
     if (approval.batchStatus !== 'private-trial-ready') errors.push(`series-review-not-ready:${post.slug}`);
+    if (!post.image) {
+      if (approval.mediaDecision !== 'text-only' || approval.imageSha256 || post.imageAlt) errors.push(`invalid-text-only-approval:${post.slug}`);
+      continue;
+    }
+    if (!post.imageAlt?.trim()) errors.push(`missing-image-alt:${post.slug}`);
     if (!/^\/images\/opc\/[a-zA-Z0-9_./-]+$/.test(post.image || '') || post.image.includes('..')) { errors.push(`invalid-approved-image:${post.slug}`); continue; }
     const publicDir = resolve(frontendDir, 'public');
     const imagePath = resolve(publicDir, `.${post.image}`);

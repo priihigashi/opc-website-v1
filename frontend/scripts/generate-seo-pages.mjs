@@ -31,10 +31,11 @@ const setMeta = (html, selector, key, value) => {
   const replacement = `<meta ${selector}="${key}" content="${escaped}" />`;
   return pattern.test(html) ? html.replace(pattern, replacement) : html.replace("</head>", `  ${replacement}\n</head>`);
 };
+const removeMeta = (html, selector, key) => html.replace(new RegExp(`\\s*<meta\\s+${selector}="${key}"[^>]*>`, "i"), "");
 
 const renderRoute = (path, route) => {
   const canonical = `${siteOrigin}${path}`;
-  const image = `${siteOrigin}${route.image}`;
+  const image = route.image ? `${siteOrigin}${route.image}` : null;
   let html = template.replace(/<title>[^<]*<\/title>/i, `<title>${escapeAttribute(route.title)}</title>`);
 
   html = setMeta(html, "name", "description", route.description);
@@ -44,13 +45,13 @@ const renderRoute = (path, route) => {
   html = setMeta(html, "property", "og:title", route.title);
   html = setMeta(html, "property", "og:description", route.description);
   html = setMeta(html, "property", "og:url", canonical);
-  html = setMeta(html, "property", "og:image", image);
-  html = setMeta(html, "property", "og:image:alt", route.imageAlt);
-  html = setMeta(html, "name", "twitter:card", "summary_large_image");
+  html = image ? setMeta(html, "property", "og:image", image) : removeMeta(html, "property", "og:image");
+  html = image ? setMeta(html, "property", "og:image:alt", route.imageAlt) : removeMeta(html, "property", "og:image:alt");
+  html = setMeta(html, "name", "twitter:card", image ? "summary_large_image" : "summary");
   html = setMeta(html, "name", "twitter:title", route.title);
   html = setMeta(html, "name", "twitter:description", route.description);
-  html = setMeta(html, "name", "twitter:image", image);
-  html = setMeta(html, "name", "twitter:image:alt", route.imageAlt);
+  html = image ? setMeta(html, "name", "twitter:image", image) : removeMeta(html, "name", "twitter:image");
+  html = image ? setMeta(html, "name", "twitter:image:alt", route.imageAlt) : removeMeta(html, "name", "twitter:image:alt");
   html = html.replace(/\s*<link\s+rel="canonical"[^>]*>/i, "");
   html = html.replace("</head>", `  <link rel="canonical" href="${escapeAttribute(canonical)}" />\n</head>`);
 
@@ -102,7 +103,7 @@ const injectBlog = (html, content, schema) => html
 
 const blogDescription = "Practical construction guidance for South Florida homeowners from Oak Park Construction.";
 const blogRoute = { type: "blog", title: "Blog | Oak Park Construction", description: blogDescription, image: "/images/opc/addition-progress-1200w.webp", imageAlt: "Oak Park Construction project", robots: "index,follow" };
-const blogCards = blogPosts.map((post) => `<article style="margin:2rem 0"><a href="/${escapeAttribute(post.slug)}"><img src="${escapeAttribute(post.image)}" alt="${escapeAttribute(post.imageAlt)}" width="480" style="max-width:100%;height:auto" /><h2>${escapeAttribute(post.title)}</h2></a><p><time datetime="${post.date}">${post.date}</time> · ${escapeAttribute(post.category)}</p></article>`).join("\n");
+const blogCards = blogPosts.map((post) => `<article style="margin:2rem 0"><a href="/${escapeAttribute(post.slug)}">${post.image ? `<img src="${escapeAttribute(post.image)}" alt="${escapeAttribute(post.imageAlt)}" width="480" style="max-width:100%;height:auto" />` : ""}<h2>${escapeAttribute(post.title)}</h2></a><p><time datetime="${post.date}">${post.date}</time> · ${escapeAttribute(post.category)}</p></article>`).join("\n");
 const blogContent = `<p><a href="/">Oak Park Construction</a> / Blog</p><h1>Ideas for building well.</h1><p>${blogDescription}</p>${blogCards}`;
 await mkdir(join(buildDir, "blog"), { recursive: true });
 await writeFile(join(buildDir, "blog", "index.html"), injectBlog(renderRoute("/blog", blogRoute), blogContent, { "@context": "https://schema.org", "@type": "CollectionPage", name: "Blog | Oak Park Construction", url: `${siteOrigin}/blog`, description: blogDescription }));
@@ -111,8 +112,8 @@ for (const post of blogPosts) {
   const path = `/${post.slug}`;
   const description = post.content.split(/\n\s*\n/)[0].replace(/\s+/g, " ").slice(0, 158);
   const route = { type: "article", title: `${post.title} | Oak Park Construction`, description, image: post.image, imageAlt: post.imageAlt, robots: "index,follow" };
-  const content = `<p><a href="/blog">← All articles</a></p><h1>${escapeAttribute(post.title)}</h1><p>By ${escapeAttribute(post.author)} · <time datetime="${post.date}">${post.date}</time></p><img src="${escapeAttribute(post.image)}" alt="${escapeAttribute(post.imageAlt)}" width="960" style="max-width:100%;height:auto" /><article style="${articleStyle}">${renderArticleBody(post)}</article><p><a href="/blog">All articles</a></p>`;
-  const schema = { "@context": "https://schema.org", "@type": "Article", headline: post.title, description, mainEntityOfPage: `${siteOrigin}${path}`, image: [`${siteOrigin}${post.image}`], datePublished: post.date, dateModified: post.modified, author: organization, publisher: organization };
+  const content = `<p><a href="/blog">← All articles</a></p><h1>${escapeAttribute(post.title)}</h1><p>By ${escapeAttribute(post.author)} · <time datetime="${post.date}">${post.date}</time></p>${post.image ? `<img src="${escapeAttribute(post.image)}" alt="${escapeAttribute(post.imageAlt)}" width="960" style="max-width:100%;height:auto" />` : ""}<article style="${articleStyle}">${renderArticleBody(post)}</article><p><a href="/blog">All articles</a></p>`;
+  const schema = { "@context": "https://schema.org", "@type": "Article", headline: post.title, description, mainEntityOfPage: `${siteOrigin}${path}`, ...(post.image ? { image: [`${siteOrigin}${post.image}`] } : {}), datePublished: post.date, dateModified: post.modified, author: organization, publisher: organization };
   const output = join(buildDir, post.slug, "index.html");
   await mkdir(dirname(output), { recursive: true });
   await writeFile(output, injectBlog(renderRoute(path, route), content, schema));

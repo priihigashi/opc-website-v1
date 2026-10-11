@@ -46,7 +46,7 @@ function Card({ post }) {
   const excerpt = post.content.split(/\n\s*\n/)[0].replace(/\n/g, " ");
   return <article className="group">
     <div className="mb-8 overflow-hidden rounded-[5px]">
-      <Link to={`/${post.slug}`} className="block"><img src={post.image} alt={post.imageAlt} loading="lazy" className="aspect-[16/10] w-full object-cover transition duration-500 group-hover:rotate-2 group-hover:scale-110" /></Link>
+      <Link to={`/${post.slug}`} className="block">{post.image ? <img src={post.image} alt={post.imageAlt} loading="lazy" className="aspect-[16/10] w-full object-cover transition duration-500 group-hover:rotate-2 group-hover:scale-110" /> : <div className="flex aspect-[16/10] flex-col justify-between bg-[#111113] p-8 text-[#F5F3EB]"><span className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#CBCC10]">Oak Park Construction / Journal</span><span className="max-w-md font-head text-3xl leading-tight">{post.title}</span></div>}</Link>
     </div>
     <p className="mb-6 inline-block rounded-[5px] bg-[#CBCC10] px-4 py-1 font-mono text-[11px] uppercase tracking-[0.12em] text-[#09090B]">{post.date}</p>
     <h2 className="mb-4 font-head text-[27px] font-semibold leading-tight text-[#111113]"><Link to={`/${post.slug}`} className="hover:text-[#747600]">{post.title}</Link></h2>
@@ -72,9 +72,9 @@ export default function BlogV1() {
       {slug && !post ? <div className="mx-auto max-w-7xl px-6 py-20 md:px-10"><h2 className="font-head text-3xl text-[#111113]">Article unavailable</h2><Link className="mt-5 inline-block underline" to="/blog">Back to blog</Link></div> : post ?
         <div className="mx-auto max-w-7xl px-6 py-12 md:px-10 md:py-20">
           <Link to="/blog" className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#66675F] hover:text-[#111113]">← All articles</Link>
-          <div className="relative mt-8 h-[300px] overflow-hidden rounded-[5px] md:h-[400px] lg:h-[500px]">
-            <img src={post.image} alt={post.imageAlt} className="h-full w-full object-cover" />
-            <div className="absolute inset-0 flex items-end bg-gradient-to-t from-[#09090B]/85 via-transparent to-transparent p-5 text-white sm:p-8">
+          <div className={post.image ? "relative mt-8 h-[300px] overflow-hidden rounded-[5px] md:h-[400px] lg:h-[500px]" : "relative mt-8 flex min-h-[180px] items-end rounded-[5px] bg-[#111113]"}>
+            {post.image && <img src={post.image} alt={post.imageAlt} className="h-full w-full object-cover" />}
+            <div className={post.image ? "absolute inset-0 flex items-end bg-gradient-to-t from-[#09090B]/85 via-transparent to-transparent p-5 text-white sm:p-8" : "p-6 text-white sm:p-8"}>
               <p className="font-mono text-[11px] uppercase tracking-[0.16em]">By {post.author} <span className="mx-3">·</span> {post.date}</p>
             </div>
           </div>
