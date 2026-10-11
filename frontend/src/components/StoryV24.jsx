@@ -14,9 +14,9 @@ const chapterContent = [
     bullets: ["Foundations & reinforced slabs", "Structural walls, columns & beams", "Roof systems & weather dry-in"],
     portfolioHref: "/portfolio?category=SHELL%20%2B%20NEW%20BUILD#portfolio-projects", portfolioLabel: "View Shell Projects",
     recentProject: {
-      src: "/images/opc/bones-framing-v1",
-      w: 1600, h: 1200, widths: [480, 768, 1200, 1600],
-      alt: "Structural framing and temporary roof supports during a residential renovation", phase: "DURING", orientation: "landscape",
+      src: "/images/opc/homepage-bones-rooftop-2026-10-10",
+      w: 1448, h: 1086, widths: [480, 768, 1200, 1448],
+      alt: "Workers building masonry walls and roof framing beside a tropical pond", phase: "DURING", orientation: "landscape",
     },
   },
   {
@@ -37,9 +37,9 @@ const chapterContent = [
     bullets: ["Bedroom, office & family room wings", "Structural tie-in coordination", "Permit, engineering & inspection coordination"],
     portfolioHref: "/portfolio?category=ADDITIONS", portfolioLabel: "View Addition Project",
     recentProject: {
-      src: "/images/opc/addition-progress",
-      w: 1800, h: 1350, widths: [480, 768, 1200, 1800],
-      alt: "Residential addition under construction in South Florida", phase: "DURING", orientation: "landscape",
+      src: "/images/opc/homepage-addition-backyard-2026-10-10",
+      w: 1448, h: 1086, widths: [480, 768, 1200, 1448],
+      alt: "Concrete block home addition under construction in a tropical backyard with palm trees", phase: "DURING", orientation: "landscape",
     },
   },
   {
