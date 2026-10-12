@@ -8,6 +8,9 @@ export function articleBlocks(post) {
     for (const field of ['alt', 'caption', 'provenance', 'rights']) {
       if (typeof figure[field] !== 'string' || !figure[field].trim()) throw new Error(`Figure ${figure.id} requires ${field}`);
     }
+    if (!/^[a-f0-9]{64}$/.test(figure.sha256 || '')) throw new Error(`Figure ${figure.id} requires an exact image hash`);
+    if (!['opc-photo', 'licensed-photo', 'ai-illustration', 'original-diagram'].includes(figure.kind)) throw new Error(`Figure ${figure.id} requires a verified media kind`);
+    if (figure.layout && !['wide', 'left', 'right'].includes(figure.layout)) throw new Error(`Figure ${figure.id} has an invalid layout`);
     if (figure.approved !== true) throw new Error(`Figure ${figure.id} is not approved`);
     figures.set(figure.id, figure);
   }

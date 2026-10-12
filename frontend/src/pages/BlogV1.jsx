@@ -26,12 +26,16 @@ function Inline({ value }) {
 
 function ArticleBody({ post }) {
   const blocks = articleBlocks(post);
-  return <div className="space-y-6 text-[16px] leading-[1.85] text-[#4D4D4A] md:text-[17px]">
+  return <div className="flow-root space-y-6 text-[16px] leading-[1.85] text-[#4D4D4A] md:text-[17px]">
     {blocks.map((item, index) => {
-      if (item.type === "figure") return <figure key={index} className="!my-10"><img src={item.figure.src} alt={item.figure.alt} loading="lazy" className="w-full rounded-[5px]" /><figcaption className="mt-3 text-sm leading-relaxed text-[#66675F]">{item.figure.caption}</figcaption></figure>;
+      if (item.type === "figure") {
+        const layout = item.figure.layout || "wide";
+        const placement = layout === "left" ? "lg:float-left lg:mr-8" : layout === "right" ? "lg:float-right lg:ml-8" : "";
+        return <figure key={index} className={`!my-10 w-full ${layout === "wide" ? "clear-both" : `lg:w-[45%] ${placement}`}`}><img src={item.figure.src} alt={item.figure.alt} loading="lazy" decoding="async" className="w-full rounded-[5px] object-cover" /><figcaption className="mt-3 text-sm leading-relaxed text-[#66675F]">{item.figure.caption}</figcaption></figure>;
+      }
       const block = item.text;
-      if (block.startsWith("## ")) return <h2 key={index} className="!mt-12 font-head text-3xl font-semibold leading-tight text-[#111113]">{block.slice(3)}</h2>;
-      if (block.startsWith("### ")) return <h3 key={index} className="!mt-9 font-head text-2xl font-semibold leading-tight text-[#111113]">{block.slice(4)}</h3>;
+      if (block.startsWith("## ")) return <h2 key={index} className="!mt-12 clear-both font-head text-3xl font-semibold leading-tight text-[#111113]">{block.slice(3)}</h2>;
+      if (block.startsWith("### ")) return <h3 key={index} className="!mt-9 clear-both font-head text-2xl font-semibold leading-tight text-[#111113]">{block.slice(4)}</h3>;
       const table = tableRows(block);
       if (table) return <div key={index} className="overflow-x-auto"><table className="w-full min-w-[560px] border-collapse text-left text-sm"><thead><tr>{table.header.map((cell, i) => <th key={i} className="border-b-2 border-[#CBCC10] p-3 align-top text-[#111113]"><Inline value={cell} /></th>)}</tr></thead><tbody>{table.rows.map((row, i) => <tr key={i}>{row.map((cell, j) => <td key={j} className="border-b border-[#DAD9D2] p-3 align-top"><Inline value={cell} /></td>)}</tr>)}</tbody></table></div>;
       const ordered = orderedItems(block);

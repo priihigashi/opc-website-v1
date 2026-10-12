@@ -54,3 +54,22 @@ test('a photo-free article needs an explicit exact-version text-only media decis
     await assert.rejects(verifyBlogRelease(root), /missing-exact-version-approval:text-only/);
   } finally { await rm(root, { recursive: true, force: true }); }
 });
+
+test('an approved in-body image cannot change without failing the release gate', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'opc-blog-figure-'));
+  const blog = join(root, 'src', 'blog');
+  const imageDir = join(root, 'public', 'images', 'opc');
+  await mkdir(blog, { recursive: true });
+  await mkdir(imageDir, { recursive: true });
+  const image = Buffer.from('approved-inline-photo');
+  const post = { slug: 'existing', content: 'Intro.\n\n<!-- FIGURE:detail -->', figures: [{ id: 'detail', src: '/images/opc/detail.webp', sha256: digest(image), kind: 'opc-photo', alt: 'An OPC construction detail', caption: 'A reviewed construction detail.', provenance: 'OPC project photograph', rights: 'OPC-owned', approved: true }] };
+  try {
+    await writeFile(join(blog, 'posts.json'), JSON.stringify([post]));
+    await writeFile(join(blog, 'release-baseline.json'), JSON.stringify({ existing: postDigest(post) }));
+    await writeFile(join(blog, 'release-approvals.json'), '{}');
+    await writeFile(join(imageDir, 'detail.webp'), image);
+    assert.deepEqual(await verifyBlogRelease(root), { checked: 1, exactApprovals: 0 });
+    await writeFile(join(imageDir, 'detail.webp'), 'replaced-photo');
+    await assert.rejects(verifyBlogRelease(root), /figure-version-changed:existing:detail/);
+  } finally { await rm(root, { recursive: true, force: true }); }
+});

@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { join, resolve, sep } from 'node:path';
+import { articleBlocks } from '../src/blog/figureBlocks.mjs';
 
 export const digest = value => createHash('sha256').update(value).digest('hex');
 export const postDigest = post => digest(JSON.stringify(post));
@@ -15,6 +16,19 @@ export async function verifyBlogRelease(frontendDir) {
   for (const post of posts) {
     if (!post.slug || seen.has(post.slug)) { errors.push(`duplicate-or-missing-slug:${post.slug || 'unknown'}`); continue; }
     seen.add(post.slug);
+    try { articleBlocks(post); } catch { errors.push(`invalid-figure-structure:${post.slug}`); }
+    for (const figure of post.figures || []) {
+      if (!/^\/images\/opc\/[a-zA-Z0-9_./-]+\.(?:webp|png|jpe?g)$/i.test(figure.src || '') || figure.src.includes('..') || !/^[a-f0-9]{64}$/.test(figure.sha256 || '')) {
+        errors.push(`invalid-figure-asset:${post.slug}:${figure.id || 'unknown'}`);
+        continue;
+      }
+      const publicDir = resolve(frontendDir, 'public');
+      const figurePath = resolve(publicDir, `.${figure.src}`);
+      if (!figurePath.startsWith(`${publicDir}${sep}`)) { errors.push(`invalid-figure-asset:${post.slug}:${figure.id}`); continue; }
+      try {
+        if (digest(await readFile(figurePath)) !== figure.sha256) errors.push(`figure-version-changed:${post.slug}:${figure.id}`);
+      } catch { errors.push(`approved-figure-missing:${post.slug}:${figure.id}`); }
+    }
     if (baseline[post.slug] === postDigest(post)) continue;
     const approval = approvals[post.slug];
     if (!approval || approval.postSha256 !== postDigest(post)) { errors.push(`missing-exact-version-approval:${post.slug}`); continue; }
