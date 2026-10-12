@@ -1,6 +1,8 @@
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { join, resolve, sep } from 'node:path';
+import { articleBlocks, isStructuredDiagram } from '../src/blog/figureBlocks.mjs';
+import { verifyAutoReleaseEvidence } from './verify-auto-release-evidence.mjs';
 
 export const digest = value => createHash('sha256').update(value).digest('hex');
 export const postDigest = post => digest(JSON.stringify(post));
@@ -10,15 +12,40 @@ export async function verifyBlogRelease(frontendDir) {
   const posts = JSON.parse(await readFile(join(blogDir, 'posts.json'), 'utf8'));
   const baseline = JSON.parse(await readFile(join(blogDir, 'release-baseline.json'), 'utf8'));
   const approvals = JSON.parse(await readFile(join(blogDir, 'release-approvals.json'), 'utf8'));
+  const autoPolicy = JSON.parse(await readFile(join(blogDir, 'auto-release-policy.json'), 'utf8'));
   const errors = [];
   const seen = new Set();
   for (const post of posts) {
     if (!post.slug || seen.has(post.slug)) { errors.push(`duplicate-or-missing-slug:${post.slug || 'unknown'}`); continue; }
     seen.add(post.slug);
+    try { articleBlocks(post); } catch { errors.push(`invalid-figure-structure:${post.slug}`); }
+    for (const figure of post.figures || []) {
+      if (isStructuredDiagram(figure)) {
+        const cleanBody = String(post.content || '').replaceAll(`<!-- FIGURE:${figure.id} -->`, '').replace(/\n{3,}/g, '\n\n');
+        const expected = digest(cleanBody).slice(0, 16);
+        if (!figure.provenance.includes(`body SHA-256 ${expected}`)) errors.push(`diagram-version-changed:${post.slug}:${figure.id}`);
+        continue;
+      }
+      if (!/^\/images\/opc\/[a-zA-Z0-9_./-]+\.(?:webp|png|jpe?g)$/i.test(figure.src || '') || figure.src.includes('..') || !/^[a-f0-9]{64}$/.test(figure.sha256 || '')) {
+        errors.push(`invalid-figure-asset:${post.slug}:${figure.id || 'unknown'}`);
+        continue;
+      }
+      const publicDir = resolve(frontendDir, 'public');
+      const figurePath = resolve(publicDir, `.${figure.src}`);
+      if (!figurePath.startsWith(`${publicDir}${sep}`)) { errors.push(`invalid-figure-asset:${post.slug}:${figure.id}`); continue; }
+      try {
+        if (digest(await readFile(figurePath)) !== figure.sha256) errors.push(`figure-version-changed:${post.slug}:${figure.id}`);
+      } catch { errors.push(`approved-figure-missing:${post.slug}:${figure.id}`); }
+    }
     if (baseline[post.slug] === postDigest(post)) continue;
     const approval = approvals[post.slug];
     if (!approval || approval.postSha256 !== postDigest(post)) { errors.push(`missing-exact-version-approval:${post.slug}`); continue; }
-    if (!approval.approvedBy || !Number.isFinite(Date.parse(approval.approvedAt)) || !/^https:\/\//.test(approval.evidenceUrl || '') || !/^[a-f0-9]{64}$/.test(approval.batchReceiptSha256 || '')) errors.push(`incomplete-approval-record:${post.slug}`);
+    if (approval.method === 'automatic') {
+      errors.push(...await verifyAutoReleaseEvidence(blogDir, post, approval, autoPolicy));
+    } else if (approval.method !== undefined && approval.method !== 'human') {
+      errors.push(`unknown-approval-method:${post.slug}`);
+    } else if (!approval.approvedBy) errors.push(`incomplete-approval-record:${post.slug}`);
+    if (!Number.isFinite(Date.parse(approval.approvedAt)) || !/^https:\/\//.test(approval.evidenceUrl || '') || !/^[a-f0-9]{64}$/.test(approval.batchReceiptSha256 || '')) errors.push(`incomplete-approval-record:${post.slug}`);
     if (approval.batchStatus !== 'private-trial-ready') errors.push(`series-review-not-ready:${post.slug}`);
     if (!post.image) {
       if (approval.mediaDecision !== 'text-only' || approval.imageSha256 || post.imageAlt) errors.push(`invalid-text-only-approval:${post.slug}`);

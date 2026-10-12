@@ -20,15 +20,19 @@ test('static article output omits misleading image metadata for an approved text
     await Promise.all([
       copyFile(join(frontend, 'scripts', 'generate-seo-pages.mjs'), join(scriptDir, 'generate-seo-pages.mjs')),
       copyFile(join(frontend, 'scripts', 'verify-blog-release.mjs'), join(scriptDir, 'verify-blog-release.mjs')),
+      copyFile(join(frontend, 'scripts', 'verify-auto-release-evidence.mjs'), join(scriptDir, 'verify-auto-release-evidence.mjs')),
       copyFile(join(frontend, 'src', 'blog', 'figureBlocks.mjs'), join(blogDir, 'figureBlocks.mjs')),
       copyFile(join(frontend, 'src', 'blog', 'markdownBlocks.mjs'), join(blogDir, 'markdownBlocks.mjs')),
+      copyFile(join(frontend, 'src', 'blog', 'postOrder.mjs'), join(blogDir, 'postOrder.mjs')),
     ]);
     const post = { slug: 'text-only', title: 'A sourced answer', author: 'Oak Park Construction', category: 'Planning', date: '2026-10-10', modified: '2026-10-10', content: 'A useful answer with a source.' };
+    const older = { ...post, slug: 'older-answer', title: 'An older answer', date: '2026-09-01' };
     const approval = { postSha256: postDigest(post), mediaDecision: 'text-only', approvedBy: 'human editor', approvedAt: '2026-10-10T15:00:00Z', evidenceUrl: 'https://drive.google.com/file/d/review', batchReceiptSha256: 'a'.repeat(64), batchStatus: 'private-trial-ready' };
     await Promise.all([
-      writeFile(join(blogDir, 'posts.json'), JSON.stringify([post])),
+      writeFile(join(blogDir, 'posts.json'), JSON.stringify([older, post])),
       writeFile(join(blogDir, 'release-baseline.json'), '{}'),
-      writeFile(join(blogDir, 'release-approvals.json'), JSON.stringify({ 'text-only': approval })),
+      writeFile(join(blogDir, 'release-approvals.json'), JSON.stringify({ 'text-only': approval, 'older-answer': { ...approval, postSha256: postDigest(older) } })),
+      writeFile(join(blogDir, 'auto-release-policy.json'), JSON.stringify({ enabled: false, rubricVersion: 'opc-blog-editorial-v1', minimumScore: null, calibratedAt: null })),
       writeFile(join(dataDir, 'seoRoutesV1.json'), '{}'),
       writeFile(join(buildDir, 'index.html'), '<html><head><meta property="og:image" content="old-photo" /><meta name="twitter:image" content="old-photo" /></head><body><div id="root"></div></body></html>'),
     ]);
@@ -39,5 +43,6 @@ test('static article output omits misleading image metadata for an approved text
     assert.doesNotMatch(article, /<img\b|og:image|twitter:image|"image":\[/);
     assert.doesNotMatch(listing, /<img\b/);
     assert.match(article, /A sourced answer/);
+    assert.ok(listing.indexOf('A sourced answer') < listing.indexOf('An older answer'));
   } finally { await rm(root, { recursive: true, force: true }); }
 });

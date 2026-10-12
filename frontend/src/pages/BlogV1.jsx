@@ -7,8 +7,11 @@ import { Fragment, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import FooterV3 from "@/components/FooterV3";
 import posts from "@/blog/posts.json";
-import { articleBlocks } from "@/blog/figureBlocks.mjs";
+import { articleBlocks, isStructuredDiagram } from "@/blog/figureBlocks.mjs";
 import { orderedItems, tableRows } from "@/blog/markdownBlocks.mjs";
+import { newestFirst } from "@/blog/postOrder.mjs";
+
+const newestPosts = newestFirst(posts);
 
 function Inline({ value }) {
   const parts = value.split(/(\[[^\]]+\]\([^)]+\)|\*\*[^*]+\*\*|\*[^*]+\*)/g);
@@ -26,12 +29,17 @@ function Inline({ value }) {
 
 function ArticleBody({ post }) {
   const blocks = articleBlocks(post);
-  return <div className="space-y-6 text-[16px] leading-[1.85] text-[#4D4D4A] md:text-[17px]">
+  return <div className="flow-root space-y-6 text-[16px] leading-[1.85] text-[#4D4D4A] md:text-[17px]">
     {blocks.map((item, index) => {
-      if (item.type === "figure") return <figure key={index} className="!my-10"><img src={item.figure.src} alt={item.figure.alt} loading="lazy" className="w-full rounded-[5px]" /><figcaption className="mt-3 text-sm leading-relaxed text-[#66675F]">{item.figure.caption}</figcaption></figure>;
+      if (item.type === "figure") {
+        if (isStructuredDiagram(item.figure)) return <figure key={index} aria-label={item.figure.alt} className="!my-12 clear-both rounded-[5px] border border-[#7A7267] bg-[#F0EBE3] p-6 md:p-8"><p className="font-head text-2xl font-semibold uppercase leading-tight text-[#0A0A0A]">{item.figure.title}</p><div className="mt-6 grid gap-3 md:grid-cols-3">{item.figure.steps.map((step) => <div key={step.claimId} className="border-t-4 border-[#CBCC10] bg-white p-5"><h3 className="font-head text-lg font-semibold text-[#0A0A0A]">{step.label}</h3><p className="mt-3 text-sm leading-relaxed text-[#0A0A0A]">{step.text}</p></div>)}</div><figcaption className="mt-5 text-sm leading-relaxed text-[#7A7267]">{item.figure.caption}</figcaption></figure>;
+        const layout = item.figure.layout || "wide";
+        const placement = layout === "left" ? "lg:float-left lg:mr-8" : layout === "right" ? "lg:float-right lg:ml-8" : "";
+        return <figure key={index} className={`!my-10 w-full ${layout === "wide" ? "clear-both" : `lg:w-[45%] ${placement}`}`}><img src={item.figure.src} alt={item.figure.alt} loading="lazy" decoding="async" className="w-full rounded-[5px] object-cover" /><figcaption className="mt-3 text-sm leading-relaxed text-[#66675F]">{item.figure.caption}</figcaption></figure>;
+      }
       const block = item.text;
-      if (block.startsWith("## ")) return <h2 key={index} className="!mt-12 font-head text-3xl font-semibold leading-tight text-[#111113]">{block.slice(3)}</h2>;
-      if (block.startsWith("### ")) return <h3 key={index} className="!mt-9 font-head text-2xl font-semibold leading-tight text-[#111113]">{block.slice(4)}</h3>;
+      if (block.startsWith("## ")) return <h2 key={index} className="!mt-12 clear-both font-head text-3xl font-semibold leading-tight text-[#111113]">{block.slice(3)}</h2>;
+      if (block.startsWith("### ")) return <h3 key={index} className="!mt-9 clear-both font-head text-2xl font-semibold leading-tight text-[#111113]">{block.slice(4)}</h3>;
       const table = tableRows(block);
       if (table) return <div key={index} className="overflow-x-auto"><table className="w-full min-w-[560px] border-collapse text-left text-sm"><thead><tr>{table.header.map((cell, i) => <th key={i} className="border-b-2 border-[#CBCC10] p-3 align-top text-[#111113]"><Inline value={cell} /></th>)}</tr></thead><tbody>{table.rows.map((row, i) => <tr key={i}>{row.map((cell, j) => <td key={j} className="border-b border-[#DAD9D2] p-3 align-top"><Inline value={cell} /></td>)}</tr>)}</tbody></table></div>;
       const ordered = orderedItems(block);
@@ -78,12 +86,13 @@ export default function BlogV1() {
               <p className="font-mono text-[11px] uppercase tracking-[0.16em]">By {post.author} <span className="mx-3">·</span> {post.date}</p>
             </div>
           </div>
+          {post.image && post.imageCaption && <p className="mt-3 text-sm leading-relaxed text-[#66675F]">{post.imageCaption}</p>}
           <div className="mt-12 grid gap-10 lg:grid-cols-[minmax(0,2fr)_minmax(220px,1fr)]">
             <article className="min-w-0"><ArticleBody post={post} /></article>
             <aside className="h-fit border-t-2 border-[#CBCC10] bg-white p-7 text-sm leading-relaxed text-[#55564F] lg:sticky lg:top-28"><p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#111113]">About this article</p><p className="mt-5">By Oak Park Construction</p><p className="mt-2">Published {post.date}</p><p className="mt-5">Practical guidance for planning and building in South Florida. Project requirements vary by address and scope.</p><Link to="/portfolio" className="mt-6 inline-block font-mono text-[11px] uppercase tracking-[0.15em] text-[#737500] underline underline-offset-4">See our work</Link></aside>
           </div>
         </div> :
-        <section className="mx-auto max-w-7xl px-6 py-20 md:px-10 lg:py-[120px]"><div className="grid gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-3">{posts.map((item) => <Card key={item.slug} post={item} />)}</div></section>}
+        <section className="mx-auto max-w-7xl px-6 py-20 md:px-10 lg:py-[120px]"><div className="grid gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-3">{newestPosts.map((item) => <Card key={item.slug} post={item} />)}</div></section>}
     </main>
     <div className="bg-[#09090B] text-[#FAFAFA]"><FooterV3 /></div>
   </div>;
