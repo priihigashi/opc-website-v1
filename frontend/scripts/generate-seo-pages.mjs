@@ -3,6 +3,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { articleBlocks } from "../src/blog/figureBlocks.mjs";
 import { orderedItems, tableRows } from "../src/blog/markdownBlocks.mjs";
+import { newestFirst } from "../src/blog/postOrder.mjs";
 import { verifyBlogRelease } from "./verify-blog-release.mjs";
 
 const scriptDir = dirname(fileURLToPath(import.meta.url));
@@ -103,7 +104,7 @@ const injectBlog = (html, content, schema) => html
 
 const blogDescription = "Practical construction guidance for South Florida homeowners from Oak Park Construction.";
 const blogRoute = { type: "blog", title: "Blog | Oak Park Construction", description: blogDescription, image: "/images/opc/addition-progress-1200w.webp", imageAlt: "Oak Park Construction project", robots: "index,follow" };
-const blogCards = blogPosts.map((post) => `<article style="margin:2rem 0"><a href="/${escapeAttribute(post.slug)}">${post.image ? `<img src="${escapeAttribute(post.image)}" alt="${escapeAttribute(post.imageAlt)}" width="480" style="max-width:100%;height:auto" />` : ""}<h2>${escapeAttribute(post.title)}</h2></a><p><time datetime="${post.date}">${post.date}</time> · ${escapeAttribute(post.category)}</p></article>`).join("\n");
+const blogCards = newestFirst(blogPosts).map((post) => `<article style="margin:2rem 0"><a href="/${escapeAttribute(post.slug)}">${post.image ? `<img src="${escapeAttribute(post.image)}" alt="${escapeAttribute(post.imageAlt)}" width="480" style="max-width:100%;height:auto" />` : ""}<h2>${escapeAttribute(post.title)}</h2></a><p><time datetime="${post.date}">${post.date}</time> · ${escapeAttribute(post.category)}</p></article>`).join("\n");
 const blogContent = `<p><a href="/">Oak Park Construction</a> / Blog</p><h1>Ideas for building well.</h1><p>${blogDescription}</p>${blogCards}`;
 await mkdir(join(buildDir, "blog"), { recursive: true });
 await writeFile(join(buildDir, "blog", "index.html"), injectBlog(renderRoute("/blog", blogRoute), blogContent, { "@context": "https://schema.org", "@type": "CollectionPage", name: "Blog | Oak Park Construction", url: `${siteOrigin}/blog`, description: blogDescription }));

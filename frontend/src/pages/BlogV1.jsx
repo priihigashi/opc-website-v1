@@ -9,8 +9,9 @@ import FooterV3 from "@/components/FooterV3";
 import posts from "@/blog/posts.json";
 import { articleBlocks } from "@/blog/figureBlocks.mjs";
 import { orderedItems, tableRows } from "@/blog/markdownBlocks.mjs";
+import { newestFirst } from "@/blog/postOrder.mjs";
 
-const newestPosts = [...posts].sort((a, b) => b.date.localeCompare(a.date) || a.slug.localeCompare(b.slug));
+const newestPosts = newestFirst(posts);
 
 function Inline({ value }) {
   const parts = value.split(/(\[[^\]]+\]\([^)]+\)|\*\*[^*]+\*\*|\*[^*]+\*)/g);
