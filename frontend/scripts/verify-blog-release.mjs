@@ -11,6 +11,7 @@ export async function verifyBlogRelease(frontendDir) {
   const posts = JSON.parse(await readFile(join(blogDir, 'posts.json'), 'utf8'));
   const baseline = JSON.parse(await readFile(join(blogDir, 'release-baseline.json'), 'utf8'));
   const approvals = JSON.parse(await readFile(join(blogDir, 'release-approvals.json'), 'utf8'));
+  const autoPolicy = JSON.parse(await readFile(join(blogDir, 'auto-release-policy.json'), 'utf8'));
   const errors = [];
   const seen = new Set();
   for (const post of posts) {
@@ -32,7 +33,23 @@ export async function verifyBlogRelease(frontendDir) {
     if (baseline[post.slug] === postDigest(post)) continue;
     const approval = approvals[post.slug];
     if (!approval || approval.postSha256 !== postDigest(post)) { errors.push(`missing-exact-version-approval:${post.slug}`); continue; }
-    if (!approval.approvedBy || !Number.isFinite(Date.parse(approval.approvedAt)) || !/^https:\/\//.test(approval.evidenceUrl || '') || !/^[a-f0-9]{64}$/.test(approval.batchReceiptSha256 || '')) errors.push(`incomplete-approval-record:${post.slug}`);
+    if (approval.method === 'automatic') {
+      const reviews = approval.reviews;
+      const validReview = (review, provider) => review?.provider === provider && review?.decision === 'approve'
+        && review?.postSha256 === approval.postSha256 && /^[a-f0-9]{64}$/.test(review?.receiptSha256 || '')
+        && Number.isFinite(Date.parse(review?.reviewedAt));
+      if (autoPolicy.enabled !== true || autoPolicy.rubricVersion !== 'opc-blog-editorial-v1'
+        || !Number.isInteger(autoPolicy.minimumScore) || autoPolicy.minimumScore < 0 || autoPolicy.minimumScore > 100
+        || !Number.isFinite(Date.parse(autoPolicy.calibratedAt))) errors.push(`auto-release-policy-disabled:${post.slug}`);
+      if (!Number.isInteger(approval.editorialScore) || approval.editorialScore < autoPolicy.minimumScore
+        || approval.editorialScore > 100 || approval.rubricVersion !== autoPolicy.rubricVersion
+        || approval.gateStatus !== 'clear' || approval.hardVeto === true
+        || !validReview(reviews?.codex, 'codex') || !validReview(reviews?.claude, 'claude')
+        || reviews?.codex?.receiptSha256 === reviews?.claude?.receiptSha256) errors.push(`auto-release-evidence-invalid:${post.slug}`);
+    } else if (approval.method !== undefined && approval.method !== 'human') {
+      errors.push(`unknown-approval-method:${post.slug}`);
+    } else if (!approval.approvedBy) errors.push(`incomplete-approval-record:${post.slug}`);
+    if (!Number.isFinite(Date.parse(approval.approvedAt)) || !/^https:\/\//.test(approval.evidenceUrl || '') || !/^[a-f0-9]{64}$/.test(approval.batchReceiptSha256 || '')) errors.push(`incomplete-approval-record:${post.slug}`);
     if (approval.batchStatus !== 'private-trial-ready') errors.push(`series-review-not-ready:${post.slug}`);
     if (!post.image) {
       if (approval.mediaDecision !== 'text-only' || approval.imageSha256 || post.imageAlt) errors.push(`invalid-text-only-approval:${post.slug}`);

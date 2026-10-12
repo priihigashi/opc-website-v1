@@ -19,6 +19,7 @@ test('existing articles pass; new or changed versions need matching article and 
     await save('posts.json', [existing]);
     await save('release-baseline.json', { existing: postDigest(existing) });
     await save('release-approvals.json', {});
+    await save('auto-release-policy.json', { enabled: false, rubricVersion: 'opc-blog-editorial-v1', minimumScore: null, calibratedAt: null });
     assert.deepEqual(await verifyBlogRelease(root), { checked: 1, exactApprovals: 0 });
     await save('posts.json', [existing, fresh]);
     await assert.rejects(verifyBlogRelease(root), /missing-exact-version-approval:new/);
@@ -47,6 +48,7 @@ test('a photo-free article needs an explicit exact-version text-only media decis
     await save('posts.json', [post]);
     await save('release-baseline.json', {});
     await save('release-approvals.json', { 'text-only': approval });
+    await save('auto-release-policy.json', { enabled: false, rubricVersion: 'opc-blog-editorial-v1', minimumScore: null, calibratedAt: null });
     await assert.rejects(verifyBlogRelease(root), /invalid-text-only-approval:text-only/);
     await save('release-approvals.json', { 'text-only': { ...approval, mediaDecision: 'text-only' } });
     assert.deepEqual(await verifyBlogRelease(root), { checked: 1, exactApprovals: 1 });
@@ -67,9 +69,37 @@ test('an approved in-body image cannot change without failing the release gate',
     await writeFile(join(blog, 'posts.json'), JSON.stringify([post]));
     await writeFile(join(blog, 'release-baseline.json'), JSON.stringify({ existing: postDigest(post) }));
     await writeFile(join(blog, 'release-approvals.json'), '{}');
+    await writeFile(join(blog, 'auto-release-policy.json'), JSON.stringify({ enabled: false, rubricVersion: 'opc-blog-editorial-v1', minimumScore: null, calibratedAt: null }));
     await writeFile(join(imageDir, 'detail.webp'), image);
     assert.deepEqual(await verifyBlogRelease(root), { checked: 1, exactApprovals: 0 });
     await writeFile(join(imageDir, 'detail.webp'), 'replaced-photo');
     await assert.rejects(verifyBlogRelease(root), /figure-version-changed:existing:detail/);
+  } finally { await rm(root, { recursive: true, force: true }); }
+});
+
+test('automatic release stays closed until calibrated and both exact-version reviews approve', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'opc-blog-auto-release-'));
+  const blog = join(root, 'src', 'blog');
+  await mkdir(blog, { recursive: true });
+  const post = { slug: 'auto', title: 'Reviewed answer', content: 'Evidence-backed article.' };
+  const hash = postDigest(post);
+  const save = async (name, value) => writeFile(join(blog, name), JSON.stringify(value));
+  const review = (provider, receiptSha256) => ({ provider, decision: 'approve', postSha256: hash, receiptSha256, reviewedAt: '2026-10-12T15:00:00Z' });
+  const approval = { method: 'automatic', postSha256: hash, approvedAt: '2026-10-12T16:00:00Z', evidenceUrl: 'https://drive.google.com/file/d/review', batchReceiptSha256: 'c'.repeat(64), batchStatus: 'private-trial-ready', mediaDecision: 'text-only', editorialScore: 92, rubricVersion: 'opc-blog-editorial-v1', gateStatus: 'clear', hardVeto: false, reviews: { codex: review('codex', 'a'.repeat(64)), claude: review('claude', 'b'.repeat(64)) } };
+  const policy = { enabled: true, rubricVersion: 'opc-blog-editorial-v1', minimumScore: 90, calibratedAt: '2026-10-12T14:00:00Z' };
+  try {
+    await save('posts.json', [post]);
+    await save('release-baseline.json', {});
+    await save('release-approvals.json', { auto: approval });
+    await save('auto-release-policy.json', { ...policy, enabled: false });
+    await assert.rejects(verifyBlogRelease(root), /auto-release-policy-disabled:auto/);
+    await save('auto-release-policy.json', policy);
+    assert.deepEqual(await verifyBlogRelease(root), { checked: 1, exactApprovals: 1 });
+    await save('release-approvals.json', { auto: { ...approval, reviews: { ...approval.reviews, claude: review('claude', 'a'.repeat(64)) } } });
+    await assert.rejects(verifyBlogRelease(root), /auto-release-evidence-invalid:auto/);
+    await save('release-approvals.json', { auto: { ...approval, editorialScore: 89 } });
+    await assert.rejects(verifyBlogRelease(root), /auto-release-evidence-invalid:auto/);
+    await save('release-approvals.json', { auto: { ...approval, hardVeto: true } });
+    await assert.rejects(verifyBlogRelease(root), /auto-release-evidence-invalid:auto/);
   } finally { await rm(root, { recursive: true, force: true }); }
 });

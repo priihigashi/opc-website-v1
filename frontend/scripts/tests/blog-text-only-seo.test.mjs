@@ -29,6 +29,7 @@ test('static article output omits misleading image metadata for an approved text
       writeFile(join(blogDir, 'posts.json'), JSON.stringify([post])),
       writeFile(join(blogDir, 'release-baseline.json'), '{}'),
       writeFile(join(blogDir, 'release-approvals.json'), JSON.stringify({ 'text-only': approval })),
+      writeFile(join(blogDir, 'auto-release-policy.json'), JSON.stringify({ enabled: false, rubricVersion: 'opc-blog-editorial-v1', minimumScore: null, calibratedAt: null })),
       writeFile(join(dataDir, 'seoRoutesV1.json'), '{}'),
       writeFile(join(buildDir, 'index.html'), '<html><head><meta property="og:image" content="old-photo" /><meta name="twitter:image" content="old-photo" /></head><body><div id="root"></div></body></html>'),
     ]);
