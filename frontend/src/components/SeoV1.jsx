@@ -29,8 +29,8 @@ const getBlogSeoState = (path) => {
     description,
     robots: "index,follow",
     canonical: `${SITE_ORIGIN}${path}`,
-    image: `${SITE_ORIGIN}${post?.image || "/images/opc/new-construction-finished-v1.jpg"}`,
-    imageAlt: post?.imageAlt || "Oak Park Construction project",
+    image: post && !post.image ? null : `${SITE_ORIGIN}${post?.image || "/images/opc/new-construction-finished-v1.jpg"}`,
+    imageAlt: post && !post.image ? null : post?.imageAlt || "Oak Park Construction project",
   };
 };
 
@@ -67,13 +67,23 @@ const applyMetadata = ({ route, title, description, robots, canonical, image, im
   upsertMeta('meta[property="og:title"]', { property: "og:title", content: title });
   upsertMeta('meta[property="og:description"]', { property: "og:description", content: description });
   upsertMeta('meta[property="og:url"]', { property: "og:url", content: canonical });
-  upsertMeta('meta[property="og:image"]', { property: "og:image", content: image });
-  upsertMeta('meta[property="og:image:alt"]', { property: "og:image:alt", content: imageAlt });
-  upsertMeta('meta[name="twitter:card"]', { name: "twitter:card", content: "summary_large_image" });
+  if (image) {
+    upsertMeta('meta[property="og:image"]', { property: "og:image", content: image });
+    upsertMeta('meta[property="og:image:alt"]', { property: "og:image:alt", content: imageAlt });
+  } else {
+    document.head.querySelector('meta[property="og:image"]')?.remove();
+    document.head.querySelector('meta[property="og:image:alt"]')?.remove();
+  }
+  upsertMeta('meta[name="twitter:card"]', { name: "twitter:card", content: image ? "summary_large_image" : "summary" });
   upsertMeta('meta[name="twitter:title"]', { name: "twitter:title", content: title });
   upsertMeta('meta[name="twitter:description"]', { name: "twitter:description", content: description });
-  upsertMeta('meta[name="twitter:image"]', { name: "twitter:image", content: image });
-  upsertMeta('meta[name="twitter:image:alt"]', { name: "twitter:image:alt", content: imageAlt });
+  if (image) {
+    upsertMeta('meta[name="twitter:image"]', { name: "twitter:image", content: image });
+    upsertMeta('meta[name="twitter:image:alt"]', { name: "twitter:image:alt", content: imageAlt });
+  } else {
+    document.head.querySelector('meta[name="twitter:image"]')?.remove();
+    document.head.querySelector('meta[name="twitter:image:alt"]')?.remove();
+  }
 };
 
 const applyCanonical = (canonical) => {
