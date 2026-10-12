@@ -78,6 +78,34 @@ test('an approved in-body image cannot change without failing the release gate',
   } finally { await rm(root, { recursive: true, force: true }); }
 });
 
+test('an original in-body diagram must match verified claims and the exact article body', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'opc-blog-original-diagram-'));
+  const blog = join(root, 'src', 'blog');
+  await mkdir(blog, { recursive: true });
+  const body = 'Intro.\n\n<!-- FIGURE:planning-map -->\n\n## Requirement\n\nCity requires the document.\n\n## Preparation\n\nLicensed professionals prepare it.\n\n## Property decision\n\nThe design needs a separate check.';
+  const claims = ['City requires the document.', 'Licensed professionals prepare it.', 'The design needs a separate check.'].map((text, i) => ({ id: `claim-${i + 1}`, text, sourceId: `source-${i + 1}`, status: 'verified' }));
+  const steps = claims.map((claim, i) => ({ label: ['Requirement', 'Preparation', 'Property decision'][i], text: claim.text, kind: 'source', claimId: claim.id, sourceId: claim.sourceId }));
+  const clean = body.replace('\n\n<!-- FIGURE:planning-map -->', '').replace(/\n{3,}/g, '\n\n');
+  const figure = { id: 'planning-map', kind: 'original-diagram', type: 'evidence-map', title: 'Evidence map', alt: 'Three source-bound distinctions', caption: 'Original diagram with no implied sequence.', provenance: `OPC original; body SHA-256 ${digest(clean).slice(0, 16)}`, rights: 'OPC original diagram', approved: true, steps };
+  const post = { slug: 'diagram-article', title: 'Diagram article', content: body, claims, figures: [figure] };
+  const save = (name, value) => writeFile(join(blog, name), JSON.stringify(value));
+  try {
+    await save('posts.json', [post]);
+    await save('release-baseline.json', { [post.slug]: postDigest(post) });
+    await save('release-approvals.json', {});
+    await save('auto-release-policy.json', { enabled: false, rubricVersion: 'opc-blog-editorial-v1', minimumScore: null, calibratedAt: null });
+    assert.deepEqual(await verifyBlogRelease(root), { checked: 1, exactApprovals: 0 });
+    const changed = { ...post, content: body + '\n\nA later edit.' };
+    await save('posts.json', [changed]);
+    await save('release-baseline.json', { [post.slug]: postDigest(changed) });
+    await assert.rejects(verifyBlogRelease(root), /diagram-version-changed:diagram-article:planning-map/);
+    const falseClaim = { ...post, figures: [{ ...figure, steps: [{ ...steps[0], text: 'Invented claim.' }, ...steps.slice(1)] }] };
+    await save('posts.json', [falseClaim]);
+    await save('release-baseline.json', { [post.slug]: postDigest(falseClaim) });
+    await assert.rejects(verifyBlogRelease(root), /invalid-figure-structure:diagram-article/);
+  } finally { await rm(root, { recursive: true, force: true }); }
+});
+
 test('automatic release stays closed until calibrated and both exact-version reviews approve', async () => {
   const root = await mkdtemp(join(tmpdir(), 'opc-blog-auto-release-'));
   const blog = join(root, 'src', 'blog');

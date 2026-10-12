@@ -1,7 +1,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { articleBlocks } from "../src/blog/figureBlocks.mjs";
+import { articleBlocks, isStructuredDiagram } from "../src/blog/figureBlocks.mjs";
 import { orderedItems, tableRows } from "../src/blog/markdownBlocks.mjs";
 import { newestFirst } from "../src/blog/postOrder.mjs";
 import { verifyBlogRelease } from "./verify-blog-release.mjs";
@@ -84,7 +84,10 @@ const renderInline = (value) => String(value).split(/(\[[^\]]+\]\([^)]+\)|\*\*[^
   return escapeAttribute(part);
 }).join("");
 const renderArticleBody = (post) => articleBlocks(post).map((item) => {
-  if (item.type === "figure") return `<figure><img src="${escapeAttribute(item.figure.src)}" alt="${escapeAttribute(item.figure.alt)}" loading="lazy" style="max-width:100%;height:auto" /><figcaption>${escapeAttribute(item.figure.caption)}</figcaption></figure>`;
+  if (item.type === "figure") {
+    if (isStructuredDiagram(item.figure)) return `<figure aria-label="${escapeAttribute(item.figure.alt)}" style="padding:2rem;background:#F0EBE3;border:1px solid #7A7267"><h2>${escapeAttribute(item.figure.title)}</h2><div style="display:flex;gap:1rem;flex-wrap:wrap">${item.figure.steps.map(step => `<section style="flex:1 1 180px;border-top:4px solid #CBCC10;background:#fff;padding:1rem"><h3>${escapeAttribute(step.label)}</h3><p>${escapeAttribute(step.text)}</p></section>`).join('')}</div><figcaption>${escapeAttribute(item.figure.caption)}</figcaption></figure>`;
+    return `<figure><img src="${escapeAttribute(item.figure.src)}" alt="${escapeAttribute(item.figure.alt)}" loading="lazy" style="max-width:100%;height:auto" /><figcaption>${escapeAttribute(item.figure.caption)}</figcaption></figure>`;
+  }
   const block = item.text;
   if (block.startsWith("### ")) return `<h3>${escapeAttribute(block.slice(4))}</h3>`;
   if (block.startsWith("## ")) return `<h2>${escapeAttribute(block.slice(3))}</h2>`;

@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { join, resolve, sep } from 'node:path';
-import { articleBlocks } from '../src/blog/figureBlocks.mjs';
+import { articleBlocks, isStructuredDiagram } from '../src/blog/figureBlocks.mjs';
 import { verifyAutoReleaseEvidence } from './verify-auto-release-evidence.mjs';
 
 export const digest = value => createHash('sha256').update(value).digest('hex');
@@ -20,6 +20,12 @@ export async function verifyBlogRelease(frontendDir) {
     seen.add(post.slug);
     try { articleBlocks(post); } catch { errors.push(`invalid-figure-structure:${post.slug}`); }
     for (const figure of post.figures || []) {
+      if (isStructuredDiagram(figure)) {
+        const cleanBody = String(post.content || '').replaceAll(`<!-- FIGURE:${figure.id} -->`, '').replace(/\n{3,}/g, '\n\n');
+        const expected = digest(cleanBody).slice(0, 16);
+        if (!figure.provenance.includes(`body SHA-256 ${expected}`)) errors.push(`diagram-version-changed:${post.slug}:${figure.id}`);
+        continue;
+      }
       if (!/^\/images\/opc\/[a-zA-Z0-9_./-]+\.(?:webp|png|jpe?g)$/i.test(figure.src || '') || figure.src.includes('..') || !/^[a-f0-9]{64}$/.test(figure.sha256 || '')) {
         errors.push(`invalid-figure-asset:${post.slug}:${figure.id || 'unknown'}`);
         continue;

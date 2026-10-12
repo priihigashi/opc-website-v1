@@ -7,7 +7,7 @@ import { Fragment, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import FooterV3 from "@/components/FooterV3";
 import posts from "@/blog/posts.json";
-import { articleBlocks } from "@/blog/figureBlocks.mjs";
+import { articleBlocks, isStructuredDiagram } from "@/blog/figureBlocks.mjs";
 import { orderedItems, tableRows } from "@/blog/markdownBlocks.mjs";
 import { newestFirst } from "@/blog/postOrder.mjs";
 
@@ -32,6 +32,7 @@ function ArticleBody({ post }) {
   return <div className="flow-root space-y-6 text-[16px] leading-[1.85] text-[#4D4D4A] md:text-[17px]">
     {blocks.map((item, index) => {
       if (item.type === "figure") {
+        if (isStructuredDiagram(item.figure)) return <figure key={index} aria-label={item.figure.alt} className="!my-12 clear-both rounded-[5px] border border-[#7A7267] bg-[#F0EBE3] p-6 md:p-8"><p className="font-head text-2xl font-semibold uppercase leading-tight text-[#0A0A0A]">{item.figure.title}</p><div className="mt-6 grid gap-3 md:grid-cols-3">{item.figure.steps.map((step) => <div key={step.claimId} className="border-t-4 border-[#CBCC10] bg-white p-5"><h3 className="font-head text-lg font-semibold text-[#0A0A0A]">{step.label}</h3><p className="mt-3 text-sm leading-relaxed text-[#0A0A0A]">{step.text}</p></div>)}</div><figcaption className="mt-5 text-sm leading-relaxed text-[#7A7267]">{item.figure.caption}</figcaption></figure>;
         const layout = item.figure.layout || "wide";
         const placement = layout === "left" ? "lg:float-left lg:mr-8" : layout === "right" ? "lg:float-right lg:ml-8" : "";
         return <figure key={index} className={`!my-10 w-full ${layout === "wide" ? "clear-both" : `lg:w-[45%] ${placement}`}`}><img src={item.figure.src} alt={item.figure.alt} loading="lazy" decoding="async" className="w-full rounded-[5px] object-cover" /><figcaption className="mt-3 text-sm leading-relaxed text-[#66675F]">{item.figure.caption}</figcaption></figure>;
