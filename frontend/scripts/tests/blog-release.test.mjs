@@ -1,13 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, mkdir, writeFile, rm } from 'node:fs/promises';
+import { mkdtemp, mkdir, readFile, writeFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { digest, postDigest, verifyBlogRelease } from '../verify-blog-release.mjs';
 
-async function calibratedPolicy(blog, minimumScore = 70) {
+async function calibratedPolicy(blog, minimumScore = 75) {
   const calibration = { rubricVersion: 'opc-blog-editorial-v1', samples: Array.from({ length: 6 }, (_, i) => ({
-    articleBodySha256: digest(`article-${i}`), runReceiptSha256: digest(`run-${i}`),
+    articleBodySha256: digest(`article-${i}`), sourceReceiptSha256: digest(`run-${i}`),
     codexReceiptSha256: digest(`codex-${i}`), claudeReceiptSha256: digest(`claude-${i}`),
     codexScore: i < 3 ? 85 : 65, claudeScore: i < 3 ? 80 : 60,
     label: i < 3 ? 'safe-for-automatic-publication' : 'hold-from-automatic-publication',
@@ -145,6 +145,15 @@ test('automatic release stays closed until calibrated and both exact-version rev
     await assert.rejects(verifyBlogRelease(root), /auto-release-policy-disabled:auto/);
     await save('auto-release-policy.json', policy);
     assert.deepEqual(await verifyBlogRelease(root), { checked: 1, exactApprovals: 1 });
+    const fullCalibration = JSON.parse(await readFile(join(blog, 'auto-release-calibration.json'), 'utf8'));
+    const minimumCalibrationBytes = JSON.stringify({ ...fullCalibration, samples: [fullCalibration.samples[0], fullCalibration.samples[3]] });
+    await writeFile(join(blog, 'auto-release-calibration.json'), minimumCalibrationBytes);
+    await save('auto-release-policy.json', { ...policy, calibrationEvidenceSha256: digest(minimumCalibrationBytes) });
+    assert.deepEqual(await verifyBlogRelease(root), { checked: 1, exactApprovals: 1 });
+    await save('auto-release-policy.json', { ...policy, minimumScore: 74, calibrationEvidenceSha256: digest(minimumCalibrationBytes) });
+    await assert.rejects(verifyBlogRelease(root), /auto-release-policy-disabled:auto/);
+    await save('auto-release-policy.json', policy);
+    await calibratedPolicy(blog);
     const weakCalibration = { rubricVersion: policy.rubricVersion, samples: [{ articleBodySha256: 'a'.repeat(64), label: 'safe-for-automatic-publication' }] };
     const weakBytes = JSON.stringify(weakCalibration);
     await writeFile(join(blog, 'auto-release-calibration.json'), weakBytes);

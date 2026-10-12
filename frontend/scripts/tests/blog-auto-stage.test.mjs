@@ -25,12 +25,12 @@ test('automatic staging validates exact reviews, writes only after passing, and 
     await save('posts.json', []);
     await save('release-baseline.json', {});
     await save('release-approvals.json', {});
-    await save('auto-release-policy.json', { enabled: false, rubricVersion: 'opc-blog-editorial-v1', minimumScore: 70, calibratedAt: '2026-10-12T18:00:00Z' });
+    await save('auto-release-policy.json', { enabled: false, rubricVersion: 'opc-blog-editorial-v1', minimumScore: 75, calibratedAt: '2026-10-12T18:00:00Z' });
     const now = new Date('2026-10-12T19:00:00Z');
     await assert.rejects(stageAutoBlogRelease(root, manifest, { apply: true, now }), /auto-release-policy-disabled/);
     assert.deepEqual(JSON.parse(await readFile(join(blog, 'posts.json'), 'utf8')), []);
     const calibration = { rubricVersion: 'opc-blog-editorial-v1', samples: Array.from({ length: 6 }, (_, i) => ({
-      articleBodySha256: digest(`article-${i}`), runReceiptSha256: digest(`run-${i}`),
+      articleBodySha256: digest(`article-${i}`), sourceReceiptSha256: digest(`run-${i}`),
       codexReceiptSha256: digest(`codex-${i}`), claudeReceiptSha256: digest(`claude-${i}`),
       codexScore: i < 3 ? 85 : 65, claudeScore: i < 3 ? 80 : 60,
       label: i < 3 ? 'safe-for-automatic-publication' : 'hold-from-automatic-publication',
@@ -38,7 +38,7 @@ test('automatic staging validates exact reviews, writes only after passing, and 
     })) };
     await save('auto-release-calibration.json', calibration);
     const calibrationEvidenceSha256 = digest(await readFile(join(blog, 'auto-release-calibration.json')));
-    await save('auto-release-policy.json', { enabled: true, rubricVersion: 'opc-blog-editorial-v1', minimumScore: 70, calibratedAt: '2026-10-12T18:00:00Z', calibrationEvidenceSha256 });
+    await save('auto-release-policy.json', { enabled: true, rubricVersion: 'opc-blog-editorial-v1', minimumScore: 75, calibratedAt: '2026-10-12T18:00:00Z', calibrationEvidenceSha256 });
     assert.equal((await stageAutoBlogRelease(root, manifest, { now })).status, 'validated');
     assert.deepEqual(JSON.parse(await readFile(join(blog, 'posts.json'), 'utf8')), []);
     await assert.rejects(stageAutoBlogRelease(root, { ...manifest, post: { ...post, author: '' } }, { now }), /Post title, author, category and body required/);

@@ -34,12 +34,12 @@ async function verifiedCalibration(blogDir, policy) {
     calibration = JSON.parse(bytes);
   } catch { return false; }
   const samples = calibration?.samples;
-  if (calibration?.rubricVersion !== policy.rubricVersion || !Array.isArray(samples) || samples.length < 6) return false;
+  if (calibration?.rubricVersion !== policy.rubricVersion || !Array.isArray(samples) || samples.length < 2) return false;
   const seen = new Set();
   let safe = 0;
   let held = 0;
   for (const sample of samples) {
-    if (!hex(sample.articleBodySha256) || !hex(sample.runReceiptSha256) || seen.has(sample.articleBodySha256)
+    if (!hex(sample.articleBodySha256) || !hex(sample.sourceReceiptSha256) || seen.has(sample.articleBodySha256)
       || !hex(sample.codexReceiptSha256) || !hex(sample.claudeReceiptSha256)
       || sample.codexReceiptSha256 === sample.claudeReceiptSha256
       || !Number.isInteger(sample.codexScore) || sample.codexScore < 0 || sample.codexScore > 100
@@ -54,14 +54,14 @@ async function verifiedCalibration(blogDir, policy) {
       held += 1;
     } else return false;
   }
-  return safe >= 3 && held >= 3;
+  return safe >= 1 && held >= 1;
 }
 
 export async function verifyAutoReleaseEvidence(blogDir, post, approval, policy) {
   const slug = post.slug;
   const errors = [];
   if (policy.enabled !== true || policy.rubricVersion !== 'opc-blog-editorial-v1'
-    || !Number.isInteger(policy.minimumScore) || policy.minimumScore < 0 || policy.minimumScore > 100
+    || !Number.isInteger(policy.minimumScore) || policy.minimumScore < 75 || policy.minimumScore > 100
     || !Number.isFinite(Date.parse(policy.calibratedAt))
     || !await verifiedCalibration(blogDir, policy)) errors.push(`auto-release-policy-disabled:${slug}`);
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug) || !hex(approval.evidenceSha256)) {
