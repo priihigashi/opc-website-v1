@@ -10,6 +10,8 @@ import posts from "@/blog/posts.json";
 import { articleBlocks } from "@/blog/figureBlocks.mjs";
 import { orderedItems, tableRows } from "@/blog/markdownBlocks.mjs";
 
+const newestPosts = [...posts].sort((a, b) => b.date.localeCompare(a.date) || a.slug.localeCompare(b.slug));
+
 function Inline({ value }) {
   const parts = value.split(/(\[[^\]]+\]\([^)]+\)|\*\*[^*]+\*\*|\*[^*]+\*)/g);
   return parts.map((part, index) => {
@@ -87,7 +89,7 @@ export default function BlogV1() {
             <aside className="h-fit border-t-2 border-[#CBCC10] bg-white p-7 text-sm leading-relaxed text-[#55564F] lg:sticky lg:top-28"><p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#111113]">About this article</p><p className="mt-5">By Oak Park Construction</p><p className="mt-2">Published {post.date}</p><p className="mt-5">Practical guidance for planning and building in South Florida. Project requirements vary by address and scope.</p><Link to="/portfolio" className="mt-6 inline-block font-mono text-[11px] uppercase tracking-[0.15em] text-[#737500] underline underline-offset-4">See our work</Link></aside>
           </div>
         </div> :
-        <section className="mx-auto max-w-7xl px-6 py-20 md:px-10 lg:py-[120px]"><div className="grid gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-3">{posts.map((item) => <Card key={item.slug} post={item} />)}</div></section>}
+        <section className="mx-auto max-w-7xl px-6 py-20 md:px-10 lg:py-[120px]"><div className="grid gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-3">{newestPosts.map((item) => <Card key={item.slug} post={item} />)}</div></section>}
     </main>
     <div className="bg-[#09090B] text-[#FAFAFA]"><FooterV3 /></div>
   </div>;
