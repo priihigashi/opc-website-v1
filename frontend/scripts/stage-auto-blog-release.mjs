@@ -10,19 +10,21 @@ const json = value => JSON.stringify(value, null, 2) + '\n';
 const readJson = async file => JSON.parse(await readFile(file, 'utf8'));
 const isoDate = value => typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)
   && new Date(`${value}T12:00:00Z`).toISOString().startsWith(value);
+const nyDate = now => new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit' }).format(now);
 const week = value => {
   const date = new Date(`${value}T12:00:00Z`);
   date.setUTCDate(date.getUTCDate() - ((date.getUTCDay() + 6) % 7));
   return date.toISOString().slice(0, 10);
 };
 
-export async function stageAutoBlogRelease(frontendDir, manifest, { apply = false } = {}) {
+export async function stageAutoBlogRelease(frontendDir, manifest, { apply = false, now = new Date() } = {}) {
   const root = resolve(frontendDir);
   const blog = join(root, 'src', 'blog');
   const { post, approval, evidence } = manifest || {};
   if (!post || !approval || !evidence || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(post.slug || '')) throw new Error('Complete post, approval and evidence required');
+  if (['title', 'author', 'category', 'content'].some(key => typeof post[key] !== 'string' || !post[key].trim())) throw new Error('Post title, author, category and body required');
   if (approval.method !== 'automatic' || approval.postSha256 !== postDigest(post)) throw new Error('Exact-version automatic approval required');
-  if (!isoDate(post.date)) throw new Error('Valid publication date required');
+  if (!isoDate(post.date) || post.date !== nyDate(now)) throw new Error('Publication date must be today in New York');
   const evidenceBytes = json(evidence);
   if (approval.evidenceSha256 !== digest(evidenceBytes)) throw new Error('Evidence bytes do not match approval');
   const posts = await readJson(join(blog, 'posts.json'));

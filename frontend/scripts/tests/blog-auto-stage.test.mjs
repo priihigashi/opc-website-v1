@@ -12,7 +12,7 @@ test('automatic staging validates exact reviews, writes only after passing, and 
   await mkdir(blog, { recursive: true });
   await mkdir(join(root, 'public'));
   const save = (name, value) => writeFile(join(blog, name), JSON.stringify(value, null, 2) + '\n');
-  const post = { slug: 'verified-article', title: 'Reviewed answer', date: '2026-10-12', content: 'Source-backed answer.' };
+  const post = { slug: 'verified-article', title: 'Reviewed answer', author: 'Oak Park Construction', category: 'Planning', date: '2026-10-12', content: 'Source-backed answer.' };
   const bodyHash = digest(post.content);
   const review = rating => {
     const result = { decision: 'pass', findings: [], ratings: Object.fromEntries(['readerAnswer', 'factualSupport', 'serviceAndAreaFit', 'clarity', 'searchIntent', 'visualIntegrity'].map(key => [key, { rating, evidence: `Observed ${key}` }])) };
@@ -26,16 +26,19 @@ test('automatic staging validates exact reviews, writes only after passing, and 
     await save('release-baseline.json', {});
     await save('release-approvals.json', {});
     await save('auto-release-policy.json', { enabled: false, rubricVersion: 'opc-blog-editorial-v1', minimumScore: 70, calibratedAt: '2026-10-12T18:00:00Z' });
-    await assert.rejects(stageAutoBlogRelease(root, manifest, { apply: true }), /auto-release-policy-disabled/);
+    const now = new Date('2026-10-12T19:00:00Z');
+    await assert.rejects(stageAutoBlogRelease(root, manifest, { apply: true, now }), /auto-release-policy-disabled/);
     assert.deepEqual(JSON.parse(await readFile(join(blog, 'posts.json'), 'utf8')), []);
     await save('auto-release-policy.json', { enabled: true, rubricVersion: 'opc-blog-editorial-v1', minimumScore: 70, calibratedAt: '2026-10-12T18:00:00Z' });
-    assert.equal((await stageAutoBlogRelease(root, manifest)).status, 'validated');
+    assert.equal((await stageAutoBlogRelease(root, manifest, { now })).status, 'validated');
     assert.deepEqual(JSON.parse(await readFile(join(blog, 'posts.json'), 'utf8')), []);
-    assert.equal((await stageAutoBlogRelease(root, manifest, { apply: true })).status, 'staged');
+    await assert.rejects(stageAutoBlogRelease(root, { ...manifest, post: { ...post, author: '' } }, { now }), /Post title, author, category and body required/);
+    await assert.rejects(stageAutoBlogRelease(root, manifest, { now: new Date('2026-10-13T19:00:00Z') }), /Publication date must be today/);
+    assert.equal((await stageAutoBlogRelease(root, manifest, { apply: true, now })).status, 'staged');
     assert.deepEqual(await verifyBlogRelease(root), { checked: 1, exactApprovals: 1 });
     const nextPost = { ...post, slug: 'second-article' };
     const next = { ...manifest, post: nextPost, approval: { ...approval, postSha256: postDigest(nextPost) }, evidence: { ...evidence, postSha256: postDigest(nextPost) } };
     next.approval.evidenceSha256 = digest(JSON.stringify(next.evidence, null, 2) + '\n');
-    await assert.rejects(stageAutoBlogRelease(root, next), /Weekly article limit reached/);
+    await assert.rejects(stageAutoBlogRelease(root, next, { now }), /Weekly article limit reached/);
   } finally { await rm(root, { recursive: true, force: true }); }
 });
