@@ -44,7 +44,7 @@ async function verifiedCalibration(blogDir, policy) {
       || sample.codexReceiptSha256 === sample.claudeReceiptSha256
       || !Number.isInteger(sample.codexScore) || sample.codexScore < 0 || sample.codexScore > 100
       || !Number.isInteger(sample.claudeScore) || sample.claudeScore < 0 || sample.claudeScore > 100
-      || !/^https:\/\//.test(sample.adjudicationUrl || '')) return false;
+      || !/^https:\/\//.test(sample.adjudicationEvidenceUrl || '')) return false;
     seen.add(sample.articleBodySha256);
     if (sample.label === 'safe-for-automatic-publication') {
       if (sample.hardVeto !== false || Math.min(sample.codexScore, sample.claudeScore) < policy.minimumScore) return false;

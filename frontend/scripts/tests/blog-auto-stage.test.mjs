@@ -34,7 +34,7 @@ test('automatic staging validates exact reviews, writes only after passing, and 
       codexReceiptSha256: digest(`codex-${i}`), claudeReceiptSha256: digest(`claude-${i}`),
       codexScore: i < 3 ? 85 : 65, claudeScore: i < 3 ? 80 : 60,
       label: i < 3 ? 'safe-for-automatic-publication' : 'hold-from-automatic-publication',
-      hardVeto: false, adjudicationUrl: `https://drive.google.com/file/d/example-${i}`,
+      hardVeto: false, adjudicationEvidenceUrl: `https://drive.google.com/file/d/example-${i}`,
     })) };
     await save('auto-release-calibration.json', calibration);
     const calibrationEvidenceSha256 = digest(await readFile(join(blog, 'auto-release-calibration.json')));

@@ -11,7 +11,7 @@ async function calibratedPolicy(blog, minimumScore = 70) {
     codexReceiptSha256: digest(`codex-${i}`), claudeReceiptSha256: digest(`claude-${i}`),
     codexScore: i < 3 ? 85 : 65, claudeScore: i < 3 ? 80 : 60,
     label: i < 3 ? 'safe-for-automatic-publication' : 'hold-from-automatic-publication',
-    hardVeto: false, adjudicationUrl: `https://drive.google.com/file/d/example-${i}`,
+    hardVeto: false, adjudicationEvidenceUrl: `https://drive.google.com/file/d/example-${i}`,
   })) };
   const bytes = JSON.stringify(calibration);
   await writeFile(join(blog, 'auto-release-calibration.json'), bytes);
