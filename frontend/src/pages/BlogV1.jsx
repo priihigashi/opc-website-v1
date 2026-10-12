@@ -86,6 +86,7 @@ export default function BlogV1() {
               <p className="font-mono text-[11px] uppercase tracking-[0.16em]">By {post.author} <span className="mx-3">·</span> {post.date}</p>
             </div>
           </div>
+          {post.image && post.imageCaption && <p className="mt-3 text-sm leading-relaxed text-[#66675F]">{post.imageCaption}</p>}
           <div className="mt-12 grid gap-10 lg:grid-cols-[minmax(0,2fr)_minmax(220px,1fr)]">
             <article className="min-w-0"><ArticleBody post={post} /></article>
             <aside className="h-fit border-t-2 border-[#CBCC10] bg-white p-7 text-sm leading-relaxed text-[#55564F] lg:sticky lg:top-28"><p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#111113]">About this article</p><p className="mt-5">By Oak Park Construction</p><p className="mt-2">Published {post.date}</p><p className="mt-5">Practical guidance for planning and building in South Florida. Project requirements vary by address and scope.</p><Link to="/portfolio" className="mt-6 inline-block font-mono text-[11px] uppercase tracking-[0.15em] text-[#737500] underline underline-offset-4">See our work</Link></aside>

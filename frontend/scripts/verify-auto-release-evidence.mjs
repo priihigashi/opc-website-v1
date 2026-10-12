@@ -17,6 +17,14 @@ function reviewScore(entry, bodyHash) {
   return Math.round(Object.entries(weights).reduce((total, [key, weight]) => total + weight * ratings[key].rating / 4, 0));
 }
 
+function verifiedMediaReview(entry, bodyHash, imageHash) {
+  return entry?.result?.decision === 'pass' && Array.isArray(entry.result.findings)
+    && !entry.result.findings.some(finding => ['major', 'blocker'].includes(finding.severity))
+    && entry.articleBodySha256 === bodyHash && entry.mediaSha256 === imageHash
+    && entry.result.articleBodySha256 === bodyHash && entry.result.mediaSha256 === imageHash
+    && hex(entry.receiptSha256) && digest(JSON.stringify(entry.result)) === entry.receiptSha256;
+}
+
 export async function verifyAutoReleaseEvidence(blogDir, post, approval, policy) {
   const slug = post.slug;
   const errors = [];
@@ -48,5 +56,21 @@ export async function verifyAutoReleaseEvidence(blogDir, post, approval, policy)
     || score !== approval.editorialScore || score < policy.minimumScore
     || approval.rubricVersion !== policy.rubricVersion || approval.gateStatus !== 'clear'
     || approval.hardVeto !== false) errors.push(`auto-release-evidence-invalid:${slug}`);
+  if (post.image) {
+    const media = evidence?.media;
+    const imageHash = approval.imageSha256;
+    if (approval.mediaDecision !== 'dual-reviewed-photo' || !hex(imageHash)
+      || media?.imageSha256 !== imageHash || media?.articleBodySha256 !== bodyHash
+      || media?.source?.approvalStatus !== 'APPROVED FOR WEBSITE'
+      || media?.source?.provenance !== 'REAL OPC' || !media?.source?.sourceDriveId
+      || media?.privacyDecision !== 'clear' || media?.rightsDecision !== 'cleared-for-website'
+      || !post.imageCaption?.trim() || media?.caption !== post.imageCaption
+      || media?.alt !== post.imageAlt
+      || !verifiedMediaReview(media?.reviews?.codex, bodyHash, imageHash)
+      || !verifiedMediaReview(media?.reviews?.claude, bodyHash, imageHash)
+      || media.reviews.codex.receiptSha256 === media.reviews.claude.receiptSha256) {
+      errors.push(`auto-release-media-invalid:${slug}`);
+    }
+  }
   return errors;
 }

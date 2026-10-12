@@ -145,3 +145,39 @@ test('automatic release stays closed until calibrated and both exact-version rev
     await assert.rejects(verifyBlogRelease(root), /auto-release-evidence-invalid:auto/);
   } finally { await rm(root, { recursive: true, force: true }); }
 });
+
+test('automatic photo release requires exact dual media reviews and an honest visible caption', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'opc-blog-auto-photo-'));
+  const blog = join(root, 'src', 'blog');
+  const images = join(root, 'public', 'images', 'opc');
+  await mkdir(join(blog, 'release-evidence'), { recursive: true });
+  await mkdir(images, { recursive: true });
+  const photo = Buffer.from('test-photo');
+  await writeFile(join(images, 'addition.webp'), photo);
+  const imageSha256 = digest(photo);
+  const post = { slug: 'photo-article', title: 'Addition article', content: 'A source-backed answer.', image: '/images/opc/addition.webp', imageAlt: 'OPC addition in progress', imageCaption: 'OPC addition work; this photo does not document the permit process.' };
+  const body = digest(post.content);
+  const articleReview = rating => {
+    const result = { decision: 'pass', findings: [], ratings: Object.fromEntries(['readerAnswer', 'factualSupport', 'serviceAndAreaFit', 'clarity', 'searchIntent', 'visualIntegrity'].map(key => [key, { rating, evidence: 'Reviewed article' }])) };
+    return { articleBodySha256: body, result, receiptSha256: digest(JSON.stringify(result)) };
+  };
+  const mediaReview = provider => {
+    const result = { decision: 'pass', findings: [], articleBodySha256: body, mediaSha256: imageSha256, reviewer: provider };
+    return { articleBodySha256: body, mediaSha256: imageSha256, result, receiptSha256: digest(JSON.stringify(result)) };
+  };
+  const evidence = { postSha256: postDigest(post), articleBodySha256: body, rubricVersion: 'opc-blog-editorial-v1', hubRunReceiptSha256: 'd'.repeat(64), batchReceiptSha256: 'c'.repeat(64), gate: [], reviews: { codex: articleReview(4), claude: articleReview(3) }, media: { imageSha256, articleBodySha256: body, source: { approvalStatus: 'APPROVED FOR WEBSITE', provenance: 'REAL OPC', sourceDriveId: 'source-id' }, privacyDecision: 'clear', rightsDecision: 'cleared-for-website', caption: post.imageCaption, alt: post.imageAlt, reviews: { codex: mediaReview('codex'), claude: mediaReview('claude') } } };
+  const approval = { method: 'automatic', postSha256: postDigest(post), approvedAt: '2026-10-12T16:00:00Z', evidenceUrl: 'https://drive.google.com/file/d/review', evidenceSha256: digest(JSON.stringify(evidence)), batchReceiptSha256: 'c'.repeat(64), batchStatus: 'private-trial-ready', mediaDecision: 'dual-reviewed-photo', imageSha256, editorialScore: 75, rubricVersion: 'opc-blog-editorial-v1', gateStatus: 'clear', hardVeto: false };
+  const save = (name, value) => writeFile(join(blog, name), JSON.stringify(value));
+  try {
+    await save('posts.json', [post]);
+    await save('release-baseline.json', {});
+    await save('release-approvals.json', { [post.slug]: approval });
+    await save('auto-release-policy.json', { enabled: true, rubricVersion: 'opc-blog-editorial-v1', minimumScore: 70, calibratedAt: '2026-10-12T14:00:00Z' });
+    await writeFile(join(blog, 'release-evidence', `${post.slug}.json`), JSON.stringify(evidence));
+    assert.deepEqual(await verifyBlogRelease(root), { checked: 1, exactApprovals: 1 });
+    const changed = { ...evidence, media: { ...evidence.media, privacyDecision: 'unverified' } };
+    await writeFile(join(blog, 'release-evidence', `${post.slug}.json`), JSON.stringify(changed));
+    await save('release-approvals.json', { [post.slug]: { ...approval, evidenceSha256: digest(JSON.stringify(changed)) } });
+    await assert.rejects(verifyBlogRelease(root), /auto-release-media-invalid:photo-article/);
+  } finally { await rm(root, { recursive: true, force: true }); }
+});
