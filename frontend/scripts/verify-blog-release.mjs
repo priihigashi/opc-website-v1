@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { join, resolve, sep } from 'node:path';
 import { articleBlocks } from '../src/blog/figureBlocks.mjs';
+import { verifyAutoReleaseEvidence } from './verify-auto-release-evidence.mjs';
 
 export const digest = value => createHash('sha256').update(value).digest('hex');
 export const postDigest = post => digest(JSON.stringify(post));
@@ -34,18 +35,7 @@ export async function verifyBlogRelease(frontendDir) {
     const approval = approvals[post.slug];
     if (!approval || approval.postSha256 !== postDigest(post)) { errors.push(`missing-exact-version-approval:${post.slug}`); continue; }
     if (approval.method === 'automatic') {
-      const reviews = approval.reviews;
-      const validReview = (review, provider) => review?.provider === provider && review?.decision === 'approve'
-        && review?.postSha256 === approval.postSha256 && /^[a-f0-9]{64}$/.test(review?.receiptSha256 || '')
-        && Number.isFinite(Date.parse(review?.reviewedAt));
-      if (autoPolicy.enabled !== true || autoPolicy.rubricVersion !== 'opc-blog-editorial-v1'
-        || !Number.isInteger(autoPolicy.minimumScore) || autoPolicy.minimumScore < 0 || autoPolicy.minimumScore > 100
-        || !Number.isFinite(Date.parse(autoPolicy.calibratedAt))) errors.push(`auto-release-policy-disabled:${post.slug}`);
-      if (!Number.isInteger(approval.editorialScore) || approval.editorialScore < autoPolicy.minimumScore
-        || approval.editorialScore > 100 || approval.rubricVersion !== autoPolicy.rubricVersion
-        || approval.gateStatus !== 'clear' || approval.hardVeto === true
-        || !validReview(reviews?.codex, 'codex') || !validReview(reviews?.claude, 'claude')
-        || reviews?.codex?.receiptSha256 === reviews?.claude?.receiptSha256) errors.push(`auto-release-evidence-invalid:${post.slug}`);
+      errors.push(...await verifyAutoReleaseEvidence(blogDir, post, approval, autoPolicy));
     } else if (approval.method !== undefined && approval.method !== 'human') {
       errors.push(`unknown-approval-method:${post.slug}`);
     } else if (!approval.approvedBy) errors.push(`incomplete-approval-record:${post.slug}`);

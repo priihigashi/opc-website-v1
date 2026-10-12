@@ -20,6 +20,7 @@ test('static article output omits misleading image metadata for an approved text
     await Promise.all([
       copyFile(join(frontend, 'scripts', 'generate-seo-pages.mjs'), join(scriptDir, 'generate-seo-pages.mjs')),
       copyFile(join(frontend, 'scripts', 'verify-blog-release.mjs'), join(scriptDir, 'verify-blog-release.mjs')),
+      copyFile(join(frontend, 'scripts', 'verify-auto-release-evidence.mjs'), join(scriptDir, 'verify-auto-release-evidence.mjs')),
       copyFile(join(frontend, 'src', 'blog', 'figureBlocks.mjs'), join(blogDir, 'figureBlocks.mjs')),
       copyFile(join(frontend, 'src', 'blog', 'markdownBlocks.mjs'), join(blogDir, 'markdownBlocks.mjs')),
     ]);
