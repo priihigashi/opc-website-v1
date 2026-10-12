@@ -25,12 +25,45 @@ function verifiedMediaReview(entry, bodyHash, imageHash) {
     && hex(entry.receiptSha256) && digest(JSON.stringify(entry.result)) === entry.receiptSha256;
 }
 
+async function verifiedCalibration(blogDir, policy) {
+  if (!hex(policy.calibrationEvidenceSha256)) return false;
+  let calibration;
+  try {
+    const bytes = await readFile(join(blogDir, 'auto-release-calibration.json'));
+    if (digest(bytes) !== policy.calibrationEvidenceSha256) return false;
+    calibration = JSON.parse(bytes);
+  } catch { return false; }
+  const samples = calibration?.samples;
+  if (calibration?.rubricVersion !== policy.rubricVersion || !Array.isArray(samples) || samples.length < 6) return false;
+  const seen = new Set();
+  let safe = 0;
+  let held = 0;
+  for (const sample of samples) {
+    if (!hex(sample.articleBodySha256) || !hex(sample.runReceiptSha256) || seen.has(sample.articleBodySha256)
+      || !hex(sample.codexReceiptSha256) || !hex(sample.claudeReceiptSha256)
+      || sample.codexReceiptSha256 === sample.claudeReceiptSha256
+      || !Number.isInteger(sample.codexScore) || sample.codexScore < 0 || sample.codexScore > 100
+      || !Number.isInteger(sample.claudeScore) || sample.claudeScore < 0 || sample.claudeScore > 100
+      || !/^https:\/\//.test(sample.adjudicationUrl || '')) return false;
+    seen.add(sample.articleBodySha256);
+    if (sample.label === 'safe-for-automatic-publication') {
+      if (sample.hardVeto !== false || Math.min(sample.codexScore, sample.claudeScore) < policy.minimumScore) return false;
+      safe += 1;
+    } else if (sample.label === 'hold-from-automatic-publication') {
+      if (sample.hardVeto !== true && Math.min(sample.codexScore, sample.claudeScore) >= policy.minimumScore) return false;
+      held += 1;
+    } else return false;
+  }
+  return safe >= 3 && held >= 3;
+}
+
 export async function verifyAutoReleaseEvidence(blogDir, post, approval, policy) {
   const slug = post.slug;
   const errors = [];
   if (policy.enabled !== true || policy.rubricVersion !== 'opc-blog-editorial-v1'
     || !Number.isInteger(policy.minimumScore) || policy.minimumScore < 0 || policy.minimumScore > 100
-    || !Number.isFinite(Date.parse(policy.calibratedAt))) errors.push(`auto-release-policy-disabled:${slug}`);
+    || !Number.isFinite(Date.parse(policy.calibratedAt))
+    || !await verifiedCalibration(blogDir, policy)) errors.push(`auto-release-policy-disabled:${slug}`);
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug) || !hex(approval.evidenceSha256)) {
     errors.push(`auto-release-evidence-invalid:${slug}`);
     return errors;

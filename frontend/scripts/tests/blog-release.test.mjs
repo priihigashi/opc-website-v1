@@ -5,6 +5,20 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { digest, postDigest, verifyBlogRelease } from '../verify-blog-release.mjs';
 
+async function calibratedPolicy(blog, minimumScore = 70) {
+  const calibration = { rubricVersion: 'opc-blog-editorial-v1', samples: Array.from({ length: 6 }, (_, i) => ({
+    articleBodySha256: digest(`article-${i}`), runReceiptSha256: digest(`run-${i}`),
+    codexReceiptSha256: digest(`codex-${i}`), claudeReceiptSha256: digest(`claude-${i}`),
+    codexScore: i < 3 ? 85 : 65, claudeScore: i < 3 ? 80 : 60,
+    label: i < 3 ? 'safe-for-automatic-publication' : 'hold-from-automatic-publication',
+    hardVeto: false, adjudicationUrl: `https://drive.google.com/file/d/example-${i}`,
+  })) };
+  const bytes = JSON.stringify(calibration);
+  await writeFile(join(blog, 'auto-release-calibration.json'), bytes);
+  return { enabled: true, rubricVersion: 'opc-blog-editorial-v1', minimumScore,
+    calibratedAt: '2026-10-12T14:00:00Z', calibrationEvidenceSha256: digest(bytes) };
+}
+
 test('existing articles pass; new or changed versions need matching article and image approval', async () => {
   const root = await mkdtemp(join(tmpdir(), 'opc-blog-release-'));
   const blog = join(root, 'src', 'blog');
@@ -119,7 +133,7 @@ test('automatic release stays closed until calibrated and both exact-version rev
   const evidence = { postSha256: hash, articleBodySha256: digest(post.content), rubricVersion: 'opc-blog-editorial-v1', hubRunReceiptSha256: 'd'.repeat(64), batchReceiptSha256: 'c'.repeat(64), gate: [], reviews: { codex: review(4), claude: review(3) } };
   const evidenceBytes = JSON.stringify(evidence);
   const approval = { method: 'automatic', postSha256: hash, approvedAt: '2026-10-12T16:00:00Z', evidenceUrl: 'https://drive.google.com/file/d/review', evidenceSha256: digest(evidenceBytes), batchReceiptSha256: 'c'.repeat(64), batchStatus: 'private-trial-ready', mediaDecision: 'text-only', editorialScore: 75, rubricVersion: 'opc-blog-editorial-v1', gateStatus: 'clear', hardVeto: false };
-  const policy = { enabled: true, rubricVersion: 'opc-blog-editorial-v1', minimumScore: 70, calibratedAt: '2026-10-12T14:00:00Z' };
+  const policy = await calibratedPolicy(blog);
   try {
     await save('posts.json', [post]);
     await save('release-baseline.json', {});
@@ -127,8 +141,17 @@ test('automatic release stays closed until calibrated and both exact-version rev
     await writeFile(join(blog, 'release-evidence', 'auto.json'), evidenceBytes);
     await save('auto-release-policy.json', { ...policy, enabled: false });
     await assert.rejects(verifyBlogRelease(root), /auto-release-policy-disabled:auto/);
+    await save('auto-release-policy.json', { ...policy, calibrationEvidenceSha256: null });
+    await assert.rejects(verifyBlogRelease(root), /auto-release-policy-disabled:auto/);
     await save('auto-release-policy.json', policy);
     assert.deepEqual(await verifyBlogRelease(root), { checked: 1, exactApprovals: 1 });
+    const weakCalibration = { rubricVersion: policy.rubricVersion, samples: [{ articleBodySha256: 'a'.repeat(64), label: 'safe-for-automatic-publication' }] };
+    const weakBytes = JSON.stringify(weakCalibration);
+    await writeFile(join(blog, 'auto-release-calibration.json'), weakBytes);
+    await save('auto-release-policy.json', { ...policy, calibrationEvidenceSha256: digest(weakBytes) });
+    await assert.rejects(verifyBlogRelease(root), /auto-release-policy-disabled:auto/);
+    await save('auto-release-policy.json', policy);
+    await calibratedPolicy(blog);
     await save('release-approvals.json', { auto: { ...approval, evidenceSha256: 'a'.repeat(64) } });
     await assert.rejects(verifyBlogRelease(root), /auto-release-evidence-invalid:auto/);
     await save('release-approvals.json', { auto: { ...approval, editorialScore: 69 } });
@@ -172,7 +195,7 @@ test('automatic photo release requires exact dual media reviews and an honest vi
     await save('posts.json', [post]);
     await save('release-baseline.json', {});
     await save('release-approvals.json', { [post.slug]: approval });
-    await save('auto-release-policy.json', { enabled: true, rubricVersion: 'opc-blog-editorial-v1', minimumScore: 70, calibratedAt: '2026-10-12T14:00:00Z' });
+    await save('auto-release-policy.json', await calibratedPolicy(blog));
     await writeFile(join(blog, 'release-evidence', `${post.slug}.json`), JSON.stringify(evidence));
     assert.deepEqual(await verifyBlogRelease(root), { checked: 1, exactApprovals: 1 });
     const changed = { ...evidence, media: { ...evidence.media, privacyDecision: 'unverified' } };
