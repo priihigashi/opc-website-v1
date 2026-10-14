@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 import { join, resolve, sep } from 'node:path';
 import { articleBlocks, isStructuredDiagram } from '../src/blog/figureBlocks.mjs';
 import { verifyAutoReleaseEvidence } from './verify-auto-release-evidence.mjs';
+import { verifyIndividualReleaseEvidence } from './verify-individual-release-evidence.mjs';
 
 export const digest = value => createHash('sha256').update(value).digest('hex');
 export const postDigest = post => digest(JSON.stringify(post));
@@ -45,8 +46,10 @@ export async function verifyBlogRelease(frontendDir) {
     } else if (approval.method !== undefined && approval.method !== 'human') {
       errors.push(`unknown-approval-method:${post.slug}`);
     } else if (!approval.approvedBy) errors.push(`incomplete-approval-record:${post.slug}`);
-    if (!Number.isFinite(Date.parse(approval.approvedAt)) || !/^https:\/\//.test(approval.evidenceUrl || '') || !/^[a-f0-9]{64}$/.test(approval.batchReceiptSha256 || '')) errors.push(`incomplete-approval-record:${post.slug}`);
-    if (approval.batchStatus !== 'private-trial-ready') errors.push(`series-review-not-ready:${post.slug}`);
+    const individual = approval.method !== 'automatic' && approval.batchStatus === 'owner-individual';
+    if (!Number.isFinite(Date.parse(approval.approvedAt)) || !/^https:\/\//.test(approval.evidenceUrl || '') || (!individual && !/^[a-f0-9]{64}$/.test(approval.batchReceiptSha256 || ''))) errors.push(`incomplete-approval-record:${post.slug}`);
+    if (individual) errors.push(...await verifyIndividualReleaseEvidence(blogDir, post, approval));
+    else if (approval.batchStatus !== 'private-trial-ready') errors.push(`series-review-not-ready:${post.slug}`);
     if (!post.image) {
       if (approval.mediaDecision !== 'text-only' || approval.imageSha256 || post.imageAlt) errors.push(`invalid-text-only-approval:${post.slug}`);
       continue;

@@ -1,1 +1,13 @@
-{}
+{
+  "fort-lauderdale-home-addition-elevation-certificates": {
+    "method": "human",
+    "postSha256": "ae876f96962367a18f0c3e4dc377bebfb9009d539640a18c6e3e2539b690d25c",
+    "imageSha256": "f8bb8c1489d4bcd3d04dca14e9c4ea60309581c0ae43c8ccf84978cef7497807",
+    "approvedBy": "Priscila Higashi",
+    "approvedAt": "2026-10-13T20:55:00-04:00",
+    "evidenceUrl": "https://docs.google.com/document/d/15gyrPh3roWoxwPwjt1h4CfUqsJqu6dVGTNAvm09O2Tw/edit",
+    "evidenceSha256": "254d366a1994e320bfa33667d94db49e0b7fbb454e833e7eae4ca33a5abc95ae",
+    "batchStatus": "owner-individual",
+    "mediaDecision": "owner-approved-photo"
+  }
+}

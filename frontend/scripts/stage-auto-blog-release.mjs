@@ -11,6 +11,7 @@ const readJson = async file => JSON.parse(await readFile(file, 'utf8'));
 const isoDate = value => typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)
   && new Date(`${value}T12:00:00Z`).toISOString().startsWith(value);
 const nyDate = now => new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit' }).format(now);
+export const MAX_PER_WEEK = 3;
 const week = value => {
   const date = new Date(`${value}T12:00:00Z`);
   date.setUTCDate(date.getUTCDate() - ((date.getUTCDay() + 6) % 7));
@@ -30,7 +31,9 @@ export async function stageAutoBlogRelease(frontendDir, manifest, { apply = fals
   const posts = await readJson(join(blog, 'posts.json'));
   const approvals = await readJson(join(blog, 'release-approvals.json'));
   if (posts.some(item => item.slug === post.slug) || approvals[post.slug]) throw new Error('Article slug already exists');
-  if (posts.some(item => isoDate(item.date) && week(item.date) === week(post.date))) throw new Error('Weekly article limit reached');
+  // Owner cadence decision 2026-10-13: up to three articles per week (Mon/Wed/Thu runs), never two on the same day.
+  if (posts.some(item => item.date === post.date)) throw new Error('Daily article limit reached');
+  if (posts.filter(item => isoDate(item.date) && week(item.date) === week(post.date)).length >= MAX_PER_WEEK) throw new Error('Weekly article limit reached');
   const stage = await mkdtemp(join(tmpdir(), 'opc-blog-stage-'));
   try {
     const stageBlog = join(stage, 'src', 'blog');

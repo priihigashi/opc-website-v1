@@ -48,6 +48,13 @@ test('automatic staging validates exact reviews, writes only after passing, and 
     const nextPost = { ...post, slug: 'second-article' };
     const next = { ...manifest, post: nextPost, approval: { ...approval, postSha256: postDigest(nextPost) }, evidence: { ...evidence, postSha256: postDigest(nextPost) } };
     next.approval.evidenceSha256 = digest(JSON.stringify(next.evidence, null, 2) + '\n');
-    await assert.rejects(stageAutoBlogRelease(root, next, { now }), /Weekly article limit reached/);
+    await assert.rejects(stageAutoBlogRelease(root, next, { now }), /Daily article limit reached/);
+    const posts = JSON.parse(await readFile(join(blog, 'posts.json'), 'utf8'));
+    const sameWeek = ['a', 'b'].map((s, i) => ({ ...posts[0], slug: `filler-${s}`, date: ['2026-10-12', '2026-10-14'][i] }));
+    await writeFile(join(blog, 'posts.json'), JSON.stringify([...posts, ...sameWeek]));
+    const later = { ...nextPost, date: '2026-10-15' };
+    const third = { ...next, post: later, approval: { ...next.approval, postSha256: postDigest(later) }, evidence: { ...next.evidence, postSha256: postDigest(later) } };
+    third.approval.evidenceSha256 = digest(JSON.stringify(third.evidence, null, 2) + '\n');
+    await assert.rejects(stageAutoBlogRelease(root, third, { now: new Date('2026-10-15T16:00:00Z') }), /Weekly article limit reached/);
   } finally { await rm(root, { recursive: true, force: true }); }
 });
