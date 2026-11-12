@@ -124,3 +124,11 @@ test("the business identity is a single truthful node", () => {
   assert.ok(schemas.includes("contact@oakpark-construction.com"));
   assert.ok(schemas.includes("BUSINESS_ID"), "schemas must share one business @id");
 });
+
+test("the business node carries the same Florida license the footer shows", () => {
+  const footer = read("components", "FooterV3.jsx");
+  assert.ok(footer.includes('FLORIDA_LICENSE = "CBC1263425"'), "footer license changed: update the schema too");
+  assert.ok(schemas.includes('FLORIDA_LICENSE_NUMBER = "CBC1263425"'));
+  assert.ok(schemas.includes("hasCredential"));
+  assert.ok(schemas.includes("myfloridalicense.com/LicenseDetail.asp"), "credential must point at the public DBPR record");
+});

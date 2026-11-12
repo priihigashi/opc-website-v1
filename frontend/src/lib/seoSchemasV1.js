@@ -2,6 +2,8 @@ import { PORTFOLIO_PROJECTS, getPortfolioProject } from "@/data/portfolioProject
 
 export const SITE_ORIGIN = "https://oakpark-construction.com";
 export const BUSINESS_ID = `${SITE_ORIGIN}/#business`;
+export const FLORIDA_LICENSE_NUMBER = "CBC1263425";
+export const DBPR_LICENSE_RECORD = "https://www.myfloridalicense.com/LicenseDetail.asp?SID=&id=BD9747F01F094DD9A193F8D24BF3A91B";
 
 const countyAreas = [
   { "@type": "AdministrativeArea", name: "Broward County, Florida" },
@@ -27,6 +29,20 @@ export const buildBusinessSchemaV1 = () => ({
   logo: `${SITE_ORIGIN}/images/opc/logo-white-tight-v1.png`,
   image: `${SITE_ORIGIN}/video/portfolio-hero-poster-v2.jpg`,
   areaServed: countyAreas,
+  // Florida license already shown in the footer and in the published blog posts.
+  // Lets search engines and AI answers match the business to its DBPR record.
+  hasCredential: {
+    "@type": "EducationalOccupationalCredential",
+    name: "Florida Certified Building Contractor license",
+    credentialCategory: "license",
+    identifier: FLORIDA_LICENSE_NUMBER,
+    url: DBPR_LICENSE_RECORD,
+    recognizedBy: {
+      "@type": "GovernmentOrganization",
+      name: "Florida Department of Business and Professional Regulation",
+      url: "https://www.myfloridalicense.com/",
+    },
+  },
   sameAs: [
     "https://www.google.com/maps/place/Oak+Park+Construction/@26.274191,-80.1013505,17z/data=!4m8!3m7!1s0x8d5912b6498d4d2d:0xff621d01ac4d539d!8m2!3d26.274191!4d-80.1013505!9m1!1b1!16s%2Fg%2F11xzjcs8hj"
   ],
