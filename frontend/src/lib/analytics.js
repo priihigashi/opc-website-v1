@@ -83,8 +83,8 @@ const here = () =>
 
 // Runtime allowlists make the privacy boundary fail closed. Even if a future
 // caller accidentally passes form content as `placement`, no event is emitted.
-const PHONE_PLACEMENTS = new Set(["contact-section", "footer"]);
-const CTA_PLACEMENTS = new Set(["nav-desktop", "nav-mobile", "service-detail"]);
+const PHONE_PLACEMENTS = new Set(["contact-section", "footer", "sticky-mobile"]);
+const CTA_PLACEMENTS = new Set(["nav-desktop", "nav-mobile", "service-detail", "sticky-mobile"]);
 
 /** A phone tap. `placement` is where the number was tapped, e.g. "footer". */
 export function trackPhoneClick(placement) {

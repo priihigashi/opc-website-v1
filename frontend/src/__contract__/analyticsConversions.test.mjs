@@ -33,6 +33,7 @@ const ROUTED = {
   "pages/ProjectGalleryV4.jsx": src("pages", "ProjectGalleryV4.jsx"),
   "pages/ServiceAreasV1.jsx": src("pages", "ServiceAreasV1.jsx"),
   "pages/PrivacyV3.jsx": src("pages", "PrivacyV3.jsx"),
+  "components/StickyCallBarV1.jsx": src("components", "StickyCallBarV1.jsx"),
 };
 
 test("analytics stays inert until a measurement ID is supplied", () => {
