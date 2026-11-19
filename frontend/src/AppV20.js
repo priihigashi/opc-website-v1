@@ -15,6 +15,7 @@ import GalleryV4 from "@/components/GalleryV4";
 import TestimonialsV3 from "@/components/TestimonialsV3";
 import ContactV9 from "@/components/ContactV9";
 import FooterV3 from "@/components/FooterV3";
+import StickyCallBarV1 from "@/components/StickyCallBarV1";
 import SeoV1 from "@/components/SeoV1";
 import TitleCaseAuditV1 from "@/components/TitleCaseAuditV1";
 import PortfolioRouteBoundaryV1 from "@/components/PortfolioRouteBoundaryV1";
@@ -78,7 +79,7 @@ export default function AppV20() {
         <Route path="/blog" element={<Suspense fallback={<div className="min-h-screen bg-[#09090B]" />}><Blog /></Suspense>} />
         {blogPosts.map((post) => <Route key={post.slug} path={`/${post.slug}`} element={<Suspense fallback={<div className="min-h-screen bg-[#09090B]" />}><Blog /></Suspense>} />)}
         <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes><Toaster position="bottom-right" theme="dark" /></TitleCaseAuditV1>
+      </Routes><StickyCallBarV1 /><Toaster position="bottom-right" theme="dark" /></TitleCaseAuditV1>
     </BrowserRouter>
   );
 }
